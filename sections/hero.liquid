@@ -124,6 +124,8 @@
           img.alt = chip.dataset.label || '';
           img.hidden = false;
           img.style.opacity = '1';
+          // One-shot zoom-in on change (CSS skips it for reduced motion).
+          img.classList.remove('is-zooming'); void img.offsetWidth; img.classList.add('is-zooming');
           if (backdrop) { backdrop.src = chip.dataset.image; backdrop.hidden = false; }
           var a = parseFloat(chip.dataset.aspect) || 1;
           hero.querySelector('.hero__visual').dataset.fit = a >= 1.8 ? 'banner' : (a < 1 ? 'portrait' : 'photo');
