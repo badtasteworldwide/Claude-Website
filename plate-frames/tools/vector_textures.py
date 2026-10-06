@@ -76,10 +76,25 @@ def to_texture(rgba, box):
     return np.dstack([rgb, mask]), coverage
 
 
+# DomSem A3 print sheets: three copies of one frame stacked vertically at
+# fixed positions. Unprinted (white-stock) areas are transparent, so shape
+# detection is unreliable there; use the top slot of the fixed layout.
+SHEET_ASPECT = 3549 / 6000
+SHEET_TOP = 0.0228
+
+
+def sheet_slot(shape):
+    H, W = shape[:2]
+    if abs(W / H - SHEET_ASPECT) > 0.01:
+        return None
+    return (0, int(round(SHEET_TOP * H)), W, int(round(W / PRINT_ASPECT)))
+
+
 def main(render_path, out_dir, name):
     im = Image.open(render_path).convert("RGBA")
     rgba = np.asarray(im)
-    blocks = frame_blocks(rgba[..., 3])
+    slot = sheet_slot(rgba.shape)
+    blocks = [slot] if slot else frame_blocks(rgba[..., 3])
     os.makedirs(out_dir, exist_ok=True)
     for i, box in enumerate(blocks):
         tex, cov = to_texture(rgba, box)
