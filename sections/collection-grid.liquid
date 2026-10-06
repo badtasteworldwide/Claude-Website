@@ -75,7 +75,7 @@
   .collections--uniform .collection-card { grid-column: span 1; grid-row: span 1; }
   /* Photo on top, caption below, so the title never covers the cover art.
      Collection covers are 2:1 with blurred padding around a centred 3:4 poster;
-     a 4:3 frame (1:1 on phones) shows the whole poster and trims only padding. */
+     a 4:3 frame shows the whole poster and trims only padding. */
   .collection-card { display: flex; flex-direction: column; background: var(--paper); }
   .collection-card__media { position: relative; overflow: hidden; aspect-ratio: 4 / 3; flex: none; }
   .collections:not(.collections--uniform) .collection-card__media { aspect-ratio: auto; min-height: 140px; }
@@ -98,7 +98,7 @@
   @media (max-width: 768px) {
     .collections--uniform { grid-template-columns: repeat(2, 1fr); }
     .collections--uniform .collection-card, .collection-card { aspect-ratio: auto; }
-    .collection-card__media { aspect-ratio: 1 / 1; }
+    .collection-card__media { aspect-ratio: 4 / 3; }
     .collection-card__info { grid-template-columns: 1fr; padding: 10px; }
     .collection-card__count { display: none; }
   }
