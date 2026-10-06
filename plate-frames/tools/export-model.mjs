@@ -5,8 +5,9 @@
 // Adds what the STL lacks:
 //  - UVs: planar front projection, (0,0) = bottom-left of the outer frame,
 //    (1,1) = top-right, so any texture in assets/textures drops straight on.
-//  - Three materials: frame_face (printed front), frame_edge (sides, the
-//    print's edge colours wrap onto them), frame_back (bare plastic).
+//  - Three materials: frame_face (printed front), frame_edge (sides of the
+//    face plate, the print's edge colours wrap onto them), frame_back (bare
+//    plastic: rear pocket, wall, bosses, tabs).
 // Output is in metres, centred on the origin, front facing +Z.
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -23,6 +24,7 @@ globalThis.FileReader ??= class {
 };
 
 const FACE = 0, EDGE = 1, BACK = 2;
+const FACE_Z0 = 5; // face plate spans z 5..8 mm (see tools/build_frame.py)
 const dir = join(dirname(fileURLToPath(import.meta.url)), "../assets/models");
 const stl = readFileSync(join(dir, "plate-frame.stl"));
 const src = new STLLoader().parse(stl.buffer.slice(stl.byteOffset, stl.byteOffset + stl.byteLength));
@@ -40,8 +42,12 @@ for (let t = 0; t < pos.count / 3; t++) {
   b.fromBufferAttribute(pos, t * 3 + 1);
   c.fromBufferAttribute(pos, t * 3 + 2);
   const n = b.clone().sub(a).cross(c.clone().sub(a)).normalize();
-  const front = n.z > 0.98 && Math.min(a.z, b.z, c.z) > max.z - 0.01;
-  buckets[front ? FACE : n.z < -0.5 ? BACK : EDGE].push(t);
+  const zmin = Math.min(a.z, b.z, c.z);
+  const front = n.z > 0.98 && zmin > max.z - 0.01;
+  // The print wraps onto the sides of the 3 mm face plate (z 5..8); the rear
+  // pocket, wall, bosses and tabs (z 0..5) are bare plastic.
+  const plateSide = zmin >= FACE_Z0 - 0.01 && Math.abs(n.z) < 0.5;
+  buckets[front ? FACE : plateSide ? EDGE : BACK].push(t);
 }
 
 const P = [], UV = [];

@@ -3,7 +3,8 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
-// Blank frame model (assets/models/plate-frame.glb, built from plate-frame.stl).
+// Blank frame model (assets/models/plate-frame.glb, built from plate-frame.stl
+// / tools/build_frame.py: 3 mm face plate over a 5 mm rear pocket).
 // Scene units are inches.
 export const FRAME = {
   width: 312.76 / 25.4,
@@ -98,7 +99,8 @@ export class FrameViewer {
     this.edge = new THREE.MeshPhysicalMaterial({ roughness: 0.45, side });
     this.back = new THREE.MeshStandardMaterial({ color: 0x151517, roughness: 0.75, side });
 
-    // Demo plate sits inside the frame's back recess; screws go through both.
+    // Demo plate sits in the rear pocket against the bosses (z = 4 mm of the
+    // 8 mm model, i.e. the centre plane); screws go through both.
     const pw = 12, ph = 6, pr = 0.35;
     const s = new THREE.Shape();
     s.moveTo(-pw / 2 + pr, -ph / 2);
@@ -117,7 +119,7 @@ export class FrameViewer {
       plateGeo,
       new THREE.MeshStandardMaterial({ map: plateTexture(), roughness: 0.4, metalness: 0.15, side: THREE.DoubleSide }),
     );
-    this.plate.position.set(0, 0.05, -FRAME.depth / 2 + 0.06);
+    this.plate.position.set(0, 0.05, -0.01);
     this.rig.add(this.plate);
 
     const screwMat = new THREE.MeshStandardMaterial({ color: 0xd8dade, metalness: 1, roughness: 0.22 });

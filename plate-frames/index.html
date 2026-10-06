@@ -159,9 +159,11 @@ button, input { font: inherit; color: inherit; }
   gap: 4px;
 }
 .plaque .eyebrow { font: 500 11px/1 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--pink); }
+.plaque { right: clamp(16px, 18vw, 240px); }
 .plaque h2 {
   margin: 0;
-  font: 900 clamp(40px, 6vw, 76px)/0.9 var(--display);
+  font: 900 clamp(36px, 5vw, 76px)/0.9 var(--display);
+  text-wrap: balance;
   text-transform: uppercase;
   letter-spacing: 0.005em;
 }
@@ -237,6 +239,7 @@ button, input { font: inherit; color: inherit; }
     flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; scrollbar-width: none;
   }
   .dock .sep { display: none; }
+  .plaque { right: 16px; }
   .plaque h2 { font-size: 40px; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

@@ -1,0 +1,12 @@
+{
+  "_comment": "Per-design crop overrides passed to vector_textures.py (fractions of the print artboard). Raise top / lower bottom when a print's lettering runs into the model's window.",
+  "nisno": {
+    "top": 0.25
+  },
+  "costco-executive": {
+    "top": 0.235
+  },
+  "711-punjabi": {
+    "bottom": 0.815
+  }
+}

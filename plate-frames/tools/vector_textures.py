@@ -27,10 +27,10 @@ TEX_H = round(TEX_W * 160.57 / 312.76)  # blank frame model: 312.76 x 160.57 mm
 # Map print -> mold outline -> model outline, piecewise per axis, so artwork
 # fills the model's bars without logos running into the window.
 #
-# Mold edges inside the print (fractions of the print artboard), measured by
-# registering the 2025 McLaren print against the mockup of the real frame:
-# (halved: Domsem sheets carry less bleed than the vector board this came from)
-BLEED = dict(x0=0.0054, x1=0.9960, y0=0.0090, y1=0.9912)
+# Outer frame edges inside the print (fractions of the print artboard).
+# Not trimmed: on the blank model the full artboard is the face, and trimming
+# clipped text that sits close to the outer edge on many DomSem sheets.
+BLEED = dict(x0=0.0, x1=1.0, y0=0.0, y1=1.0)
 # Window edges as fractions of the outer frame: production mold vs model.
 # The mold values sit ~1% inside the measured window so the thin white
 # keylines many prints draw around their window fall into the window.
@@ -78,7 +78,7 @@ def frame_blocks(alpha):
     return blocks
 
 
-def to_texture(rgba, box):
+def to_texture(rgba, box, mold_x=MOLD_X, mold_y=MOLD_Y):
     x, y, w, h = box
     # Re-fit to the print aspect in case stray marks widened the box.
     cx, cy = x + w / 2, y + h / 2
@@ -87,8 +87,8 @@ def to_texture(rgba, box):
     else:
         h = w / PRINT_ASPECT
     x, y = cx - w / 2, cy - h / 2
-    u = model_to_mold((np.arange(TEX_W) + 0.5) / TEX_W, MODEL_X, MOLD_X)
-    v = model_to_mold((np.arange(TEX_H) + 0.5) / TEX_H, MODEL_Y, MOLD_Y)
+    u = model_to_mold((np.arange(TEX_W) + 0.5) / TEX_W, MODEL_X, mold_x)
+    v = model_to_mold((np.arange(TEX_H) + 0.5) / TEX_H, MODEL_Y, mold_y)
     px = x + (BLEED["x0"] + u * (BLEED["x1"] - BLEED["x0"])) * w
     py = y + (BLEED["y0"] + v * (BLEED["y1"] - BLEED["y0"])) * h
     map_x, map_y = np.meshgrid(px.astype(np.float32), py.astype(np.float32))
@@ -135,7 +135,14 @@ def artboard_slot(shape):
     return None
 
 
-def main(render_path, out_dir, name):
+def main(render_path, out_dir, name, *fit):
+    """fit: optional per-design overrides of the print's window edges, e.g.
+    top=0.22 bottom=0.80 left=0.06 right=0.94 (fractions of the artboard).
+    Raise top / lower bottom when a print's lettering sits too close to its
+    window and would otherwise run into the model's thinner bars."""
+    f = dict(kv.split("=") for kv in fit)
+    mold_x = (float(f.get("left", MOLD_X[0])), float(f.get("right", MOLD_X[1])))
+    mold_y = (float(f.get("top", MOLD_Y[0])), float(f.get("bottom", MOLD_Y[1])))
     im = Image.open(render_path).convert("RGBA")
     rgba = np.asarray(im)
     slot = sheet_slot(rgba.shape)
@@ -145,11 +152,11 @@ def main(render_path, out_dir, name):
         blocks = [artboard_slot(rgba.shape)]
     os.makedirs(out_dir, exist_ok=True)
     for i, box in enumerate(blocks):
-        tex, cov = to_texture(rgba, box)
+        tex, cov = to_texture(rgba, box, mold_x, mold_y)
         out = os.path.join(out_dir, f"{name}{'' if len(blocks) == 1 else f'__{i + 1}'}.webp")
         Image.fromarray(tex).save(out, quality=90, method=4)
         print(out, *box, f"{cov:.3f}")
 
 
 if __name__ == "__main__":
-    main(*sys.argv[1:4])
+    main(*sys.argv[1:])
