@@ -288,7 +288,8 @@
             "count": 2,
             "left_strong": "2 Frames",
             "left_rest": "Any theme",
-            "right": "FREE US SHIP $40+"
+            "right": "FREE US SHIP $40+",
+            "percent": 0
           }
         },
         "tier3": {
@@ -297,7 +298,8 @@
             "count": 3,
             "left_strong": "3 Frames",
             "left_rest": "Unlock the vault",
-            "right": "10% OFF + FREE US SHIP"
+            "right": "10% OFF + FREE US SHIP",
+            "percent": 10
           }
         },
         "tier4": {
@@ -306,7 +308,8 @@
             "count": 4,
             "left_strong": "4+ Frames",
             "left_rest": "You have a problem",
-            "right": "20% OFF + FREE US SHIP"
+            "right": "15% OFF + FREE US SHIP",
+            "percent": 15
           }
         }
       },
@@ -317,11 +320,11 @@
       ],
       "settings": {
         "eyebrow": "Bundle & Save",
-        "heading": "<p>Build a <em>3-pack.</em><br/>Save up to 20%.</p>",
+        "heading": "<p>Build a <em>4-pack.</em><br/>Save up to 15%.</p>",
         "subheading": "Because one frame is never enough. Daily driver, weekend car, whatever's in the garage — they all deserve bad taste.",
         "collection": "labor-day-sale-plate-frames",
-        "max_items": 3,
-        "note": "Discount applies automatically at checkout to plate frames only: 3 frames = 10% off, 4+ = 20% off. Doesn’t combine with discount codes."
+        "max_items": 4,
+        "note": "Discount applies automatically at checkout to plate frames only: 3 frames = 10% off, 4+ = 15% off. Doesn’t combine with discount codes."
       }
     },
     "quiz": {
