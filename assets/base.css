@@ -1190,3 +1190,18 @@ fieldset.option-row legend { padding: 0; }
   .hero__sticker { display: none; }
   .hero__photo-wrap { top: 4%; bottom: 44%; }
 }
+
+/* Banner covers (2:1 with blurred padding around a centred poster) crop only the
+   padding; portrait images get the full height. Both use the tall frame, so the
+   sticker shrinks into the corner, clear of the poster. */
+.hero__visual[data-fit="banner"] .hero__photo-wrap,
+.hero__visual[data-fit="portrait"] .hero__photo-wrap { top: 4%; }
+.hero__visual[data-fit="banner"] .hero__photo { object-fit: cover; }
+.hero__visual[data-fit="banner"] .hero__sticker,
+.hero__visual[data-fit="portrait"] .hero__sticker { width: 96px; height: 96px; top: 8px; right: 8px; font-size: 12px; }
+.hero__visual[data-fit="banner"] .hero__sticker small,
+.hero__visual[data-fit="portrait"] .hero__sticker small { font-size: 9px; }
+@media (max-width: 600px) {
+  .hero__visual { aspect-ratio: 4 / 5; }
+  .hero__photo-wrap, .hero__visual[data-fit] .hero__photo-wrap { top: 4%; bottom: 36%; }
+}

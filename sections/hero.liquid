@@ -31,7 +31,17 @@
       {%- endif -%}
     </div>
 
-    <div class="hero__visual">
+    {%- liquid
+      assign hero_fit = 'photo'
+      if section.settings.image != blank
+        if section.settings.image.aspect_ratio >= 1.8
+          assign hero_fit = 'banner'
+        elsif section.settings.image.aspect_ratio < 1
+          assign hero_fit = 'portrait'
+        endif
+      endif
+    -%}
+    <div class="hero__visual" data-fit="{{ hero_fit }}">
       {%- if section.settings.image != blank -%}
         <img class="hero__backdrop" data-hero-backdrop src="{{ section.settings.image | image_url: width: 600 }}" alt="" aria-hidden="true" width="600" height="600">
         <div class="hero__photo-wrap">
@@ -68,7 +78,7 @@
                 data-active="false" aria-pressed="false"
                 data-label="{{ block.settings.label | escape }}"
                 {% if chip_url %}data-url="{{ chip_url }}"{% endif %}
-                {% if chip_img %}data-image="{{ chip_img | image_url: width: 1200 }}"{% endif %}>{{ block.settings.label }}</button>
+                {% if chip_img %}data-image="{{ chip_img | image_url: width: 1600 }}" data-aspect="{{ chip_img.aspect_ratio }}"{% endif %}>{{ block.settings.label }}</button>
             {%- endif -%}
           {%- endfor -%}
         </div>
@@ -119,6 +129,8 @@
           img.hidden = false;
           img.style.opacity = '1';
           if (backdrop) { backdrop.src = chip.dataset.image; backdrop.hidden = false; }
+          var a = parseFloat(chip.dataset.aspect) || 1;
+          hero.querySelector('.hero__visual').dataset.fit = a >= 1.8 ? 'banner' : (a < 1 ? 'portrait' : 'photo');
         }, 180);
       }
       if (cta && chip.dataset.url) {
