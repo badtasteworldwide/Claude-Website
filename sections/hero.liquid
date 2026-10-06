@@ -114,6 +114,7 @@
     var cta = hero.querySelector('[data-hero-cta]');
     // Warm the cache so switching is instant.
     chips.forEach(function (c) { if (c.dataset.image) { var i = new Image(); i.src = c.dataset.image; } });
+    var swapToken = 0;
     function activate(chip) {
       chips.forEach(function (c) {
         var on = c === chip;
@@ -122,7 +123,14 @@
       });
       if (img && chip.dataset.image) {
         img.style.opacity = '0';
-        setTimeout(function () {
+        // Swap only once the new photo is decoded, and only if no newer chip was clicked meanwhile.
+        var my = ++swapToken;
+        var pre = new Image();
+        pre.src = chip.dataset.image;
+        var ready = pre.decode ? pre.decode().catch(function () {}) : Promise.resolve();
+        var faded = new Promise(function (r) { setTimeout(r, 180); });
+        Promise.all([ready, faded]).then(function () {
+          if (my !== swapToken) return;
           img.src = chip.dataset.image;
           img.removeAttribute('srcset');
           img.alt = chip.dataset.label || '';
@@ -133,7 +141,7 @@
           if (backdrop) { backdrop.src = chip.dataset.image; backdrop.hidden = false; }
           var a = parseFloat(chip.dataset.aspect) || 1;
           hero.querySelector('.hero__visual').dataset.fit = a >= 1.8 ? 'banner' : (a < 1 ? 'portrait' : 'photo');
-        }, 180);
+        });
       }
       if (cta && chip.dataset.url) {
         cta.href = chip.dataset.url;
