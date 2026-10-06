@@ -1,6 +1,7 @@
-/* Bad Taste — 3D frame viewer loader.
+/* Bad Taste 3D frame viewer loader (ES module).
    Keeps three.js (~180 KB gzipped) off the page until a viewer is opened,
-   or until an autoload viewer scrolls into view. */
+   or until an autoload viewer scrolls into view. Must stay a module: as a
+   classic script, Shopify's minifier rewrites import() into require(). */
 (function () {
   'use strict';
 
@@ -97,3 +98,5 @@
 
   window.BTWframe3d = { start: start, showTexture: showTexture };
 })();
+
+export {};
