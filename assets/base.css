@@ -579,7 +579,12 @@ a:hover { text-decoration: underline; }
   max-height: 0; overflow: hidden; transition: max-height .3s, padding .3s;
   color: var(--ink-soft); font-size: 15px; line-height: 1.6;
 }
-.faq__item[data-open="true"] .faq__a { max-height: 300px; padding: 0 0 20px; }
+.faq__item[data-open="true"] .faq__a, details.faq__item[open] .faq__a { max-height: none; padding: 0 0 20px; }
+.faq__q { list-style: none; }
+.faq__q::-webkit-details-marker { display: none; }
+.faq__toggle { display: inline-block; font-size: 24px; transition: transform .2s; }
+details.faq__item[open] .faq__toggle { transform: rotate(45deg); }
+.faq__a a { text-decoration: underline; }
 
 /* NEWSLETTER */
 .newsletter {

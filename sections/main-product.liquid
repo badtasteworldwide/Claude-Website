@@ -99,10 +99,10 @@
       {%- if section.settings.show_faq_accordion -%}
         <div class="faq__list" style="margin-top: 24px;">
           {%- for block in section.blocks -%}
-            <div class="faq__item" data-faq-item {{ block.shopify_attributes }}>
-              <button type="button" class="faq__q" data-faq-toggle>{{ block.settings.question }}<span class="plus">+</span></button>
+            <details class="faq__item" {{ block.shopify_attributes }}>
+              <summary class="faq__q">{{ block.settings.question }}<span class="faq__toggle" aria-hidden="true">+</span></summary>
               <div class="faq__a">{{ block.settings.answer }}</div>
-            </div>
+            </details>
           {%- endfor -%}
         </div>
       {%- endif -%}
