@@ -88,7 +88,7 @@
   .collection-card__poster .collection-card__photo { transform: scale(1.03); }
   /* Caption slabs rotate through the colorway: ink, bubblegum, highlighter. */
   .collection-card__info {
-    display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; column-gap: 12px;
+    display: grid; grid-template-columns: minmax(0, 1fr); align-items: end; row-gap: 10px;
     padding: 14px 16px 16px; border-top: 3px solid var(--ink); background: var(--ink); color: var(--paper);
     flex: 1 1 auto; align-content: end;
   }
@@ -97,8 +97,8 @@
   .collection-card__info .collection-card__tag { position: static; display: inline-block; margin-left: 8px; padding: 2px 6px; font-size: 10px; vertical-align: 1px; }
   .collection-card:nth-child(3n+3) .collection-card__info .collection-card__tag { background: var(--paper); }
   .collection-card__label { grid-column: 1 / -1; margin-bottom: 6px; }
-  .collection-card__title { font-size: clamp(18px, 1.7vw, 25px); line-height: 1.08; overflow-wrap: anywhere; }
-  .collection-card__count { margin-top: 0; white-space: nowrap; border-bottom: 2px solid currentColor; padding-bottom: 1px; }
+  .collection-card__title { font-size: clamp(17px, 1.6vw, 23px); line-height: 1.1; overflow-wrap: normal; hyphens: none; }
+  .collection-card__count { margin-top: 0; justify-self: start; white-space: nowrap; border-bottom: 2px solid currentColor; padding-bottom: 1px; }
   .collection-card:hover .collection-card__count { background: var(--yellow); color: var(--ink); border-color: var(--ink); }
   .collection-card:nth-child(3n+3):hover .collection-card__count { background: var(--paper); }
   @media (max-width: 768px) {
@@ -106,7 +106,7 @@
     .collections--uniform .collection-card, .collection-card { aspect-ratio: auto; box-shadow: var(--shadow-sm); }
     .collection-card__media { aspect-ratio: 4 / 3; }
     .collection-card__info { grid-template-columns: 1fr; padding: 10px; }
-    .collection-card__title { font-size: 15px; }
+    .collection-card__title { font-size: 14px; }
     .collection-card__count { display: none; }
   }
 </style>

@@ -51,6 +51,20 @@ a { color: inherit; text-decoration: none; }
 a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
 ::selection { background: var(--yellow); color: var(--ink); }
 
+/* Dela Gothic One and the wide Archivo both ship a narrow word space; open it up
+   wherever either face is used (including inline styles that use the tokens). */
+.hero__title, .section__title, .bundle__title, .page-title, .coll-hero__title, .pdp__title,
+.btn, .product-card__name, .collection-card__title, .faq__q, .drawer__title, .drawer__item-name,
+.trust-strip__track, .review-card__title, .newsletter__title, .modal__title, .cart-line__title,
+.contact__facts dd, .reviews__stat strong, .hero__meta-item strong, .pfg--hero h3,
+[style*="--font-display"] { word-spacing: 0.14em; }
+.promo-bar, .nav a, .hero__eyebrow, .section__eyebrow, .section__link, .badge, .product-card__theme,
+.collection-card__label, .collection-card__count, .bundle__tier, .bundle__slot, .bundle__summary,
+.drawer__shipping, .drawer__total, .drawer__trust, .drawer__item-theme, .drawer__upsell-text,
+.option-label, .option-pill span, .pdp__trust, .pdp__vendor, .coll-toolbar__count, .hero__meta-item span,
+.footer__col h4, .footer__bottom, .reviews__stat span, .hero-chip, .contact label, .contact__facts dt,
+[style*="--font-mono"], [style*="--font-label"] { word-spacing: 0.18em; }
+
 /* Shared label voice (replaces the old monospace) */
 .label, .promo-bar, .nav a, .section__link, .badge, .product-card__theme,
 .collection-card__label, .drawer__shipping, .drawer__total, .option-label, .pdp__trust {
@@ -285,7 +299,7 @@ a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-under
   font-family: var(--font-display); font-weight: 400;
   font-size: clamp(34px, 5vw, 66px);
   line-height: 1.04; text-transform: uppercase; letter-spacing: -0.01em;
-  max-width: 17ch;
+  max-width: 22ch; text-wrap: balance;
 }
 .section__title p { margin: 0; }
 /* Emphasis = a swipe of highlighter, never pink text (fails contrast on light grounds) */
@@ -491,7 +505,7 @@ a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-under
 }
 .reviews__stat { padding: 28px 24px 24px; border-left: 3px solid var(--ink); display: flex; flex-direction: column; gap: 10px; }
 .reviews__stat:first-child { border-left: 0; }
-.reviews__stat strong { display: block; font-family: var(--font-display); font-weight: 400; font-size: clamp(40px, 4.6vw, 64px); line-height: .95; font-variant-numeric: tabular-nums; }
+.reviews__stat strong { display: block; font-family: var(--font-display); font-weight: 400; font-size: clamp(34px, 3.6vw, 52px); line-height: .95; }
 .reviews__stat span { font-family: var(--font-label); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; color: var(--ink); }
 .reviews__stat .stars-big { color: var(--ink); font-size: 34px; line-height: 1; display: block; }
 .reviews__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
@@ -535,6 +549,7 @@ a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-under
   display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr); gap: 56px; align-items: start;
 }
 .faq .section__head { position: sticky; top: 110px; margin-bottom: 0 !important; }
+.faq .section__title { font-size: clamp(30px, 3.4vw, 48px); }
 .faq__list { border-top: 3px solid var(--ink); }
 .faq__item { border-bottom: 3px solid var(--ink); }
 .faq__q {
@@ -581,7 +596,7 @@ details.faq__item[open] .faq__toggle, .faq__item[data-open="true"] .plus { trans
 .footer__col li a { font-size: 15px; display: inline-block; padding: 6px 0; }
 .footer__col li a:hover { color: var(--yellow); }
 .footer__brand-name { font-family: var(--font-display); font-size: 36px; text-transform: uppercase; line-height: 1; margin-bottom: 12px; }
-.footer__brand-img { width: 100%; max-width: 280px; height: auto; margin-bottom: 20px; border: 3px solid var(--paper); }
+.footer__brand-img { width: 100%; max-width: 280px; height: auto; margin-bottom: 20px; }
 .footer__tagline { font-size: 15px; color: var(--ink-mute); margin-bottom: 20px; max-width: 34ch; }
 .footer__social { display: flex; gap: 10px; }
 .footer__social a {
@@ -810,7 +825,7 @@ details.faq__item[open] .faq__toggle, .faq__item[data-open="true"] .plus { trans
 }
 .pdp__title {
   font-family: var(--font-display); font-weight: 400; text-transform: uppercase;
-  font-size: clamp(30px, 3.6vw, 48px); line-height: 1.04; margin-bottom: 18px;
+  font-size: clamp(28px, 3vw, 42px); line-height: 1.06; margin-bottom: 18px; text-wrap: balance;
 }
 .pdp__price-row { display: flex; align-items: center; gap: 12px; margin: 0 0 26px; flex-wrap: wrap; }
 .pdp__price {
@@ -854,7 +869,7 @@ details.faq__item[open] .faq__toggle, .faq__item[data-open="true"] .plus { trans
 .pdp .faq__q { font-size: 15px; min-height: 58px; padding: 16px 0; }
 
 /* COLLECTION / LIST / SEARCH HEROES */
-.coll-hero { background: var(--pink-soft); border-bottom: 3px solid var(--ink); padding: 64px var(--gutter) 56px; }
+.coll-hero { background: var(--pink-soft); border-bottom: 3px solid var(--ink); padding: 52px var(--gutter) 44px; }
 .coll-hero__inner { max-width: 1280px; margin: 0 auto; }
 .coll-hero__title {
   font-family: var(--font-display); font-weight: 400; text-transform: uppercase;
@@ -980,8 +995,13 @@ table.order-table th { background: var(--ink); color: var(--paper); font-family:
   .product-card__image { padding: 10px; }
   .bundle__builder { padding: 16px; box-shadow: 6px 6px 0 var(--pink); }
   .bundle__options { grid-template-columns: repeat(3, 1fr); }
-  .reviews__stat { border-left: 0; border-top: 3px solid var(--ink); padding: 20px; }
-  .reviews__stat:first-child { border-top: 0; }
+  .reviews__stat-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .reviews__stat { padding: 18px 14px; }
+  .reviews__stat:nth-child(odd) { border-left: 0; }
+  .reviews__stat:nth-child(n+3) { border-top: 3px solid var(--ink); }
+  .reviews__stat strong { font-size: 30px; }
+  .section__title { font-size: clamp(28px, 8.4vw, 40px); }
+  .faq .section__title { font-size: clamp(28px, 8.4vw, 40px); }
   .ugc__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
   .footer__inner { grid-template-columns: 1fr; gap: 36px; }
   .footer__bottom { flex-direction: column; }
