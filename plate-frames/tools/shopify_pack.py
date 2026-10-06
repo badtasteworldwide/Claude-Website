@@ -8,6 +8,7 @@ section's script cuts out the one it needs. Output goes to shopify/files/:
   pfg-thumbs.webp     thumbnail sprite (same as assets/thumbs.webp)
   pfg-frame.glb       the frame model
   pfg-plate.webp      the stamped California demo plate (+ pfg-plate-normal.webp)
+  pfg-car.glb         the demo car for "On a car" (tools/car_model.mjs)
   pfg-catalog.json    designs, collections, product handles, sheet/cell
 
 Usage: python3 -I plate-frames/tools/shopify_pack.py
@@ -47,6 +48,7 @@ def main():
     shutil.copy(os.path.join(ROOT, "assets", "thumbs.webp"), os.path.join(OUT, "pfg-thumbs.webp"))
     shutil.copy(os.path.join(ROOT, "assets", "models", "plate-frame.glb"), os.path.join(OUT, "pfg-frame.glb"))
     shutil.copy(os.path.join(ROOT, "assets", "plate", "ca-plate.webp"), os.path.join(OUT, "pfg-plate.webp"))
+    shutil.copy(os.path.join(ROOT, "assets", "models", "car.glb"), os.path.join(OUT, "pfg-car.glb"))
     shutil.copy(os.path.join(ROOT, "assets", "plate", "ca-plate-normal.webp"), os.path.join(OUT, "pfg-plate-normal.webp"))
     catalog = {
         "texture": {"width": tw, "height": th, "cols": COLS, "rows": ROWS},

@@ -133,6 +133,13 @@ async function boot() {
     $("plate").setAttribute("aria-pressed", String(on));
     viewer.setPlate(on);
   });
+  $("car").addEventListener("click", () => {
+    const on = $("car").getAttribute("aria-pressed") !== "true";
+    $("car").setAttribute("aria-pressed", String(on));
+    $("carCredit").hidden = !on;
+    $("bay").classList.toggle("car-on", on);
+    viewer.setCar(on, asset("models/car.glb")).catch(console.error);
+  });
   $("spin").addEventListener("click", () => {
     const on = $("spin").getAttribute("aria-pressed") !== "true";
     $("spin").setAttribute("aria-pressed", String(on));

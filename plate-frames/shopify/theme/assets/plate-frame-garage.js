@@ -5,15 +5,16 @@
 // three.js comes from jsDelivr's ESM build so no import map is needed. It is
 // loaded on demand, so product pages without a frame design never fetch it.
 const THREE_CDN = "https://cdn.jsdelivr.net/npm/three@0.170.0/";
-let THREE, OrbitControls, RoomEnvironment, GLTFLoader;
+let THREE, OrbitControls, RoomEnvironment, GLTFLoader, MeshoptDecoder;
 async function loadThree() {
   if (THREE) return;
   const addon = (p) => import(`${THREE_CDN}examples/jsm/${p}/+esm`);
-  [THREE, { OrbitControls }, { RoomEnvironment }, { GLTFLoader }] = await Promise.all([
+  [THREE, { OrbitControls }, { RoomEnvironment }, { GLTFLoader }, { MeshoptDecoder }] = await Promise.all([
     import(`${THREE_CDN}+esm`),
     addon("controls/OrbitControls.js"),
     addon("environments/RoomEnvironment.js"),
     addon("loaders/GLTFLoader.js"),
+    addon("libs/meshopt_decoder.module.js"),
   ]);
 }
 
@@ -26,6 +27,18 @@ const FRAME = {
   holes: [[0.2149, 0.102], [0.7876, 0.102]], // fractions from top-left
 };
 const HOME = [0, 0.4, 24];
+// Prints are stretched up by this fraction of the frame height, anchored at
+// the bottom edge, so the thin unprinted margin some artwork has along its
+// top edge falls off the frame instead of showing as a white line (~2.4 mm).
+// (A plain shift would drag the texture's last row up into view instead.)
+const PRINT_LIFT = 0.015;
+// Demo car (Files: pfg-car.glb, tools/car_model.mjs): where the frame's
+// centre sits on the model's rear bumper (metres, model space; the car faces
+// +z, so its rear is at -z). The bumper bulges out to z = -1.934 just above
+// the plate recess, so the frame sits on that outer surface, not in the recess.
+const CAR_PLATE = [0, 0.3, -1.936];
+// Orbit limits with the car on: stay behind it, above the ground, outside it.
+const CAR_ORBIT = { minAzimuthAngle: -1.2, maxAzimuthAngle: 1.2, maxPolarAngle: 1.64, minDistance: 14, maxDistance: 80 };
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function shadowTexture() {
@@ -148,6 +161,8 @@ class FrameViewer {
     floor.rotation.x = -Math.PI / 2;
     floor.position.y = -FRAME.height / 2 - 0.9;
     scene.add(floor);
+    this.floor = floor;
+    this.orbit = Object.fromEntries(Object.keys(CAR_ORBIT).map((k) => [k, controls[k]]));
 
     this.clock = new THREE.Clock();
     new ResizeObserver(() => this.resize()).observe(canvas.parentElement);
@@ -212,6 +227,7 @@ class FrameViewer {
         const t = new THREE.CanvasTexture(c);
         t.colorSpace = THREE.SRGBColorSpace;
         t.anisotropy = this.renderer.capabilities.getMaxAnisotropy();
+        t.repeat.y = 1 - PRINT_LIFT; // anchored at the bottom edge
         return t;
       }));
     }
@@ -222,7 +238,52 @@ class FrameViewer {
     const tex = await this.texture(d);
     this.face.map = this.edge.map = tex;
     this.face.needsUpdate = this.edge.needsUpdate = true;
-    if (!reducedMotion) this.swing = { t: 0, from: this.rig.rotation.y - 0.55 };
+    if (!reducedMotion && !this.carOn) this.swing = { t: 0, from: this.rig.rotation.y - 0.55 };
+  }
+
+  // Mount the frame on the back of a car. The model loads on first use.
+  async setCar(on, url) {
+    this.carOn = on;
+    if (on) {
+      this.swing = null;
+      this.rig.rotation.y = 0;
+      this.car ??= this.loadCar(url);
+    }
+    const car = this.car && (await this.car);
+    if (car) car.visible = this.carOn;
+    this.floor.visible = !this.carOn;
+    Object.assign(this.controls, this.carOn ? CAR_ORBIT : this.orbit);
+    this.camera.far = this.carOn ? 1500 : 200;
+    this.camera.updateProjectionMatrix();
+  }
+
+  async loadCar(url) {
+    const gltf = await new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).loadAsync(url);
+    const model = gltf.scene;
+    model.traverse((o) => {
+      // Transmission glass renders the scene twice; tinted glass looks the
+      // same at this distance and keeps phones smooth.
+      if (o.isMesh && o.material.transmission > 0) {
+        Object.assign(o.material, { transmission: 0, transparent: true, opacity: 0.45, color: new THREE.Color(0x10151c) });
+      }
+    });
+    model.rotation.y = Math.PI; // rear towards the camera
+    model.scale.setScalar(1 / 0.0254); // metres -> inches
+    // Rotated half a turn, the plate spot (x, y, z) sits at (-x, y, -z); put it
+    // just behind the frame's back face.
+    model.position.set(0, 0.05 - CAR_PLATE[1] / 0.0254, -FRAME.depth / 2 - 0.02 + CAR_PLATE[2] / 0.0254);
+    const car = new THREE.Group();
+    car.add(model);
+    const box = new THREE.Box3().setFromObject(model);
+    const ground = new THREE.Mesh(
+      new THREE.PlaneGeometry((box.max.x - box.min.x) * 1.5, (box.max.z - box.min.z) * 1.25),
+      new THREE.MeshBasicMaterial({ map: this.floor.material.map, transparent: true, depthWrite: false }),
+    );
+    ground.rotation.x = -Math.PI / 2;
+    ground.position.set(0, box.min.y + 0.05, (box.min.z + box.max.z) / 2);
+    car.add(ground);
+    this.rig.add(car);
+    return car;
   }
 
   setPlate(on) { this.plate.visible = this.screws.visible = on; }
@@ -231,6 +292,12 @@ class FrameViewer {
 
   tick() {
     const dt = Math.min(this.clock.getDelta(), 0.05);
+    if (this.carOn && this.controls.autoRotate) {
+      // Turntable sways between the orbit limits instead of spinning into the car.
+      const a = this.controls.getAzimuthalAngle();
+      if (Math.abs(a) > CAR_ORBIT.maxAzimuthAngle - 0.04 && Math.sign(a - (this.lastAz ?? a)) === Math.sign(a)) this.controls.autoRotateSpeed *= -1;
+      this.lastAz = a;
+    }
     if (this.swing) {
       this.swing.t = Math.min(1, this.swing.t + dt / 0.7);
       this.rig.rotation.y = this.swing.from * (1 - (1 - Math.pow(1 - this.swing.t, 3)));
@@ -350,7 +417,12 @@ async function mount(root) {
   $("prev").addEventListener("click", () => step(-1));
   $("next").addEventListener("click", () => step(1));
   for (const b of root.querySelectorAll("[data-filter]")) b.addEventListener("click", () => setFilter(b.dataset.filter));
-  for (const [role, fn] of [["plate", (on) => viewer.setPlate(on)], ["spin", (on) => viewer.setTurntable(on)]]) {
+  const car = (on) => {
+    $("credit").hidden = !on;
+    root.classList.toggle("pfg--car", on);
+    viewer.setCar(on, sibling(root.dataset.model, "pfg-car.glb")).catch(console.error);
+  };
+  for (const [role, fn] of [["plate", (on) => viewer.setPlate(on)], ["car", car], ["spin", (on) => viewer.setTurntable(on)]]) {
     $(role).addEventListener("click", () => {
       const on = $(role).getAttribute("aria-pressed") !== "true";
       $(role).setAttribute("aria-pressed", String(on));
@@ -443,6 +515,17 @@ async function mountProduct(root) {
   loadPlate(viewer, root.dataset.model);
   await Promise.all([viewer.loadModel(root.dataset.model), viewer.show(mine[0])]);
   root.dataset.ready = "";
+  const carBtn = root.querySelector('[data-role="car"]');
+  if (carBtn) {
+    carBtn.hidden = false;
+    carBtn.addEventListener("click", () => {
+      const on = carBtn.getAttribute("aria-pressed") !== "true";
+      carBtn.setAttribute("aria-pressed", String(on));
+      root.querySelector('[data-role="credit"]').hidden = !on;
+      root.classList.toggle("pfg3d--car", on);
+      viewer.setCar(on, sibling(root.dataset.model, "pfg-car.glb")).catch(console.error);
+    });
+  }
   // Slow turntable until the shopper grabs it.
   viewer.setTurntable(true);
   viewer.controls.autoRotateSpeed = 1.2;

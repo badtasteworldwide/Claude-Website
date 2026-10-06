@@ -149,6 +149,11 @@ button, input { font: inherit; color: inherit; }
 }
 .bay canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; cursor: grab; }
 .bay canvas:active { cursor: grabbing; }
+/* Car mode: fade the top and bottom so the heading, spec and credit stay legible over the car. */
+.bay::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s;
+  background: linear-gradient(var(--bay) 0, color-mix(in srgb, var(--bay) 70%, transparent) 14%, transparent 34%, transparent 82%, color-mix(in srgb, var(--bay) 80%, transparent) 100%); }
+.bay.car-on::after { opacity: 1; }
+.bay > :not(canvas) { z-index: 1; }
 .plaque {
   position: absolute;
   left: clamp(16px, 3vw, 36px);
@@ -194,6 +199,8 @@ button, input { font: inherit; color: inherit; }
   pointer-events: none;
 }
 .spec b { color: var(--fg); font-weight: 500; }
+.credit { position: absolute; left: 24px; bottom: 14px; margin: 0; max-width: 34ch; font: 400 10.5px/1.4 var(--mono, ui-monospace, monospace); color: var(--muted); z-index: 2; }
+.credit a { color: inherit; }
 
 .dock {
   position: absolute;
@@ -297,9 +304,11 @@ button, input { font: inherit; color: inherit; }
     <span><b id="pos">–</b></span>
     <span class="hint">Drag to orbit · scroll to zoom<br>← → to switch designs</span>
   </div>
+  <p class="credit" id="carCredit" hidden>Car: “Car Concept” by Eric Chadwick / Darmstadt Graphics Group, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, modified (logos removed, simplified)</p>
   <div class="dock" role="toolbar" aria-label="Viewer controls">
     <button class="btn icon" id="prev" aria-label="Previous design"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m15 18-6-6 6-6"/></svg></button>
     <button class="btn" id="plate" aria-pressed="true">Plate</button>
+    <button class="btn" id="car" aria-pressed="false" title="Show the frame mounted on a car">Car</button>
     <button class="btn" id="gloss" title="Finish: gloss. Click to switch.">Gloss</button>
     <button class="btn" id="spin" aria-pressed="false">Turntable</button>
     <button class="btn" id="reset">Reset</button>

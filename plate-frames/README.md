@@ -64,3 +64,9 @@ The section reads its data from **Content → Files**: `pfg-catalog.json`, `pfg-
 ## Demo plate
 
 The plate behind every frame is a standard California passenger plate stamped `BADT4ST`: white sheeting, red "California" script, dark blue embossed characters, red `dmv.ca.gov` (on standard plates since 2011), a raised border and four mounting slots, at 12 × 6 in. `tools/ca_plate.py [SERIAL]` bakes `assets/plate/ca-plate.webp` (colour; the alpha cuts the slots) and `ca-plate-normal.webp` (the embossing). The serial glyphs are drawn as vector shapes in the style of the California dies, because the faithful digital version (Penitentiary Gothic) is a paid font. The script uses Yellowtail (Apache 2.0, `tools/fonts/`). On Shopify they are `pfg-plate.webp` and `pfg-plate-normal.webp` in Files. As on a real car, the plate sits flush with the back of the frame, so a thick frame bar can hide part of the script and `dmv.ca.gov`.
+
+## Car mode
+
+The **Car** button mounts the frame on the back of a car. The model is "Car Concept" by Eric Chadwick / Darmstadt Graphics Group (Khronos glTF sample assets, CC BY 4.0). `tools/car_model.mjs` removes the Khronos logos (which the licence excludes), paints it graphite, drops the hidden interior and compresses it (meshopt + WebP) from 11.8 MB down to `assets/models/car.glb` (1.25 MB, `pfg-car.glb` on Shopify). The credit line shows whenever the car is on. While it's on, the camera stays behind the car (±69°), above the ground and at least 14 in away, and the turntable sways between those limits. No freely licensed Tesla model allowed commercial use, so this is a generic concept car.
+
+Prints are stretched up 1.5% of the frame height, anchored at the bottom (`PRINT_LIFT`), so the thin unprinted strip along the top edge of many artworks falls off the frame.

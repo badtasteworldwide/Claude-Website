@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
 
 // Blank frame model (assets/models/plate-frame.glb, built from plate-frame.stl
 // / tools/build_frame.py: 3 mm face plate over a 5 mm rear pocket).
@@ -15,6 +16,18 @@ export const FRAME = {
 };
 
 const HOME = new THREE.Vector3(0, 0.4, 24);
+// Prints are stretched up by this fraction of the frame height, anchored at
+// the bottom edge, so the thin unprinted margin some artwork has along its
+// top edge falls off the frame instead of showing as a white line (~2.4 mm).
+// (A plain shift would drag the texture's last row up into view instead.)
+const PRINT_LIFT = 0.015;
+// Demo car (assets/models/car.glb, tools/car_model.mjs): where the frame's
+// centre sits on the model's rear bumper (metres, model space; the car faces
+// +z, so its rear is at -z). The bumper bulges out to z = -1.934 just above
+// the plate recess, so the frame sits on that outer surface, not in the recess.
+const CAR_PLATE = [0, 0.3, -1.936];
+// Orbit limits with the car on: stay behind it, above the ground, outside it.
+const CAR_ORBIT = { minAzimuthAngle: -1.2, maxAzimuthAngle: 1.2, maxPolarAngle: 1.64, minDistance: 14, maxDistance: 80 };
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function shadowTexture() {
@@ -126,6 +139,8 @@ export class FrameViewer {
     floor.rotation.x = -Math.PI / 2;
     floor.position.y = -FRAME.height / 2 - 0.9;
     scene.add(floor);
+    this.floor = floor;
+    this.orbit = Object.fromEntries(Object.keys(CAR_ORBIT).map((k) => [k, controls[k]]));
 
     this.clock = new THREE.Clock();
     new ResizeObserver(() => this.resize()).observe(canvas.parentElement);
@@ -177,6 +192,7 @@ export class FrameViewer {
         new THREE.TextureLoader().loadAsync(url).then((t) => {
           t.colorSpace = THREE.SRGBColorSpace;
           t.anisotropy = this.renderer.capabilities.getMaxAnisotropy();
+          t.repeat.y = 1 - PRINT_LIFT; // anchored at the bottom edge
           return t;
         }),
       );
@@ -188,7 +204,52 @@ export class FrameViewer {
     const tex = await this.loadTexture(url);
     this.face.map = this.edge.map = tex;
     this.face.needsUpdate = this.edge.needsUpdate = true;
-    if (!reducedMotion) this.swing = { t: 0, from: this.rig.rotation.y - 0.55 };
+    if (!reducedMotion && !this.carOn) this.swing = { t: 0, from: this.rig.rotation.y - 0.55 };
+  }
+
+  // Mount the frame on the back of a car. The model loads on first use.
+  async setCar(on, url) {
+    this.carOn = on;
+    if (on) {
+      this.swing = null;
+      this.rig.rotation.y = 0;
+      this.car ??= this.loadCar(url);
+    }
+    const car = this.car && (await this.car);
+    if (car) car.visible = this.carOn;
+    this.floor.visible = !this.carOn;
+    Object.assign(this.controls, this.carOn ? CAR_ORBIT : this.orbit);
+    this.camera.far = this.carOn ? 1500 : 200;
+    this.camera.updateProjectionMatrix();
+  }
+
+  async loadCar(url) {
+    const gltf = await new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).loadAsync(url);
+    const model = gltf.scene;
+    model.traverse((o) => {
+      // Transmission glass renders the scene twice; tinted glass looks the
+      // same at this distance and keeps phones smooth.
+      if (o.isMesh && o.material.transmission > 0) {
+        Object.assign(o.material, { transmission: 0, transparent: true, opacity: 0.45, color: new THREE.Color(0x10151c) });
+      }
+    });
+    model.rotation.y = Math.PI; // rear towards the camera
+    model.scale.setScalar(1 / 0.0254); // metres -> inches
+    // Rotated half a turn, the plate spot (x, y, z) sits at (-x, y, -z); put it
+    // just behind the frame's back face.
+    model.position.set(0, 0.05 - CAR_PLATE[1] / 0.0254, -FRAME.depth / 2 - 0.02 + CAR_PLATE[2] / 0.0254);
+    const car = new THREE.Group();
+    car.add(model);
+    const box = new THREE.Box3().setFromObject(model);
+    const ground = new THREE.Mesh(
+      new THREE.PlaneGeometry((box.max.x - box.min.x) * 1.5, (box.max.z - box.min.z) * 1.25),
+      new THREE.MeshBasicMaterial({ map: this.floor.material.map, transparent: true, depthWrite: false }),
+    );
+    ground.rotation.x = -Math.PI / 2;
+    ground.position.set(0, box.min.y + 0.05, (box.min.z + box.max.z) / 2);
+    car.add(ground);
+    this.rig.add(car);
+    return car;
   }
 
   setFinish(gloss) {
@@ -212,6 +273,12 @@ export class FrameViewer {
 
   tick() {
     const dt = Math.min(this.clock.getDelta(), 0.05);
+    if (this.carOn && this.controls.autoRotate) {
+      // Turntable sways between the orbit limits instead of spinning into the car.
+      const a = this.controls.getAzimuthalAngle();
+      if (Math.abs(a) > CAR_ORBIT.maxAzimuthAngle - 0.04 && Math.sign(a - (this.lastAz ?? a)) === Math.sign(a)) this.controls.autoRotateSpeed *= -1;
+      this.lastAz = a;
+    }
     if (this.swing) {
       this.swing.t = Math.min(1, this.swing.t + dt / 0.7);
       const e = 1 - Math.pow(1 - this.swing.t, 3);
