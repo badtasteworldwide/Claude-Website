@@ -1218,3 +1218,13 @@ fieldset.option-row legend { padding: 0; }
   .hero__photo.is-zooming { animation: hero-zoom .9s cubic-bezier(.2,.8,.2,1); }
   @keyframes hero-zoom { from { transform: scale(1.08); } to { transform: scale(1); } }
 }
+
+/* Logo: keep the image at its natural proportions (flex column was stretching it to the tagline width). */
+.logo { align-items: flex-start; }
+.logo .logo__img { height: 56px; width: auto; max-width: min(240px, 100%); object-fit: contain; object-position: left center; }
+@media (max-width: 768px) { .logo .logo__img { height: 40px; } }
+
+/* Product photos: show the whole image, never crop. White fill matches the studio-shot backgrounds. */
+.product-card__photo, .drawer__item-img img, .pdp__main-img img, .pdp__thumb img,
+.cart-line__img img, .garage__pick img, .bb-search__row img, .bundle__slot img { object-fit: contain !important; background: #fff; }
+.product-card__image:has(.product-card__photo), .pdp__main-img, .pdp__thumb, .drawer__item-img, .cart-line__img { background: #fff; }
