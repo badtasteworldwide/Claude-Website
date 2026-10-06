@@ -56,3 +56,7 @@ Illumaesthetic wordmark are excluded.
 - `templates/page.plate-frames.json`: a page template containing just the section.
 
 The section reads its data from **Content → Files**: `pfg-catalog.json`, `pfg-frame.glb`, `pfg-thumbs.webp` and `pfg-sheet-00…35.webp` (8 textures per sheet). `python3 tools/shopify_pack.py` regenerates them into `shopify/files/`, which is gitignored. Re-upload them under the same names after the catalog changes. `shopify/test.html` mocks the Liquid output for local testing.
+
+### Product page gallery
+
+`shopify/theme/sections/main-product.liquid` is the store theme's product section with a 3D slide added to the photo gallery. On any product whose handle contains `plate-frame`, `plate-frame-garage.js` looks the handle up in `pfg-catalog.json`. When it finds a design, it puts a 3D thumbnail first in the gallery and shows the frame turning slowly. Clicking a photo thumbnail, or a variant change, shows the photo. Products with several designs (for example White Claw flavours) get a row of design buttons. three.js only loads when a design is found.

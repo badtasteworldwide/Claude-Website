@@ -1,11 +1,21 @@
 // Plate Frame Garage section script (Shopify theme asset).
 // Mirrors plate-frames/js/viewer.js + app.js, but reads its catalog, texture
 // sheets, thumbnail sprite and frame model from Content > Files (pfg-*).
-// three.js comes from jsDelivr's ESM build so no import map is needed.
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.170.0/+esm";
-import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/controls/OrbitControls.js/+esm";
-import { RoomEnvironment } from "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/environments/RoomEnvironment.js/+esm";
-import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/loaders/GLTFLoader.js/+esm";
+// Also drives the 3D slide in the product page gallery ([data-pfg-pdp]).
+// three.js comes from jsDelivr's ESM build so no import map is needed. It is
+// loaded on demand, so product pages without a frame design never fetch it.
+const THREE_CDN = "https://cdn.jsdelivr.net/npm/three@0.170.0/";
+let THREE, OrbitControls, RoomEnvironment, GLTFLoader;
+async function loadThree() {
+  if (THREE) return;
+  const addon = (p) => import(`${THREE_CDN}examples/jsm/${p}/+esm`);
+  [THREE, { OrbitControls }, { RoomEnvironment }, { GLTFLoader }] = await Promise.all([
+    import(`${THREE_CDN}+esm`),
+    addon("controls/OrbitControls.js"),
+    addon("environments/RoomEnvironment.js"),
+    addon("loaders/GLTFLoader.js"),
+  ]);
+}
 
 // Blank frame model: 312.76 x 160.57 x 8 mm (3 mm face plate over a 5 mm rear
 // pocket). Scene units are inches.
@@ -15,7 +25,7 @@ const FRAME = {
   depth: 8 / 25.4,
   holes: [[0.2149, 0.102], [0.7876, 0.102]], // fractions from top-left
 };
-const HOME = new THREE.Vector3(0, 0.4, 24);
+const HOME = [0, 0.4, 24];
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function plateTexture() {
@@ -69,7 +79,10 @@ function loadImage(url) {
 }
 
 class FrameViewer {
-  constructor(canvas, sheetUrl, layout) {
+  // opts.gallery: square product-gallery slide, so no room kept for the
+  // plaque, no wheel zoom, and vertical swipes still scroll the page.
+  constructor(canvas, sheetUrl, layout, opts = {}) {
+    this.opts = opts;
     this.canvas = canvas;
     this.sheetUrl = sheetUrl;
     this.layout = layout;
@@ -90,17 +103,18 @@ class FrameViewer {
     scene.add(key);
 
     this.camera = new THREE.PerspectiveCamera(30, 1, 0.5, 200);
-    this.camera.position.copy(HOME);
+    this.camera.position.set(...HOME);
     const controls = (this.controls = new OrbitControls(this.camera, canvas));
     controls.enableDamping = true;
     controls.dampingFactor = 0.08;
     controls.enablePan = false;
-    controls.enableZoom = true;
+    controls.enableZoom = !opts.gallery;
     controls.minDistance = 10;
     controls.maxDistance = 42;
     controls.minPolarAngle = Math.PI * 0.18;
     controls.maxPolarAngle = Math.PI * 0.72;
     controls.autoRotateSpeed = 2.2;
+    if (opts.gallery) canvas.style.touchAction = "pan-y";
 
     this.rig = new THREE.Group();
     scene.add(this.rig);
@@ -177,8 +191,8 @@ class FrameViewer {
     if (!w || !h) return;
     this.renderer.setSize(w, h, false);
     this.camera.aspect = w / h;
-    this.camera.fov = Math.max(30, (2 * Math.atan(7.2 / HOME.z / this.camera.aspect) * 180) / Math.PI);
-    if (this.camera.aspect < 1.3) this.camera.setViewOffset(w, h, 0, -h * 0.09, w, h);
+    this.camera.fov = Math.max(30, (2 * Math.atan(7.2 / HOME[2] / this.camera.aspect) * 180) / Math.PI);
+    if (this.camera.aspect < 1.3 && !this.opts.gallery) this.camera.setViewOffset(w, h, 0, -h * 0.09, w, h);
     else this.camera.clearViewOffset();
     this.camera.updateProjectionMatrix();
   }
@@ -218,7 +232,7 @@ class FrameViewer {
 
   setPlate(on) { this.plate.visible = this.screws.visible = on; }
   setTurntable(on) { this.controls.autoRotate = on && !reducedMotion; }
-  resetView() { this.controls.reset(); this.camera.position.copy(HOME); this.controls.target.set(0, 0, 0); }
+  resetView() { this.controls.reset(); this.camera.position.set(...HOME); this.controls.target.set(0, 0, 0); }
 
   tick() {
     const dt = Math.min(this.clock.getDelta(), 0.05);
@@ -332,6 +346,7 @@ async function mount(root) {
   setFilter(designs[first].product ? "current" : "all");
   select(first);
 
+  await loadThree();
   viewer = new FrameViewer($("stage"), root.dataset.sheet, cat.texture);
   await Promise.all([viewer.loadModel(root.dataset.model), viewer.show(designs[state.index])]);
   $("loading").hidden = true;
@@ -350,6 +365,99 @@ async function mount(root) {
   $("q").addEventListener("input", (e) => {
     state.query = e.target.value.trim().toLowerCase();
     renderList();
+  });
+}
+
+// Product page: add a 3D slide (first) to the theme's gallery when this
+// product has a frame design. The theme's own thumbnail and variant code keep
+// working; any photo shown in the main image hides the 3D slide.
+async function mountProduct(root) {
+  const cat = await fetch(root.dataset.catalog).then((r) => r.json());
+  const mine = cat.groups
+    .flatMap((g) => g.designs)
+    .filter((d) => d.product === root.dataset.handle)
+    .sort((a, b) => b.current - a.current);
+  if (!mine.length) return;
+
+  const media = root.closest(".pdp__media") || root.parentElement;
+  const main = root.parentElement;
+  const photo = main.querySelector(":scope > img");
+  let thumbs = media.querySelector(".pdp__thumbs");
+  if (!thumbs) {
+    thumbs = document.createElement("div");
+    thumbs.className = "pdp__thumbs";
+    main.after(thumbs);
+    if (photo) {
+      const t = document.createElement("button");
+      t.type = "button";
+      t.className = "pdp__thumb";
+      t.dataset.src = photo.currentSrc || photo.src;
+      t.setAttribute("aria-label", "View photo");
+      t.innerHTML = `<img src="${t.dataset.src}" alt="" width="160" height="160">`;
+      thumbs.append(t);
+    }
+  }
+  thumbs.style.display = "";
+
+  const sprite = new URL(root.dataset.thumbs, location.href).href;
+  const spriteAt = (d) => {
+    const x = (d.thumb % cat.thumbs.cols) / (cat.thumbs.cols - 1);
+    const y = Math.floor(d.thumb / cat.thumbs.cols) / (cat.thumbs.rows - 1);
+    return `background-image:url("${sprite}");background-size:${cat.thumbs.cols * 100}% ${cat.thumbs.rows * 100}%;background-position:${(x * 100).toFixed(3)}% ${(y * 100).toFixed(3)}%`;
+  };
+  const thumb = document.createElement("button");
+  thumb.type = "button";
+  thumb.className = "pdp__thumb pfg3d-thumb";
+  thumb.setAttribute("aria-label", "View this frame in 3D");
+  thumb.innerHTML = `<span class="pfg3d-thumb__art" style='${spriteAt(mine[0])}'></span><span class="pfg3d-thumb__tag">3D</span>`;
+  thumbs.prepend(thumb);
+
+  let viewer;
+  const show = (on) => {
+    root.hidden = !on;
+    if (on) for (const t of thumbs.querySelectorAll(".pdp__thumb")) t.dataset.active = String(t === thumb);
+    else thumb.dataset.active = "false";
+  };
+  thumbs.addEventListener("click", (e) => {
+    const t = e.target.closest(".pdp__thumb");
+    if (t) show(t === thumb);
+  });
+  // Variant changes swap the main photo; show it.
+  if (photo) new MutationObserver(() => show(false)).observe(photo, { attributes: true, attributeFilter: ["src"] });
+
+  if (mine.length > 1) {
+    const list = root.querySelector('[data-role="designs"]');
+    for (const d of mine) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.textContent = d.name;
+      b.setAttribute("aria-pressed", String(d === mine[0]));
+      b.addEventListener("click", () => {
+        for (const o of list.children) o.setAttribute("aria-pressed", String(o === b));
+        viewer?.show(d);
+      });
+      list.append(b);
+    }
+    list.hidden = false;
+  }
+
+  show(true);
+  await loadThree();
+  viewer = new FrameViewer(root.querySelector("canvas"), root.dataset.sheet, cat.texture, { gallery: true });
+  await Promise.all([viewer.loadModel(root.dataset.model), viewer.show(mine[0])]);
+  root.dataset.ready = "";
+  // Slow turntable until the shopper grabs it.
+  viewer.setTurntable(true);
+  viewer.controls.autoRotateSpeed = 1.2;
+  viewer.controls.addEventListener("start", () => viewer.setTurntable(false));
+}
+
+for (const root of document.querySelectorAll("[data-pfg-pdp]:not([data-pfg-ready])")) {
+  root.dataset.pfgReady = "";
+  mountProduct(root).catch((err) => {
+    console.error(err);
+    root.hidden = true;
+    root.closest(".pdp__media")?.querySelector(".pfg3d-thumb")?.remove();
   });
 }
 
