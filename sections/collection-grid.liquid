@@ -27,10 +27,19 @@
       <a href="{{ coll.url | default: '#' }}" class="collection-card {{ size_class }}" {{ block.shopify_attributes }}>
         <div class="collection-card__media">
         <div class="collection-card__bg" style="background: linear-gradient(135deg, {{ block.settings.color_1 }}, {{ block.settings.color_2 }});">
-          {%- if block.settings.image != blank -%}
-            <img class="collection-card__photo" src="{{ block.settings.image | image_url: width: 900 }}" srcset="{{ block.settings.image | image_url: width: 600 }} 600w, {{ block.settings.image | image_url: width: 900 }} 900w" sizes="(max-width: 768px) 50vw, 33vw" alt="{{ block.settings.image.alt | default: block.settings.title_override | escape }}" loading="lazy" width="900" height="{{ 900 | divided_by: block.settings.image.aspect_ratio | round }}">
-          {%- elsif coll.featured_image and block.settings.use_image -%}
-            <img class="collection-card__photo" src="{{ coll.featured_image | image_url: width: 900 }}" srcset="{{ coll.featured_image | image_url: width: 600 }} 600w, {{ coll.featured_image | image_url: width: 900 }} 900w" sizes="(max-width: 768px) 50vw, 33vw" alt="{{ coll.featured_image.alt | default: coll.title | escape }}" loading="lazy" width="900" height="{{ 900 | divided_by: coll.featured_image.aspect_ratio | round }}">
+          {%- assign img = block.settings.image -%}
+          {%- assign img_alt = block.settings.title_override -%}
+          {%- if img == blank and block.settings.use_image -%}{%- assign img = coll.featured_image -%}{%- assign img_alt = coll.title -%}{%- endif -%}
+          {%- if img != blank -%}
+            {%- assign img_alt = img.alt | default: img_alt | escape -%}
+            {%- if img.aspect_ratio >= 1.8 -%}
+              {%- comment -%} 2:1 cover = centred 3:4 poster + blurred padding: crop to the poster, sides show the block colours. {%- endcomment -%}
+              <span class="collection-card__poster">
+                <img class="collection-card__photo" src="{{ img | image_url: width: 1400 }}" srcset="{{ img | image_url: width: 900 }} 900w, {{ img | image_url: width: 1400 }} 1400w, {{ img | image_url: width: 1800 }} 1800w" sizes="(max-width: 768px) 100vw, 50vw" alt="{{ img_alt }}" loading="lazy" width="1400" height="{{ 1400 | divided_by: img.aspect_ratio | round }}">
+              </span>
+            {%- else -%}
+              <img class="collection-card__photo" src="{{ img | image_url: width: 900 }}" srcset="{{ img | image_url: width: 600 }} 600w, {{ img | image_url: width: 900 }} 900w" sizes="(max-width: 768px) 50vw, 33vw" alt="{{ img_alt }}" loading="lazy" width="900" height="{{ 900 | divided_by: img.aspect_ratio | round }}">
+            {%- endif -%}
           {%- else -%}
             <div style="position:absolute; left:50%; top:45%; transform:translate(-50%,-50%); width:70%;">
               {%- render 'plate',
@@ -70,6 +79,12 @@
   .collection-card { display: flex; flex-direction: column; background: var(--paper); }
   .collection-card__media { position: relative; overflow: hidden; aspect-ratio: 4 / 3; flex: none; }
   .collections:not(.collections--uniform) .collection-card__media { aspect-ratio: auto; min-height: 140px; }
+  .collection-card__poster {
+    position: absolute; top: 0; bottom: 0; left: 50%; transform: translateX(-50%);
+    height: 100%; aspect-ratio: 3 / 4; overflow: hidden;
+    border-inline: 2px solid var(--ink); box-shadow: 0 0 28px rgba(0, 0, 0, .35);
+  }
+  .collection-card__poster .collection-card__photo { transform: scale(1.03); }
   .collection-card__info {
     display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; column-gap: 12px;
     padding: 12px 14px 14px; border-top: 2px solid var(--ink); background: var(--ink); color: var(--paper);
