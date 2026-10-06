@@ -37,7 +37,7 @@
           "type": "stat",
           "settings": {
             "value": "$40+",
-            "label": "Free Shipping"
+            "label": "Free US Ship on Frames"
           }
         },
         "chip1": {
@@ -97,7 +97,7 @@
         "chip6"
       ],
       "settings": {
-        "eyebrow": "Made in the USA · Lightning fast shipping!",
+        "eyebrow": "Designed in California · Lightning fast shipping!",
         "heading": "<p>All things <em>bad taste</em> are cool.</p>",
         "subheading": "License plate frames for K-pop stans, 3AM konbini runs, degenerate meme lords, track addicts, and everyone whose mom would hate their Lexus. Small-batch drops. Heavy plastic. No apologies.",
         "cta1_label": "Shop The Drop →",
@@ -121,7 +121,7 @@
         "t2": {
           "type": "item",
           "settings": {
-            "text": "FREE SHIP $40+"
+            "text": "FREE US SHIPPING ON $40+ IN FRAMES"
           }
         },
         "t3": {
@@ -133,7 +133,7 @@
         "t4": {
           "type": "item",
           "settings": {
-            "text": "NO-HASSLE RETURNS"
+            "text": "DAMAGED? FREE REPLACEMENT"
           }
         },
         "item_Maa8pR": {
@@ -174,7 +174,7 @@
           "settings": {
             "collection": "konbini-at-3am",
             "title_override": "Konbini at 3AM",
-            "tag": "Best Seller",
+            "tag": "",
             "use_image": true,
             "frame_top": "Konbini At 3AM",
             "frame_bottom": "MIDNIGHT RUN",
@@ -188,7 +188,7 @@
           "settings": {
             "collection": "kpop-license-plate-frames",
             "title_override": "K-Pop Stans",
-            "tag": "Trending",
+            "tag": "",
             "use_image": true,
             "frame_top": "Certified Stan",
             "frame_bottom": "BIAS APPROVED",
@@ -202,7 +202,7 @@
           "settings": {
             "collection": "racing-livery-license-plate-frames",
             "title_override": "Track Addicts",
-            "tag": "Restocked",
+            "tag": "",
             "use_image": true,
             "frame_top": "Track Use Only",
             "frame_bottom": "NO STREET DRIVING",
@@ -216,7 +216,7 @@
           "settings": {
             "collection": "fast-food-themed-license-plate-frames",
             "title_override": "Late Stage Capitalism Meals",
-            "tag": "New",
+            "tag": "",
             "use_image": true,
             "frame_top": "Value Menu Royalty",
             "frame_bottom": "LARGE FRIES ONLY",
@@ -272,7 +272,7 @@
     "featured": {
       "type": "featured-products",
       "settings": {
-        "eyebrow": "Best Sellers",
+        "eyebrow": "Featured",
         "heading": "<p>Frames <em>everyone else</em> is copying.</p>",
         "link_label": "Shop all frames →",
         "collection": "asian-themed-plate-frames",
@@ -288,7 +288,7 @@
             "count": 2,
             "left_strong": "2 Frames",
             "left_rest": "Any theme",
-            "right": "FREE SHIP ON $40+"
+            "right": "FREE US SHIP $40+"
           }
         },
         "tier3": {
@@ -297,7 +297,7 @@
             "count": 3,
             "left_strong": "3 Frames",
             "left_rest": "Unlock the vault",
-            "right": "10% OFF + FREE SHIP"
+            "right": "10% OFF + FREE US SHIP"
           }
         },
         "tier4": {
@@ -306,7 +306,7 @@
             "count": 4,
             "left_strong": "4+ Frames",
             "left_rest": "You have a problem",
-            "right": "20% OFF + FREE SHIP"
+            "right": "20% OFF + FREE US SHIP"
           }
         }
       },
@@ -319,9 +319,9 @@
         "eyebrow": "Bundle & Save",
         "heading": "<p>Build a <em>3-pack.</em><br/>Save up to 20%.</p>",
         "subheading": "Because one frame is never enough. Daily driver, weekend car, whatever's in the garage — they all deserve bad taste.",
-        "collection": "",
+        "collection": "labor-day-sale-plate-frames",
         "max_items": 3,
-        "note": "Tap to add · scroll for more"
+        "note": "Discount applies automatically at checkout to plate frames only: 3 frames = 10% off, 4+ = 20% off. Doesn’t combine with discount codes."
       }
     },
     "quiz": {
@@ -361,7 +361,7 @@
             "tag": "konbini",
             "title": "You're a Konbini at 3AM person.",
             "blurb": "Fluorescent lights, midnight snacks, zero regrets. Your frame is waiting in the cold-drink aisle of life.",
-            "collection": ""
+            "collection": "konbini-at-3am"
           }
         },
         "r2": {
@@ -370,7 +370,7 @@
             "tag": "kpop",
             "title": "Certified stan behavior.",
             "blurb": "Your bias would approve of this frame. Probably. We can't legally confirm that.",
-            "collection": ""
+            "collection": "kpop-license-plate-frames"
           }
         },
         "r3": {
@@ -379,7 +379,7 @@
             "tag": "track",
             "title": "Track addict detected.",
             "blurb": "Send it. Tastefully. Actually no — just send it.",
-            "collection": ""
+            "collection": "racing-livery-license-plate-frames"
           }
         },
         "r4": {
@@ -388,7 +388,7 @@
             "tag": "snack",
             "title": "You're snack-motivated.",
             "blurb": "The drive-thru knows your order by heart. Own it on your bumper.",
-            "collection": ""
+            "collection": "fast-food-themed-license-plate-frames"
           }
         }
       },
@@ -531,7 +531,7 @@
         "eyebrow": "#BadTasteWorldwide",
         "heading": "<p>Seen on <em>questionable</em> vehicles everywhere.</p>",
         "link_label": "Tag us @badtaste.world →",
-        "link_url": "https://instagram.com"
+        "link_url": "https://instagram.com/badtaste.world"
       }
     },
     "faq": {
@@ -541,28 +541,28 @@
           "type": "item",
           "settings": {
             "question": "How fast do you ship?",
-            "answer": "<p>Lightning fast shipping from California, Monday–Friday. Free US shipping over $40. </p>"
+            "answer": "<p>Lightning fast shipping from California, Monday–Friday. Free US shipping on $40+ in plate frames. International orders may owe import VAT/duties on delivery. Current processing and delivery times are in our <a href=\"/policies/shipping-policy\">Shipping Policy</a>.</p>"
           }
         },
         "f2": {
           "type": "item",
           "settings": {
             "question": "Will this fit my car?",
-            "answer": "<p>We make two sizes: US standard (12\"×6\") and US standard flipped (12\"x6\", tags on the bottom). Filter by size on any product page. Every frame comes individually bagged.</p>"
+            "answer": "<p>We make two sizes: US standard (12″×6″) and US standard flipped (12″×6″, tags on the bottom). Choose your size on the product page. Every frame comes individually bagged.</p>"
           }
         },
         "f3": {
           "type": "item",
           "settings": {
             "question": "What's the material?",
-            "answer": "<p>Injection-molded ABS plastic with UV-stable printed graphics. Same stuff dealers use — we just put weirder things on it. Tested in Arizona sun, Seattle rain, and one guy's Norwegian winter. Rated for 2 years of hard use.</p>"
+            "answer": "<p>Injection-molded ABS plastic with UV-resistant printed graphics. Customers run them from Phoenix to Seattle.</p>"
           }
         },
         "f4": {
           "type": "item",
           "settings": {
             "question": "Can I return it?",
-            "answer": "<p>Hassle-free, no questions. If it arrives broken or we mess up the order, we'll replace it free. If you change your mind, we'll refund you minus return shipping.</p>"
+            "answer": "<p>Arrived broken, or we got your order wrong? We’ll replace it free. Changed your mind? Returns are accepted under our <a href=\"/policies/refund-policy\">Refund Policy</a>; refunds are the item price minus return shipping.</p>"
           }
         },
         "f5": {
@@ -576,7 +576,7 @@
           "type": "item",
           "settings": {
             "question": "Is this legal on my plates?",
-            "answer": "<p>US: legal in most states if it doesn't cover the plate number or state name. Check your local laws. We are not your lawyer. We are not even a lawyer.</p>"
+            "answer": "<p>Our frames are designed to leave the plate number and state name visible on standard US plates. Laws vary: some states (including California, Vehicle Code §5201) prohibit covering any of the plate’s lettering, registration stickers or slogans. Check your state’s vehicle code before installing. Not legal advice.</p>"
           }
         }
       },
@@ -592,12 +592,35 @@
         "eyebrow": "FAQ",
         "heading": "<p>Questions <em>with answers.</em></p>"
       }
+    },
+    "garage": {
+      "type": "frame-garage",
+      "settings": {
+        "eyebrow": "3D Garage",
+        "heading": "<p>Spin it <em>before you buy it.</em></p>",
+        "subheading": "Drag to rotate, or use the arrow keys. Every frame here is modeled from a photo of the real print.",
+        "products": [
+          "mclaren-formula-1-team-2025-license-plate-frame",
+          "scuderia-ferrari-racing-f1-2025-license-plate-frame",
+          "oracle-red-bull-racing-f1-2025-license-plate-frame",
+          "amg-petronas-formula-1-team-2025-license-plate-frame",
+          "gulf-racing-license-plate-frame",
+          "mugen-motul-racing-license-plate-frame",
+          "jaccs-honda-license-plate-frame",
+          "xanavi-nissan-license-plate-frame",
+          "copy-of-advan-racing-license-plate-frame",
+          "mazda-renown-racing-license-plate-frame",
+          "raising-canes-license-plate-frame"
+        ],
+        "autoload": true
+      }
     }
   },
   "order": [
     "hero",
     "trust",
     "collections",
+    "garage",
     "featured",
     "bundle",
     "quiz",

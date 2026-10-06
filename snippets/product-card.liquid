@@ -8,7 +8,8 @@
   endif
 -%}
 <article class="product-card">
-  <a href="{{ cp.url }}" class="product-card__image" style="background: linear-gradient(135deg, var(--pink), var(--pink-deep));">
+  <div class="product-card__image" style="background: linear-gradient(135deg, var(--pink), var(--pink-deep));">
+    <a href="{{ cp.url }}" class="product-card__cover" tabindex="-1" aria-hidden="true"></a>
     <div class="product-card__badges">
       {%- unless cp.available -%}
         <span class="badge badge--red">SOLD OUT</span>
@@ -41,9 +42,9 @@
     {%- if cp.available and cp.variants.size == 1 and cp.selected_or_first_available_variant -%}
       <button type="button" class="btn btn--sm btn--ink product-card__quickadd" data-quick-add="{{ cp.selected_or_first_available_variant.id }}">+ Quick Add · {{ cp.price | money }}</button>
     {%- elsif cp.available -%}
-      <span class="btn btn--sm btn--ink product-card__quickadd">Choose Options →</span>
+      <a href="{{ cp.url }}" class="btn btn--sm btn--ink product-card__quickadd">Choose Options →</a>
     {%- endif -%}
-  </a>
+  </div>
   <div class="product-card__info">
     {%- if cp.type != blank -%}<div class="product-card__theme">{{ cp.type }}</div>{%- endif -%}
     <a href="{{ cp.url }}"><div class="product-card__name">{{ cp.title }}</div></a>

@@ -1,0 +1,115 @@
+{%- comment -%}
+  3D Garage: spin any frame that has a 3D texture (product metafield custom.frame_texture_3d).
+{%- endcomment -%}
+{%- liquid
+  assign first = nil
+  for p in section.settings.products
+    if p.metafields.custom.frame_texture_3d != blank and p.available
+      if first == nil
+        assign first = p
+      endif
+    endif
+  endfor
+-%}
+{%- if first -%}
+<section class="section garage" id="garage" aria-labelledby="garage-title-{{ section.id }}">
+  <div class="section__head">
+    <div>
+      {%- if section.settings.eyebrow != blank -%}<span class="section__eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2 class="section__title" id="garage-title-{{ section.id }}">{{ section.settings.heading }}</h2>
+      {%- if section.settings.subheading != blank -%}<p class="garage__sub">{{ section.settings.subheading }}</p>{%- endif -%}
+    </div>
+  </div>
+
+  <div class="garage__grid">
+    <div class="garage__stage">
+      {%- render 'frame-3d',
+        id: 'garage-viewer',
+        texture: first.metafields.custom.frame_texture_3d.value,
+        poster: first.featured_image,
+        title: first.title,
+        autoload: section.settings.autoload -%}
+    </div>
+
+    <div class="garage__panel">
+      <ul class="garage__list" role="list">
+        {%- for p in section.settings.products -%}
+          {%- assign tex = p.metafields.custom.frame_texture_3d.value -%}
+          {%- if tex != blank and p.available -%}
+            {%- assign v = p.selected_or_first_available_variant -%}
+            <li>
+              <button type="button" class="garage__pick" data-garage-pick
+                      aria-pressed="{% if p.id == first.id %}true{% else %}false{% endif %}"
+                      data-texture="{{ tex | image_url: width: 2048 }}"
+                      data-title="{{ p.title | escape }}"
+                      data-url="{{ p.url }}"
+                      data-price="{{ v.price | money | escape }}"
+                      data-variant="{{ v.id }}"
+                      data-single="{{ p.has_only_default_variant }}">
+                {%- if p.featured_image -%}
+                  <img src="{{ p.featured_image | image_url: width: 160 }}" alt="" width="80" height="80" loading="lazy">
+                {%- endif -%}
+                <span class="garage__pick-name">{{ p.title | remove: ' License Plate Frame' }}</span>
+                <span class="garage__pick-price">{{ v.price | money }}</span>
+              </button>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+
+      {%- assign fv = first.selected_or_first_available_variant -%}
+      <div class="garage__buy" data-garage-buy>
+        <div class="garage__buy-meta">
+          <span class="garage__buy-title" data-garage-title>{{ first.title }}</span>
+          <span class="garage__buy-price" data-garage-price>{{ fv.price | money }}</span>
+        </div>
+        <div class="garage__buy-actions">
+          <button type="button" class="btn" data-quick-add="{{ fv.id }}" data-garage-add {% unless first.has_only_default_variant %}hidden{% endunless %}>Add To Cart</button>
+          <a class="btn {% if first.has_only_default_variant %}btn--paper{% endif %}" href="{{ first.url }}" data-garage-link>{% if first.has_only_default_variant %}View Details{% else %}Choose Options{% endif %}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var root = document.getElementById('garage-viewer');
+    if (!root) return;
+    var section = root.closest('.garage');
+    var picks = section.querySelectorAll('[data-garage-pick]');
+    var title = section.querySelector('[data-garage-title]');
+    var price = section.querySelector('[data-garage-price]');
+    var add = section.querySelector('[data-garage-add]');
+    var link = section.querySelector('[data-garage-link]');
+    Array.prototype.forEach.call(picks, function (btn) {
+      btn.addEventListener('click', function () {
+        Array.prototype.forEach.call(picks, function (b) { b.setAttribute('aria-pressed', String(b === btn)); });
+        var single = btn.dataset.single === 'true';
+        title.textContent = btn.dataset.title;
+        price.textContent = btn.dataset.price;
+        add.dataset.quickAdd = btn.dataset.variant;
+        add.hidden = !single;
+        link.href = btn.dataset.url;
+        link.textContent = single ? 'View Details' : 'Choose Options';
+        link.classList.toggle('btn--paper', single);
+        if (window.BTWframe3d) window.BTWframe3d.showTexture(root, btn.dataset.texture, btn.dataset.title);
+      });
+    });
+  })();
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "3D Garage",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "3D Garage" },
+    { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>Spin it <em>before you buy it.</em></p>" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Drag to rotate. Every frame here is modeled from the real print." },
+    { "type": "product_list", "id": "products", "label": "Frames", "limit": 24, "info": "Only products with a 3D frame texture (product metafield) appear." },
+    { "type": "checkbox", "id": "autoload", "label": "Load 3D when scrolled into view", "default": true, "info": "Off: visitors tap “Spin It In 3D” first. Data Saver always waits for a tap." }
+  ],
+  "presets": [{ "name": "3D Garage" }]
+}
+{% endschema %}

@@ -25,7 +25,7 @@
     </div>
     <div class="bundle__builder">
       <div style="font-family: var(--font-display); text-transform:uppercase; font-size:14px; margin-bottom:4px;">
-        Your Bundle <span data-bb-count style="color:var(--pink)">(0/{{ section.settings.max_items }})</span>
+        Your Bundle <span data-bb-count aria-live="polite" style="color:var(--pink-deep)">(0/{{ section.settings.max_items }})</span>
       </div>
       <div data-bb-cart style="font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-soft); margin-bottom:10px;"></div>
 
@@ -62,7 +62,7 @@
       <div class="bundle__summary">
         <div>
           <div style="font-size:10px; opacity:.7;">Subtotal</div>
-          <div class="bundle__summary-total"><span data-bb-total>$0</span></div>
+          <div class="bundle__summary-total" aria-live="polite"><span data-bb-total>$0</span></div>
         </div>
         <button type="button" class="btn" data-bb-add>Add Bundle →</button>
       </div>
@@ -125,13 +125,14 @@
       }
       slotsEl.innerHTML = slots.join('');
       countEl.textContent = '(' + picked.length + '/' + max + ')';
-      cartEl.textContent = cartQty > 0 ? ('Already in your cart: ' + cartQty + ' item' + (cartQty === 1 ? '' : 's') + ' — tiers count them too') : '';
+      cartEl.textContent = cartQty > 0 ? ('Frames already in your cart: ' + cartQty + ' — they count toward your tier') : '';
       var total = picked.reduce(function (s, p) { return s + p.price; }, 0);
       totalEl.textContent = money(total);
       var opts = optionsEl.querySelectorAll('[data-bb-option]');
       Array.prototype.forEach.call(opts, function (btn) {
         var sel = picked.some(function (p) { return String(p.id) === btn.dataset.id; });
         btn.dataset.selected = String(sel);
+        btn.setAttribute('aria-pressed', String(sel));
       });
       var tiers = section.querySelectorAll('.bundle__tier');
       Array.prototype.forEach.call(tiers, function (t) {
@@ -145,7 +146,9 @@
     }
     function refreshCart() {
       return fetch('/cart.js').then(function (r) { return r.json(); }).then(function (cart) {
-        cartQty = cart.item_count || 0;
+        // Only plate frames count toward bundle tiers (same rule as the discount).
+        cartQty = (cart.items || []).filter(function (i) { return /frame/i.test(i.product_title); })
+          .reduce(function (s, i) { return s + i.quantity; }, 0);
         render();
       }).catch(function () {});
     }

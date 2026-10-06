@@ -1,8 +1,9 @@
 {%- if section.blocks.size > 0 -%}
 <div class="trust-strip">
+  <button type="button" class="marquee-toggle" data-marquee-toggle aria-pressed="false" aria-label="Pause scrolling text">❚❚</button>
   <div class="trust-strip__track" data-marquee>
     {%- for block in section.blocks -%}
-      <span {{ block.shopify_attributes }}>{{ block.settings.text }}<span class="star">★</span></span>
+      <span {{ block.shopify_attributes }}>{{ block.settings.text }}<span class="star" aria-hidden="true">★</span></span>
     {%- endfor -%}
   </div>
 </div>
@@ -29,8 +30,7 @@
         { "type": "item", "settings": { "text": "FREE SHIP $40+" } },
         { "type": "item", "settings": { "text": "⚡ LIGHTNING FAST SHIPPING!" } },
         { "type": "item", "settings": { "text": "30-DAY RETURNS" } },
-        { "type": "item", "settings": { "text": "SHIPS WORLDWIDE" } },
-        { "type": "item", "settings": { "text": "PAY IN 4 · AFTERPAY" } }
+        { "type": "item", "settings": { "text": "SHIPS WORLDWIDE" } }
       ]
     }
   ]

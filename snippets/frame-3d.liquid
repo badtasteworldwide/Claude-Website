@@ -1,0 +1,36 @@
+{%- comment -%}
+  Interactive 3D frame viewer.
+  Params:
+    texture   – image (product.metafields.custom.frame_texture_3d.value)
+    title     – design name, for the accessible label
+    poster    – optional image shown before the viewer loads
+    autoload  – start when scrolled into view instead of waiting for a click
+    id        – optional element id (lets pickers target this viewer)
+{%- endcomment -%}
+{%- if texture != blank -%}
+  {%- assign poster_img = poster | default: texture -%}
+  <div class="frame3d" data-frame3d {% if id %}id="{{ id }}"{% endif %}
+       data-module="{{ 'btw-frame-viewer.js' | asset_url }}"
+       data-texture="{{ texture | image_url: width: 2048 }}"
+       data-title="{{ title | escape }}"
+       {% if autoload %}data-autoload{% endif %}>
+    <img class="frame3d__poster" data-frame3d-poster
+         src="{{ poster_img | image_url: width: 1200 }}"
+         srcset="{{ poster_img | image_url: width: 600 }} 600w, {{ poster_img | image_url: width: 1200 }} 1200w"
+         sizes="(max-width: 960px) 100vw, 50vw"
+         alt="{{ title | escape }}" loading="lazy" width="1200" height="{{ 1200 | divided_by: poster_img.aspect_ratio | round }}">
+    <canvas class="frame3d__canvas" data-frame3d-canvas tabindex="0" role="img" hidden
+            aria-label="3D view of {{ title | escape }}. Drag, or use the arrow keys, to rotate."></canvas>
+    <button type="button" class="btn frame3d__start" data-frame3d-start>
+      <span aria-hidden="true">⟲</span> Spin It In 3D
+    </button>
+    <div class="frame3d__controls" data-frame3d-controls hidden>
+      <button type="button" data-frame3d-action="left" aria-label="Rotate left">←</button>
+      <button type="button" data-frame3d-action="right" aria-label="Rotate right">→</button>
+      <button type="button" data-frame3d-action="turntable" aria-pressed="false">Auto-Spin</button>
+      <button type="button" data-frame3d-action="plate" aria-pressed="true">Plate</button>
+      <button type="button" data-frame3d-action="reset">Reset</button>
+    </div>
+    <p class="frame3d__status" data-frame3d-status aria-live="polite"></p>
+  </div>
+{%- endif -%}

@@ -14,12 +14,12 @@
       {%- endfor -%}
     </nav>
     <div class="header__tools">
-      <a class="icon-btn" href="{{ routes.search_url }}" aria-label="Search" title="Search">🔍</a>
+      <a class="icon-btn" href="{{ routes.search_url }}" aria-label="Search" title="Search"><span aria-hidden="true">🔍</span></a>
       {%- if shop.customer_accounts_enabled -%}
-        <a class="icon-btn" href="{{ routes.account_url }}" aria-label="Account" title="Account">👤</a>
+        <a class="icon-btn" href="{{ routes.account_url }}" aria-label="Account" title="Account"><span aria-hidden="true">👤</span></a>
       {%- endif -%}
-      <button class="icon-btn" id="openCart" aria-label="Cart" type="button">
-        🛒<span class="icon-btn__count" data-cart-count>{{ cart.item_count }}</span>
+      <button class="icon-btn" id="openCart" aria-label="Cart, {{ cart.item_count }} {% if cart.item_count == 1 %}item{% else %}items{% endif %}" type="button">
+        <span aria-hidden="true">🛒</span><span class="icon-btn__count" data-cart-count aria-hidden="true">{{ cart.item_count }}</span><span class="visually-hidden" data-cart-status aria-live="polite"></span>
       </button>
     </div>
   </div>

@@ -1,8 +1,12 @@
 {%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign texture_3d = product.metafields.custom.frame_texture_3d.value -%}
 <div class="pdp" data-pdp>
   <div class="pdp__grid">
     <div class="pdp__media">
-      <div class="pdp__main-img" style="background: linear-gradient(135deg, var(--pink), var(--pink-deep));">
+      <div class="pdp__main-img" data-pdp-main style="background: linear-gradient(135deg, var(--pink), var(--pink-deep));">
+        {%- if texture_3d != blank -%}
+          <button type="button" class="pdp__3d-badge" data-pdp-show-3d><span aria-hidden="true">⟲</span> View In 3D</button>
+        {%- endif -%}
         {%- if product.featured_image -%}
           <img src="{{ product.featured_image | image_url: width: 1000 }}"
                srcset="{{ product.featured_image | image_url: width: 600 }} 600w, {{ product.featured_image | image_url: width: 1000 }} 1000w, {{ product.featured_image | image_url: width: 1400 }} 1400w"
@@ -20,10 +24,20 @@
           </div>
         {%- endif -%}
       </div>
-      {%- if product.images.size > 1 -%}
+      {%- if texture_3d != blank -%}
+        <div class="pdp__stage3d" data-pdp-3d hidden>
+          {%- render 'frame-3d', texture: texture_3d, poster: product.featured_image, title: product.title -%}
+        </div>
+      {%- endif -%}
+      {%- if product.images.size > 1 or texture_3d != blank -%}
         <div class="pdp__thumbs">
+          {%- if texture_3d != blank -%}
+            <button type="button" class="pdp__thumb pdp__thumb--3d" data-pdp-show-3d data-active="false" aria-label="View in 3D">
+              <span aria-hidden="true">3D</span>
+            </button>
+          {%- endif -%}
           {%- for image in product.images limit: 8 -%}
-            <button type="button" class="pdp__thumb" data-src="{{ image | image_url: width: 1000 }}" data-active="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="View image {{ forloop.index }}">
+            <button type="button" class="pdp__thumb" data-src="{{ image | image_url: width: 1000 }}" data-srcset="{{ image | image_url: width: 600 }} 600w, {{ image | image_url: width: 1000 }} 1000w, {{ image | image_url: width: 1400 }} 1400w" data-active="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="View image {{ forloop.index }}">
               <img src="{{ image | image_url: width: 160 }}" alt="{{ image.alt | default: product.title | escape }}" loading="lazy" width="160" height="160">
             </button>
           {%- endfor -%}
@@ -53,8 +67,8 @@
         {%- unless product.has_only_default_variant -%}
           <div data-variant-picker>
             {%- for option in product.options_with_values -%}
-              <div class="option-row">
-                <div class="option-label">{{ option.name }}</div>
+              <fieldset class="option-row">
+                <legend class="option-label">{{ option.name }}</legend>
                 <div class="option-pills">
                   {%- for value in option.values -%}
                     <label class="option-pill">
@@ -64,7 +78,7 @@
                     </label>
                   {%- endfor -%}
                 </div>
-              </div>
+              </fieldset>
             {%- endfor -%}
           </div>
         {%- endunless -%}
@@ -99,10 +113,10 @@
       {%- if section.settings.show_faq_accordion -%}
         <div class="faq__list" style="margin-top: 24px;">
           {%- for block in section.blocks -%}
-            <div class="faq__item" data-faq-item {{ block.shopify_attributes }}>
-              <button type="button" class="faq__q" data-faq-toggle>{{ block.settings.question }}<span class="plus">+</span></button>
+            <details class="faq__item" {{ block.shopify_attributes }}>
+              <summary class="faq__q">{{ block.settings.question }}<span class="faq__toggle" aria-hidden="true">+</span></summary>
               <div class="faq__a">{{ block.settings.answer }}</div>
-            </div>
+            </details>
           {%- endfor -%}
         </div>
       {%- endif -%}
@@ -119,7 +133,7 @@
   "name": "Product page",
   "settings": [
     { "type": "text", "id": "trust_text", "label": "Trust line", "default": "✓ Lightning fast shipping! · ✓ 30-day returns · ✓ Screws + caps included" },
-    { "type": "range", "id": "low_stock_threshold", "label": "Low stock warning below", "min": 0, "max": 30, "step": 1, "default": 15 },
+    { "type": "range", "id": "low_stock_threshold", "label": "Low stock warning below", "min": 0, "max": 30, "step": 1, "default": 5, "info": "Uses real inventory. Keep it low so the warning stays meaningful." },
     { "type": "checkbox", "id": "show_faq_accordion", "label": "Show info accordions", "default": true }
   ],
   "blocks": [

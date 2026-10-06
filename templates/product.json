@@ -16,14 +16,14 @@
           "type": "accordion",
           "settings": {
             "question": "Shipping & returns",
-            "answer": "<p>Lightning fast shipping! Free US shipping over $40. 30-day returns, no questions.</p>"
+            "answer": "<p>Lightning fast shipping from California. Free US shipping on $40+ in plate frames. Damaged or wrong item? Free replacement. Returns under our <a href=\"/policies/refund-policy\">Refund Policy</a>; times in our <a href=\"/policies/shipping-policy\">Shipping Policy</a>.</p>"
           }
         },
         "acc2": {
           "type": "accordion",
           "settings": {
             "question": "Fit & materials",
-            "answer": "<p>US standard (12\"×6\") and JDM/Euro (520mm × 110mm) sizes. Injection-molded ABS plastic with UV-stable printed graphics. Screws and caps included.</p>"
+            "answer": "<p>US standard (12″×6″) and US standard flipped (tags on the bottom). Injection-molded ABS plastic with UV-resistant printed graphics. Individually bagged.</p>"
           }
         }
       },

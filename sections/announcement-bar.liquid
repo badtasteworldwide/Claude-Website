@@ -1,10 +1,11 @@
 {%- if section.blocks.size > 0 -%}
 <div class="promo-bar">
+  <button type="button" class="marquee-toggle" data-marquee-toggle aria-pressed="false" aria-label="Pause scrolling text">❚❚</button>
   <div class="promo-bar__track" data-marquee>
     {%- for block in section.blocks -%}
       <span {{ block.shopify_attributes }}>
         {%- if block.settings.link != blank -%}<a href="{{ block.settings.link }}">{{ block.settings.text }}</a>{%- else -%}{{ block.settings.text }}{%- endif -%}
-        <span class="dot">◆</span>
+        <span class="dot" aria-hidden="true">◆</span>
       </span>
     {%- endfor -%}
   </div>
@@ -30,9 +31,9 @@
     {
       "name": "Announcement bar",
       "blocks": [
-        { "type": "message", "settings": { "text": "★ HOLIDAY SALE · FREE SHIPPING ON ORDERS $40+" } },
+        { "type": "message", "settings": { "text": "★ FREE US SHIPPING ON $40+ IN PLATE FRAMES" } },
         { "type": "message", "settings": { "text": "NEW DROP · KONBINI AT 3AM · 24 FRAMES JUST ADDED" } },
-        { "type": "message", "settings": { "text": "BUNDLE 3 · SAVE 25% + FREE SHIP" } },
+        { "type": "message", "settings": { "text": "BUNDLE 3 FRAMES · 10% OFF · 4+ = 20% OFF" } },
         { "type": "message", "settings": { "text": "⚡ LIGHTNING FAST SHIPPING!" } }
       ]
     }

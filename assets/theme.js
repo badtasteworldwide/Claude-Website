@@ -16,24 +16,91 @@
     $$('[data-marquee]').forEach(function (el) {
       if (el.dataset.marqueeInit) return;
       el.dataset.marqueeInit = 'true';
-      el.innerHTML = el.innerHTML + el.innerHTML; // duplicate for seamless loop
+      // Duplicate for a seamless loop; the copy is hidden from assistive tech and tab order.
+      Array.prototype.slice.call(el.children).forEach(function (child) {
+        var copy = child.cloneNode(true);
+        copy.setAttribute('aria-hidden', 'true');
+        $$('a, button', copy).forEach(function (a) { a.tabIndex = -1; });
+        el.appendChild(copy);
+      });
+    });
+    // Pause control for auto-scrolling text (WCAG 2.2.2); remembered per browser.
+    var KEY = 'btw-motion-paused';
+    function apply(paused) {
+      document.documentElement.classList.toggle('motion-paused', paused);
+      $$('[data-marquee-toggle]').forEach(function (b) {
+        b.setAttribute('aria-pressed', String(paused));
+        b.setAttribute('aria-label', paused ? 'Play scrolling text' : 'Pause scrolling text');
+        b.textContent = paused ? '▶' : '❚❚';
+      });
+    }
+    withPrivacyApi(function () { apply(recall(KEY) === '1'); });
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('[data-marquee-toggle]')) return;
+      var paused = !document.documentElement.classList.contains('motion-paused');
+      store(KEY, paused ? '1' : '0');
+      apply(paused);
     });
   }
+
+  /* ---------------- Consent-aware storage ----------------
+     Device storage for preferences only happens when Shopify's Customer
+     Privacy API allows it (always true outside consent regions). */
+  function canStore() {
+    var cp = window.Shopify && window.Shopify.customerPrivacy;
+    return !!(cp && cp.preferencesProcessingAllowed && cp.preferencesProcessingAllowed());
+  }
+  function store(k, v) { if (!canStore()) return; try { localStorage.setItem(k, v); } catch (e) {} }
+  function recall(k) { if (!canStore()) return null; try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function withPrivacyApi(cb) {
+    if (window.Shopify && window.Shopify.loadFeatures) {
+      window.Shopify.loadFeatures([{ name: 'consent-tracking-api', version: '0.1' }], function () { cb(); });
+    } else cb();
+  }
+
+  /* ---------------- Dialog focus management ---------------- */
+  var FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select, textarea, [tabindex]:not([tabindex="-1"])';
+  var activeDialog = null;
+  function openDialog(el, onClose) {
+    activeDialog = { el: el, onClose: onClose, returnTo: document.activeElement };
+    var first = $$(FOCUSABLE, el).filter(function (n) { return n.offsetParent !== null; })[0];
+    if (first) setTimeout(function () { first.focus(); }, 50);
+  }
+  function closeDialog() {
+    if (!activeDialog) return;
+    var ret = activeDialog.returnTo;
+    activeDialog = null;
+    if (ret && ret.focus) ret.focus();
+  }
+  document.addEventListener('keydown', function (e) {
+    if (!activeDialog) return;
+    if (e.key === 'Escape') { e.preventDefault(); activeDialog.onClose(); return; }
+    if (e.key !== 'Tab') return;
+    var nodes = $$(FOCUSABLE, activeDialog.el).filter(function (n) { return n.offsetParent !== null; });
+    if (!nodes.length) return;
+    var first = nodes[0], last = nodes[nodes.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
 
   /* ---------------- Cart drawer ---------------- */
   function openDrawer() {
     var d = $('#drawer'); var o = $('#drawerOverlay');
     if (!d) return;
-    d.dataset.open = 'true'; d.setAttribute('aria-hidden', 'false');
+    if (d.dataset.open === 'true') return;
+    d.dataset.open = 'true'; d.setAttribute('aria-hidden', 'false'); d.inert = false;
     if (o) o.dataset.open = 'true';
     document.body.style.overflow = 'hidden';
+    openDialog(d, closeDrawer);
   }
   function closeDrawer() {
     var d = $('#drawer'); var o = $('#drawerOverlay');
     if (!d) return;
-    d.dataset.open = 'false'; d.setAttribute('aria-hidden', 'true');
+    if (d.dataset.open !== 'true') return;
+    d.dataset.open = 'false'; d.setAttribute('aria-hidden', 'true'); d.inert = true;
     if (o) o.dataset.open = 'false';
     document.body.style.overflow = '';
+    closeDialog();
   }
   window.BTWopenDrawer = openDrawer;
   window.BTWcloseDrawer = closeDrawer;
@@ -52,7 +119,13 @@
           var wasOpen = $('#drawer') && $('#drawer').dataset.open === 'true';
           current.replaceWith(fresh);
           bindDrawer();
-          if (wasOpen || openAfter) openDrawer();
+          if (wasOpen) {
+            // Re-render keeps the drawer open without stealing focus again.
+            var nd = $('#drawer'), no = $('#drawerOverlay');
+            nd.dataset.open = 'true'; nd.setAttribute('aria-hidden', 'false'); nd.inert = false;
+            if (no) no.dataset.open = 'true';
+            if (activeDialog) activeDialog.el = nd;
+          } else if (openAfter) openDrawer();
         }
         return fetch('/cart.js').then(function (r) { return r.json(); }).then(updateCartCount);
       });
@@ -60,6 +133,10 @@
 
   function updateCartCount(cart) {
     $$('[data-cart-count]').forEach(function (el) { el.textContent = cart.item_count; });
+    var btn = $('#openCart');
+    if (btn) btn.setAttribute('aria-label', 'Cart, ' + cart.item_count + (cart.item_count === 1 ? ' item' : ' items'));
+    var status = $('[data-cart-status]');
+    if (status) status.textContent = cart.item_count + (cart.item_count === 1 ? ' item' : ' items') + ' in your cart';
   }
 
   function bindDrawer() {
@@ -137,12 +214,16 @@
   /* ---------------- Quantity steppers ---------------- */
   function bindQtySteppers() {
     document.addEventListener('click', function (e) {
-      var t = e.target.closest('[data-step]');
+      var t = e.target.closest('[data-step], [data-qty-minus], [data-qty-plus]');
       if (!t) return;
       var input = t.parentElement.querySelector('input[type="number"]');
       if (!input) return;
-      var v = parseInt(input.value, 10) || 1;
-      input.value = Math.max(parseInt(input.min, 10) || 1, v + (t.dataset.step === '+' ? 1 : -1));
+      var up = t.hasAttribute('data-qty-plus') || t.dataset.step === '+';
+      var min = parseInt(input.min, 10);
+      if (isNaN(min)) min = 1;
+      var v = parseInt(input.value, 10);
+      if (isNaN(v)) v = min;
+      input.value = Math.max(min, v + (up ? 1 : -1));
       input.dispatchEvent(new Event('change', { bubbles: true }));
     });
   }
@@ -178,21 +259,33 @@
         }
         if (match.featured_media && match.featured_media.preview_image) {
           var img = $('.pdp__main-img img', pdp);
-          if (img) img.src = match.featured_media.preview_image.src;
+          if (img) { img.removeAttribute('srcset'); img.src = match.featured_media.preview_image.src; }
         }
       });
     });
-    // PDP thumbnails
+    // PDP thumbnails (photos + optional 3D view)
     document.addEventListener('click', function (e) {
-      var t = e.target.closest('.pdp__thumb');
+      var t = e.target.closest('.pdp__thumb, [data-pdp-show-3d]');
       if (!t) return;
       var pdp = t.closest('[data-pdp]');
-      var main = $('.pdp__main-img img', pdp);
-      if (main && t.dataset.src) {
-        main.src = t.dataset.src;
-        $$('.pdp__thumb', pdp).forEach(function (th) { th.dataset.active = 'false'; });
-        t.dataset.active = 'true';
+      if (!t.classList.contains('pdp__thumb')) t = $('.pdp__thumb--3d', pdp) || t;
+      var mainBox = $('[data-pdp-main]', pdp);
+      var stage = $('[data-pdp-3d]', pdp);
+      var main = mainBox && $('img', mainBox);
+      var show3d = t.hasAttribute('data-pdp-show-3d');
+      if (!show3d && !(main && t.dataset.src)) return;
+      $$('.pdp__thumb', pdp).forEach(function (th) { th.dataset.active = String(th === t); });
+      if (stage) stage.hidden = !show3d;
+      if (mainBox) mainBox.hidden = show3d;
+      if (show3d) {
+        var viewer = $('[data-frame3d]', stage);
+        if (viewer && window.BTWframe3d) window.BTWframe3d.start(viewer);
+        return;
       }
+      // srcset wins over src, so both must change.
+      if (t.dataset.srcset) main.srcset = t.dataset.srcset;
+      main.src = t.dataset.src;
+      main.alt = ($('img', t) || {}).alt || main.alt;
     });
   }
 
@@ -310,9 +403,9 @@
         card.innerHTML =
           '<div class="quiz__progress">' + progress + '</div>' +
           '<div style="font-family:var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:0.15em; color:var(--ink-soft); margin-bottom:6px;">Question ' + (idx + 1) + ' of ' + data.questions.length + '</div>' +
-          '<div class="quiz__q">' + q.q + '</div>' +
+          '<h3 class="quiz__q" tabindex="-1">' + q.q + '</h3>' +
           '<div class="quiz__options">' + q.options.map(function (o) {
-            return '<button type="button" class="quiz__option" data-tag="' + o.tag + '"><span class="quiz__option-emoji">' + o.emoji + '</span><span>' + o.label + '</span></button>';
+            return '<button type="button" class="quiz__option" data-tag="' + o.tag + '"><span class="quiz__option-emoji" aria-hidden="true">' + o.emoji + '</span><span>' + o.label + '</span></button>';
           }).join('') + '</div>';
       }
       function renderResult() {
@@ -322,13 +415,15 @@
         card.innerHTML =
           '<div class="quiz__result">' +
           '<div class="section__eyebrow" style="background:var(--pink); color:var(--paper);">YOUR RESULT</div>' +
-          '<h3 style="margin-top:12px; font-family:var(--font-display); text-transform:uppercase;">' + res.title + '</h3>' +
+          '<h3 tabindex="-1" style="margin-top:12px; font-family:var(--font-display); text-transform:uppercase;">' + res.title + '</h3>' +
           (res.blurb ? '<p style="margin:10px 0 20px;">' + res.blurb + '</p>' : '') +
           '<div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">' +
           '<a class="btn btn--lg" href="' + res.url + '">Shop My Match →</a>' +
           '<button type="button" class="btn btn--lg btn--paper" data-quiz-retry>Retake Quiz</button>' +
           '</div></div>';
       }
+      // Answer buttons are replaced on each step, so move focus to the new heading.
+      function focusHeading() { var h = $('h3', card); if (h) h.focus({ preventScroll: true }); }
       card.addEventListener('click', function (e) {
         var opt = e.target.closest('.quiz__option');
         if (opt) {
@@ -336,9 +431,10 @@
           tally[tag] = (tally[tag] || 0) + 1;
           idx++;
           renderQuestion();
+          focusHeading();
         }
         if (e.target.closest('[data-quiz-retry]')) {
-          idx = 0; tally = {}; renderQuestion();
+          idx = 0; tally = {}; renderQuestion(); focusHeading();
         }
       });
       renderQuestion();
@@ -361,21 +457,33 @@
   function bindExitModal() {
     var overlay = $('#modalOverlay');
     if (!overlay) return;
+    overlay.inert = true;
     var SHOWN_KEY = 'btw-discount-shown';
     var START_KEY = 'btw-visit-start';
     var DELAY_MS = 2 * 60 * 1000;
-    function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
-    function set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+    // Without storage consent the clock and "shown" flag live in memory only.
+    var memory = {};
+    function get(k) { return canStore() ? recall(k) : (memory[k] || null); }
+    function set(k, v) { if (canStore()) store(k, v); else memory[k] = v; }
     if (get(SHOWN_KEY)) return;
     // Time on site is counted across page views, so navigating doesn't reset the clock.
     var start = parseInt(get(START_KEY), 10);
     if (!start) { start = Date.now(); set(START_KEY, String(start)); }
     function show() {
       if (get(SHOWN_KEY)) return;
+      // Don't interrupt someone mid-checkout-flow in the cart.
+      if (activeDialog) { setTimeout(show, 30000); return; }
       set(SHOWN_KEY, '1');
       overlay.dataset.open = 'true';
+      overlay.inert = false;
+      openDialog(overlay, hide);
     }
-    function hide() { overlay.dataset.open = 'false'; }
+    function hide() {
+      if (overlay.dataset.open !== 'true') return;
+      overlay.dataset.open = 'false';
+      overlay.inert = true;
+      closeDialog();
+    }
     setTimeout(show, Math.max(0, start + DELAY_MS - Date.now()));
     ['#modalClose', '#modalDecline', '#modalClaim'].forEach(function (sel) {
       var el = $(sel); if (el) el.addEventListener('click', hide);
@@ -402,7 +510,7 @@
     bindBundle();
     bindQuiz();
     bindBuybar();
-    if (window.BTW && window.BTW.exitModal) bindExitModal();
+    if (window.BTW && window.BTW.exitModal) withPrivacyApi(bindExitModal);
     bindNewsletterFocus();
     var openCart = $('#openCart');
     if (openCart) openCart.addEventListener('click', function (e) { e.preventDefault(); openDrawer(); });

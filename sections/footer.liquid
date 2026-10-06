@@ -29,12 +29,20 @@
   </div>
   <div class="footer__bottom">
     <div>© {{ 'now' | date: '%Y' }} {{ shop.name }}{% if section.settings.location != blank %} · {{ section.settings.location }}{% endif %}</div>
+    <nav class="footer__legal" aria-label="Legal">
+      {%- for policy in shop.policies -%}
+        <a href="{{ policy.url }}">{{ policy.title }}</a>
+      {%- endfor -%}
+      <a href="{{ section.settings.contact_url | default: '/pages/contact' }}">Contact</a>
+      <a href="{{ section.settings.privacy_choices_url | default: '/pages/data-sharing-opt-out' }}">Your Privacy Choices</a>
+    </nav>
     <div>
       {%- for type in shop.enabled_payment_types -%}
         {{- type | replace: '_', ' ' | upcase -}}{%- unless forloop.last %} · {% endunless -%}
       {%- endfor -%}
     </div>
   </div>
+  <p class="footer__disclaimer">{{ section.settings.disclaimer | default: 'Bad Taste Worldwide is an independent company. Brand names referenced belong to their owners; no affiliation or endorsement is implied.' }}</p>
 </footer>
 
 {% schema %}
@@ -43,6 +51,9 @@
   "max_blocks": 3,
   "settings": [
     { "type": "image_picker", "id": "brand_image", "label": "Brand image" },
+    { "type": "url", "id": "contact_url", "label": "Contact page", "info": "Defaults to /pages/contact" },
+    { "type": "url", "id": "privacy_choices_url", "label": "“Your Privacy Choices” link", "info": "Defaults to Shopify’s data sharing opt-out page (/pages/data-sharing-opt-out). Turn it on in Settings → Customer privacy." },
+    { "type": "textarea", "id": "disclaimer", "label": "Non-affiliation disclaimer" },
     { "type": "text", "id": "tagline", "label": "Tagline", "default": "License plate frames for people who know better and do it anyway. Designed in LA, shipped worldwide." },
     { "type": "text", "id": "location", "label": "Location line", "default": "Los Angeles, CA" }
   ],

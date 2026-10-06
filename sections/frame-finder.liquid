@@ -3,7 +3,7 @@
     {%- if section.settings.eyebrow != blank -%}<span class="section__eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
     <h2 class="quiz__title" style="margin-top:12px;">{{ section.settings.heading }}</h2>
     {%- if section.settings.subheading != blank -%}<p class="quiz__sub">{{ section.settings.subheading }}</p>{%- endif -%}
-    <div class="quiz__card" data-quiz-card></div>
+    <div class="quiz__card" data-quiz-card aria-live="polite"></div>
   </div>
 
   <script type="application/json" data-quiz-json>
