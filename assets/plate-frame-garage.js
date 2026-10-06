@@ -101,7 +101,7 @@ class FrameViewer {
     const side = THREE.DoubleSide;
     this.face = new THREE.MeshPhysicalMaterial({ roughness: 0.3, clearcoat: 0.6, clearcoatRoughness: 0.18, side });
     this.edge = new THREE.MeshPhysicalMaterial({ roughness: 0.45, side });
-    this.back = new THREE.MeshStandardMaterial({ color: 0x151517, roughness: 0.75, side });
+    this.back = new THREE.MeshStandardMaterial({ color: 0xf3f3f1, emissive: 0x3a3a3a, roughness: 0.55, side }); // white ABS, unprinted; lifted so it reads white away from the key light
 
     const pw = 12, ph = 6, pr = 0.35;
     const s = new THREE.Shape();
