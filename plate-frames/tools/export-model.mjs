@@ -1,77 +1,76 @@
-// Writes the generic plate frame as GLB and OBJ/MTL into plate-frames/assets/models.
+// Converts the blank frame STL (assets/models/plate-frame.stl, millimetres,
+// front face at +Z) into plate-frame.glb for the viewer and for Blender etc.
 // Run with: npm run build:frame-model
 //
-// The mesh is UV-mapped with a planar front projection (0,0 = bottom-left of
-// the outer frame, 1,1 = top-right), so any texture from assets/textures can
-// be dropped onto the "frame_face" material in Blender, Keyshot, etc.
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+// Adds what the STL lacks:
+//  - UVs: planar front projection, (0,0) = bottom-left of the outer frame,
+//    (1,1) = top-right, so any texture in assets/textures drops straight on.
+//  - Three materials: frame_face (printed front), frame_edge (sides, the
+//    print's edge colours wrap onto them), frame_back (bare plastic).
+// Output is in metres, centred on the origin, front facing +Z.
+import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import * as THREE from "three";
+import { STLLoader } from "three/addons/loaders/STLLoader.js";
 import { GLTFExporter } from "three/addons/exporters/GLTFExporter.js";
-import { buildFrameGeometry, GROUP_FACE, GROUP_EDGE, GROUP_BACK } from "../js/frame-geometry.js";
 
 // GLTFExporter reads blobs through FileReader, which Node does not ship.
 globalThis.FileReader ??= class {
   readAsArrayBuffer(blob) {
     blob.arrayBuffer().then((buf) => { this.result = buf; this.onloadend?.(); });
   }
-  readAsDataURL(blob) {
-    blob.arrayBuffer().then((buf) => {
-      this.result = `data:${blob.type || "application/octet-stream"};base64,${Buffer.from(buf).toString("base64")}`;
-      this.onloadend?.();
-    });
-  }
 };
 
-const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const template = JSON.parse(readFileSync(join(root, "assets/frame-template.json"), "utf8"));
-const outDir = join(root, "assets/models");
-mkdirSync(outDir, { recursive: true });
+const FACE = 0, EDGE = 1, BACK = 2;
+const dir = join(dirname(fileURLToPath(import.meta.url)), "../assets/models");
+const stl = readFileSync(join(dir, "plate-frame.stl"));
+const src = new STLLoader().parse(stl.buffer.slice(stl.byteOffset, stl.byteOffset + stl.byteLength));
 
-// Export in metres (glTF convention); the template is in inches.
-const INCH = 0.0254;
-const geo = buildFrameGeometry(THREE, template);
-geo.scale(INCH, INCH, INCH);
+src.computeBoundingBox();
+const { min, max } = src.boundingBox;
+const W = max.x - min.x, H = max.y - min.y;
+const pos = src.attributes.position;
+
+// Sort triangles into face / edge / back by facing direction.
+const buckets = [[], [], []];
+const a = new THREE.Vector3(), b = new THREE.Vector3(), c = new THREE.Vector3();
+for (let t = 0; t < pos.count / 3; t++) {
+  a.fromBufferAttribute(pos, t * 3);
+  b.fromBufferAttribute(pos, t * 3 + 1);
+  c.fromBufferAttribute(pos, t * 3 + 2);
+  const n = b.clone().sub(a).cross(c.clone().sub(a)).normalize();
+  const front = n.z > 0.98 && Math.min(a.z, b.z, c.z) > max.z - 0.01;
+  buckets[front ? FACE : n.z < -0.5 ? BACK : EDGE].push(t);
+}
+
+const P = [], UV = [];
+for (const bucket of buckets) {
+  for (const t of bucket) {
+    for (let k = 0; k < 3; k++) {
+      const i = t * 3 + k, x = pos.getX(i), y = pos.getY(i), z = pos.getZ(i);
+      UV.push((x - min.x) / W, (y - min.y) / H);
+      // centred on the origin, metres
+      P.push((x - (min.x + W / 2)) / 1000, (y - (min.y + H / 2)) / 1000, (z - (min.z + max.z) / 2) / 1000);
+    }
+  }
+}
+let geo = new THREE.BufferGeometry();
+geo.setAttribute("position", new THREE.Float32BufferAttribute(P, 3));
+geo.setAttribute("uv", new THREE.Float32BufferAttribute(UV, 2));
+let start = 0;
+buckets.forEach((bk, i) => { geo.addGroup(start, bk.length * 3, i); start += bk.length * 3; });
+// Flat faces need flat normals; computing on the unindexed mesh keeps creases sharp.
+geo.computeVertexNormals();
 
 const materials = [];
-materials[GROUP_FACE] = new THREE.MeshStandardMaterial({ name: "frame_face", color: 0xffffff, roughness: 0.35 });
-materials[GROUP_EDGE] = new THREE.MeshStandardMaterial({ name: "frame_edge", color: 0xffffff, roughness: 0.35 });
-materials[GROUP_BACK] = new THREE.MeshStandardMaterial({ name: "frame_back", color: 0x111111, roughness: 0.8 });
+materials[FACE] = new THREE.MeshStandardMaterial({ name: "frame_face", color: 0xffffff, roughness: 0.35 });
+materials[EDGE] = new THREE.MeshStandardMaterial({ name: "frame_edge", color: 0xffffff, roughness: 0.45 });
+materials[BACK] = new THREE.MeshStandardMaterial({ name: "frame_back", color: 0x151517, roughness: 0.8 });
 const mesh = new THREE.Mesh(geo, materials);
 mesh.name = "license_plate_frame";
 
 const glb = await new GLTFExporter().parseAsync(mesh, { binary: true });
-writeFileSync(join(outDir, "plate-frame.glb"), Buffer.from(glb));
-
-// OBJ + MTL
-const pos = geo.attributes.position, nrm = geo.attributes.normal, uv = geo.attributes.uv;
-const f = (n) => n.toFixed(6);
-const lines = [
-  "# Bad Taste generic license plate frame (12.25 x 6.2 in), units: metres",
-  "# UVs: planar front projection; apply artwork to material frame_face",
-  "mtllib plate-frame.mtl",
-  "o license_plate_frame",
-];
-for (let i = 0; i < pos.count; i++) lines.push(`v ${f(pos.getX(i))} ${f(pos.getY(i))} ${f(pos.getZ(i))}`);
-for (let i = 0; i < uv.count; i++) lines.push(`vt ${f(uv.getX(i))} ${f(uv.getY(i))}`);
-for (let i = 0; i < nrm.count; i++) lines.push(`vn ${f(nrm.getX(i))} ${f(nrm.getY(i))} ${f(nrm.getZ(i))}`);
-for (const g of geo.groups) {
-  lines.push(`usemtl ${materials[g.materialIndex].name}`);
-  for (let i = g.start; i < g.start + g.count; i += 3) {
-    const a = i + 1, b = i + 2, c = i + 3;
-    lines.push(`f ${a}/${a}/${a} ${b}/${b}/${b} ${c}/${c}/${c}`);
-  }
-}
-writeFileSync(join(outDir, "plate-frame.obj"), lines.join("\n") + "\n");
-writeFileSync(
-  join(outDir, "plate-frame.mtl"),
-  [
-    "newmtl frame_face", "Kd 1 1 1", "Ns 200", "# map_Kd ../textures/mclaren.webp", "",
-    "newmtl frame_edge", "Kd 1 1 1", "Ns 200", "",
-    "newmtl frame_back", "Kd 0.07 0.07 0.07", "Ns 20", "",
-  ].join("\n"),
-);
-
-const tris = pos.count / 3;
-console.log(`plate-frame.glb / .obj written: ${tris} triangles, groups ${geo.groups.map((g) => g.count / 3).join("/")}`);
+writeFileSync(join(dir, "plate-frame.glb"), Buffer.from(glb));
+console.log(`plate-frame.glb: ${(W).toFixed(2)} x ${H.toFixed(2)} x ${(max.z - min.z).toFixed(2)} mm, ` +
+  `${pos.count / 3} triangles (face ${buckets[FACE].length} / edge ${buckets[EDGE].length} / back ${buckets[BACK].length})`);

@@ -98,6 +98,15 @@ button, input { font: inherit; color: inherit; }
   align-content: start;
   min-height: 0;
 }
+.filter { margin: 0 20px 12px; display: flex; }
+.filter .btn { flex: 1; justify-content: center; }
+.filter .n { font: 500 11px var(--mono); opacity: 0.7; font-variant-numeric: tabular-nums; }
+.group > summary { list-style: none; cursor: pointer; border-radius: 8px; }
+.group > summary::-webkit-details-marker { display: none; }
+.group > summary:hover h2 { color: var(--pink); }
+.group > summary h2::after { content: "▾"; font: 400 12px var(--mono); color: var(--muted); margin-left: 6px; order: 3; }
+.group:not([open]) > summary h2::after { content: "▸"; }
+.card .tag { font: 500 10px/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 .group h2 {
   margin: 0;
   padding: 10px 8px 2px;
@@ -220,6 +229,7 @@ button, input { font: inherit; color: inherit; }
   .brand, .search { margin-inline: 0; padding-inline: 16px; }
   .search { padding-inline: 16px; }
   .search svg { left: 27px; }
+  .filter { margin-inline: 16px; }
   .cards { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
   .spec { display: none; }
   .dock {
@@ -246,8 +256,13 @@ button, input { font: inherit; color: inherit; }
   </header>
   <label class="search">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-    <input id="q" type="search" placeholder="Search teams, sponsors…" autocomplete="off" aria-label="Search designs">
+    <input id="q" type="search" placeholder="Search 280+ designs…" autocomplete="off" aria-label="Search designs">
   </label>
+  <div class="seg filter" role="group" aria-label="Which designs to show">
+    <button class="btn" id="f-current" aria-pressed="true" title="Latest DomSem production files">Current <span class="n" id="n-current"></span></button>
+    <button class="btn" id="f-archive" aria-pressed="false" title="Older design files with no DomSem version">Archive <span class="n" id="n-archive"></span></button>
+    <button class="btn" id="f-all" aria-pressed="false">All</button>
+  </div>
   <nav class="list" id="list"></nav>
 </aside>
 
@@ -260,18 +275,13 @@ button, input { font: inherit; color: inherit; }
     <p id="detail"></p>
   </div>
   <div class="spec" aria-hidden="true">
-    <span><b>12.25 × 6.20</b> in outer</span>
-    <span><b>7.00</b> in mount c/c</span>
+    <span><b>12.31 × 6.32</b> in outer</span>
+    <span><b>7.05</b> in mount c/c</span>
     <span><b id="pos">–</b></span>
     <span class="hint">Drag to orbit · scroll to zoom<br>← → to switch designs</span>
   </div>
   <div class="dock" role="toolbar" aria-label="Viewer controls">
     <button class="btn icon" id="prev" aria-label="Previous design"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m15 18-6-6 6-6"/></svg></button>
-    <div class="seg" role="group" aria-label="Source">
-      <button class="btn" id="v-product" aria-pressed="true" title="Flattened from the product photo">Production</button>
-      <button class="btn" id="v-art" aria-pressed="false" title="Original flat artwork file">Artwork</button>
-    </div>
-    <span class="sep"></span>
     <button class="btn" id="plate" aria-pressed="true">Plate</button>
     <button class="btn" id="gloss" title="Finish: gloss. Click to switch.">Gloss</button>
     <button class="btn" id="spin" aria-pressed="false">Turntable</button>

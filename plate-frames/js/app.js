@@ -5,41 +5,58 @@ const $ = (id) => document.getElementById(id);
 const base = new URL("../assets/", import.meta.url);
 const asset = (p) => new URL(p, base).href;
 
-const state = { index: 0, art: false };
+const state = { index: 0, filter: "current", query: "", closed: new Set() };
+try {
+  state.filter = localStorage.getItem("pfg-filter") || "current";
+} catch {}
+
+const visible = (d) =>
+  (state.filter === "all" || (state.filter === "current") === d.current) &&
+  (!state.query || `${d.name} ${d.group.name} ${d.file}`.toLowerCase().includes(state.query));
 
 function readHash() {
-  const id = location.hash.slice(1);
-  const i = DESIGNS.findIndex((d) => d.id === id);
-  return i >= 0 ? i : 0;
+  const i = DESIGNS.findIndex((d) => d.id === location.hash.slice(1));
+  return i >= 0 ? i : DESIGNS.findIndex((d) => d.current);
 }
 
 // ---------- catalog rail ----------
-function renderList(query = "") {
-  const q = query.trim().toLowerCase();
+function renderList() {
   const list = $("list");
   list.replaceChildren();
   let shown = 0;
   for (const g of GROUPS) {
-    const items = g.designs.filter((d) => !q || `${d.name} ${d.detail} ${g.name}`.toLowerCase().includes(q));
+    const items = g.designs.map((d) => DESIGNS.find((x) => x.id === d.id)).filter(visible);
     if (!items.length) continue;
     shown += items.length;
-    const sec = document.createElement("section");
+    const sec = document.createElement("details");
     sec.className = "group";
-    sec.innerHTML = `<h2>${g.name}<span>${String(items.length).padStart(2, "0")}</span></h2><p>${g.blurb}</p>`;
+    sec.open = !!state.query || !state.closed.has(g.id);
+    sec.addEventListener("toggle", () => (sec.open ? state.closed.delete(g.id) : state.closed.add(g.id)));
+    sec.innerHTML = `<summary><h2>${g.name}<span>${String(items.length).padStart(2, "0")}</span></h2></summary><p>${g.blurb}</p>`;
     const cards = document.createElement("div");
     cards.className = "cards";
     for (const d of items) {
       const b = document.createElement("button");
       b.className = "card";
       b.dataset.id = d.id;
-      b.innerHTML = `<img src="${asset(`thumbs/${d.id}.webp`)}" alt="" loading="lazy" width="320" height="162"><b>${d.name}</b>`;
-      b.addEventListener("click", () => select(DESIGNS.findIndex((x) => x.id === d.id)));
+      b.innerHTML = `<img src="${asset(`thumbs/${d.id}.webp`)}" alt="" loading="lazy" width="320" height="164"><b></b>${
+        state.filter === "all" && !d.current ? '<span class="tag">Archive</span>' : ""
+      }`;
+      b.querySelector("b").textContent = d.name;
+      b.addEventListener("click", () => select(DESIGNS.indexOf(d)));
       cards.append(b);
     }
     sec.append(cards);
     list.append(sec);
   }
-  if (!shown) list.innerHTML = `<p class="empty">No designs match “${query}”. Try a team, sponsor or colour.</p>`;
+  if (!shown) {
+    const p = document.createElement("p");
+    p.className = "empty";
+    p.textContent = state.query
+      ? `No designs match “${state.query}”. Try a brand, group or colour, or switch to All.`
+      : "Nothing here yet.";
+    list.append(p);
+  }
   markCurrent();
 }
 
@@ -48,55 +65,66 @@ function markCurrent() {
   for (const c of document.querySelectorAll(".card")) c.setAttribute("aria-current", String(c.dataset.id === id));
 }
 
+function setFilter(f) {
+  state.filter = f;
+  try { localStorage.setItem("pfg-filter", f); } catch {}
+  for (const k of ["current", "archive", "all"]) $(`f-${k}`).setAttribute("aria-pressed", String(k === f));
+  renderList();
+}
+
 // ---------- viewer ----------
 let viewer;
-
-function textureUrl(d) {
-  return asset(`textures/${d.id}${state.art && d.art ? "--art" : ""}.webp`);
-}
+const textureUrl = (d) => asset(`textures/${d.id}.webp`);
 
 function select(i, { push = true } = {}) {
   state.index = (i + DESIGNS.length) % DESIGNS.length;
   const d = DESIGNS[state.index];
-  if (!d.art) state.art = false;
-  $("eyebrow").textContent = d.group.name;
+  $("eyebrow").textContent = `${d.group.name}${d.current ? "" : " · Archive"}`;
   $("name").textContent = d.name;
-  $("detail").textContent = d.detail;
-  $("pos").textContent = `${String(state.index + 1).padStart(2, "0")} / ${String(DESIGNS.length).padStart(2, "0")}`;
-  $("v-art").disabled = !d.art;
-  $("v-art").title = d.art ? "Original flat artwork file" : "No separate artwork file for this design";
-  $("v-product").setAttribute("aria-pressed", String(!state.art));
-  $("v-art").setAttribute("aria-pressed", String(state.art));
+  $("detail").textContent = `${d.file} · ${d.current ? "DomSem production file" : d.folder.split(" / ").slice(0, 2).join(" / ")} · ${d.modified}`;
+  $("pos").textContent = `${String(state.index + 1).padStart(3, "0")} / ${DESIGNS.length}`;
   document.title = `${d.name} · Plate Frame Garage`;
   if (push && location.hash.slice(1) !== d.id) history.replaceState(null, "", `#${d.id}`);
   markCurrent();
   viewer?.show(textureUrl(d));
-  // Warm the neighbours so arrow-key browsing is instant.
   for (const n of [state.index + 1, state.index - 1]) viewer?.loadTexture(textureUrl(DESIGNS[(n + DESIGNS.length) % DESIGNS.length]));
 }
 
-function toggle(btn, fn) {
-  btn.addEventListener("click", () => {
-    const on = btn.getAttribute("aria-pressed") !== "true";
-    btn.setAttribute("aria-pressed", String(on));
-    fn(on);
-  });
+// Arrow keys / prev-next walk the designs currently listed.
+function step(dir) {
+  const ids = [...document.querySelectorAll(".card")].map((c) => c.dataset.id);
+  if (!ids.length) return select(state.index + dir);
+  const at = ids.indexOf(DESIGNS[state.index].id);
+  const next = ids[(at + dir + ids.length) % ids.length] ?? ids[0];
+  select(DESIGNS.findIndex((d) => d.id === next));
+  document.querySelector(`.card[data-id="${next}"]`)?.scrollIntoView({ block: "nearest" });
 }
 
 async function boot() {
-  renderList();
-  select(readHash(), { push: false });
+  $("n-current").textContent = DESIGNS.filter((d) => d.current).length;
+  $("n-archive").textContent = DESIGNS.filter((d) => !d.current).length;
+  const first = readHash();
+  if (!DESIGNS[first].current && state.filter === "current") state.filter = "all";
+  setFilter(state.filter);
+  select(first, { push: false });
 
-  const template = await fetch(asset("frame-template.json")).then((r) => r.json());
-  viewer = new FrameViewer($("stage"), template);
-  await viewer.show(textureUrl(DESIGNS[state.index]));
+  viewer = new FrameViewer($("stage"));
+  await Promise.all([viewer.loadModel(asset("models/plate-frame.glb")), viewer.show(textureUrl(DESIGNS[state.index]))]);
   $("loading").hidden = true;
 
-  $("prev").addEventListener("click", () => select(state.index - 1));
-  $("next").addEventListener("click", () => select(state.index + 1));
-  $("v-product").addEventListener("click", () => { state.art = false; select(state.index); });
-  $("v-art").addEventListener("click", () => { state.art = true; select(state.index); });
-  toggle($("plate"), (on) => viewer.setPlate(on));
+  $("prev").addEventListener("click", () => step(-1));
+  $("next").addEventListener("click", () => step(1));
+  for (const k of ["current", "archive", "all"]) $(`f-${k}`).addEventListener("click", () => setFilter(k));
+  $("plate").addEventListener("click", () => {
+    const on = $("plate").getAttribute("aria-pressed") !== "true";
+    $("plate").setAttribute("aria-pressed", String(on));
+    viewer.setPlate(on);
+  });
+  $("spin").addEventListener("click", () => {
+    const on = $("spin").getAttribute("aria-pressed") !== "true";
+    $("spin").setAttribute("aria-pressed", String(on));
+    viewer.setTurntable(on);
+  });
   let gloss = true;
   $("gloss").addEventListener("click", () => {
     gloss = !gloss;
@@ -104,14 +132,16 @@ async function boot() {
     $("gloss").textContent = gloss ? "Gloss" : "Satin";
     $("gloss").title = `Finish: ${gloss ? "gloss" : "satin"}. Click to switch.`;
   });
-  toggle($("spin"), (on) => viewer.setTurntable(on));
   $("reset").addEventListener("click", () => viewer.resetView());
-  $("q").addEventListener("input", (e) => renderList(e.target.value));
+  $("q").addEventListener("input", (e) => {
+    state.query = e.target.value.trim().toLowerCase();
+    renderList();
+  });
   addEventListener("hashchange", () => select(readHash(), { push: false }));
   addEventListener("keydown", (e) => {
     if (e.target.closest?.("input")) return;
-    if (e.key === "ArrowRight") select(state.index + 1);
-    if (e.key === "ArrowLeft") select(state.index - 1);
+    if (e.key === "ArrowRight") step(1);
+    if (e.key === "ArrowLeft") step(-1);
   });
 }
 
