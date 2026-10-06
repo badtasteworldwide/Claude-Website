@@ -1,0 +1,66 @@
+{%- comment -%}
+  Compact Plate Frame Garage for the hero card: same markup, data and script as
+  sections/plate-frame-garage.liquid, with the design rail hidden. Visitors step
+  through designs with the dock arrows; "All designs" opens the full garage page.
+{%- endcomment -%}
+{{ 'plate-frame-garage.css' | asset_url | stylesheet_tag }}
+<div
+  class="pfg pfg--dark pfg--hero"
+  data-pfg
+  data-catalog="{{ 'pfg-catalog.json' | file_url }}"
+  data-thumbs="{{ 'pfg-thumbs.webp' | file_url }}"
+  data-model="{{ 'pfg-frame.glb' | file_url }}"
+  data-sheet="{{ 'pfg-sheet-00.webp' | file_url }}"
+  data-products="{{ routes.root_url | append: '/products/' | replace: '//', '/' }}"
+>
+  {%- comment -%} Hidden, but mount() expects these controls to exist. {%- endcomment -%}
+  <aside class="pfg-rail" hidden>
+    <input type="search" data-role="q" aria-hidden="true" tabindex="-1">
+    <button type="button" data-filter="current" aria-pressed="true" tabindex="-1"><span data-count="current"></span></button>
+    <button type="button" data-filter="all" aria-pressed="false" tabindex="-1"><span data-count="all"></span></button>
+    <nav data-role="list"></nav>
+  </aside>
+
+  <div class="pfg-bay">
+    <canvas data-role="stage" aria-label="3D preview of the selected plate frame. Drag to rotate, scroll or pinch to zoom."></canvas>
+    <div class="pfg-loading" data-role="loading">Loading 3D preview…</div>
+    <a class="pfg-hero-all" href="{{ all_designs_url | default: '/pages/plate-frames' }}">All designs <span aria-hidden="true">→</span></a>
+    <div class="pfg-plaque" aria-live="polite">
+      <span class="pfg-eyebrow" data-role="eyebrow"></span>
+      <h3 data-role="name"></h3>
+      <a class="pfg-shop" data-role="shop" href="#" hidden>Shop this frame <span aria-hidden="true">→</span></a>
+    </div>
+    <p class="pfg-credit" data-role="credit" hidden>Car: “Car Concept” by Eric Chadwick / Darmstadt Graphics Group, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, modified (logos removed, simplified)</p>
+    <div class="pfg-dock" role="toolbar" aria-label="Viewer controls">
+      <button type="button" class="pfg-btn pfg-icon" data-role="prev" aria-label="Previous design"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+      <button type="button" class="pfg-btn" data-role="plate" aria-pressed="true">Plate</button>
+      <button type="button" class="pfg-btn" data-role="car" aria-pressed="false" title="Show the frame mounted on a car">Car</button>
+      <button type="button" class="pfg-btn" data-role="spin" aria-pressed="false">Spin</button>
+      <button type="button" class="pfg-btn" data-role="reset">Reset</button>
+      <button type="button" class="pfg-btn pfg-icon" data-role="next" aria-label="Next design"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div>
+<script type="module" src="{{ 'plate-frame-garage.js' | asset_url }}"></script>
+<style>
+  .hero__visual--3d { background: #0d0d10; }
+  .pfg--hero { position: absolute; inset: 0; display: block; height: auto; border: 0; }
+  .pfg--hero .pfg-rail { display: none; }
+  .pfg--hero .pfg-bay { position: absolute; inset: 0; height: auto; }
+  .pfg-hero-all {
+    position: absolute; top: 12px; right: 12px; z-index: 2;
+    font: 600 11px/1 var(--font-mono); text-transform: uppercase; letter-spacing: .1em;
+    color: #fff; background: rgba(0, 0, 0, .55); border: 1px solid rgba(255, 255, 255, .35);
+    padding: 8px 10px; text-decoration: none;
+  }
+  .pfg-hero-all:hover { background: rgba(0, 0, 0, .8); }
+  .pfg-hero-all:focus-visible { outline: 2px solid var(--pfg-accent, #fa53c1); outline-offset: 2px; }
+  .pfg--hero .pfg-plaque { right: 150px; }
+  .pfg--hero .pfg-plaque h3 { font-size: clamp(22px, 2.6vw, 34px); }
+  .pfg--hero .pfg-credit { bottom: 76px; }
+  @media (max-width: 820px) {
+    .pfg--hero .pfg-bay { height: auto; order: 0; }
+    .pfg--hero .pfg-plaque { right: 130px; }
+    .pfg--hero .pfg-credit { bottom: 64px; }
+  }
+</style>

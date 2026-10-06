@@ -17,37 +17,13 @@
         "m1": {
           "type": "message",
           "settings": {
-            "text": "★ FREE US SHIPPING ON $40+ IN PLATE FRAMES",
-            "link": ""
-          }
-        },
-        "m2": {
-          "type": "message",
-          "settings": {
-            "text": "NEW DROP · FRESH FRAMES JUST ADDED",
-            "link": ""
-          }
-        },
-        "m3": {
-          "type": "message",
-          "settings": {
-            "text": "BUNDLE 3 FRAMES · 10% OFF · 4+ = 15% OFF",
-            "link": ""
-          }
-        },
-        "m4": {
-          "type": "message",
-          "settings": {
-            "text": "⚡ LIGHTNING FAST SHIPPING!",
+            "text": "Designed and manufactured 100% in the USA! No imported frames",
             "link": ""
           }
         }
       },
       "block_order": [
-        "m1",
-        "m2",
-        "m3",
-        "m4"
+        "m1"
       ],
       "settings": {}
     },
