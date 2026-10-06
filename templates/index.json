@@ -12,34 +12,6 @@
     "hero": {
       "type": "hero",
       "blocks": {
-        "stat1": {
-          "type": "stat",
-          "settings": {
-            "value": "3,300+",
-            "label": "Orders Shipped"
-          }
-        },
-        "stat2": {
-          "type": "stat",
-          "settings": {
-            "value": "160",
-            "label": "Frame Designs"
-          }
-        },
-        "stat3": {
-          "type": "stat",
-          "settings": {
-            "value": "⚡",
-            "label": "Lightning Fast Shipping!"
-          }
-        },
-        "stat4": {
-          "type": "stat",
-          "settings": {
-            "value": "$40+",
-            "label": "Free US Ship on Frames"
-          }
-        },
         "chip1": {
           "type": "theme_chip",
           "settings": {
@@ -85,10 +57,6 @@
         }
       },
       "block_order": [
-        "stat1",
-        "stat2",
-        "stat3",
-        "stat4",
         "chip1",
         "chip2",
         "chip3",
@@ -99,8 +67,8 @@
       "settings": {
         "eyebrow": "Designed in California · Lightning fast shipping!",
         "heading": "<p>All things <em>bad taste</em> are cool.</p>",
-        "subheading": "License plate frames for K-pop stans, 3AM konbini runs, degenerate meme lords, track addicts, and everyone whose mom would hate their Lexus. Small-batch drops. Heavy plastic. No apologies.",
-        "cta1_label": "Shop The Drop →",
+        "subheading": "License plate frames for K-pop stans, 3AM konbini runs, meme lords and track addicts. Heavy plastic. No apologies.",
+        "cta1_label": "Shop All Frames",
         "cta1_link": "",
         "cta2_label": "Find Your Frame",
         "cta2_link": "",
@@ -263,7 +231,7 @@
         "c6"
       ],
       "settings": {
-        "eyebrow": "06 Collections",
+        "eyebrow": "",
         "heading": "<p>Pick your <em>flavor of bad.</em></p>",
         "link_label": "View all collections →",
         "link_url": ""
@@ -272,7 +240,7 @@
     "featured": {
       "type": "featured-products",
       "settings": {
-        "eyebrow": "Featured",
+        "eyebrow": "",
         "heading": "<p>Frames <em>everyone else</em> is copying.</p>",
         "link_label": "Shop all frames →",
         "collection": "asian-themed-plate-frames",
@@ -319,9 +287,9 @@
         "tier4"
       ],
       "settings": {
-        "eyebrow": "Bundle & Save",
+        "eyebrow": "",
         "heading": "<p>Build a <em>4-pack.</em><br/>Save up to 15%.</p>",
-        "subheading": "Because one frame is never enough. Daily driver, weekend car, whatever's in the garage — they all deserve bad taste.",
+        "subheading": "Because one frame is never enough. Daily driver, weekend car, whatever's in the garage. They all deserve bad taste.",
         "collection": "labor-day-sale-plate-frames",
         "max_items": 4,
         "note": "Discount applies automatically at checkout to plate frames only: 3 frames = 10% off, 4+ = 15% off. Doesn’t combine with discount codes."
@@ -381,7 +349,7 @@
           "settings": {
             "tag": "track",
             "title": "Track addict detected.",
-            "blurb": "Send it. Tastefully. Actually no — just send it.",
+            "blurb": "Send it. Tastefully. Actually no, just send it.",
             "collection": "racing-livery-license-plate-frames"
           }
         },
@@ -406,7 +374,7 @@
         "r4"
       ],
       "settings": {
-        "eyebrow": "Frame Finder · 4 Questions",
+        "eyebrow": "",
         "heading": "<p>What flavor of <em>bad</em> are you?</p>",
         "subheading": "Answer 4 quick questions. We'll find the frame that matches your specific brand of questionable taste."
       }
@@ -454,7 +422,7 @@
         "stat_real_4"
       ],
       "settings": {
-        "eyebrow": "The Receipts",
+        "eyebrow": "",
         "heading": "<p>Bad taste, <em>by the numbers.</em></p>"
       }
     },
@@ -544,7 +512,7 @@
           "type": "item",
           "settings": {
             "question": "How fast do you ship?",
-            "answer": "<p>Lightning fast shipping from California, Monday–Friday. Free US shipping on $40+ in plate frames. International orders may owe import VAT/duties on delivery. Current processing and delivery times are in our <a href=\"/policies/shipping-policy\">Shipping Policy</a>.</p>"
+            "answer": "<p>Lightning fast shipping from California, Monday to Friday. Free US shipping on $40+ in plate frames. International orders may owe import VAT/duties on delivery. Current processing and delivery times are in our <a href=\"/policies/shipping-policy\">Shipping Policy</a>.</p>"
           }
         },
         "f2": {
@@ -572,7 +540,7 @@
           "type": "item",
           "settings": {
             "question": "Do you make custom frames?",
-            "answer": "<p>Yes — minimum order is 5 units for fully custom designs, email badtasteworldwide@gmail.com</p>"
+            "answer": "<p>Yes. Minimum order is 5 units for fully custom designs. Email <a href=\"mailto:badtasteworldwide@gmail.com\">badtasteworldwide@gmail.com</a>.</p>"
           }
         },
         "f6": {
@@ -592,7 +560,7 @@
         "f6"
       ],
       "settings": {
-        "eyebrow": "FAQ",
+        "eyebrow": "",
         "heading": "<p>Questions <em>with answers.</em></p>"
       }
     },

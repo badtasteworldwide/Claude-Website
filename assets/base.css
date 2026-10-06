@@ -175,7 +175,7 @@ a:hover { text-decoration: underline; }
 .hero__car { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
 .hero__car-bg {
   width: 88%; height: 60%;
-  background: linear-gradient(180deg, #1a1a1a, #000);
+  background: linear-gradient(180deg, #1a1a1a, #111);
   border: 2px solid var(--ink); position: relative;
   box-shadow: 0 20px 40px rgba(0,0,0,.4);
 }
@@ -1169,3 +1169,11 @@ fieldset.option-row legend { padding: 0; }
 .footer__bottom { flex-wrap: wrap; gap: 12px 24px; }
 .bundle__summary-note { font-size: 11px; margin-top: 2px; opacity: .8; }
 [data-bb-was] { font-size: .6em; opacity: .6; }
+
+/* ---------- v2.1 — taste pass ---------- */
+.icon { display: inline-block; flex-shrink: 0; vertical-align: -0.2em; }
+.icon-btn { display: inline-flex; align-items: center; justify-content: center; }
+.icon-btn .icon { width: 20px; height: 20px; }
+.drawer__trust span, .drawer__shipping span, .product-card__stock { display: inline-flex; align-items: center; gap: 6px; }
+.drawer__trust .icon, .product-card__stock .icon { width: 16px; height: 16px; }
+.drawer__shipping .icon { width: 18px; height: 18px; color: var(--pink-text); }

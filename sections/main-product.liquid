@@ -91,7 +91,7 @@
             <button type="button" data-qty-plus aria-label="Increase quantity">+</button>
           </div>
           {%- if current_variant.inventory_management and current_variant.inventory_quantity > 0 and current_variant.inventory_quantity <= section.settings.low_stock_threshold -%}
-            <span class="product-card__stock">🔥 Only {{ current_variant.inventory_quantity }} left</span>
+            <span class="product-card__stock">{% render 'icon', name: 'fire' %} Only {{ current_variant.inventory_quantity }} left</span>
           {%- endif -%}
         </div>
 

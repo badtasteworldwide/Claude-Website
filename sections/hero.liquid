@@ -2,7 +2,7 @@
   <div class="hero__grid">
     <div class="hero__copy">
       {%- if section.settings.eyebrow != blank -%}
-        <div class="hero__eyebrow"><span class="blip"></span> {{ section.settings.eyebrow }}</div>
+        <div class="hero__eyebrow">{{ section.settings.eyebrow }}</div>
       {%- endif -%}
       <h1 class="hero__title">{{ section.settings.heading }}</h1>
       {%- if section.settings.subheading != blank -%}
@@ -16,6 +16,9 @@
           <a href="{{ section.settings.cta2_link | default: '#quiz' }}" class="btn btn--lg btn--paper">{{ section.settings.cta2_label }}</a>
         {%- endif -%}
       </div>
+      {%- assign stat_count = 0 -%}
+      {%- for block in section.blocks -%}{%- if block.type == 'stat' -%}{%- assign stat_count = stat_count | plus: 1 -%}{%- endif -%}{%- endfor -%}
+      {%- if stat_count > 0 -%}
       <div class="hero__meta">
         {%- for block in section.blocks -%}
           {%- if block.type == 'stat' -%}
@@ -25,6 +28,7 @@
           {%- endif -%}
         {%- endfor -%}
       </div>
+      {%- endif -%}
     </div>
 
     <div class="hero__visual">
@@ -155,7 +159,7 @@
       "type": "text",
       "id": "cta1_label",
       "label": "Primary button label",
-      "default": "Shop The Drop →"
+      "default": "Shop All Frames"
     },
     {
       "type": "url",
@@ -205,7 +209,7 @@
           "type": "text",
           "id": "value",
           "label": "Value",
-          "default": "⚡"
+          "default": "160"
         },
         {
           "type": "text",
@@ -267,7 +271,7 @@
         {
           "type": "stat",
           "settings": {
-            "value": "⚡",
+            "value": "160",
             "label": "Lightning Fast Shipping!"
           }
         },

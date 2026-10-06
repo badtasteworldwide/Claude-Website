@@ -1,11 +1,11 @@
 {%- comment -%}
   Interactive 3D frame viewer.
   Params:
-    texture   – image (product.metafields.custom.frame_texture_3d.value)
-    title     – design name, for the accessible label
-    poster    – optional image shown before the viewer loads
-    autoload  – start when scrolled into view instead of waiting for a click
-    id        – optional element id (lets pickers target this viewer)
+    texture   - image (product.metafields.custom.frame_texture_3d.value)
+    title     - design name, for the accessible label
+    poster    - optional image shown before the viewer loads
+    autoload  - start when scrolled into view instead of waiting for a click
+    id        - optional element id (lets pickers target this viewer)
 {%- endcomment -%}
 {%- if texture != blank -%}
   {%- assign poster_img = poster | default: texture -%}

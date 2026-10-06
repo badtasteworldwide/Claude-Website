@@ -15,11 +15,11 @@
       {%- assign showing_to = paginate.current_offset | plus: paginate.page_size -%}
       {%- if showing_to > collection.products_count -%}{%- assign showing_to = collection.products_count -%}{%- endif -%}
       <span style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-soft);">
-        Showing {{ showing_from }}–{{ showing_to }} of {{ collection.products_count }}
+        Showing {{ showing_from }}-{{ showing_to }} of {{ collection.products_count }}
       </span>
       <form method="get" action="{{ collection.url }}">
         <select name="sort_by" onchange="this.form.submit()" aria-label="Sort by" style="font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; padding: 8px 12px; border: 2px solid var(--ink); background: var(--paper);">
-          {%- assign sort_options = 'manual,Featured|best-selling,Best Selling|price-ascending,Price Low–High|price-descending,Price High–Low|created-descending,Newest|title-ascending,A–Z' | split: '|' -%}
+          {%- assign sort_options = 'manual,Featured|best-selling,Best Selling|price-ascending,Price Low-High|price-descending,Price High-Low|created-descending,Newest|title-ascending,A-Z' | split: '|' -%}
           {%- for opt in sort_options -%}
             {%- assign pair = opt | split: ',' -%}
             <option value="{{ pair[0] }}" {% if collection.sort_by == pair[0] %}selected{% endif %}>{{ pair[1] }}</option>

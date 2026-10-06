@@ -15,7 +15,7 @@
     {%- if threshold > 0 -%}
       <div class="drawer__shipping">
         {%- if frame_total >= threshold -%}
-          <span>🎉 <strong>Free US shipping unlocked</strong> on your frames.</span>
+          <span>{% render 'icon', name: 'confetti' %} <strong>Free US shipping unlocked</strong> on your frames.</span>
           {%- assign pct = 100 -%}
         {%- else -%}
           {%- assign remaining = threshold | minus: frame_total -%}
@@ -75,9 +75,9 @@
         <button class="btn btn--full btn--lg" name="checkout" {% if cart.item_count == 0 %}disabled{% endif %}>Checkout · Secure →</button>
       </form>
       <div class="drawer__trust">
-        <span>🔒 Secure checkout</span>
-        <span>↩ Free replacement if damaged</span>
-        <span>⚡ Lightning fast shipping!</span>
+        <span>{% render 'icon', name: 'lock-simple' %} Secure checkout</span>
+        <span>{% render 'icon', name: 'arrow-u-up-left' %} Free replacement if damaged</span>
+        <span>{% render 'icon', name: 'lightning' %} Lightning fast shipping!</span>
       </div>
     </div>
   </aside>
