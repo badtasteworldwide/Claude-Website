@@ -533,7 +533,7 @@
           "type": "item",
           "settings": {
             "question": "Can I return it?",
-            "answer": "<p>Arrived broken, or we got your order wrong? We’ll replace it free. Changed your mind? Returns are accepted under our <a href=\"/policies/refund-policy\">Refund Policy</a>; refunds are the item price minus return shipping.</p>"
+            "answer": "<p>Arrived broken, or we got your order wrong? We’ll replace it free. Changed your mind? Return unused frames within 30 days of delivery; refunds are the item price minus return shipping. Details in our <a href=\"/policies/refund-policy\">Refund Policy</a>.</p>"
           }
         },
         "f5": {
