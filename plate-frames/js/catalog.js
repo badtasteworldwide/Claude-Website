@@ -1,5 +1,9 @@
 // Generated from the Illumaesthetic Drive "License Plates" folder.
 // current: true = latest DomSem A3 production file; false = older design file (archive).
+// thumb: cell index in assets/thumbs.webp (12 columns of 320x164).
+export const THUMB_COLS = 12;
+export const THUMB_ROWS = 24;
+
 export const GROUPS = [
  {
   "id": "formula-1",
@@ -12,7 +16,8 @@ export const GROUPS = [
     "current": true,
     "file": "Ferrari F1 2025 Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-23"
+    "modified": "2025-11-23",
+    "thumb": 0
    },
    {
     "id": "ferrari-f1-2026",
@@ -20,7 +25,8 @@ export const GROUPS = [
     "current": true,
     "file": "Ferrari F1 2026 Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-06-16"
+    "modified": "2026-06-16",
+    "thumb": 1
    },
    {
     "id": "mclaren-2025-f1",
@@ -28,7 +34,8 @@ export const GROUPS = [
     "current": true,
     "file": "Mclaren 2025 F1 Reverse Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-03-24"
+    "modified": "2026-03-24",
+    "thumb": 2
    },
    {
     "id": "mclaren-f1-2026",
@@ -36,7 +43,8 @@ export const GROUPS = [
     "current": true,
     "file": "Mclaren F1 2026 Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-06-17"
+    "modified": "2026-06-17",
+    "thumb": 3
    },
    {
     "id": "mercedes-2025-f1",
@@ -44,7 +52,8 @@ export const GROUPS = [
     "current": true,
     "file": "Mercedes 2025 F1 Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-23"
+    "modified": "2025-11-23",
+    "thumb": 4
    },
    {
     "id": "mercedes-2026-f1",
@@ -52,7 +61,8 @@ export const GROUPS = [
     "current": true,
     "file": "Mercedes 2026 F1 Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-06-16"
+    "modified": "2026-06-16",
+    "thumb": 5
    },
    {
     "id": "f1-2026-redbull",
@@ -60,7 +70,8 @@ export const GROUPS = [
     "current": true,
     "file": "F1 2026 Redbull A3 Triple Plate Template.png",
     "folder": "Domsem A3",
-    "modified": "2026-06-16"
+    "modified": "2026-06-16",
+    "thumb": 6
    },
    {
     "id": "mclaren",
@@ -68,7 +79,8 @@ export const GROUPS = [
     "current": false,
     "file": "MCLAREN.ai",
     "folder": "License Plates (NEW MOLD) / FORMULA1",
-    "modified": "2025-11-21"
+    "modified": "2025-11-21",
+    "thumb": 7
    },
    {
     "id": "formula-1-board-p3",
@@ -76,7 +88,8 @@ export const GROUPS = [
     "current": false,
     "file": "FORMULA 1 BOARD.ai",
     "folder": "License Plates (NEW MOLD) / FORMULA1",
-    "modified": "2025-11-23"
+    "modified": "2025-11-23",
+    "thumb": 8
    }
   ]
  },
@@ -91,7 +104,8 @@ export const GROUPS = [
     "current": true,
     "file": "Castrol Tom's Triple Plate Template.png",
     "folder": "Domsem A3",
-    "modified": "2026-08-17"
+    "modified": "2026-08-17",
+    "thumb": 9
    },
    {
     "id": "lockheed-street-missile",
@@ -99,7 +113,8 @@ export const GROUPS = [
     "current": true,
     "file": "Lockheed Street Missile.png",
     "folder": "Domsem A3 / Custom Frames",
-    "modified": "2025-11-23"
+    "modified": "2025-11-23",
+    "thumb": 10
    },
    {
     "id": "goodwrench-dale-3",
@@ -107,7 +122,8 @@ export const GROUPS = [
     "current": true,
     "file": "Goodwrench Dale 3 Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-20"
+    "modified": "2025-11-20",
+    "thumb": 11
    },
    {
     "id": "gulf-racing",
@@ -115,15 +131,17 @@ export const GROUPS = [
     "current": true,
     "file": "Gulf Racing Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-23"
+    "modified": "2025-11-23",
+    "thumb": 12
    },
    {
     "id": "hks",
-    "name": "HKS",
+    "name": "HKS Pattern",
     "current": true,
     "file": "HKS no logo Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-23"
+    "modified": "2025-11-23",
+    "thumb": 13
    },
    {
     "id": "hks-super-oil",
@@ -131,7 +149,8 @@ export const GROUPS = [
     "current": true,
     "file": "HKS Super Oil Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-23"
+    "modified": "2025-11-23",
+    "thumb": 14
    },
    {
     "id": "home-depot",
@@ -139,7 +158,8 @@ export const GROUPS = [
     "current": true,
     "file": "Home Depot Triple-02.png",
     "folder": "Domsem A3",
-    "modified": "2026-03-06"
+    "modified": "2026-03-06",
+    "thumb": 15
    },
    {
     "id": "irasing-4-99",
@@ -147,7 +167,8 @@ export const GROUPS = [
     "current": true,
     "file": "IRasing 4.99 DomSem A3 Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-07-30"
+    "modified": "2026-07-30",
+    "thumb": 16
    },
    {
     "id": "irasing-blue",
@@ -155,7 +176,8 @@ export const GROUPS = [
     "current": true,
     "file": "IRasing blue DomSem A3 Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-07-30"
+    "modified": "2026-07-30",
+    "thumb": 17
    },
    {
     "id": "jaccs-honda",
@@ -163,7 +185,8 @@ export const GROUPS = [
     "current": true,
     "file": "JACCS Honda Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-23"
+    "modified": "2025-11-23",
+    "thumb": 18
    },
    {
     "id": "jeff-gordon-dupont",
@@ -171,7 +194,8 @@ export const GROUPS = [
     "current": true,
     "file": "Jeff Gordon Dupont Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-02-04"
+    "modified": "2026-02-04",
+    "thumb": 19
    },
    {
     "id": "lowes-kobalt",
@@ -179,7 +203,8 @@ export const GROUPS = [
     "current": true,
     "file": "Lowes Kobalt Triple-02.png",
     "folder": "Domsem A3",
-    "modified": "2026-03-03"
+    "modified": "2026-03-03",
+    "thumb": 20
    },
    {
     "id": "m-rain",
@@ -187,7 +212,8 @@ export const GROUPS = [
     "current": true,
     "file": "M rain domsem triple-02.png",
     "folder": "Domsem A3",
-    "modified": "2025-12-02"
+    "modified": "2025-12-02",
+    "thumb": 21
    },
    {
     "id": "martini-racing",
@@ -195,7 +221,8 @@ export const GROUPS = [
     "current": true,
     "file": "Martini Racing Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-01-25"
+    "modified": "2026-01-25",
+    "thumb": 22
    },
    {
     "id": "mugen-motul",
@@ -203,7 +230,8 @@ export const GROUPS = [
     "current": true,
     "file": "Mugen Motul Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-23"
+    "modified": "2025-11-23",
+    "thumb": 23
    },
    {
     "id": "nisno",
@@ -211,7 +239,8 @@ export const GROUPS = [
     "current": true,
     "file": "Nisno Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-06-09"
+    "modified": "2026-06-09",
+    "thumb": 24
    },
    {
     "id": "pink-pig",
@@ -219,7 +248,8 @@ export const GROUPS = [
     "current": true,
     "file": "Pink Pig Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-20"
+    "modified": "2025-11-20",
+    "thumb": 25
    },
    {
     "id": "recaro-confetti",
@@ -227,7 +257,8 @@ export const GROUPS = [
     "current": true,
     "file": "Recaro Confetti triple-02.png",
     "folder": "Domsem A3",
-    "modified": "2025-12-03"
+    "modified": "2025-12-03",
+    "thumb": 26
    },
    {
     "id": "renown-mazda",
@@ -235,7 +266,8 @@ export const GROUPS = [
     "current": true,
     "file": "Renown Mazda Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-23"
+    "modified": "2025-11-23",
+    "thumb": 27
    },
    {
     "id": "rickybobby-tripple",
@@ -243,7 +275,8 @@ export const GROUPS = [
     "current": true,
     "file": "RICKYBOBBY TRIPPLE.png",
     "folder": "Domsem A3",
-    "modified": "2025-12-03"
+    "modified": "2025-12-03",
+    "thumb": 28
    },
    {
     "id": "rothman-s",
@@ -251,7 +284,8 @@ export const GROUPS = [
     "current": true,
     "file": "Rothman's Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-06-15"
+    "modified": "2026-06-15",
+    "thumb": 29
    },
    {
     "id": "xanavi-nissan",
@@ -259,7 +293,8 @@ export const GROUPS = [
     "current": true,
     "file": "Xanavi Nissan Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-23"
+    "modified": "2025-11-23",
+    "thumb": 30
    },
    {
     "id": "yokohama-advan",
@@ -267,7 +302,8 @@ export const GROUPS = [
     "current": true,
     "file": "Yokohama Advan.png",
     "folder": "Domsem A3",
-    "modified": "2026-08-11"
+    "modified": "2026-08-11",
+    "thumb": 31
    },
    {
     "id": "bmw-m-rain",
@@ -275,7 +311,8 @@ export const GROUPS = [
     "current": false,
     "file": "BMW M Rain(LEGACY NO LOGO)-01.eps",
     "folder": "License Plates (no logo) / Livery Plates / EPS",
-    "modified": "2021-07-20"
+    "modified": "2021-07-20",
+    "thumb": 32
    },
    {
     "id": "bride1",
@@ -283,7 +320,8 @@ export const GROUPS = [
     "current": false,
     "file": "Bride1.png",
     "folder": "License Plates (no logo) / Livery Plates / 300ppi",
-    "modified": "2019-03-28"
+    "modified": "2019-03-28",
+    "thumb": 33
    },
    {
     "id": "castrol",
@@ -291,7 +329,8 @@ export const GROUPS = [
     "current": false,
     "file": "Castrol-01.eps",
     "folder": "License Plates (LEGACY MOLD) / Livery Plates / EPS",
-    "modified": "2022-03-17"
+    "modified": "2022-03-17",
+    "thumb": 34
    },
    {
     "id": "jdmm1",
@@ -299,7 +338,8 @@ export const GROUPS = [
     "current": false,
     "file": "JDMM1.png",
     "folder": "License Plates (no logo) / 300ppi",
-    "modified": "2019-09-10"
+    "modified": "2019-09-10",
+    "thumb": 35
    },
    {
     "id": "jdmuscle-acrylic",
@@ -307,7 +347,8 @@ export const GROUPS = [
     "current": false,
     "file": "JDMuscle-acrylic.ai",
     "folder": "License Plates (LEGACY MOLD) / JDMuscle",
-    "modified": "2020-05-09"
+    "modified": "2020-05-09",
+    "thumb": 36
    },
    {
     "id": "pennzoil",
@@ -315,7 +356,8 @@ export const GROUPS = [
     "current": false,
     "file": "Pennzoil(LEGACY NO LOGO)-01.eps",
     "folder": "License Plates (no logo) / Livery Plates / EPS",
-    "modified": "2021-07-20"
+    "modified": "2021-07-20",
+    "thumb": 37
    },
    {
     "id": "rgo",
@@ -323,7 +365,8 @@ export const GROUPS = [
     "current": false,
     "file": "rgo-01.eps",
     "folder": "License Plates (NEW MOLD) / EPS",
-    "modified": "2022-02-14"
+    "modified": "2022-02-14",
+    "thumb": 38
    },
    {
     "id": "sb4",
@@ -331,7 +374,8 @@ export const GROUPS = [
     "current": false,
     "file": "SB4.png",
     "folder": "License Plates (no logo) / 300ppi",
-    "modified": "2019-08-31"
+    "modified": "2019-08-31",
+    "thumb": 39
    },
    {
     "id": "trd-pro",
@@ -339,7 +383,8 @@ export const GROUPS = [
     "current": false,
     "file": "TRD PRO.eps",
     "folder": "License Plates (LEGACY MOLD)",
-    "modified": "2021-05-06"
+    "modified": "2021-05-06",
+    "thumb": 40
    },
    {
     "id": "ymspeed",
@@ -347,7 +392,8 @@ export const GROUPS = [
     "current": false,
     "file": "ymspeed-01.eps",
     "folder": "License Plates (NEW MOLD) / EPS",
-    "modified": "2022-02-12"
+    "modified": "2022-02-12",
+    "thumb": 41
    }
   ]
  },
@@ -362,7 +408,8 @@ export const GROUPS = [
     "current": true,
     "file": "CFA Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-12-03"
+    "modified": "2025-12-03",
+    "thumb": 42
    },
    {
     "id": "in-n-out__1",
@@ -370,7 +417,8 @@ export const GROUPS = [
     "current": true,
     "file": "IN N OUT Updated.png",
     "folder": "Domsem A3",
-    "modified": "2026-08-04"
+    "modified": "2026-08-04",
+    "thumb": 43
    },
    {
     "id": "jollibee",
@@ -378,7 +426,8 @@ export const GROUPS = [
     "current": true,
     "file": "Jollibee Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-15"
+    "modified": "2025-11-15",
+    "thumb": 44
    },
    {
     "id": "kfc",
@@ -386,7 +435,8 @@ export const GROUPS = [
     "current": true,
     "file": "KFC Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-26"
+    "modified": "2025-11-26",
+    "thumb": 45
    },
    {
     "id": "popeyes",
@@ -394,7 +444,8 @@ export const GROUPS = [
     "current": true,
     "file": "Popeyes Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-26"
+    "modified": "2025-11-26",
+    "thumb": 46
    },
    {
     "id": "raising-cane-s",
@@ -402,7 +453,8 @@ export const GROUPS = [
     "current": true,
     "file": "Raising Cane's Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-23"
+    "modified": "2025-11-23",
+    "thumb": 47
    },
    {
     "id": "taco-bell",
@@ -410,7 +462,8 @@ export const GROUPS = [
     "current": true,
     "file": "Taco Bell Flipped Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-12-09"
+    "modified": "2025-12-09",
+    "thumb": 48
    },
    {
     "id": "taco-bell-meme",
@@ -418,7 +471,8 @@ export const GROUPS = [
     "current": true,
     "file": "Taco Bell Meme Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-26"
+    "modified": "2025-11-26",
+    "thumb": 49
    },
    {
     "id": "jollibee-white",
@@ -426,7 +480,8 @@ export const GROUPS = [
     "current": false,
     "file": "Jollibee white.eps",
     "folder": "License Plates (LEGACY MOLD) / Fast Food / EPS",
-    "modified": "2023-04-26"
+    "modified": "2023-04-26",
+    "thumb": 50
    }
   ]
  },
@@ -441,7 +496,8 @@ export const GROUPS = [
     "current": true,
     "file": "Beng Beng Recalibration.png",
     "folder": "Domsem A3",
-    "modified": "2026-08-11"
+    "modified": "2026-08-11",
+    "thumb": 51
    },
    {
     "id": "buldak-carbonara",
@@ -449,7 +505,8 @@ export const GROUPS = [
     "current": true,
     "file": "Buldak Carbonara Triple Plate Template.png",
     "folder": "Domsem A3",
-    "modified": "2026-06-27"
+    "modified": "2026-06-27",
+    "thumb": 52
    },
    {
     "id": "calbee-jagarico",
@@ -457,7 +514,8 @@ export const GROUPS = [
     "current": true,
     "file": "Calbee Jagarico DomSem  Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-07-24"
+    "modified": "2026-07-24",
+    "thumb": 53
    },
    {
     "id": "calbee-shrimp-chips-rakeddomsem",
@@ -465,7 +523,8 @@ export const GROUPS = [
     "current": true,
     "file": "Calbee Shrimp Chips RakedDomSem A3 Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-07-24"
+    "modified": "2026-07-24",
+    "thumb": 54
    },
    {
     "id": "calbee-old-shrimp-chips",
@@ -473,7 +532,8 @@ export const GROUPS = [
     "current": true,
     "file": "Calbee OLD Shrimp Chips DomSem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-08-07"
+    "modified": "2026-08-07",
+    "thumb": 55
    },
    {
     "id": "calbee-takoyaki-ball",
@@ -481,7 +541,8 @@ export const GROUPS = [
     "current": true,
     "file": "Calbee Takoyaki ball.png",
     "folder": "Domsem A3",
-    "modified": "2026-07-17"
+    "modified": "2026-07-17",
+    "thumb": 56
    },
    {
     "id": "cheese-ring",
@@ -489,7 +550,8 @@ export const GROUPS = [
     "current": true,
     "file": "Cheese Ring Final.png",
     "folder": "Domsem A3",
-    "modified": "2026-07-28"
+    "modified": "2026-07-28",
+    "thumb": 57
    },
    {
     "id": "cheez-it",
@@ -497,7 +559,8 @@ export const GROUPS = [
     "current": true,
     "file": "Cheez It Triple-02.png",
     "folder": "Domsem A3",
-    "modified": "2026-01-07"
+    "modified": "2026-01-07",
+    "thumb": 58
    },
    {
     "id": "chitato",
@@ -505,7 +568,8 @@ export const GROUPS = [
     "current": true,
     "file": "Chitato DomSem A3 Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-07-23"
+    "modified": "2026-07-23",
+    "thumb": 59
    },
    {
     "id": "choco-pie",
@@ -513,7 +577,8 @@ export const GROUPS = [
     "current": true,
     "file": "Choco Pie Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-07-23"
+    "modified": "2026-07-23",
+    "thumb": 60
    },
    {
     "id": "delarosa",
@@ -521,7 +586,8 @@ export const GROUPS = [
     "current": true,
     "file": "Delarosa Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-01-07"
+    "modified": "2026-01-07",
+    "thumb": 61
    },
    {
     "id": "doritos-nacho-cheese",
@@ -529,7 +595,8 @@ export const GROUPS = [
     "current": true,
     "file": "Doritos Nacho Cheese Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-01-29"
+    "modified": "2026-01-29",
+    "thumb": 62
    },
    {
     "id": "duvalin",
@@ -537,7 +604,8 @@ export const GROUPS = [
     "current": true,
     "file": "Duvalin Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-12-07"
+    "modified": "2025-12-07",
+    "thumb": 63
    },
    {
     "id": "famichiki",
@@ -545,7 +613,8 @@ export const GROUPS = [
     "current": true,
     "file": "Famichiki second try-02-02.png",
     "folder": "Domsem A3",
-    "modified": "2026-08-13"
+    "modified": "2026-08-13",
+    "thumb": 64
    },
    {
     "id": "hello-panda-chocolate",
@@ -553,7 +622,8 @@ export const GROUPS = [
     "current": true,
     "file": "Hello Panda Chocolate Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-12-09"
+    "modified": "2025-12-09",
+    "thumb": 65
    },
    {
     "id": "hello-panda-strawberry",
@@ -561,7 +631,8 @@ export const GROUPS = [
     "current": true,
     "file": "Hello Panda Strawberry Domsem Triple-02.png",
     "folder": "Domsem A3",
-    "modified": "2026-05-19"
+    "modified": "2026-05-19",
+    "thumb": 66
    },
    {
     "id": "hot-cheetos",
@@ -569,7 +640,8 @@ export const GROUPS = [
     "current": true,
     "file": "Hot Cheetos Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-01-22"
+    "modified": "2026-01-22",
+    "thumb": 67
    },
    {
     "id": "hot-cheetos-limon",
@@ -577,7 +649,8 @@ export const GROUPS = [
     "current": true,
     "file": "Hot Cheetos Limon Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-01-22"
+    "modified": "2026-01-22",
+    "thumb": 68
    },
    {
     "id": "indomie",
@@ -585,7 +658,8 @@ export const GROUPS = [
     "current": true,
     "file": "Indomie Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-12-07"
+    "modified": "2025-12-07",
+    "thumb": 69
    },
    {
     "id": "island-pacific",
@@ -593,7 +667,8 @@ export const GROUPS = [
     "current": true,
     "file": "Island Pacific Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-19"
+    "modified": "2025-11-19",
+    "thumb": 70
    },
    {
     "id": "jasmine-rice",
@@ -601,7 +676,8 @@ export const GROUPS = [
     "current": true,
     "file": "Jasmine Rice Flipped-02.png",
     "folder": "Domsem A3",
-    "modified": "2026-09-15"
+    "modified": "2026-09-15",
+    "thumb": 71
    },
    {
     "id": "mama-noodles",
@@ -609,7 +685,8 @@ export const GROUPS = [
     "current": true,
     "file": "Mama Noodles-02.png",
     "folder": "Domsem A3",
-    "modified": "2026-09-26"
+    "modified": "2026-09-26",
+    "thumb": 72
    },
    {
     "id": "mintia-cool",
@@ -617,7 +694,8 @@ export const GROUPS = [
     "current": true,
     "file": "Mintia cool.png",
     "folder": "Domsem A3",
-    "modified": "2026-09-05"
+    "modified": "2026-09-05",
+    "thumb": 73
    },
    {
     "id": "shin-ramyun",
@@ -625,7 +703,8 @@ export const GROUPS = [
     "current": true,
     "file": "Shin Ramyun Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-12-07"
+    "modified": "2025-12-07",
+    "thumb": 74
    },
    {
     "id": "tenga",
@@ -633,7 +712,8 @@ export const GROUPS = [
     "current": true,
     "file": "Tenga Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-12-15"
+    "modified": "2025-12-15",
+    "thumb": 75
    },
    {
     "id": "tipitip-onion-star",
@@ -641,7 +721,8 @@ export const GROUPS = [
     "current": true,
     "file": "tipitip Onion Star DomSem A3 Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-07-23"
+    "modified": "2026-07-23",
+    "thumb": 76
    },
    {
     "id": "vitasoy",
@@ -649,7 +730,8 @@ export const GROUPS = [
     "current": true,
     "file": "VitaSoy Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-01-22"
+    "modified": "2026-01-22",
+    "thumb": 77
    },
    {
     "id": "yan-yan-choco",
@@ -657,7 +739,8 @@ export const GROUPS = [
     "current": true,
     "file": "Yan Yan Choco-02.png",
     "folder": "Domsem A3",
-    "modified": "2026-04-07"
+    "modified": "2026-04-07",
+    "thumb": 78
    },
    {
     "id": "yan-yan-strawberry",
@@ -665,7 +748,8 @@ export const GROUPS = [
     "current": true,
     "file": "Yan Yan Strawberry.png",
     "folder": "Domsem A3",
-    "modified": "2026-06-25"
+    "modified": "2026-06-25",
+    "thumb": 79
    },
    {
     "id": "7eleven",
@@ -673,7 +757,8 @@ export const GROUPS = [
     "current": false,
     "file": "7eleven-01.eps",
     "folder": "License Plates (LEGACY MOLD) / convenient store snacks",
-    "modified": "2022-02-09"
+    "modified": "2022-02-09",
+    "thumb": 80
    },
    {
     "id": "carlos-v",
@@ -681,7 +766,8 @@ export const GROUPS = [
     "current": false,
     "file": "carlos v-01.eps",
     "folder": "License Plates (no logo) / Mexican snacks / EPS",
-    "modified": "2020-12-11"
+    "modified": "2020-12-11",
+    "thumb": 81
    },
    {
     "id": "mazapan",
@@ -689,7 +775,8 @@ export const GROUPS = [
     "current": false,
     "file": "mazapan flipped-01.eps",
     "folder": "License Plates (no logo) / Mexican snacks / EPS",
-    "modified": "2021-09-17"
+    "modified": "2021-09-17",
+    "thumb": 82
    },
    {
     "id": "pocky-chocolate",
@@ -697,7 +784,8 @@ export const GROUPS = [
     "current": false,
     "file": "pocky chocolate-01.eps",
     "folder": "License Plates (no logo) / Asian Snacks / EPS",
-    "modified": "2020-11-23"
+    "modified": "2020-11-23",
+    "thumb": 83
    },
    {
     "id": "sabritones",
@@ -705,7 +793,8 @@ export const GROUPS = [
     "current": false,
     "file": "sabritones-01.eps",
     "folder": "License Plates (no logo) / Mexican snacks / EPS",
-    "modified": "2020-12-08"
+    "modified": "2020-12-08",
+    "thumb": 84
    },
    {
     "id": "sriracha",
@@ -713,7 +802,8 @@ export const GROUPS = [
     "current": false,
     "file": "sriracha.eps",
     "folder": "License Plates (LEGACY MOLD) / Other asian stuff / EPS",
-    "modified": "2022-04-13"
+    "modified": "2022-04-13",
+    "thumb": 85
    },
    {
     "id": "takis",
@@ -721,7 +811,8 @@ export const GROUPS = [
     "current": false,
     "file": "takis-01.eps",
     "folder": "License Plates (no logo) / Mexican snacks / EPS",
-    "modified": "2020-11-23"
+    "modified": "2020-11-23",
+    "thumb": 86
    },
    {
     "id": "white-flower",
@@ -729,7 +820,8 @@ export const GROUPS = [
     "current": false,
     "file": "white flower.eps",
     "folder": "License Plates (LEGACY MOLD) / Other asian stuff / EPS",
-    "modified": "2021-08-12"
+    "modified": "2021-08-12",
+    "thumb": 87
    }
   ]
  },
@@ -744,7 +836,8 @@ export const GROUPS = [
     "current": true,
     "file": "Arizona Green Tea Recalibration.png",
     "folder": "Domsem A3",
-    "modified": "2026-08-11"
+    "modified": "2026-08-11",
+    "thumb": 88
    },
    {
     "id": "asahi",
@@ -752,7 +845,8 @@ export const GROUPS = [
     "current": true,
     "file": "Asahi Redo.png",
     "folder": "Domsem A3",
-    "modified": "2026-09-01"
+    "modified": "2026-09-01",
+    "thumb": 89
    },
    {
     "id": "baja-blast",
@@ -760,7 +854,8 @@ export const GROUPS = [
     "current": true,
     "file": "Baja Blast Recalibration.png",
     "folder": "Domsem A3",
-    "modified": "2026-08-11"
+    "modified": "2026-08-11",
+    "thumb": 90
    },
    {
     "id": "black-boss",
@@ -768,7 +863,8 @@ export const GROUPS = [
     "current": true,
     "file": "Black Boss Recalibration.png",
     "folder": "Domsem A3",
-    "modified": "2026-08-11"
+    "modified": "2026-08-11",
+    "thumb": 91
    },
    {
     "id": "calpico-blue",
@@ -776,7 +872,8 @@ export const GROUPS = [
     "current": true,
     "file": "Calpico Blue Recalibration.png",
     "folder": "Domsem A3",
-    "modified": "2026-08-11"
+    "modified": "2026-08-11",
+    "thumb": 92
    },
    {
     "id": "lychee",
@@ -784,7 +881,8 @@ export const GROUPS = [
     "current": true,
     "file": "DomSem A3 Triple Lychee V2-02.png",
     "folder": "Domsem A3",
-    "modified": "2026-05-29"
+    "modified": "2026-05-29",
+    "thumb": 93
    },
    {
     "id": "calpico-strawberry",
@@ -792,7 +890,8 @@ export const GROUPS = [
     "current": true,
     "file": "Calpico Strawberry.png",
     "folder": "Domsem A3",
-    "modified": "2026-06-25"
+    "modified": "2026-06-25",
+    "thumb": 94
    },
    {
     "id": "fanta-melon",
@@ -800,7 +899,8 @@ export const GROUPS = [
     "current": true,
     "file": "Fanta Melon-02.png",
     "folder": "Domsem A3",
-    "modified": "2026-09-17"
+    "modified": "2026-09-17",
+    "thumb": 95
    },
    {
     "id": "ito-en-green-tea",
@@ -808,7 +908,8 @@ export const GROUPS = [
     "current": true,
     "file": "ito En Green Tea Recalibration.png",
     "folder": "Domsem A3",
-    "modified": "2026-08-11"
+    "modified": "2026-08-11",
+    "thumb": 96
    },
    {
     "id": "pocari-sweat",
@@ -816,7 +917,8 @@ export const GROUPS = [
     "current": true,
     "file": "Pocari Sweat Recalibration.png",
     "folder": "Domsem A3",
-    "modified": "2026-08-11"
+    "modified": "2026-08-11",
+    "thumb": 97
    },
    {
     "id": "ucc-coffee",
@@ -824,7 +926,8 @@ export const GROUPS = [
     "current": true,
     "file": "UCC Coffee Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-12-07"
+    "modified": "2025-12-07",
+    "thumb": 98
    },
    {
     "id": "calpico-lychee-no-fruit",
@@ -832,7 +935,8 @@ export const GROUPS = [
     "current": false,
     "file": "calpico lychee no fruit-01.eps",
     "folder": "License Plates (no logo) / JDM Drink / EPS",
-    "modified": "2021-03-25"
+    "modified": "2021-03-25",
+    "thumb": 99
    },
    {
     "id": "ramune__1",
@@ -840,7 +944,8 @@ export const GROUPS = [
     "current": false,
     "file": "Ramune(LEGACY)-01.eps",
     "folder": "License Plates (LEGACY MOLD) / JDM Drink / EPS",
-    "modified": "2021-10-11"
+    "modified": "2021-10-11",
+    "thumb": 100
    },
    {
     "id": "tisane",
@@ -848,7 +953,8 @@ export const GROUPS = [
     "current": false,
     "file": "tisane.png",
     "folder": "License Plates (no logo) / 300ppi",
-    "modified": "2020-07-03"
+    "modified": "2020-07-03",
+    "thumb": 101
    }
   ]
  },
@@ -863,7 +969,8 @@ export const GROUPS = [
     "current": true,
     "file": "Buchanans Whisky-02.png",
     "folder": "Domsem A3",
-    "modified": "2026-09-22"
+    "modified": "2026-09-22",
+    "thumb": 102
    },
    {
     "id": "chum-churum-strawberry",
@@ -871,7 +978,8 @@ export const GROUPS = [
     "current": true,
     "file": "Chum Churum Strawberry.png",
     "folder": "Domsem A3",
-    "modified": "2026-09-10"
+    "modified": "2026-09-10",
+    "thumb": 103
    },
    {
     "id": "corona",
@@ -879,7 +987,8 @@ export const GROUPS = [
     "current": true,
     "file": "Corona DomSem A3 Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-08-04"
+    "modified": "2026-08-04",
+    "thumb": 104
    },
    {
     "id": "crown-royal",
@@ -887,7 +996,8 @@ export const GROUPS = [
     "current": true,
     "file": "Crown Royal Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-06-04"
+    "modified": "2026-06-04",
+    "thumb": 105
    },
    {
     "id": "hennessy",
@@ -895,7 +1005,8 @@ export const GROUPS = [
     "current": true,
     "file": "Hennessy Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-12-09"
+    "modified": "2025-12-09",
+    "thumb": 106
    },
    {
     "id": "jack-daniels",
@@ -903,7 +1014,8 @@ export const GROUPS = [
     "current": true,
     "file": "Jack Daniels Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-06-09"
+    "modified": "2026-06-09",
+    "thumb": 107
    },
    {
     "id": "modelo",
@@ -911,7 +1023,8 @@ export const GROUPS = [
     "current": true,
     "file": "Modelo DomSem A3 Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-07-30"
+    "modified": "2026-07-30",
+    "thumb": 108
    },
    {
     "id": "sapporo",
@@ -919,7 +1032,8 @@ export const GROUPS = [
     "current": true,
     "file": "Sapporo Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-12-10"
+    "modified": "2025-12-10",
+    "thumb": 109
    },
    {
     "id": "strong-zero",
@@ -927,7 +1041,8 @@ export const GROUPS = [
     "current": true,
     "file": "Strong Zero Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-12-03"
+    "modified": "2025-12-03",
+    "thumb": 110
    },
    {
     "id": "white-claw-black-cherry",
@@ -935,7 +1050,8 @@ export const GROUPS = [
     "current": true,
     "file": "White Claw Black Cherry-02.png",
     "folder": "Domsem A3",
-    "modified": "2026-04-07"
+    "modified": "2026-04-07",
+    "thumb": 111
    },
    {
     "id": "hennything",
@@ -943,7 +1059,8 @@ export const GROUPS = [
     "current": false,
     "file": "Hennything.png",
     "folder": "License Plates (no logo) / Alcohol / 300ppi",
-    "modified": "2020-04-08"
+    "modified": "2020-04-08",
+    "thumb": 112
    },
    {
     "id": "jameson",
@@ -951,7 +1068,8 @@ export const GROUPS = [
     "current": false,
     "file": "jameson flipped (LEGACY)-01.eps",
     "folder": "License Plates (LEGACY MOLD) / Alcohol / EPS",
-    "modified": "2023-11-29"
+    "modified": "2023-11-29",
+    "thumb": 113
    },
    {
     "id": "peach-soju",
@@ -959,7 +1077,8 @@ export const GROUPS = [
     "current": false,
     "file": "peach soju.png",
     "folder": "License Plates (no logo) / Alcohol / 300ppi",
-    "modified": "2020-08-01"
+    "modified": "2020-08-01",
+    "thumb": 114
    },
    {
     "id": "piswasser",
@@ -967,7 +1086,8 @@ export const GROUPS = [
     "current": false,
     "file": "piswasser-01-01.eps",
     "folder": "License Plates (no logo) / Alcohol / EPS",
-    "modified": "2021-04-07"
+    "modified": "2021-04-07",
+    "thumb": 115
    },
    {
     "id": "strawberry-soju",
@@ -975,7 +1095,8 @@ export const GROUPS = [
     "current": false,
     "file": "strawberry soju flipped-01.eps",
     "folder": "License Plates (no logo) / Alcohol / EPS",
-    "modified": "2023-01-30"
+    "modified": "2023-01-30",
+    "thumb": 116
    },
    {
     "id": "suntory",
@@ -983,7 +1104,8 @@ export const GROUPS = [
     "current": false,
     "file": "suntory.png",
     "folder": "License Plates (no logo) / Marcus Plates / 300ppi",
-    "modified": "2020-07-31"
+    "modified": "2020-07-31",
+    "thumb": 117
    },
    {
     "id": "wcmg",
@@ -991,7 +1113,8 @@ export const GROUPS = [
     "current": false,
     "file": "WCMG.png",
     "folder": "License Plates (no logo) / WhiteClaw / 300ppi",
-    "modified": "2019-09-03"
+    "modified": "2019-09-03",
+    "thumb": 118
    },
    {
     "id": "wcnl",
@@ -999,7 +1122,8 @@ export const GROUPS = [
     "current": false,
     "file": "WCNL.png",
     "folder": "License Plates (no logo) / WhiteClaw / 300ppi",
-    "modified": "2019-09-03"
+    "modified": "2019-09-03",
+    "thumb": 119
    },
    {
     "id": "wcps",
@@ -1007,7 +1131,8 @@ export const GROUPS = [
     "current": false,
     "file": "WCPS.png",
     "folder": "License Plates (no logo) / WhiteClaw / 300ppi",
-    "modified": "2019-09-03"
+    "modified": "2019-09-03",
+    "thumb": 120
    },
    {
     "id": "wcp",
@@ -1015,7 +1140,8 @@ export const GROUPS = [
     "current": false,
     "file": "WCP.png",
     "folder": "License Plates (no logo) / WhiteClaw / 300ppi",
-    "modified": "2019-09-03"
+    "modified": "2019-09-03",
+    "thumb": 121
    }
   ]
  },
@@ -1030,7 +1156,8 @@ export const GROUPS = [
     "current": true,
     "file": "711 Konbini.png",
     "folder": "Domsem A3",
-    "modified": "2026-08-11"
+    "modified": "2026-08-11",
+    "thumb": 122
    },
    {
     "id": "711-punjabi",
@@ -1038,7 +1165,8 @@ export const GROUPS = [
     "current": true,
     "file": "711 Punjabi.png",
     "folder": "Domsem A3",
-    "modified": "2026-08-11"
+    "modified": "2026-08-11",
+    "thumb": 123
    },
    {
     "id": "ranch99",
@@ -1046,7 +1174,8 @@ export const GROUPS = [
     "current": true,
     "file": "Ranch99 Redo.png",
     "folder": "Domsem A3",
-    "modified": "2026-09-01"
+    "modified": "2026-09-01",
+    "thumb": 124
    },
    {
     "id": "bass-pro-shops",
@@ -1054,7 +1183,8 @@ export const GROUPS = [
     "current": true,
     "file": "Bass Pro Shops Recalibration.png",
     "folder": "Domsem A3",
-    "modified": "2026-08-11"
+    "modified": "2026-08-11",
+    "thumb": 125
    },
    {
     "id": "costco-executive",
@@ -1062,7 +1192,8 @@ export const GROUPS = [
     "current": true,
     "file": "Costco Executive ACTUAL Final-02.png",
     "folder": "Domsem A3",
-    "modified": "2026-08-13"
+    "modified": "2026-08-13",
+    "thumb": 126
    },
    {
     "id": "costco-goldstar",
@@ -1070,7 +1201,8 @@ export const GROUPS = [
     "current": true,
     "file": "costco goldstar.png",
     "folder": "Domsem A3",
-    "modified": "2026-06-04"
+    "modified": "2026-06-04",
+    "thumb": 127
    },
    {
     "id": "eagle-brand",
@@ -1078,7 +1210,8 @@ export const GROUPS = [
     "current": true,
     "file": "Eagle Brand Triple Plate.png",
     "folder": "Domsem A3",
-    "modified": "2026-08-17"
+    "modified": "2026-08-17",
+    "thumb": 128
    },
    {
     "id": "family-mart",
@@ -1086,7 +1219,8 @@ export const GROUPS = [
     "current": true,
     "file": "Family Mart Recalibration.png",
     "folder": "Domsem A3",
-    "modified": "2026-08-11"
+    "modified": "2026-08-11",
+    "thumb": 129
    },
    {
     "id": "hmart",
@@ -1094,7 +1228,8 @@ export const GROUPS = [
     "current": true,
     "file": "HMart Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-15"
+    "modified": "2025-11-15",
+    "thumb": 130
    },
    {
     "id": "lawson-konbini",
@@ -1102,7 +1237,8 @@ export const GROUPS = [
     "current": true,
     "file": "Lawson Konbini Recalibration.png",
     "folder": "Domsem A3",
-    "modified": "2026-08-11"
+    "modified": "2026-08-11",
+    "thumb": 131
    },
    {
     "id": "lion-market",
@@ -1110,7 +1246,8 @@ export const GROUPS = [
     "current": true,
     "file": "Lion Market Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-06-25"
+    "modified": "2026-06-25",
+    "thumb": 132
    },
    {
     "id": "seafood-city",
@@ -1118,7 +1255,8 @@ export const GROUPS = [
     "current": true,
     "file": "Seafood City Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-15"
+    "modified": "2025-11-15",
+    "thumb": 133
    },
    {
     "id": "t-t-supermarket",
@@ -1126,7 +1264,8 @@ export const GROUPS = [
     "current": true,
     "file": "T&T supermarket Domsem Triple-02.png",
     "folder": "Domsem A3",
-    "modified": "2026-07-09"
+    "modified": "2026-07-09",
+    "thumb": 134
    },
    {
     "id": "trader-joes",
@@ -1134,7 +1273,8 @@ export const GROUPS = [
     "current": true,
     "file": "Trader Joes Triple Plate Template.png",
     "folder": "Domsem A3",
-    "modified": "2026-06-25"
+    "modified": "2026-06-25",
+    "thumb": 135
    },
    {
     "id": "h-mart",
@@ -1142,7 +1282,8 @@ export const GROUPS = [
     "current": false,
     "file": "h mart updated-01.eps",
     "folder": "License Plates (LEGACY MOLD) / Grocery shopping",
-    "modified": "2025-11-11"
+    "modified": "2025-11-11",
+    "thumb": 136
    },
    {
     "id": "kirkland",
@@ -1150,7 +1291,8 @@ export const GROUPS = [
     "current": false,
     "file": "KIRKLAND.ai",
     "folder": "License Plates (LEGACY MOLD)",
-    "modified": "2025-11-27"
+    "modified": "2025-11-27",
+    "thumb": 137
    },
    {
     "id": "trader-joes-p4",
@@ -1158,7 +1300,8 @@ export const GROUPS = [
     "current": false,
     "file": "Trader joes.ai",
     "folder": "Alina's Designs",
-    "modified": "2026-06-23"
+    "modified": "2026-06-23",
+    "thumb": 138
    }
   ]
  },
@@ -1173,7 +1316,8 @@ export const GROUPS = [
     "current": true,
     "file": "AESPA Redo.png",
     "folder": "Domsem A3",
-    "modified": "2026-09-03"
+    "modified": "2026-09-03",
+    "thumb": 139
    },
    {
     "id": "bini",
@@ -1181,7 +1325,8 @@ export const GROUPS = [
     "current": true,
     "file": "BINI Recalibration.png",
     "folder": "Domsem A3",
-    "modified": "2026-08-11"
+    "modified": "2026-08-11",
+    "thumb": 140
    },
    {
     "id": "blackpink",
@@ -1189,7 +1334,8 @@ export const GROUPS = [
     "current": true,
     "file": "Blackpink Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-20"
+    "modified": "2025-11-20",
+    "thumb": 141
    },
    {
     "id": "blackpink-blink",
@@ -1197,7 +1343,8 @@ export const GROUPS = [
     "current": true,
     "file": "BlackPink Blink Flipped Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-12-07"
+    "modified": "2025-12-07",
+    "thumb": 142
    },
    {
     "id": "blinkarea",
@@ -1205,7 +1352,8 @@ export const GROUPS = [
     "current": true,
     "file": "blinkarea-02.png",
     "folder": "Domsem A3",
-    "modified": "2026-04-16"
+    "modified": "2026-04-16",
+    "thumb": 143
    },
    {
     "id": "blackpink-proud-blink",
@@ -1213,7 +1361,8 @@ export const GROUPS = [
     "current": true,
     "file": "BlackPink Proud Blink Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-12-12"
+    "modified": "2025-12-12",
+    "thumb": 144
    },
    {
     "id": "bts-army",
@@ -1221,7 +1370,8 @@ export const GROUPS = [
     "current": true,
     "file": "BTS Army-02.png",
     "folder": "Domsem A3",
-    "modified": "2026-08-13"
+    "modified": "2026-08-13",
+    "thumb": 145
    },
    {
     "id": "itzy",
@@ -1229,7 +1379,8 @@ export const GROUPS = [
     "current": true,
     "file": "Itzy triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-02-14"
+    "modified": "2026-02-14",
+    "thumb": 146
    },
    {
     "id": "katseye",
@@ -1237,7 +1388,8 @@ export const GROUPS = [
     "current": true,
     "file": "Katseye DomSem  Triple-02-02.png",
     "folder": "Domsem A3",
-    "modified": "2026-07-17"
+    "modified": "2026-07-17",
+    "thumb": 147
    },
    {
     "id": "new-jeans",
@@ -1245,7 +1397,8 @@ export const GROUPS = [
     "current": true,
     "file": "New Jeans Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-01-07"
+    "modified": "2026-01-07",
+    "thumb": 148
    },
    {
     "id": "twice",
@@ -1253,7 +1406,8 @@ export const GROUPS = [
     "current": true,
     "file": "twice.png",
     "folder": "Domsem A3",
-    "modified": "2026-07-27"
+    "modified": "2026-07-27",
+    "thumb": 149
    },
    {
     "id": "onceinamillioncolor",
@@ -1261,7 +1415,8 @@ export const GROUPS = [
     "current": true,
     "file": "Onceinamillioncolor.png",
     "folder": "Domsem A3",
-    "modified": "2026-02-14"
+    "modified": "2026-02-14",
+    "thumb": 150
    },
    {
     "id": "onceinamilllionwhitelayer",
@@ -1269,7 +1424,8 @@ export const GROUPS = [
     "current": true,
     "file": "Onceinamilllionwhitelayer-02.png",
     "folder": "Domsem A3",
-    "modified": "2026-02-14"
+    "modified": "2026-02-14",
+    "thumb": 151
    },
    {
     "id": "gidle",
@@ -1277,7 +1433,8 @@ export const GROUPS = [
     "current": false,
     "file": "Gidle.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
-    "modified": "2020-05-19"
+    "modified": "2020-05-19",
+    "thumb": 152
    },
    {
     "id": "bp2",
@@ -1285,7 +1442,8 @@ export const GROUPS = [
     "current": false,
     "file": "BP2.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
-    "modified": "2019-06-12"
+    "modified": "2019-06-12",
+    "thumb": 153
    },
    {
     "id": "bp",
@@ -1293,7 +1451,8 @@ export const GROUPS = [
     "current": false,
     "file": "BP.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
-    "modified": "2019-06-04"
+    "modified": "2019-06-04",
+    "thumb": 154
    },
    {
     "id": "bts",
@@ -1301,7 +1460,8 @@ export const GROUPS = [
     "current": false,
     "file": "BTS-01.eps",
     "folder": "License Plates (no logo) / kpop / EPS",
-    "modified": "2020-11-04"
+    "modified": "2020-11-04",
+    "thumb": 155
    },
    {
     "id": "bts2",
@@ -1309,7 +1469,8 @@ export const GROUPS = [
     "current": false,
     "file": "BTS2.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
-    "modified": "2019-06-13"
+    "modified": "2019-06-13",
+    "thumb": 156
    },
    {
     "id": "dreamcatcher",
@@ -1317,7 +1478,8 @@ export const GROUPS = [
     "current": false,
     "file": "dreamcatcher.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
-    "modified": "2020-06-18"
+    "modified": "2020-06-18",
+    "thumb": 157
    },
    {
     "id": "exo2",
@@ -1325,7 +1487,8 @@ export const GROUPS = [
     "current": false,
     "file": "EXO2.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
-    "modified": "2019-06-12"
+    "modified": "2019-06-12",
+    "thumb": 158
    },
    {
     "id": "gfriend",
@@ -1333,7 +1496,8 @@ export const GROUPS = [
     "current": false,
     "file": "gfriend.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
-    "modified": "2020-01-09"
+    "modified": "2020-01-09",
+    "thumb": 159
    },
    {
     "id": "girl-s-day",
@@ -1341,7 +1505,8 @@ export const GROUPS = [
     "current": false,
     "file": "Girl's Day.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
-    "modified": "2019-06-05"
+    "modified": "2019-06-05",
+    "thumb": 160
    },
    {
     "id": "iu",
@@ -1349,7 +1514,8 @@ export const GROUPS = [
     "current": false,
     "file": "IU.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
-    "modified": "2019-06-05"
+    "modified": "2019-06-05",
+    "thumb": 161
    },
    {
     "id": "iz1",
@@ -1357,7 +1523,8 @@ export const GROUPS = [
     "current": false,
     "file": "IZ1.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
-    "modified": "2019-06-04"
+    "modified": "2019-06-04",
+    "thumb": 162
    },
    {
     "id": "loona-burn",
@@ -1365,7 +1532,8 @@ export const GROUPS = [
     "current": false,
     "file": "Loona Burn.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
-    "modified": "2020-01-30"
+    "modified": "2020-01-30",
+    "thumb": 163
    },
    {
     "id": "jin-soul",
@@ -1373,7 +1541,8 @@ export const GROUPS = [
     "current": false,
     "file": "jin soul.ai",
     "folder": "License Plates (LEGACY MOLD) / kpop",
-    "modified": "2021-08-06"
+    "modified": "2021-08-06",
+    "thumb": 164
    },
    {
     "id": "loona2",
@@ -1381,7 +1550,8 @@ export const GROUPS = [
     "current": false,
     "file": "Loona2.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
-    "modified": "2019-06-04"
+    "modified": "2019-06-04",
+    "thumb": 165
    },
    {
     "id": "rv1",
@@ -1389,7 +1559,8 @@ export const GROUPS = [
     "current": false,
     "file": "RV1.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
-    "modified": "2019-11-01"
+    "modified": "2019-11-01",
+    "thumb": 166
    },
    {
     "id": "rv2",
@@ -1397,7 +1568,8 @@ export const GROUPS = [
     "current": false,
     "file": "RV2.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
-    "modified": "2019-11-01"
+    "modified": "2019-11-01",
+    "thumb": 167
    },
    {
     "id": "sistar",
@@ -1405,7 +1577,8 @@ export const GROUPS = [
     "current": false,
     "file": "SISTAR.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
-    "modified": "2019-06-04"
+    "modified": "2019-06-04",
+    "thumb": 168
    },
    {
     "id": "stan-red-velvet",
@@ -1413,7 +1586,8 @@ export const GROUPS = [
     "current": false,
     "file": "stan red velvet-01.eps",
     "folder": "License Plates (no logo) / kpop / EPS",
-    "modified": "2021-03-01"
+    "modified": "2021-03-01",
+    "thumb": 169
    },
    {
     "id": "twiceblack",
@@ -1421,7 +1595,8 @@ export const GROUPS = [
     "current": false,
     "file": "TwiceBlack.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
-    "modified": "2019-06-10"
+    "modified": "2019-06-10",
+    "thumb": 170
    },
    {
     "id": "ugly-ass-loona-plate-frame",
@@ -1429,7 +1604,8 @@ export const GROUPS = [
     "current": false,
     "file": "ugly ass loona plate frame.eps",
     "folder": "License Plates (LEGACY MOLD) / kpop / EPS",
-    "modified": "2021-08-23"
+    "modified": "2021-08-23",
+    "thumb": 171
    }
   ]
  },
@@ -1444,7 +1620,8 @@ export const GROUPS = [
     "current": true,
     "file": "90s All That.png",
     "folder": "Domsem A3",
-    "modified": "2026-08-11"
+    "modified": "2026-08-11",
+    "thumb": 172
    },
    {
     "id": "dexter-s-lab",
@@ -1452,7 +1629,8 @@ export const GROUPS = [
     "current": true,
     "file": "Dexter's Lab-02.png",
     "folder": "Domsem A3",
-    "modified": "2026-09-15"
+    "modified": "2026-09-15",
+    "thumb": 173
    },
    {
     "id": "ed-edd-eddy",
@@ -1460,7 +1638,8 @@ export const GROUPS = [
     "current": true,
     "file": "Ed Edd Eddy Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-26"
+    "modified": "2025-11-26",
+    "thumb": 174
    },
    {
     "id": "kon",
@@ -1468,7 +1647,8 @@ export const GROUPS = [
     "current": true,
     "file": "Kon triple-02.png",
     "folder": "Domsem A3",
-    "modified": "2026-03-17"
+    "modified": "2026-03-17",
+    "thumb": 175
    },
    {
     "id": "mystery-machine",
@@ -1476,7 +1656,8 @@ export const GROUPS = [
     "current": true,
     "file": "Mystery Machine Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-19"
+    "modified": "2025-11-19",
+    "thumb": 176
    },
    {
     "id": "naruto-akatsuki",
@@ -1484,7 +1665,8 @@ export const GROUPS = [
     "current": true,
     "file": "Naruto Akatsuki.png",
     "folder": "Domsem A3",
-    "modified": "2026-08-11"
+    "modified": "2026-08-11",
+    "thumb": 177
    },
    {
     "id": "powerpuff-tripe",
@@ -1492,7 +1674,8 @@ export const GROUPS = [
     "current": true,
     "file": "Powerpuff Tripe.png",
     "folder": "Domsem A3",
-    "modified": "2025-12-16"
+    "modified": "2025-12-16",
+    "thumb": 178
    },
    {
     "id": "scooby-doo",
@@ -1500,7 +1683,8 @@ export const GROUPS = [
     "current": true,
     "file": "Scooby Doo Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-06-23"
+    "modified": "2026-06-23",
+    "thumb": 179
    },
    {
     "id": "shrek",
@@ -1508,7 +1692,8 @@ export const GROUPS = [
     "current": true,
     "file": "shrek-02.png",
     "folder": "Domsem A3",
-    "modified": "2026-04-27"
+    "modified": "2026-04-27",
+    "thumb": 180
    },
    {
     "id": "surprised-pikachu",
@@ -1516,7 +1701,8 @@ export const GROUPS = [
     "current": true,
     "file": "Surprised Pikachu Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-22"
+    "modified": "2025-11-22",
+    "thumb": 181
    },
    {
     "id": "ahegao",
@@ -1524,7 +1710,8 @@ export const GROUPS = [
     "current": false,
     "file": "Ahegao.png",
     "folder": "License Plates (LEGACY MOLD) / KiersFamished / 300ppi",
-    "modified": "2019-01-11"
+    "modified": "2019-01-11",
+    "thumb": 182
    },
    {
     "id": "akira",
@@ -1532,7 +1719,8 @@ export const GROUPS = [
     "current": false,
     "file": "Akira.png",
     "folder": "License Plates (LEGACY MOLD) / KiersFamished / 300ppi",
-    "modified": "2019-01-13"
+    "modified": "2019-01-13",
+    "thumb": 183
    },
    {
     "id": "air",
@@ -1540,7 +1728,8 @@ export const GROUPS = [
     "current": false,
     "file": "air.png",
     "folder": "License Plates (no logo) / Avatar / 300ppi",
-    "modified": "2020-07-17"
+    "modified": "2020-07-17",
+    "thumb": 184
    },
    {
     "id": "earth",
@@ -1548,7 +1737,8 @@ export const GROUPS = [
     "current": false,
     "file": "earth.png",
     "folder": "License Plates (no logo) / Avatar / 300ppi",
-    "modified": "2020-07-17"
+    "modified": "2020-07-17",
+    "thumb": 185
    },
    {
     "id": "fire",
@@ -1556,7 +1746,8 @@ export const GROUPS = [
     "current": false,
     "file": "fire.png",
     "folder": "License Plates (no logo) / Avatar / 300ppi",
-    "modified": "2020-07-17"
+    "modified": "2020-07-17",
+    "thumb": 186
    },
    {
     "id": "water",
@@ -1564,7 +1755,8 @@ export const GROUPS = [
     "current": false,
     "file": "water.png",
     "folder": "License Plates (no logo) / Avatar / 300ppi",
-    "modified": "2020-07-17"
+    "modified": "2020-07-17",
+    "thumb": 187
    },
    {
     "id": "d-va",
@@ -1572,7 +1764,8 @@ export const GROUPS = [
     "current": false,
     "file": "D.VA.png",
     "folder": "License Plates (no logo) / Marcus Plates / 300ppi",
-    "modified": "2020-07-23"
+    "modified": "2020-07-23",
+    "thumb": 188
    },
    {
     "id": "baby-goku",
@@ -1580,7 +1773,8 @@ export const GROUPS = [
     "current": false,
     "file": "Baby Goku.png",
     "folder": "License Plates (no logo) / DBZ / 300ppi",
-    "modified": "2020-07-18"
+    "modified": "2020-07-18",
+    "thumb": 189
    },
    {
     "id": "kakarot",
@@ -1588,7 +1782,8 @@ export const GROUPS = [
     "current": false,
     "file": "Kakarot.png",
     "folder": "License Plates (no logo) / DBZ / 300ppi",
-    "modified": "2020-07-18"
+    "modified": "2020-07-18",
+    "thumb": 190
    },
    {
     "id": "dbz",
@@ -1596,7 +1791,8 @@ export const GROUPS = [
     "current": false,
     "file": "DBZ.png",
     "folder": "License Plates (no logo) / DBZ / 300ppi",
-    "modified": "2020-07-18"
+    "modified": "2020-07-18",
+    "thumb": 191
    },
    {
     "id": "dbz-dragon",
@@ -1604,7 +1800,8 @@ export const GROUPS = [
     "current": false,
     "file": "DBZ Dragon .png",
     "folder": "License Plates (no logo) / DBZ / 300ppi",
-    "modified": "2020-07-18"
+    "modified": "2020-07-18",
+    "thumb": 192
    },
    {
     "id": "evangeleon",
@@ -1612,7 +1809,8 @@ export const GROUPS = [
     "current": false,
     "file": "Evangeleon.png",
     "folder": "License Plates (LEGACY MOLD) / KiersFamished / 300ppi",
-    "modified": "2019-01-11"
+    "modified": "2019-01-11",
+    "thumb": 193
    },
    {
     "id": "gojo-plate",
@@ -1620,7 +1818,8 @@ export const GROUPS = [
     "current": false,
     "file": "gojo plate-01.eps",
     "folder": "License Plates (LEGACY MOLD)",
-    "modified": "2024-09-10"
+    "modified": "2024-09-10",
+    "thumb": 194
    },
    {
     "id": "hinata-shoyo",
@@ -1628,7 +1827,8 @@ export const GROUPS = [
     "current": false,
     "file": "Hinata Shoyo.png",
     "folder": "License Plates (no logo) / Marcus Plates / 300ppi",
-    "modified": "2020-07-23"
+    "modified": "2020-07-23",
+    "thumb": 195
    },
    {
     "id": "hatsune-miku",
@@ -1636,7 +1836,8 @@ export const GROUPS = [
     "current": false,
     "file": "hatsune miku.png",
     "folder": "License Plates (no logo) / 300ppi",
-    "modified": "2020-07-21"
+    "modified": "2020-07-21",
+    "thumb": 196
    },
    {
     "id": "h1",
@@ -1644,7 +1845,8 @@ export const GROUPS = [
     "current": false,
     "file": "H1.png",
     "folder": "License Plates (LEGACY MOLD) / ChickenTie / 300ppi",
-    "modified": "2019-02-02"
+    "modified": "2019-02-02",
+    "thumb": 197
    },
    {
     "id": "hentai-bros",
@@ -1652,7 +1854,8 @@ export const GROUPS = [
     "current": false,
     "file": "hentai bros-01.eps",
     "folder": "License Plates (LEGACY MOLD) / EPS",
-    "modified": "2022-03-08"
+    "modified": "2022-03-08",
+    "thumb": 198
    },
    {
     "id": "kingdom-farts",
@@ -1660,7 +1863,8 @@ export const GROUPS = [
     "current": false,
     "file": "Kingdom Farts.png",
     "folder": "License Plates (LEGACY MOLD) / KiersFamished / 300ppi",
-    "modified": "2019-02-01"
+    "modified": "2019-02-01",
+    "thumb": 199
    },
    {
     "id": "kirby",
@@ -1668,7 +1872,8 @@ export const GROUPS = [
     "current": false,
     "file": "kirby.png",
     "folder": "License Plates (no logo) / 300ppi",
-    "modified": "2020-07-22"
+    "modified": "2020-07-22",
+    "thumb": 200
    },
    {
     "id": "totally-spies",
@@ -1676,7 +1881,8 @@ export const GROUPS = [
     "current": false,
     "file": "totally spies.png",
     "folder": "License Plates (no logo) / Cartoon plates / 300ppi",
-    "modified": "2020-06-11"
+    "modified": "2020-06-11",
+    "thumb": 201
    }
   ]
  },
@@ -1691,7 +1897,8 @@ export const GROUPS = [
     "current": true,
     "file": "BAPE OG Recalibration.png",
     "folder": "Domsem A3",
-    "modified": "2026-08-11"
+    "modified": "2026-08-11",
+    "thumb": 202
    },
    {
     "id": "burberry",
@@ -1699,7 +1906,8 @@ export const GROUPS = [
     "current": true,
     "file": "Burberry A3 Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-06-09"
+    "modified": "2026-06-09",
+    "thumb": 203
    },
    {
     "id": "cinnamon",
@@ -1707,7 +1915,8 @@ export const GROUPS = [
     "current": true,
     "file": "Cinnamon-02.png",
     "folder": "Domsem A3",
-    "modified": "2026-07-17"
+    "modified": "2026-07-17",
+    "thumb": 204
    },
    {
     "id": "dixie-cup",
@@ -1715,7 +1924,8 @@ export const GROUPS = [
     "current": true,
     "file": "Dixie Cup Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-12-07"
+    "modified": "2025-12-07",
+    "thumb": 205
    },
    {
     "id": "goyard-black",
@@ -1723,7 +1933,8 @@ export const GROUPS = [
     "current": true,
     "file": "GOYARD Black Final-02.png",
     "folder": "Domsem A3",
-    "modified": "2026-08-13"
+    "modified": "2026-08-13",
+    "thumb": 206
    },
    {
     "id": "red-gucci",
@@ -1731,7 +1942,8 @@ export const GROUPS = [
     "current": true,
     "file": "red gucci triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-03-11"
+    "modified": "2026-03-11",
+    "thumb": 207
    },
    {
     "id": "jazz-cup",
@@ -1739,7 +1951,8 @@ export const GROUPS = [
     "current": true,
     "file": "JAZZ CUP V2 TRIPLE.png",
     "folder": "Domsem A3",
-    "modified": "2025-12-03"
+    "modified": "2025-12-03",
+    "thumb": 208
    },
    {
     "id": "lv-dark",
@@ -1747,7 +1960,8 @@ export const GROUPS = [
     "current": true,
     "file": "LV Dark Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-25"
+    "modified": "2025-11-25",
+    "thumb": 209
    },
    {
     "id": "lv-pink",
@@ -1755,7 +1969,8 @@ export const GROUPS = [
     "current": true,
     "file": "LV Pink.png",
     "folder": "Domsem A3",
-    "modified": "2025-12-12"
+    "modified": "2025-12-12",
+    "thumb": 210
    },
    {
     "id": "rainbow",
@@ -1763,7 +1978,8 @@ export const GROUPS = [
     "current": true,
     "file": "rainbow triple-02.png",
     "folder": "Domsem A3",
-    "modified": "2026-04-29"
+    "modified": "2026-04-29",
+    "thumb": 211
    },
    {
     "id": "gucci-dark",
@@ -1771,7 +1987,8 @@ export const GROUPS = [
     "current": false,
     "file": "gucci dark no logo.png",
     "folder": "License Plates (no logo) / Designer Plates / 300ppi",
-    "modified": "2020-01-04"
+    "modified": "2020-01-04",
+    "thumb": 212
    },
    {
     "id": "gucci-red-black",
@@ -1779,7 +1996,8 @@ export const GROUPS = [
     "current": false,
     "file": "gucci red black(LEGACY NO LOGO)-01.eps",
     "folder": "License Plates (no logo) / Designer Plates / EPS",
-    "modified": "2021-07-20"
+    "modified": "2021-07-20",
+    "thumb": 213
    },
    {
     "id": "illest-safari",
@@ -1787,7 +2005,8 @@ export const GROUPS = [
     "current": false,
     "file": "illest safari-01.eps",
     "folder": "License Plates (LEGACY MOLD) / EPS",
-    "modified": "2022-07-02"
+    "modified": "2022-07-02",
+    "thumb": 214
    },
    {
     "id": "lv-black-and-grey",
@@ -1795,7 +2014,8 @@ export const GROUPS = [
     "current": false,
     "file": "LV black and grey-01.eps",
     "folder": "License Plates (LEGACY MOLD) / Designer Plates / EPS",
-    "modified": "2022-05-20"
+    "modified": "2022-05-20",
+    "thumb": 215
    },
    {
     "id": "lv",
@@ -1803,7 +2023,8 @@ export const GROUPS = [
     "current": false,
     "file": "LV no logo.png",
     "folder": "License Plates (no logo) / Designer Plates / 300ppi",
-    "modified": "2020-01-04"
+    "modified": "2020-01-04",
+    "thumb": 216
    },
    {
     "id": "takashi-muarakai",
@@ -1811,7 +2032,8 @@ export const GROUPS = [
     "current": false,
     "file": "Takashi Muarakai.eps",
     "folder": "License Plates (LEGACY MOLD)",
-    "modified": "2025-07-17"
+    "modified": "2025-07-17",
+    "thumb": 217
    }
   ]
  },
@@ -1826,7 +2048,8 @@ export const GROUPS = [
     "current": true,
     "file": "CHP 420-69 Narrow.png",
     "folder": "Domsem A3",
-    "modified": "2026-08-01"
+    "modified": "2026-08-01",
+    "thumb": 218
    },
    {
     "id": "costco-hotdog",
@@ -1834,7 +2057,8 @@ export const GROUPS = [
     "current": true,
     "file": "Costco Hotdog Flipped Final.png",
     "folder": "Domsem A3",
-    "modified": "2026-08-15"
+    "modified": "2026-08-15",
+    "thumb": 219
    },
    {
     "id": "dick-s-sporting-goods",
@@ -1842,7 +2066,8 @@ export const GROUPS = [
     "current": true,
     "file": "Dick's Sporting Goods Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-20"
+    "modified": "2025-11-20",
+    "thumb": 220
    },
    {
     "id": "doge",
@@ -1850,7 +2075,8 @@ export const GROUPS = [
     "current": true,
     "file": "Doge Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-25"
+    "modified": "2025-11-25",
+    "thumb": 221
    },
    {
     "id": "drive-safe",
@@ -1858,7 +2084,8 @@ export const GROUPS = [
     "current": true,
     "file": "Drive Safe PNG.png",
     "folder": "Domsem A3 / Acrylic Frames",
-    "modified": "2025-11-19"
+    "modified": "2025-11-19",
+    "thumb": 222
    },
    {
     "id": "funded-by-onlyfans-color-layer",
@@ -1866,7 +2093,8 @@ export const GROUPS = [
     "current": true,
     "file": "Funded by Onlyfans color layer.png",
     "folder": "Domsem A3",
-    "modified": "2026-06-23"
+    "modified": "2026-06-23",
+    "thumb": 223
    },
    {
     "id": "i-heart-abgs",
@@ -1874,7 +2102,8 @@ export const GROUPS = [
     "current": true,
     "file": "I heart abgs.png",
     "folder": "Domsem A3",
-    "modified": "2026-06-23"
+    "modified": "2026-06-23",
+    "thumb": 224
    },
    {
     "id": "justiceklmar",
@@ -1882,7 +2111,8 @@ export const GROUPS = [
     "current": true,
     "file": "justiceklmar-02.png",
     "folder": "Domsem A3",
-    "modified": "2026-05-14"
+    "modified": "2026-05-14",
+    "thumb": 225
    },
    {
     "id": "my-wife-is-always-right",
@@ -1890,7 +2120,8 @@ export const GROUPS = [
     "current": true,
     "file": "My wife is always right.png",
     "folder": "Domsem A3",
-    "modified": "2026-07-23"
+    "modified": "2026-07-23",
+    "thumb": 226
    },
    {
     "id": "narcan",
@@ -1898,7 +2129,8 @@ export const GROUPS = [
     "current": true,
     "file": "Narcan Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-12-19"
+    "modified": "2025-12-19",
+    "thumb": 227
    },
    {
     "id": "nyan-cat",
@@ -1906,7 +2138,8 @@ export const GROUPS = [
     "current": true,
     "file": "Nyan Cat Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-20"
+    "modified": "2025-11-20",
+    "thumb": 228
    },
    {
     "id": "onlyfans",
@@ -1914,7 +2147,8 @@ export const GROUPS = [
     "current": true,
     "file": "onlyfans.png",
     "folder": "Domsem A3",
-    "modified": "2026-06-04"
+    "modified": "2026-06-04",
+    "thumb": 229
    },
    {
     "id": "plan-b",
@@ -1922,7 +2156,8 @@ export const GROUPS = [
     "current": true,
     "file": "Plan B Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-24"
+    "modified": "2025-11-24",
+    "thumb": 230
    },
    {
     "id": "send-noods",
@@ -1930,7 +2165,8 @@ export const GROUPS = [
     "current": true,
     "file": "Send Noods Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-01-23"
+    "modified": "2026-01-23",
+    "thumb": 231
    },
    {
     "id": "suck-my-balls",
@@ -1938,7 +2174,8 @@ export const GROUPS = [
     "current": true,
     "file": "Suck my Balls Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-12-09"
+    "modified": "2025-12-09",
+    "thumb": 232
    },
    {
     "id": "this-plate-hung-itself",
@@ -1946,7 +2183,8 @@ export const GROUPS = [
     "current": true,
     "file": "This plate hung itself Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-02-13"
+    "modified": "2026-02-13",
+    "thumb": 233
    },
    {
     "id": "ume-tea",
@@ -1954,7 +2192,8 @@ export const GROUPS = [
     "current": true,
     "file": "UME tea Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2026-06-23"
+    "modified": "2026-06-23",
+    "thumb": 234
    },
    {
     "id": "wockhardt",
@@ -1962,7 +2201,8 @@ export const GROUPS = [
     "current": true,
     "file": "Wockhardt Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-12-19"
+    "modified": "2025-12-19",
+    "thumb": 235
    },
    {
     "id": "cute-face-thing",
@@ -1970,7 +2210,8 @@ export const GROUPS = [
     "current": false,
     "file": "cute face thing-01.eps",
     "folder": "License Plates (no logo) / Text Plates / EPS",
-    "modified": "2021-07-20"
+    "modified": "2021-07-20",
+    "thumb": 236
    },
    {
     "id": "2inch-punisher-gang",
@@ -1978,7 +2219,8 @@ export const GROUPS = [
     "current": false,
     "file": "2inch punisher gang-01.eps",
     "folder": "License Plates (LEGACY MOLD) / Text Plates / EPS",
-    "modified": "2023-05-15"
+    "modified": "2023-05-15",
+    "thumb": 237
    },
    {
     "id": "abg-hunterz",
@@ -1986,7 +2228,8 @@ export const GROUPS = [
     "current": false,
     "file": "abg hunterz-01.eps",
     "folder": "License Plates (no logo) / Text Plates / EPS",
-    "modified": "2021-07-20"
+    "modified": "2021-07-20",
+    "thumb": 238
    },
    {
     "id": "honda-thing",
@@ -1994,7 +2237,8 @@ export const GROUPS = [
     "current": false,
     "file": "Honda Thing.png",
     "folder": "License Plates (no logo) / 300ppi",
-    "modified": "2019-01-14"
+    "modified": "2019-01-14",
+    "thumb": 239
    },
    {
     "id": "average-joes",
@@ -2002,7 +2246,8 @@ export const GROUPS = [
     "current": false,
     "file": "average joes-01.eps",
     "folder": "License Plates (LEGACY MOLD) / EPS",
-    "modified": "2022-02-16"
+    "modified": "2022-02-16",
+    "thumb": 240
    },
    {
     "id": "bains",
@@ -2010,7 +2255,8 @@ export const GROUPS = [
     "current": false,
     "file": "BAINS-01.eps",
     "folder": "License Plates (no logo) / Text Plates",
-    "modified": "2021-07-01"
+    "modified": "2021-07-01",
+    "thumb": 241
    },
    {
     "id": "eggplant",
@@ -2018,7 +2264,8 @@ export const GROUPS = [
     "current": false,
     "file": "eggplant-01.eps",
     "folder": "License Plates (no logo) / Text Plates / EPS",
-    "modified": "2021-07-20"
+    "modified": "2021-07-20",
+    "thumb": 242
    },
    {
     "id": "epsilon",
@@ -2026,7 +2273,8 @@ export const GROUPS = [
     "current": false,
     "file": "Epsilon+-01.eps",
     "folder": "License Plates (LEGACY MOLD) / Text Plates / EPS",
-    "modified": "2023-02-09"
+    "modified": "2023-02-09",
+    "thumb": 243
    },
    {
     "id": "financially-unstable",
@@ -2034,7 +2282,8 @@ export const GROUPS = [
     "current": false,
     "file": "FINANCIALLY UNSTABLE-01.eps",
     "folder": "License Plates (LEGACY MOLD) / Text Plates",
-    "modified": "2023-01-03"
+    "modified": "2023-01-03",
+    "thumb": 244
    },
    {
     "id": "ftp",
@@ -2042,7 +2291,8 @@ export const GROUPS = [
     "current": false,
     "file": "FTP-01.eps",
     "folder": "License Plates (LEGACY MOLD) / Text Plates",
-    "modified": "2023-11-09"
+    "modified": "2023-11-09",
+    "thumb": 245
    },
    {
     "id": "gofundme",
@@ -2050,7 +2300,8 @@ export const GROUPS = [
     "current": false,
     "file": "gofundme-01.eps",
     "folder": "License Plates (LEGACY MOLD) / Meme Plates / EPS",
-    "modified": "2021-08-26"
+    "modified": "2021-08-26",
+    "thumb": 246
    },
    {
     "id": "horoscope-asparagus",
@@ -2058,7 +2309,8 @@ export const GROUPS = [
     "current": false,
     "file": "horoscope asparagus-01.eps",
     "folder": "License Plates (LEGACY MOLD)",
-    "modified": "2021-08-26"
+    "modified": "2021-08-26",
+    "thumb": 247
    },
    {
     "id": "c-u-drift",
@@ -2066,7 +2318,8 @@ export const GROUPS = [
     "current": false,
     "file": "c u drift.ai",
     "folder": "License Plates (LEGACY MOLD) / EPS",
-    "modified": "2022-03-01"
+    "modified": "2022-03-01",
+    "thumb": 248
    },
    {
     "id": "i-heart-bains",
@@ -2074,7 +2327,8 @@ export const GROUPS = [
     "current": false,
     "file": "i heart bains-01.eps",
     "folder": "License Plates (LEGACY MOLD) / Text Plates",
-    "modified": "2021-08-04"
+    "modified": "2021-08-04",
+    "thumb": 249
    },
    {
     "id": "i-love-hot-moms",
@@ -2082,7 +2336,8 @@ export const GROUPS = [
     "current": false,
     "file": "I love hot moms-01.eps",
     "folder": "License Plates (LEGACY MOLD) / Text Plates",
-    "modified": "2024-05-20"
+    "modified": "2024-05-20",
+    "thumb": 250
    },
    {
     "id": "illenium",
@@ -2090,7 +2345,8 @@ export const GROUPS = [
     "current": false,
     "file": "Illenium.png",
     "folder": "License Plates (no logo) / Marcus Plates / 300ppi",
-    "modified": "2020-07-23"
+    "modified": "2020-07-23",
+    "thumb": 251
    },
    {
     "id": "jinnspeed-plate",
@@ -2098,7 +2354,8 @@ export const GROUPS = [
     "current": false,
     "file": "jinnspeed plate.eps",
     "folder": "License Plates (LEGACY MOLD) / Text Plates / EPS",
-    "modified": "2023-05-19"
+    "modified": "2023-05-19",
+    "thumb": 252
    },
    {
     "id": "measure-once-cut-twice",
@@ -2106,7 +2363,8 @@ export const GROUPS = [
     "current": false,
     "file": "MEASURE ONCE CUT TWICE.eps",
     "folder": "License Plates (no logo) / Text Plates / EPS",
-    "modified": "2020-11-04"
+    "modified": "2020-11-04",
+    "thumb": 253
    },
    {
     "id": "nfs-plate",
@@ -2114,7 +2372,8 @@ export const GROUPS = [
     "current": false,
     "file": "nfs plate-01.eps",
     "folder": "License Plates (no logo) / Text Plates / EPS",
-    "modified": "2021-03-26"
+    "modified": "2021-03-26",
+    "thumb": 254
    },
    {
     "id": "nightraid",
@@ -2122,7 +2381,8 @@ export const GROUPS = [
     "current": false,
     "file": "Nightraid-01.eps",
     "folder": "License Plates (LEGACY MOLD) / Text Plates / EPS",
-    "modified": "2023-03-23"
+    "modified": "2023-03-23",
+    "thumb": 255
    },
    {
     "id": "oregon-alumni",
@@ -2130,7 +2390,8 @@ export const GROUPS = [
     "current": false,
     "file": "oregon alumni-01.eps",
     "folder": "License Plates (no logo) / Text Plates",
-    "modified": "2021-03-04"
+    "modified": "2021-03-04",
+    "thumb": 256
    },
    {
     "id": "rivian-kids-plate",
@@ -2138,7 +2399,8 @@ export const GROUPS = [
     "current": false,
     "file": "rivian kids plate-01.eps",
     "folder": "License Plates (LEGACY MOLD) / Text Plates / EPS",
-    "modified": "2022-02-15"
+    "modified": "2022-02-15",
+    "thumb": 257
    },
    {
     "id": "seb-is-black",
@@ -2146,7 +2408,8 @@ export const GROUPS = [
     "current": false,
     "file": "Seb is black.png",
     "folder": "License Plates (no logo) / 300ppi",
-    "modified": "2019-01-11"
+    "modified": "2019-01-11",
+    "thumb": 258
    },
    {
     "id": "invasionblack",
@@ -2154,7 +2417,8 @@ export const GROUPS = [
     "current": false,
     "file": "invasionblack.png",
     "folder": "License Plates (no logo) / Text Plates / 300ppi",
-    "modified": "2019-11-01"
+    "modified": "2019-11-01",
+    "thumb": 259
    },
    {
     "id": "100k-followers",
@@ -2162,7 +2426,8 @@ export const GROUPS = [
     "current": false,
     "file": "100k followers-01.eps",
     "folder": "License Plates (LEGACY MOLD)",
-    "modified": "2021-08-19"
+    "modified": "2021-08-19",
+    "thumb": 260
    },
    {
     "id": "turd",
@@ -2170,7 +2435,8 @@ export const GROUPS = [
     "current": false,
     "file": "TuRD.eps",
     "folder": "License Plates (LEGACY MOLD)",
-    "modified": "2021-04-29"
+    "modified": "2021-04-29",
+    "thumb": 261
    }
   ]
  },
@@ -2185,7 +2451,8 @@ export const GROUPS = [
     "current": true,
     "file": "squid game 067.png",
     "folder": "Domsem A3",
-    "modified": "2026-02-18"
+    "modified": "2026-02-18",
+    "thumb": 262
    }
   ]
  },
@@ -2200,7 +2467,8 @@ export const GROUPS = [
     "current": true,
     "file": "Georgia Max Domsem Triple.png",
     "folder": "Domsem A3",
-    "modified": "2025-11-26"
+    "modified": "2025-11-26",
+    "thumb": 263
    },
    {
     "id": "7-11",
@@ -2208,7 +2476,8 @@ export const GROUPS = [
     "current": false,
     "file": "7-11 V2-01.eps",
     "folder": "License Plates (LEGACY MOLD) / SmellyPanda / EPS",
-    "modified": "2023-01-04"
+    "modified": "2023-01-04",
+    "thumb": 264
    },
    {
     "id": "bh-cell",
@@ -2216,7 +2485,8 @@ export const GROUPS = [
     "current": false,
     "file": "BH CELL.png",
     "folder": "License Plates (LEGACY MOLD) / Booty Hustlers / 300ppi",
-    "modified": "2019-11-22"
+    "modified": "2019-11-22",
+    "thumb": 265
    },
    {
     "id": "booty-hustlers-hks",
@@ -2224,7 +2494,8 @@ export const GROUPS = [
     "current": false,
     "file": "Booty Hustlers hks (UPDATE)-01.eps",
     "folder": "License Plates (NEW MOLD) / Booty hustlers",
-    "modified": "2021-10-25"
+    "modified": "2021-10-25",
+    "thumb": 266
    },
    {
     "id": "bh-hks-black",
@@ -2232,7 +2503,8 @@ export const GROUPS = [
     "current": false,
     "file": "bh hks black.png",
     "folder": "License Plates (LEGACY MOLD) / Booty Hustlers / 300ppi",
-    "modified": "2019-12-13"
+    "modified": "2019-12-13",
+    "thumb": 267
    },
    {
     "id": "booty-hustlers-license-plates",
@@ -2240,7 +2512,8 @@ export const GROUPS = [
     "current": false,
     "file": "booty hustlers license plates(new mold)-08.eps",
     "folder": "License Plates (NEW MOLD) / Booty hustlers",
-    "modified": "2021-10-22"
+    "modified": "2021-10-22",
+    "thumb": 268
    },
    {
     "id": "bh-pink-black",
@@ -2248,7 +2521,8 @@ export const GROUPS = [
     "current": false,
     "file": "bh pink black.png",
     "folder": "License Plates (LEGACY MOLD) / Booty Hustlers / 300ppi",
-    "modified": "2019-12-13"
+    "modified": "2019-12-13",
+    "thumb": 269
    },
    {
     "id": "smellypanda",
@@ -2256,7 +2530,8 @@ export const GROUPS = [
     "current": false,
     "file": "SmellyPanda_Nissin.eps",
     "folder": "License Plates (LEGACY MOLD) / SmellyPanda / EPS",
-    "modified": "2023-01-04"
+    "modified": "2023-01-04",
+    "thumb": 270
    },
    {
     "id": "familymart",
@@ -2264,7 +2539,8 @@ export const GROUPS = [
     "current": false,
     "file": "FamilyMart-01.eps",
     "folder": "License Plates (LEGACY MOLD) / SmellyPanda / EPS",
-    "modified": "2023-01-04"
+    "modified": "2023-01-04",
+    "thumb": 271
    },
    {
     "id": "smellypanda-kumon",
@@ -2272,7 +2548,8 @@ export const GROUPS = [
     "current": false,
     "file": "SmellyPanda_Kumon-01.eps",
     "folder": "License Plates (LEGACY MOLD) / SmellyPanda / EPS",
-    "modified": "2025-01-02"
+    "modified": "2025-01-02",
+    "thumb": 272
    },
    {
     "id": "lawson",
@@ -2280,7 +2557,8 @@ export const GROUPS = [
     "current": false,
     "file": "Lawson (UPDATE)-01.eps",
     "folder": "License Plates (NEW MOLD) / SmellyPanda",
-    "modified": "2022-08-09"
+    "modified": "2022-08-09",
+    "thumb": 273
    },
    {
     "id": "smellypanda-pocari",
@@ -2288,7 +2566,8 @@ export const GROUPS = [
     "current": false,
     "file": "SmellyPanda_Pocari (UPDATE)_Pocari.eps",
     "folder": "License Plates (NEW MOLD) / SmellyPanda",
-    "modified": "2022-08-09"
+    "modified": "2022-08-09",
+    "thumb": 274
    },
    {
     "id": "smellypanda-salonpas",
@@ -2296,7 +2575,8 @@ export const GROUPS = [
     "current": false,
     "file": "SmellyPanda_Salonpas-01.eps",
     "folder": "License Plates (LEGACY MOLD) / SmellyPanda / EPS",
-    "modified": "2025-01-02"
+    "modified": "2025-01-02",
+    "thumb": 275
    },
    {
     "id": "smelly-panda-suica",
@@ -2304,7 +2584,8 @@ export const GROUPS = [
     "current": false,
     "file": "Smelly Panda Suica-02.eps",
     "folder": "License Plates (LEGACY MOLD) / SmellyPanda / EPS",
-    "modified": "2025-05-24"
+    "modified": "2025-05-24",
+    "thumb": 276
    },
    {
     "id": "smellypanda-tenga",
@@ -2312,7 +2593,8 @@ export const GROUPS = [
     "current": false,
     "file": "SmellyPanda_Tenga-01.eps",
     "folder": "License Plates (LEGACY MOLD) / SmellyPanda / EPS",
-    "modified": "2025-01-02"
+    "modified": "2025-01-02",
+    "thumb": 277
    },
    {
     "id": "smellypanda-white-rabbit",
@@ -2320,7 +2602,8 @@ export const GROUPS = [
     "current": false,
     "file": "SmellyPanda-white rabbit.eps",
     "folder": "License Plates (LEGACY MOLD) / SmellyPanda / EPS",
-    "modified": "2023-01-05"
+    "modified": "2023-01-05",
+    "thumb": 278
    }
   ]
  }

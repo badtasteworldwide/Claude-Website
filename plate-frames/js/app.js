@@ -1,4 +1,4 @@
-import { GROUPS, DESIGNS } from "./catalog.js";
+import { GROUPS, DESIGNS, THUMB_COLS, THUMB_ROWS } from "./catalog.js";
 import { FrameViewer } from "./viewer.js";
 
 const $ = (id) => document.getElementById(id);
@@ -39,7 +39,8 @@ function renderList() {
       const b = document.createElement("button");
       b.className = "card";
       b.dataset.id = d.id;
-      b.innerHTML = `<img src="${asset(`thumbs/${d.id}.webp`)}" alt="" loading="lazy" width="320" height="164"><b></b>${
+      const x = (d.thumb % THUMB_COLS) / (THUMB_COLS - 1), y = Math.floor(d.thumb / THUMB_COLS) / (THUMB_ROWS - 1);
+      b.innerHTML = `<span class="thumb" style="background-position:${(x * 100).toFixed(3)}% ${(y * 100).toFixed(3)}%"></span><b></b>${
         state.filter === "all" && !d.current ? '<span class="tag">Archive</span>' : ""
       }`;
       b.querySelector("b").textContent = d.name;
@@ -101,6 +102,8 @@ function step(dir) {
 }
 
 async function boot() {
+  document.documentElement.style.setProperty("--thumbs", `url("${asset("thumbs.webp")}")`);
+  document.documentElement.style.setProperty("--thumb-size", `${THUMB_COLS * 100}% ${THUMB_ROWS * 100}%`);
   $("n-current").textContent = DESIGNS.filter((d) => d.current).length;
   $("n-archive").textContent = DESIGNS.filter((d) => !d.current).length;
   const first = readHash();

@@ -20,7 +20,7 @@ Every design is a flat print projected onto one blank frame model.
 | `assets/models/plate-frame.stl` | The blank frame (312.76 × 160.57 × 8 mm). |
 | `assets/models/plate-frame.glb` | The same frame with UVs and three materials (`frame_face`, `frame_edge`, `frame_back`), in metres. Rebuild with `npm install && npm run build:frame-model`. |
 | `assets/textures/<id>.webp` | 2048 px print textures, UV-ready for the GLB (also usable in Blender/Keyshot). |
-| `assets/thumbs/<id>.webp` | Thumbnails cut to the frame outline. |
+| `assets/thumbs.webp` | All thumbnails, cut to the frame outline, in one 12-column sprite (cell index = `thumb` in `catalog.js`). |
 | `js/catalog.js` | Designs, collections, and the Drive file each came from. |
 | `tools/vector_textures.py` | Turns a rendered print (EPS/AI/PDF page or DomSem sheet PNG) into a texture. |
 | `tools/stl_mask.py` | Front silhouette of the STL, used for thumbnails and the window fill. |
@@ -40,7 +40,7 @@ A3 sheets (top slot is used).
 1. Export the print (PDF/AI pages render with PyMuPDF; EPS with Ghostscript), or use the DomSem sheet PNG.
 2. `pip install opencv-python-headless pillow pymupdf numpy`, then
    `python3 -I plate-frames/tools/vector_textures.py <render.png> plate-frames/assets/textures <id>`.
-3. Make a thumbnail cut to the frame outline (see `stl_mask.py`), and add the design to a
+3. Rebuild the thumbnail sprite (cut to the frame outline, see `stl_mask.py`) and add the design to a
    collection in `js/catalog.js`.
 
 Sources: Illumaesthetic Drive → **License Plates** (DomSem A3, License Plates (NEW MOLD),
