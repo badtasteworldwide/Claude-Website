@@ -127,7 +127,10 @@
         var my = ++swapToken;
         var pre = new Image();
         pre.src = chip.dataset.image;
-        var ready = pre.decode ? pre.decode().catch(function () {}) : Promise.resolve();
+        var ready = Promise.race([
+          pre.decode ? pre.decode().catch(function () {}) : Promise.resolve(),
+          new Promise(function (r) { setTimeout(r, 2500); }) // don't stay blank on a stalled request
+        ]);
         var faded = new Promise(function (r) { setTimeout(r, 180); });
         Promise.all([ready, faded]).then(function () {
           if (my !== swapToken) return;
