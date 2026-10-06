@@ -32,7 +32,7 @@
         "settings": {
           "free_shipping_threshold": 40,
           "empty_text": "",
-          "upsell_text": "<p><strong>Add one more → 15% off</strong> Hit the 2-frame tier. Don't be a coward.</p>",
+          "upsell_text": "<p><strong>Add 2 more → 10% off</strong> 3 frames unlocks the bundle discount. Don't be a coward.</p>",
           "upsell_link": ""
         }
       }
