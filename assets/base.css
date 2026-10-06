@@ -1207,3 +1207,14 @@ fieldset.option-row legend { padding: 0; }
   .hero__visual { aspect-ratio: 4 / 5; }
   .hero__photo-wrap, .hero__visual[data-fit] .hero__photo-wrap { top: 4%; bottom: 36%; }
 }
+
+/* Hero: every photo uses the tall frame. Landscape photos (1-1.8) zoom to fill it,
+   trimming only a sliver of the sides; the sticker shrinks into the corner. */
+.hero__visual[data-fit="photo"] .hero__photo-wrap { top: 4%; }
+.hero__visual[data-fit="photo"] .hero__photo { object-fit: cover; }
+.hero__visual[data-fit="photo"] .hero__sticker { width: 96px; height: 96px; top: 8px; right: 8px; font-size: 12px; }
+.hero__visual[data-fit="photo"] .hero__sticker small { font-size: 9px; }
+@media (prefers-reduced-motion: no-preference) {
+  .hero__photo.is-zooming { animation: hero-zoom .9s cubic-bezier(.2,.8,.2,1); }
+  @keyframes hero-zoom { from { transform: scale(1.08); } to { transform: scale(1); } }
+}
