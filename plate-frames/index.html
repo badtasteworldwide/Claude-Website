@@ -168,6 +168,19 @@ button, input { font: inherit; color: inherit; }
   letter-spacing: 0.005em;
 }
 .plaque p { margin: 2px 0 0; color: var(--muted); max-width: 46ch; }
+.shop {
+  pointer-events: auto;
+  justify-self: start;
+  margin-top: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--pink);
+  color: #fff;
+  font: 600 13px/1 var(--body);
+  text-decoration: none;
+}
+.shop:hover { filter: brightness(1.08); }
+.card .tag.store { color: var(--pink); }
 .spec {
   position: absolute;
   right: clamp(16px, 3vw, 32px);
@@ -276,6 +289,7 @@ button, input { font: inherit; color: inherit; }
     <span class="eyebrow" id="eyebrow"></span>
     <h2 id="name"></h2>
     <p id="detail"></p>
+    <a class="shop" id="shop" href="#" target="_top" hidden>Shop this frame <span aria-hidden="true">→</span></a>
   </div>
   <div class="spec" aria-hidden="true">
     <span><b>12.31 × 6.32</b> in outer</span>

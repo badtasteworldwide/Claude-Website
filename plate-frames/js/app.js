@@ -5,6 +5,9 @@ const $ = (id) => document.getElementById(id);
 const base = new URL("../assets/", import.meta.url);
 const asset = (p) => new URL(p, base).href;
 
+// Product pages live on the storefront; the viewer may be served from elsewhere.
+const STORE = "https://badtaste.world";
+
 const state = { index: 0, filter: "current", query: "", closed: new Set() };
 try {
   state.filter = localStorage.getItem("pfg-filter") || "current";
@@ -12,7 +15,7 @@ try {
 
 const visible = (d) =>
   (state.filter === "all" || (state.filter === "current") === d.current) &&
-  (!state.query || `${d.name} ${d.group.name} ${d.file}`.toLowerCase().includes(state.query));
+  (!state.query || `${d.name} ${d.group.name} ${d.file} ${d.productTitle || ""}`.toLowerCase().includes(state.query));
 
 function readHash() {
   const i = DESIGNS.findIndex((d) => d.id === location.hash.slice(1));
@@ -83,6 +86,11 @@ function select(i, { push = true } = {}) {
   $("eyebrow").textContent = `${d.group.name}${d.current ? "" : " · Archive"}`;
   $("name").textContent = d.name;
   $("detail").textContent = `${d.file} · ${d.current ? "DomSem production file" : d.folder.split(" / ").slice(0, 2).join(" / ")} · ${d.modified}`;
+  $("shop").hidden = !d.product;
+  if (d.product) {
+    $("shop").href = `${STORE}/products/${d.product}`;
+    $("shop").title = d.productTitle;
+  }
   $("pos").textContent = `${String(state.index + 1).padStart(3, "0")} / ${DESIGNS.length}`;
   document.title = `${d.name} · Plate Frame Garage`;
   if (push && location.hash.slice(1) !== d.id) history.replaceState(null, "", `#${d.id}`);

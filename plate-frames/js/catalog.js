@@ -1,6 +1,7 @@
 // Generated from the Illumaesthetic Drive "License Plates" folder.
 // current: true = latest DomSem A3 production file; false = older design file (archive).
 // thumb: cell index in assets/thumbs.webp (12 columns of 320x164).
+// product: Shopify product handle on badtaste.world (only active listings).
 export const THUMB_COLS = 12;
 export const THUMB_ROWS = 24;
 
@@ -17,7 +18,9 @@ export const GROUPS = [
     "file": "Ferrari F1 2025 Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-11-23",
-    "thumb": 0
+    "thumb": 0,
+    "product": "scuderia-ferrari-racing-f1-2025-license-plate-frame",
+    "productTitle": "Scuderia Ferrari Racing F1 (2025) License Plate Frame"
    },
    {
     "id": "ferrari-f1-2026",
@@ -26,16 +29,31 @@ export const GROUPS = [
     "file": "Ferrari F1 2026 Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-06-16",
-    "thumb": 1
+    "thumb": 1,
+    "product": "scuderia-ferrari-racing-f1-2026-license-plate-frame",
+    "productTitle": "Scuderia Ferrari Racing F1 (2026) License Plate Frame"
+   },
+   {
+    "id": "mclaren",
+    "name": "McLaren 2025",
+    "current": true,
+    "file": "Mclaren 2025 F1 Domsem Triple.png",
+    "folder": "Domsem A3",
+    "modified": "2025-11-23",
+    "thumb": 2,
+    "product": "mclaren-formula-1-team-2025-license-plate-frame",
+    "productTitle": "McLaren Formula 1 Team (2025) License Plate Frame"
    },
    {
     "id": "mclaren-2025-f1",
-    "name": "McLaren 2025",
+    "name": "McLaren 2025 Reverse",
     "current": true,
     "file": "Mclaren 2025 F1 Reverse Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-03-24",
-    "thumb": 2
+    "thumb": 3,
+    "product": "mclaren-formula-1-team-2025-license-plate-frame",
+    "productTitle": "McLaren Formula 1 Team (2025) License Plate Frame"
    },
    {
     "id": "mclaren-f1-2026",
@@ -44,7 +62,9 @@ export const GROUPS = [
     "file": "Mclaren F1 2026 Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-06-17",
-    "thumb": 3
+    "thumb": 4,
+    "product": "mclaren-formula-1-team-2026-license-plate-frame",
+    "productTitle": "McLaren Formula 1 Team (2026) License Plate Frame"
    },
    {
     "id": "mercedes-2025-f1",
@@ -53,7 +73,9 @@ export const GROUPS = [
     "file": "Mercedes 2025 F1 Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-11-23",
-    "thumb": 4
+    "thumb": 5,
+    "product": "amg-petronas-formula-1-team-2025-license-plate-frame",
+    "productTitle": "AMG Petronas Formula 1 Team (2025) License Plate Frame"
    },
    {
     "id": "mercedes-2026-f1",
@@ -62,7 +84,20 @@ export const GROUPS = [
     "file": "Mercedes 2026 F1 Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-06-16",
-    "thumb": 5
+    "thumb": 6,
+    "product": "amg-petronas-formula-1-team-2026-license-plate-frame",
+    "productTitle": "AMG Petronas Formula 1 Team (2026) License Plate Frame"
+   },
+   {
+    "id": "formula-1-board-p3",
+    "name": "Red Bull 2025",
+    "current": true,
+    "file": "Redbull 2025 F1 Domsem Triple.png",
+    "folder": "Domsem A3",
+    "modified": "2025-11-23",
+    "thumb": 7,
+    "product": "oracle-red-bull-racing-f1-2025-license-plate-frame",
+    "productTitle": "Oracle Red Bull Racing F1 (2025) License Plate Frame"
    },
    {
     "id": "f1-2026-redbull",
@@ -71,25 +106,9 @@ export const GROUPS = [
     "file": "F1 2026 Redbull A3 Triple Plate Template.png",
     "folder": "Domsem A3",
     "modified": "2026-06-16",
-    "thumb": 6
-   },
-   {
-    "id": "mclaren",
-    "name": "McLaren 2025 Velo",
-    "current": false,
-    "file": "MCLAREN.ai",
-    "folder": "License Plates (NEW MOLD) / FORMULA1",
-    "modified": "2025-11-21",
-    "thumb": 7
-   },
-   {
-    "id": "formula-1-board-p3",
-    "name": "Red Bull 2025",
-    "current": false,
-    "file": "FORMULA 1 BOARD.ai",
-    "folder": "License Plates (NEW MOLD) / FORMULA1",
-    "modified": "2025-11-23",
-    "thumb": 8
+    "thumb": 8,
+    "product": "oracle-red-bull-racing-f1-2026-license-plate-frame-1",
+    "productTitle": "Oracle Red Bull Racing F1 (2026) License Plate Frame"
    }
   ]
  },
@@ -105,7 +124,9 @@ export const GROUPS = [
     "file": "Castrol Tom's Triple Plate Template.png",
     "folder": "Domsem A3",
     "modified": "2026-08-17",
-    "thumb": 9
+    "thumb": 9,
+    "product": "copy-of-license-plate-frame",
+    "productTitle": "Castrol TOM'S  License Plate Frame"
    },
    {
     "id": "lockheed-street-missile",
@@ -123,7 +144,9 @@ export const GROUPS = [
     "file": "Goodwrench Dale 3 Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-11-20",
-    "thumb": 11
+    "thumb": 11,
+    "product": "dale-earnhardt-goodwrench-license-plate-frame",
+    "productTitle": "Dale Earnhardt Goodwrench License Plate Frame"
    },
    {
     "id": "gulf-racing",
@@ -132,7 +155,9 @@ export const GROUPS = [
     "file": "Gulf Racing Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-11-23",
-    "thumb": 12
+    "thumb": 12,
+    "product": "gulf-racing-license-plate-frame",
+    "productTitle": "Gulf Racing License Plate Frame"
    },
    {
     "id": "hks",
@@ -150,7 +175,9 @@ export const GROUPS = [
     "file": "HKS Super Oil Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-11-23",
-    "thumb": 14
+    "thumb": 14,
+    "product": "copy-of-advan-racing-license-plate-frame",
+    "productTitle": "HKS Super oil License Plate Frame"
    },
    {
     "id": "home-depot",
@@ -168,7 +195,9 @@ export const GROUPS = [
     "file": "IRasing 4.99 DomSem A3 Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-07-30",
-    "thumb": 16
+    "thumb": 16,
+    "product": "iracing-4-99-license-plate-frame",
+    "productTitle": "IRacing 4.99 License Plate Frame"
    },
    {
     "id": "irasing-blue",
@@ -177,7 +206,9 @@ export const GROUPS = [
     "file": "IRasing blue DomSem A3 Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-07-30",
-    "thumb": 17
+    "thumb": 17,
+    "product": "iracing-license-plate-frame",
+    "productTitle": "IRacing License Plate Frame"
    },
    {
     "id": "jaccs-honda",
@@ -186,7 +217,9 @@ export const GROUPS = [
     "file": "JACCS Honda Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-11-23",
-    "thumb": 18
+    "thumb": 18,
+    "product": "jaccs-honda-license-plate-frame",
+    "productTitle": "JACCS Honda License Plate Frame"
    },
    {
     "id": "jeff-gordon-dupont",
@@ -195,7 +228,9 @@ export const GROUPS = [
     "file": "Jeff Gordon Dupont Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-02-04",
-    "thumb": 19
+    "thumb": 19,
+    "product": "jeff-gordon-dupont-rainbow-license-plate-frame",
+    "productTitle": "Jeff Gordon Dupont Rainbow License Plate Frame"
    },
    {
     "id": "lowes-kobalt",
@@ -213,7 +248,9 @@ export const GROUPS = [
     "file": "M rain domsem triple-02.png",
     "folder": "Domsem A3",
     "modified": "2025-12-02",
-    "thumb": 21
+    "thumb": 21,
+    "product": "m-rain-racing-license-plate-frame",
+    "productTitle": "M-Rain Racing License Plate Frame"
    },
    {
     "id": "martini-racing",
@@ -222,7 +259,9 @@ export const GROUPS = [
     "file": "Martini Racing Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-01-25",
-    "thumb": 22
+    "thumb": 22,
+    "product": "martini-racing-license-plate-frame",
+    "productTitle": "Martini Racing License Plate Frame"
    },
    {
     "id": "mugen-motul",
@@ -231,7 +270,9 @@ export const GROUPS = [
     "file": "Mugen Motul Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-11-23",
-    "thumb": 23
+    "thumb": 23,
+    "product": "mugen-motul-racing-license-plate-frame",
+    "productTitle": "Mugen Motul Racing License Plate Frame"
    },
    {
     "id": "nisno",
@@ -240,7 +281,9 @@ export const GROUPS = [
     "file": "Nisno Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-06-09",
-    "thumb": 24
+    "thumb": 24,
+    "product": "nisno-license-plate-frame",
+    "productTitle": "Nisno  License Plate Frame"
    },
    {
     "id": "pink-pig",
@@ -249,7 +292,9 @@ export const GROUPS = [
     "file": "Pink Pig Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-11-20",
-    "thumb": 25
+    "thumb": 25,
+    "product": "pink-pig-porsche-license-plate-frame",
+    "productTitle": "Pink Pig Porsche License Plate Frame"
    },
    {
     "id": "recaro-confetti",
@@ -258,7 +303,9 @@ export const GROUPS = [
     "file": "Recaro Confetti triple-02.png",
     "folder": "Domsem A3",
     "modified": "2025-12-03",
-    "thumb": 26
+    "thumb": 26,
+    "product": "recaro-confetti-license-plate-frame",
+    "productTitle": "Recaro Confetti License Plate Frame"
    },
    {
     "id": "renown-mazda",
@@ -267,7 +314,9 @@ export const GROUPS = [
     "file": "Renown Mazda Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-11-23",
-    "thumb": 27
+    "thumb": 27,
+    "product": "mazda-renown-racing-license-plate-frame",
+    "productTitle": "Mazda Renown Racing License Plate Frame"
    },
    {
     "id": "rickybobby-tripple",
@@ -276,7 +325,9 @@ export const GROUPS = [
     "file": "RICKYBOBBY TRIPPLE.png",
     "folder": "Domsem A3",
     "modified": "2025-12-03",
-    "thumb": 28
+    "thumb": 28,
+    "product": "wonderbread-ricky-bobby-license-plate-frame",
+    "productTitle": "Wonderbread Ricky Bobby  License Plate Frame"
    },
    {
     "id": "rothman-s",
@@ -285,7 +336,9 @@ export const GROUPS = [
     "file": "Rothman's Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-06-15",
-    "thumb": 29
+    "thumb": 29,
+    "product": "rothmans-license-plate-frame",
+    "productTitle": "Rothmans License Plate Frame"
    },
    {
     "id": "xanavi-nissan",
@@ -294,7 +347,9 @@ export const GROUPS = [
     "file": "Xanavi Nissan Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-11-23",
-    "thumb": 30
+    "thumb": 30,
+    "product": "xanavi-nissan-license-plate-frame",
+    "productTitle": "Xanavi Nissan License Plate Frame"
    },
    {
     "id": "yokohama-advan",
@@ -303,7 +358,9 @@ export const GROUPS = [
     "file": "Yokohama Advan.png",
     "folder": "Domsem A3",
     "modified": "2026-08-11",
-    "thumb": 31
+    "thumb": 31,
+    "product": "advan-racing-license-plate-frame",
+    "productTitle": "Advan Racing License Plate Frame"
    },
    {
     "id": "bmw-m-rain",
@@ -312,7 +369,9 @@ export const GROUPS = [
     "file": "BMW M Rain(LEGACY NO LOGO)-01.eps",
     "folder": "License Plates (no logo) / Livery Plates / EPS",
     "modified": "2021-07-20",
-    "thumb": 32
+    "thumb": 32,
+    "product": "m-rain-racing-license-plate-frame",
+    "productTitle": "M-Rain Racing License Plate Frame"
    },
    {
     "id": "bride1",
@@ -357,7 +416,9 @@ export const GROUPS = [
     "file": "Pennzoil(LEGACY NO LOGO)-01.eps",
     "folder": "License Plates (no logo) / Livery Plates / EPS",
     "modified": "2021-07-20",
-    "thumb": 37
+    "thumb": 37,
+    "product": "pennzoil-racing-license-plate-frame",
+    "productTitle": "Pennzoil Racing License Plate Frame"
    },
    {
     "id": "rgo",
@@ -409,7 +470,9 @@ export const GROUPS = [
     "file": "CFA Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-12-03",
-    "thumb": 42
+    "thumb": 42,
+    "product": "chick-fil-a-license-plate-frame",
+    "productTitle": "Chick-Fil-A License Plate Frame"
    },
    {
     "id": "in-n-out__1",
@@ -418,7 +481,9 @@ export const GROUPS = [
     "file": "IN N OUT Updated.png",
     "folder": "Domsem A3",
     "modified": "2026-08-04",
-    "thumb": 43
+    "thumb": 43,
+    "product": "in-n-out-license-plate-frame",
+    "productTitle": "In-N-Out License Plate Frame"
    },
    {
     "id": "jollibee",
@@ -427,7 +492,9 @@ export const GROUPS = [
     "file": "Jollibee Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-11-15",
-    "thumb": 44
+    "thumb": 44,
+    "product": "jollibee-license-plate-frame",
+    "productTitle": "Jollibee License Plate Frame"
    },
    {
     "id": "kfc",
@@ -436,7 +503,9 @@ export const GROUPS = [
     "file": "KFC Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-11-26",
-    "thumb": 45
+    "thumb": 45,
+    "product": "kfc-license-plate-frame",
+    "productTitle": "KFC License Plate Frame"
    },
    {
     "id": "popeyes",
@@ -445,7 +514,9 @@ export const GROUPS = [
     "file": "Popeyes Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-11-26",
-    "thumb": 46
+    "thumb": 46,
+    "product": "popeyes-louisiana-chicken-license-plate-frame",
+    "productTitle": "Popeyes Louisiana Chicken License Plate Frame"
    },
    {
     "id": "raising-cane-s",
@@ -454,7 +525,9 @@ export const GROUPS = [
     "file": "Raising Cane's Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-11-23",
-    "thumb": 47
+    "thumb": 47,
+    "product": "raising-canes-license-plate-frame",
+    "productTitle": "Raising Cane's License Plate Frame"
    },
    {
     "id": "taco-bell",
@@ -463,7 +536,9 @@ export const GROUPS = [
     "file": "Taco Bell Flipped Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-12-09",
-    "thumb": 48
+    "thumb": 48,
+    "product": "taco-bell-license-plate-frame",
+    "productTitle": "Taco Bell License Plate Frame"
    },
    {
     "id": "taco-bell-meme",
@@ -472,7 +547,9 @@ export const GROUPS = [
     "file": "Taco Bell Meme Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-11-26",
-    "thumb": 49
+    "thumb": 49,
+    "product": "taco-bell-meme-license-plate-frame",
+    "productTitle": "Taco Bell Meme License Plate Frame"
    },
    {
     "id": "jollibee-white",
@@ -481,7 +558,9 @@ export const GROUPS = [
     "file": "Jollibee white.eps",
     "folder": "License Plates (LEGACY MOLD) / Fast Food / EPS",
     "modified": "2023-04-26",
-    "thumb": 50
+    "thumb": 50,
+    "product": "jollibee-license-plate-frame",
+    "productTitle": "Jollibee License Plate Frame"
    }
   ]
  },
@@ -497,7 +576,9 @@ export const GROUPS = [
     "file": "Beng Beng Recalibration.png",
     "folder": "Domsem A3",
     "modified": "2026-08-11",
-    "thumb": 51
+    "thumb": 51,
+    "product": "beng-beng-chocolate-license-plate-frame",
+    "productTitle": "Beng Beng Chocolate License Plate Frame"
    },
    {
     "id": "buldak-carbonara",
@@ -506,7 +587,9 @@ export const GROUPS = [
     "file": "Buldak Carbonara Triple Plate Template.png",
     "folder": "Domsem A3",
     "modified": "2026-06-27",
-    "thumb": 52
+    "thumb": 52,
+    "product": "buldak-chicken-carbonara-license-plate-frame",
+    "productTitle": "Buldak Spicy Chicken Carbonara License Plate Frame"
    },
    {
     "id": "calbee-jagarico",
@@ -515,7 +598,9 @@ export const GROUPS = [
     "file": "Calbee Jagarico DomSem  Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-07-24",
-    "thumb": 53
+    "thumb": 53,
+    "product": "calbee-jagarico-license-plate-frame-1",
+    "productTitle": "Calbee Jagarico License Plate Frame"
    },
    {
     "id": "calbee-shrimp-chips-rakeddomsem",
@@ -524,7 +609,9 @@ export const GROUPS = [
     "file": "Calbee Shrimp Chips RakedDomSem A3 Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-07-24",
-    "thumb": 54
+    "thumb": 54,
+    "product": "calbee-shrimp-chips-license-plate-frame",
+    "productTitle": "Calbee Shrimp Chips License Plate Frame"
    },
    {
     "id": "calbee-old-shrimp-chips",
@@ -533,7 +620,9 @@ export const GROUPS = [
     "file": "Calbee OLD Shrimp Chips DomSem Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-08-07",
-    "thumb": 55
+    "thumb": 55,
+    "product": "calbee-shrimp-chips-license-plate-frame",
+    "productTitle": "Calbee Shrimp Chips License Plate Frame"
    },
    {
     "id": "calbee-takoyaki-ball",
@@ -542,7 +631,9 @@ export const GROUPS = [
     "file": "Calbee Takoyaki ball.png",
     "folder": "Domsem A3",
     "modified": "2026-07-17",
-    "thumb": 56
+    "thumb": 56,
+    "product": "calbee-takoyaki-license-plate-frame",
+    "productTitle": "Calbee Takoyaki License Plate Frame"
    },
    {
     "id": "cheese-ring",
@@ -551,7 +642,9 @@ export const GROUPS = [
     "file": "Cheese Ring Final.png",
     "folder": "Domsem A3",
     "modified": "2026-07-28",
-    "thumb": 57
+    "thumb": 57,
+    "product": "regent-cheese-ring-license-plate-frame",
+    "productTitle": "Regent Cheese Ring License Plate Frame"
    },
    {
     "id": "cheez-it",
@@ -560,7 +653,9 @@ export const GROUPS = [
     "file": "Cheez It Triple-02.png",
     "folder": "Domsem A3",
     "modified": "2026-01-07",
-    "thumb": 58
+    "thumb": 58,
+    "product": "cheez-it-license-plate-frame",
+    "productTitle": "Cheez-It License Plate Frame"
    },
    {
     "id": "chitato",
@@ -569,7 +664,9 @@ export const GROUPS = [
     "file": "Chitato DomSem A3 Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-07-23",
-    "thumb": 59
+    "thumb": 59,
+    "product": "chitato-snack-license-plate-frame-copy",
+    "productTitle": "Chitato Snack License Plate Frame"
    },
    {
     "id": "choco-pie",
@@ -578,7 +675,9 @@ export const GROUPS = [
     "file": "Choco Pie Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-07-23",
-    "thumb": 60
+    "thumb": 60,
+    "product": "choco-pie-license-plate-frame",
+    "productTitle": "Choco Pie License Plate Frame"
    },
    {
     "id": "delarosa",
@@ -587,7 +686,9 @@ export const GROUPS = [
     "file": "Delarosa Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-01-07",
-    "thumb": 61
+    "thumb": 61,
+    "product": "de-la-rosa-license-plate-frame",
+    "productTitle": "de La Rosa License Plate Frame"
    },
    {
     "id": "doritos-nacho-cheese",
@@ -596,7 +697,9 @@ export const GROUPS = [
     "file": "Doritos Nacho Cheese Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-01-29",
-    "thumb": 62
+    "thumb": 62,
+    "product": "doritos-nacho-cheese-license-plate-frame",
+    "productTitle": "Doritos Nacho Cheese License Plate Frame"
    },
    {
     "id": "duvalin",
@@ -605,7 +708,9 @@ export const GROUPS = [
     "file": "Duvalin Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-12-07",
-    "thumb": 63
+    "thumb": 63,
+    "product": "duvalin-license-plate-frame",
+    "productTitle": "Duvalin License Plate Frame"
    },
    {
     "id": "famichiki",
@@ -614,7 +719,9 @@ export const GROUPS = [
     "file": "Famichiki second try-02-02.png",
     "folder": "Domsem A3",
     "modified": "2026-08-13",
-    "thumb": 64
+    "thumb": 64,
+    "product": "famichiki-license-plate-frame",
+    "productTitle": "Famichiki License Plate Frame"
    },
    {
     "id": "hello-panda-chocolate",
@@ -623,7 +730,9 @@ export const GROUPS = [
     "file": "Hello Panda Chocolate Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-12-09",
-    "thumb": 65
+    "thumb": 65,
+    "product": "hello-panda-chocolate-license-plate-frame",
+    "productTitle": "Hello Panda Chocolate License Plate Frame"
    },
    {
     "id": "hello-panda-strawberry",
@@ -632,7 +741,9 @@ export const GROUPS = [
     "file": "Hello Panda Strawberry Domsem Triple-02.png",
     "folder": "Domsem A3",
     "modified": "2026-05-19",
-    "thumb": 66
+    "thumb": 66,
+    "product": "hello-panda-strawberry-license-plate-frame",
+    "productTitle": "Hello Panda Strawberry License Plate Frame"
    },
    {
     "id": "hot-cheetos",
@@ -650,7 +761,9 @@ export const GROUPS = [
     "file": "Hot Cheetos Limon Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-01-22",
-    "thumb": 68
+    "thumb": 68,
+    "product": "hot-cheeto-limon-license-plate-frame",
+    "productTitle": "Hot Cheetos Limon License Plate Frame"
    },
    {
     "id": "indomie",
@@ -659,7 +772,9 @@ export const GROUPS = [
     "file": "Indomie Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-12-07",
-    "thumb": 69
+    "thumb": 69,
+    "product": "indomie-mi-goreng-noodles-license-plate-frame",
+    "productTitle": "Indomie Mi Goreng Noodles License Plate Frame"
    },
    {
     "id": "island-pacific",
@@ -668,7 +783,9 @@ export const GROUPS = [
     "file": "Island Pacific Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-11-19",
-    "thumb": 70
+    "thumb": 70,
+    "product": "island-pacific-noodles-license-plate-frame",
+    "productTitle": "Island Pacific Supermarket License Plate Frame"
    },
    {
     "id": "jasmine-rice",
@@ -677,7 +794,9 @@ export const GROUPS = [
     "file": "Jasmine Rice Flipped-02.png",
     "folder": "Domsem A3",
     "modified": "2026-09-15",
-    "thumb": 71
+    "thumb": 71,
+    "product": "jasmine-rice-license-plate-frame",
+    "productTitle": "Jasmine Rice License Plate Frame"
    },
    {
     "id": "mama-noodles",
@@ -686,7 +805,9 @@ export const GROUPS = [
     "file": "Mama Noodles-02.png",
     "folder": "Domsem A3",
     "modified": "2026-09-26",
-    "thumb": 72
+    "thumb": 72,
+    "product": "mama-noodles-license-plate-frame",
+    "productTitle": "Mama Noodles License Plate Frame"
    },
    {
     "id": "mintia-cool",
@@ -695,7 +816,9 @@ export const GROUPS = [
     "file": "Mintia cool.png",
     "folder": "Domsem A3",
     "modified": "2026-09-05",
-    "thumb": 73
+    "thumb": 73,
+    "product": "mintia-mints-license-plate-frame",
+    "productTitle": "Mintia Mints License Plate Frame"
    },
    {
     "id": "shin-ramyun",
@@ -704,7 +827,31 @@ export const GROUPS = [
     "file": "Shin Ramyun Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-12-07",
-    "thumb": 74
+    "thumb": 74,
+    "product": "shin-ramyun-noodles-license-plate-frame",
+    "productTitle": "Shin Ramyun Noodles License Plate Frame"
+   },
+   {
+    "id": "sriracha",
+    "name": "Sriracha",
+    "current": true,
+    "file": "Sriracha Triple.png",
+    "folder": "Domsem A3",
+    "modified": "2026-01-09",
+    "thumb": 75,
+    "product": "siracha-hot-sauce-license-plate-frame",
+    "productTitle": "Siracha Hot Sauce License Plate Frame"
+   },
+   {
+    "id": "takis",
+    "name": "Takis Fuego",
+    "current": true,
+    "file": "Takis Domsem Triple.png",
+    "folder": "Domsem A3",
+    "modified": "2026-01-26",
+    "thumb": 76,
+    "product": "takis-license-plate-frame",
+    "productTitle": "Takis License Plate Frame"
    },
    {
     "id": "tenga",
@@ -713,7 +860,9 @@ export const GROUPS = [
     "file": "Tenga Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-12-15",
-    "thumb": 75
+    "thumb": 77,
+    "product": "tenga-license-plate-frame",
+    "productTitle": "Tenga License Plate Frame"
    },
    {
     "id": "tipitip-onion-star",
@@ -722,7 +871,9 @@ export const GROUPS = [
     "file": "tipitip Onion Star DomSem A3 Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-07-23",
-    "thumb": 76
+    "thumb": 78,
+    "product": "tipitip-onion-stars-snack-license-plate-frame",
+    "productTitle": "TipiTip Onion Stars Snack License Plate Frame"
    },
    {
     "id": "vitasoy",
@@ -731,7 +882,7 @@ export const GROUPS = [
     "file": "VitaSoy Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-01-22",
-    "thumb": 77
+    "thumb": 79
    },
    {
     "id": "yan-yan-choco",
@@ -740,7 +891,9 @@ export const GROUPS = [
     "file": "Yan Yan Choco-02.png",
     "folder": "Domsem A3",
     "modified": "2026-04-07",
-    "thumb": 78
+    "thumb": 80,
+    "product": "yan-yan-chocolate-license-plate-frame",
+    "productTitle": "Yan Yan Chocolate License Plate Frame"
    },
    {
     "id": "yan-yan-strawberry",
@@ -749,7 +902,7 @@ export const GROUPS = [
     "file": "Yan Yan Strawberry.png",
     "folder": "Domsem A3",
     "modified": "2026-06-25",
-    "thumb": 79
+    "thumb": 81
    },
    {
     "id": "7eleven",
@@ -758,7 +911,9 @@ export const GROUPS = [
     "file": "7eleven-01.eps",
     "folder": "License Plates (LEGACY MOLD) / convenient store snacks",
     "modified": "2022-02-09",
-    "thumb": 80
+    "thumb": 82,
+    "product": "7-eleven-style-license-plate-frame",
+    "productTitle": "7-Eleven Style License Plate Frame"
    },
    {
     "id": "carlos-v",
@@ -767,7 +922,9 @@ export const GROUPS = [
     "file": "carlos v-01.eps",
     "folder": "License Plates (no logo) / Mexican snacks / EPS",
     "modified": "2020-12-11",
-    "thumb": 81
+    "thumb": 83,
+    "product": "carlosv-license-plate-frame",
+    "productTitle": "CarlosV License Plate Frame"
    },
    {
     "id": "mazapan",
@@ -776,7 +933,7 @@ export const GROUPS = [
     "file": "mazapan flipped-01.eps",
     "folder": "License Plates (no logo) / Mexican snacks / EPS",
     "modified": "2021-09-17",
-    "thumb": 82
+    "thumb": 84
    },
    {
     "id": "pocky-chocolate",
@@ -785,7 +942,7 @@ export const GROUPS = [
     "file": "pocky chocolate-01.eps",
     "folder": "License Plates (no logo) / Asian Snacks / EPS",
     "modified": "2020-11-23",
-    "thumb": 83
+    "thumb": 85
    },
    {
     "id": "sabritones",
@@ -794,24 +951,6 @@ export const GROUPS = [
     "file": "sabritones-01.eps",
     "folder": "License Plates (no logo) / Mexican snacks / EPS",
     "modified": "2020-12-08",
-    "thumb": 84
-   },
-   {
-    "id": "sriracha",
-    "name": "Sriracha",
-    "current": false,
-    "file": "sriracha.eps",
-    "folder": "License Plates (LEGACY MOLD) / Other asian stuff / EPS",
-    "modified": "2022-04-13",
-    "thumb": 85
-   },
-   {
-    "id": "takis",
-    "name": "Takis Fuego",
-    "current": false,
-    "file": "takis-01.eps",
-    "folder": "License Plates (no logo) / Mexican snacks / EPS",
-    "modified": "2020-11-23",
     "thumb": 86
    },
    {
@@ -837,7 +976,9 @@ export const GROUPS = [
     "file": "Arizona Green Tea Recalibration.png",
     "folder": "Domsem A3",
     "modified": "2026-08-11",
-    "thumb": 88
+    "thumb": 88,
+    "product": "arizona-iced-tea-green-tea-license-plate-frame",
+    "productTitle": "Arizona Iced Tea (Green Tea) License Plate Frame"
    },
    {
     "id": "asahi",
@@ -846,7 +987,9 @@ export const GROUPS = [
     "file": "Asahi Redo.png",
     "folder": "Domsem A3",
     "modified": "2026-09-01",
-    "thumb": 89
+    "thumb": 89,
+    "product": "asahi-license-plate-frame",
+    "productTitle": "Asahi License Plate Frame"
    },
    {
     "id": "baja-blast",
@@ -855,7 +998,9 @@ export const GROUPS = [
     "file": "Baja Blast Recalibration.png",
     "folder": "Domsem A3",
     "modified": "2026-08-11",
-    "thumb": 90
+    "thumb": 90,
+    "product": "mountain-dew-baja-blast-license-plate-frame",
+    "productTitle": "Mountain Dew Baja Blast License Plate Frame"
    },
    {
     "id": "black-boss",
@@ -864,7 +1009,9 @@ export const GROUPS = [
     "file": "Black Boss Recalibration.png",
     "folder": "Domsem A3",
     "modified": "2026-08-11",
-    "thumb": 91
+    "thumb": 91,
+    "product": "black-boss-license-plate-frame-1",
+    "productTitle": "Black Boss License Plate Frame"
    },
    {
     "id": "calpico-blue",
@@ -873,7 +1020,20 @@ export const GROUPS = [
     "file": "Calpico Blue Recalibration.png",
     "folder": "Domsem A3",
     "modified": "2026-08-11",
-    "thumb": 92
+    "thumb": 92,
+    "product": "calpico-original-license-plate-frame",
+    "productTitle": "Calpico Original License Plate Frame"
+   },
+   {
+    "id": "calpico-lychee-no-fruit",
+    "name": "Calpico Lychee",
+    "current": true,
+    "file": "Calpico Lychee No Fruit-02.png",
+    "folder": "Domsem A3",
+    "modified": "2026-09-17",
+    "thumb": 93,
+    "product": "calpico-lychee-no-fruit-license-plate-frame",
+    "productTitle": "Calpico Lychee (no fruit) License Plate Frame"
    },
    {
     "id": "lychee",
@@ -882,7 +1042,9 @@ export const GROUPS = [
     "file": "DomSem A3 Triple Lychee V2-02.png",
     "folder": "Domsem A3",
     "modified": "2026-05-29",
-    "thumb": 93
+    "thumb": 94,
+    "product": "calpico-lychee-license-plate-frame",
+    "productTitle": "Calpico Lychee License Plate Frame"
    },
    {
     "id": "calpico-strawberry",
@@ -891,7 +1053,9 @@ export const GROUPS = [
     "file": "Calpico Strawberry.png",
     "folder": "Domsem A3",
     "modified": "2026-06-25",
-    "thumb": 94
+    "thumb": 95,
+    "product": "calpico-strawberry-license-plate-frame",
+    "productTitle": "Calpico Strawberry License Plate Frame"
    },
    {
     "id": "fanta-melon",
@@ -900,7 +1064,9 @@ export const GROUPS = [
     "file": "Fanta Melon-02.png",
     "folder": "Domsem A3",
     "modified": "2026-09-17",
-    "thumb": 95
+    "thumb": 96,
+    "product": "fanta-melon-license-plate-frame",
+    "productTitle": "Fanta Melon License Plate Frame"
    },
    {
     "id": "ito-en-green-tea",
@@ -909,7 +1075,9 @@ export const GROUPS = [
     "file": "ito En Green Tea Recalibration.png",
     "folder": "Domsem A3",
     "modified": "2026-08-11",
-    "thumb": 96
+    "thumb": 97,
+    "product": "ito-en-green-tea-license-plate-frame",
+    "productTitle": "Ito En Green Tea License Plate Frame"
    },
    {
     "id": "pocari-sweat",
@@ -918,7 +1086,9 @@ export const GROUPS = [
     "file": "Pocari Sweat Recalibration.png",
     "folder": "Domsem A3",
     "modified": "2026-08-11",
-    "thumb": 97
+    "thumb": 98,
+    "product": "pocari-sweat-license-plate-frame-1",
+    "productTitle": "Pocari Sweat License Plate Frame"
    },
    {
     "id": "ucc-coffee",
@@ -927,16 +1097,9 @@ export const GROUPS = [
     "file": "UCC Coffee Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-12-07",
-    "thumb": 98
-   },
-   {
-    "id": "calpico-lychee-no-fruit",
-    "name": "Calpico Lychee",
-    "current": false,
-    "file": "calpico lychee no fruit-01.eps",
-    "folder": "License Plates (no logo) / JDM Drink / EPS",
-    "modified": "2021-03-25",
-    "thumb": 99
+    "thumb": 99,
+    "product": "ucc-coffee-license-plate-frame",
+    "productTitle": "UCC Coffee License Plate Frame"
    },
    {
     "id": "ramune__1",
@@ -970,7 +1133,9 @@ export const GROUPS = [
     "file": "Buchanans Whisky-02.png",
     "folder": "Domsem A3",
     "modified": "2026-09-22",
-    "thumb": 102
+    "thumb": 102,
+    "product": "buchanans-license-plate-frame",
+    "productTitle": "Buchanan's Whisky License Plate Frame"
    },
    {
     "id": "chum-churum-strawberry",
@@ -979,7 +1144,9 @@ export const GROUPS = [
     "file": "Chum Churum Strawberry.png",
     "folder": "Domsem A3",
     "modified": "2026-09-10",
-    "thumb": 103
+    "thumb": 103,
+    "product": "chum-churum-strawberry-license-plate-frame",
+    "productTitle": "Chum Churum Strawberry License Plate Frame"
    },
    {
     "id": "corona",
@@ -988,7 +1155,9 @@ export const GROUPS = [
     "file": "Corona DomSem A3 Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-08-04",
-    "thumb": 104
+    "thumb": 104,
+    "product": "corona-extra-license-plate-frame",
+    "productTitle": "Corona beer License Plate Frame"
    },
    {
     "id": "crown-royal",
@@ -997,7 +1166,9 @@ export const GROUPS = [
     "file": "Crown Royal Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-06-04",
-    "thumb": 105
+    "thumb": 105,
+    "product": "crown-royal-license-plate-frame",
+    "productTitle": "Crown Royal License Plate Frame"
    },
    {
     "id": "hennessy",
@@ -1006,7 +1177,9 @@ export const GROUPS = [
     "file": "Hennessy Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-12-09",
-    "thumb": 106
+    "thumb": 106,
+    "product": "hennessey-license-plate-frame",
+    "productTitle": "Hennessey License Plate Frame"
    },
    {
     "id": "jack-daniels",
@@ -1015,7 +1188,9 @@ export const GROUPS = [
     "file": "Jack Daniels Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-06-09",
-    "thumb": 107
+    "thumb": 107,
+    "product": "jack-daniels-whisky-license-plate-frame",
+    "productTitle": "Jack Daniel's Whisky License Plate Frame"
    },
    {
     "id": "modelo",
@@ -1024,7 +1199,9 @@ export const GROUPS = [
     "file": "Modelo DomSem A3 Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-07-30",
-    "thumb": 108
+    "thumb": 108,
+    "product": "modelo-license-plate-frame",
+    "productTitle": "Modelo License Plate Frame"
    },
    {
     "id": "sapporo",
@@ -1033,7 +1210,9 @@ export const GROUPS = [
     "file": "Sapporo Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-12-10",
-    "thumb": 109
+    "thumb": 109,
+    "product": "sapporo-license-plate-frame",
+    "productTitle": "Sapporo License Plate Frame"
    },
    {
     "id": "strong-zero",
@@ -1042,7 +1221,9 @@ export const GROUPS = [
     "file": "Strong Zero Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-12-03",
-    "thumb": 110
+    "thumb": 110,
+    "product": "strong-zero-license-plate-frame",
+    "productTitle": "Strong Zero License Plate Frame"
    },
    {
     "id": "white-claw-black-cherry",
@@ -1051,7 +1232,20 @@ export const GROUPS = [
     "file": "White Claw Black Cherry-02.png",
     "folder": "Domsem A3",
     "modified": "2026-04-07",
-    "thumb": 111
+    "thumb": 111,
+    "product": "black-cherry-white-claw-plate-frame",
+    "productTitle": "White Claw Plate Frame"
+   },
+   {
+    "id": "apple-soju",
+    "name": "Chum Churum Apple",
+    "file": "apple soju.png",
+    "folder": "License Plates (no logo) / Alcohol / 300ppi",
+    "modified": "2020-08-01",
+    "current": false,
+    "product": "chum-churum-apple-license-plate-frame",
+    "productTitle": "Chum Churum Apple License Plate Frame",
+    "thumb": 112
    },
    {
     "id": "hennything",
@@ -1060,16 +1254,20 @@ export const GROUPS = [
     "file": "Hennything.png",
     "folder": "License Plates (no logo) / Alcohol / 300ppi",
     "modified": "2020-04-08",
-    "thumb": 112
+    "thumb": 113,
+    "product": "hennything-is-possible-license-plate-frame",
+    "productTitle": "Hennything is Possible License Plate Frame"
    },
    {
     "id": "jameson",
     "name": "Jameson",
     "current": false,
-    "file": "jameson flipped (LEGACY)-01.eps",
-    "folder": "License Plates (LEGACY MOLD) / Alcohol / EPS",
-    "modified": "2023-11-29",
-    "thumb": 113
+    "file": "jameson-01.eps",
+    "folder": "License Plates (no logo) / Alcohol / EPS",
+    "modified": "2021-03-26",
+    "thumb": 114,
+    "product": "jameson-whisky-license-plate-frame",
+    "productTitle": "Jameson Whisky License Plate Frame"
    },
    {
     "id": "peach-soju",
@@ -1078,7 +1276,9 @@ export const GROUPS = [
     "file": "peach soju.png",
     "folder": "License Plates (no logo) / Alcohol / 300ppi",
     "modified": "2020-08-01",
-    "thumb": 114
+    "thumb": 115,
+    "product": "chum-churum-peach-license-plate-frame",
+    "productTitle": "Chum Churum Peach License Plate Frame"
    },
    {
     "id": "piswasser",
@@ -1087,7 +1287,7 @@ export const GROUPS = [
     "file": "piswasser-01-01.eps",
     "folder": "License Plates (no logo) / Alcohol / EPS",
     "modified": "2021-04-07",
-    "thumb": 115
+    "thumb": 116
    },
    {
     "id": "strawberry-soju",
@@ -1096,7 +1296,9 @@ export const GROUPS = [
     "file": "strawberry soju flipped-01.eps",
     "folder": "License Plates (no logo) / Alcohol / EPS",
     "modified": "2023-01-30",
-    "thumb": 116
+    "thumb": 117,
+    "product": "chum-churum-strawberry-license-plate-frame",
+    "productTitle": "Chum Churum Strawberry License Plate Frame"
    },
    {
     "id": "suntory",
@@ -1105,7 +1307,7 @@ export const GROUPS = [
     "file": "suntory.png",
     "folder": "License Plates (no logo) / Marcus Plates / 300ppi",
     "modified": "2020-07-31",
-    "thumb": 117
+    "thumb": 118
    },
    {
     "id": "wcmg",
@@ -1114,7 +1316,9 @@ export const GROUPS = [
     "file": "WCMG.png",
     "folder": "License Plates (no logo) / WhiteClaw / 300ppi",
     "modified": "2019-09-03",
-    "thumb": 118
+    "thumb": 119,
+    "product": "white-claw-license-plate-frame",
+    "productTitle": "White Claw License Plate Frame"
    },
    {
     "id": "wcnl",
@@ -1123,7 +1327,9 @@ export const GROUPS = [
     "file": "WCNL.png",
     "folder": "License Plates (no logo) / WhiteClaw / 300ppi",
     "modified": "2019-09-03",
-    "thumb": 119
+    "thumb": 120,
+    "product": "white-claw-license-plate-frame",
+    "productTitle": "White Claw License Plate Frame"
    },
    {
     "id": "wcps",
@@ -1132,7 +1338,9 @@ export const GROUPS = [
     "file": "WCPS.png",
     "folder": "License Plates (no logo) / WhiteClaw / 300ppi",
     "modified": "2019-09-03",
-    "thumb": 120
+    "thumb": 121,
+    "product": "white-claw-license-plate-frame",
+    "productTitle": "White Claw License Plate Frame"
    },
    {
     "id": "wcp",
@@ -1141,7 +1349,9 @@ export const GROUPS = [
     "file": "WCP.png",
     "folder": "License Plates (no logo) / WhiteClaw / 300ppi",
     "modified": "2019-09-03",
-    "thumb": 121
+    "thumb": 122,
+    "product": "white-claw-license-plate-frame",
+    "productTitle": "White Claw License Plate Frame"
    }
   ]
  },
@@ -1157,7 +1367,9 @@ export const GROUPS = [
     "file": "711 Konbini.png",
     "folder": "Domsem A3",
     "modified": "2026-08-11",
-    "thumb": 122
+    "thumb": 123,
+    "product": "konbini-7-11-license-plate-frame",
+    "productTitle": "Konbini 7/11 License Plate Frame"
    },
    {
     "id": "711-punjabi",
@@ -1166,7 +1378,9 @@ export const GROUPS = [
     "file": "711 Punjabi.png",
     "folder": "Domsem A3",
     "modified": "2026-08-11",
-    "thumb": 123
+    "thumb": 124,
+    "product": "7-eleven-style-license-plate-frame",
+    "productTitle": "7-Eleven Style License Plate Frame"
    },
    {
     "id": "ranch99",
@@ -1175,7 +1389,9 @@ export const GROUPS = [
     "file": "Ranch99 Redo.png",
     "folder": "Domsem A3",
     "modified": "2026-09-01",
-    "thumb": 124
+    "thumb": 125,
+    "product": "ranch-99-supermarket-license-plate-frame",
+    "productTitle": "Ranch 99 Supermarket License Plate Frame"
    },
    {
     "id": "bass-pro-shops",
@@ -1184,7 +1400,20 @@ export const GROUPS = [
     "file": "Bass Pro Shops Recalibration.png",
     "folder": "Domsem A3",
     "modified": "2026-08-11",
-    "thumb": 125
+    "thumb": 126,
+    "product": "bass-pro-shop-license-plate-frame",
+    "productTitle": "Bass Pro Shop License Plate Frame"
+   },
+   {
+    "id": "costco-business",
+    "name": "Costco Business Member",
+    "file": "Costco Business Redo-02.png",
+    "folder": "Domsem A3",
+    "modified": "2026-09-15",
+    "current": true,
+    "product": "costco-business-member-license-plate-frame",
+    "productTitle": "Costco \"Business Member\" License Plate Frame",
+    "thumb": 127
    },
    {
     "id": "costco-executive",
@@ -1193,7 +1422,9 @@ export const GROUPS = [
     "file": "Costco Executive ACTUAL Final-02.png",
     "folder": "Domsem A3",
     "modified": "2026-08-13",
-    "thumb": 126
+    "thumb": 128,
+    "product": "costco-executive-member-license-plate-frame",
+    "productTitle": "Costco \"Executive Member\" License Plate Frame"
    },
    {
     "id": "costco-goldstar",
@@ -1202,7 +1433,9 @@ export const GROUPS = [
     "file": "costco goldstar.png",
     "folder": "Domsem A3",
     "modified": "2026-06-04",
-    "thumb": 127
+    "thumb": 129,
+    "product": "costco-gold-member-license-plate-frame-copy",
+    "productTitle": "Costco \"Gold Member\" License Plate Frame"
    },
    {
     "id": "eagle-brand",
@@ -1211,7 +1444,9 @@ export const GROUPS = [
     "file": "Eagle Brand Triple Plate.png",
     "folder": "Domsem A3",
     "modified": "2026-08-17",
-    "thumb": 128
+    "thumb": 130,
+    "product": "eagle-brand-medicated-oil-license-plate-frame",
+    "productTitle": "Eagle Brand Medicated Oil License Plate Frame"
    },
    {
     "id": "family-mart",
@@ -1220,7 +1455,9 @@ export const GROUPS = [
     "file": "Family Mart Recalibration.png",
     "folder": "Domsem A3",
     "modified": "2026-08-11",
-    "thumb": 129
+    "thumb": 131,
+    "product": "konbini-familymart-license-plate-frame",
+    "productTitle": "Konbini FamilyMart License Plate Frame"
    },
    {
     "id": "hmart",
@@ -1229,7 +1466,20 @@ export const GROUPS = [
     "file": "HMart Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-11-15",
-    "thumb": 130
+    "thumb": 132,
+    "product": "h-mart-supermarket-license-plate-frame",
+    "productTitle": "H Mart Supermarket License Plate Frame"
+   },
+   {
+    "id": "lawson",
+    "name": "Lawson",
+    "current": true,
+    "file": "Lawsons Domsem Triple.png",
+    "folder": "Domsem A3",
+    "modified": "2025-12-07",
+    "thumb": 133,
+    "product": "konbini-lawson-license-plate-frame",
+    "productTitle": "Konbini Lawson License Plate Frame"
    },
    {
     "id": "lawson-konbini",
@@ -1238,7 +1488,9 @@ export const GROUPS = [
     "file": "Lawson Konbini Recalibration.png",
     "folder": "Domsem A3",
     "modified": "2026-08-11",
-    "thumb": 131
+    "thumb": 134,
+    "product": "konbini-lawson-license-plate-frame",
+    "productTitle": "Konbini Lawson License Plate Frame"
    },
    {
     "id": "lion-market",
@@ -1247,7 +1499,9 @@ export const GROUPS = [
     "file": "Lion Market Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-06-25",
-    "thumb": 132
+    "thumb": 135,
+    "product": "lion-supermarket-license-plate-frame",
+    "productTitle": "Lion Supermarket License Plate Frame"
    },
    {
     "id": "seafood-city",
@@ -1256,7 +1510,9 @@ export const GROUPS = [
     "file": "Seafood City Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-11-15",
-    "thumb": 133
+    "thumb": 136,
+    "product": "seafood-city-supermarket-license-plate-frame",
+    "productTitle": "Seafood City Supermarket License Plate Frame"
    },
    {
     "id": "t-t-supermarket",
@@ -1265,7 +1521,9 @@ export const GROUPS = [
     "file": "T&T supermarket Domsem Triple-02.png",
     "folder": "Domsem A3",
     "modified": "2026-07-09",
-    "thumb": 134
+    "thumb": 137,
+    "product": "t-t-supermarket-license-plate-frame-copy",
+    "productTitle": "T&T SuperMarket License Plate Frame"
    },
    {
     "id": "trader-joes",
@@ -1274,7 +1532,9 @@ export const GROUPS = [
     "file": "Trader Joes Triple Plate Template.png",
     "folder": "Domsem A3",
     "modified": "2026-06-25",
-    "thumb": 135
+    "thumb": 138,
+    "product": "trader-joes-license-plate-frame",
+    "productTitle": "Trader Joe's License Plate Frame"
    },
    {
     "id": "h-mart",
@@ -1283,7 +1543,9 @@ export const GROUPS = [
     "file": "h mart updated-01.eps",
     "folder": "License Plates (LEGACY MOLD) / Grocery shopping",
     "modified": "2025-11-11",
-    "thumb": 136
+    "thumb": 139,
+    "product": "h-mart-supermarket-license-plate-frame",
+    "productTitle": "H Mart Supermarket License Plate Frame"
    },
    {
     "id": "kirkland",
@@ -1292,7 +1554,7 @@ export const GROUPS = [
     "file": "KIRKLAND.ai",
     "folder": "License Plates (LEGACY MOLD)",
     "modified": "2025-11-27",
-    "thumb": 137
+    "thumb": 140
    },
    {
     "id": "trader-joes-p4",
@@ -1301,7 +1563,9 @@ export const GROUPS = [
     "file": "Trader joes.ai",
     "folder": "Alina's Designs",
     "modified": "2026-06-23",
-    "thumb": 138
+    "thumb": 141,
+    "product": "trader-joes-license-plate-frame",
+    "productTitle": "Trader Joe's License Plate Frame"
    }
   ]
  },
@@ -1317,7 +1581,9 @@ export const GROUPS = [
     "file": "AESPA Redo.png",
     "folder": "Domsem A3",
     "modified": "2026-09-03",
-    "thumb": 139
+    "thumb": 142,
+    "product": "aespa-kpop-license-plate-frame",
+    "productTitle": "Aespa Kpop License Plate Frame"
    },
    {
     "id": "bini",
@@ -1326,7 +1592,9 @@ export const GROUPS = [
     "file": "BINI Recalibration.png",
     "folder": "Domsem A3",
     "modified": "2026-08-11",
-    "thumb": 140
+    "thumb": 143,
+    "product": "bini-license-plate-frame",
+    "productTitle": "BINI License Plate Frame"
    },
    {
     "id": "blackpink",
@@ -1335,7 +1603,9 @@ export const GROUPS = [
     "file": "Blackpink Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-11-20",
-    "thumb": 141
+    "thumb": 144,
+    "product": "blackpink-kpop-license-plate-frame",
+    "productTitle": "BlackPink Kpop License Plate Frame"
    },
    {
     "id": "blackpink-blink",
@@ -1344,7 +1614,9 @@ export const GROUPS = [
     "file": "BlackPink Blink Flipped Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-12-07",
-    "thumb": 142
+    "thumb": 145,
+    "product": "blackpink-blink-kpop-license-plate-frame",
+    "productTitle": "Blackpink Blink Kpop License Plate Frame"
    },
    {
     "id": "blinkarea",
@@ -1353,7 +1625,7 @@ export const GROUPS = [
     "file": "blinkarea-02.png",
     "folder": "Domsem A3",
     "modified": "2026-04-16",
-    "thumb": 143
+    "thumb": 146
    },
    {
     "id": "blackpink-proud-blink",
@@ -1362,7 +1634,7 @@ export const GROUPS = [
     "file": "BlackPink Proud Blink Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-12-12",
-    "thumb": 144
+    "thumb": 147
    },
    {
     "id": "bts-army",
@@ -1371,7 +1643,9 @@ export const GROUPS = [
     "file": "BTS Army-02.png",
     "folder": "Domsem A3",
     "modified": "2026-08-13",
-    "thumb": 145
+    "thumb": 148,
+    "product": "bts-army-license-plate-frame",
+    "productTitle": "BTS Army Kpop License Plate Frame"
    },
    {
     "id": "itzy",
@@ -1380,7 +1654,9 @@ export const GROUPS = [
     "file": "Itzy triple.png",
     "folder": "Domsem A3",
     "modified": "2026-02-14",
-    "thumb": 146
+    "thumb": 149,
+    "product": "itzy-pink-kpop-license-plate-frame",
+    "productTitle": "Itzy Pink Kpop License Plate Frame"
    },
    {
     "id": "katseye",
@@ -1389,7 +1665,9 @@ export const GROUPS = [
     "file": "Katseye DomSem  Triple-02-02.png",
     "folder": "Domsem A3",
     "modified": "2026-07-17",
-    "thumb": 147
+    "thumb": 150,
+    "product": "katseye-license-plate-frame",
+    "productTitle": "Katseye License Plate Frame"
    },
    {
     "id": "new-jeans",
@@ -1398,7 +1676,9 @@ export const GROUPS = [
     "file": "New Jeans Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-01-07",
-    "thumb": 148
+    "thumb": 151,
+    "product": "new-jeans-kpop-license-plate-frame",
+    "productTitle": "New Jeans Kpop License Plate Frame"
    },
    {
     "id": "twice",
@@ -1407,7 +1687,9 @@ export const GROUPS = [
     "file": "twice.png",
     "folder": "Domsem A3",
     "modified": "2026-07-27",
-    "thumb": 149
+    "thumb": 152,
+    "product": "twice-kpop-license-plate-frame",
+    "productTitle": "Twice Kpop License Plate Frame"
    },
    {
     "id": "onceinamillioncolor",
@@ -1416,7 +1698,9 @@ export const GROUPS = [
     "file": "Onceinamillioncolor.png",
     "folder": "Domsem A3",
     "modified": "2026-02-14",
-    "thumb": 150
+    "thumb": 153,
+    "product": "twice-once-kpop-license-plate-frame",
+    "productTitle": "Twice Once Kpop License Plate Frame"
    },
    {
     "id": "onceinamilllionwhitelayer",
@@ -1425,7 +1709,9 @@ export const GROUPS = [
     "file": "Onceinamilllionwhitelayer-02.png",
     "folder": "Domsem A3",
     "modified": "2026-02-14",
-    "thumb": 151
+    "thumb": 154,
+    "product": "twice-once-kpop-license-plate-frame",
+    "productTitle": "Twice Once Kpop License Plate Frame"
    },
    {
     "id": "gidle",
@@ -1434,7 +1720,7 @@ export const GROUPS = [
     "file": "Gidle.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
     "modified": "2020-05-19",
-    "thumb": 152
+    "thumb": 155
    },
    {
     "id": "bp2",
@@ -1443,7 +1729,9 @@ export const GROUPS = [
     "file": "BP2.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
     "modified": "2019-06-12",
-    "thumb": 153
+    "thumb": 156,
+    "product": "blackpink-kpop-license-plate-frame",
+    "productTitle": "BlackPink Kpop License Plate Frame"
    },
    {
     "id": "bp",
@@ -1452,7 +1740,9 @@ export const GROUPS = [
     "file": "BP.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
     "modified": "2019-06-04",
-    "thumb": 154
+    "thumb": 157,
+    "product": "blackpink-kpop-license-plate-frame",
+    "productTitle": "BlackPink Kpop License Plate Frame"
    },
    {
     "id": "bts",
@@ -1461,7 +1751,9 @@ export const GROUPS = [
     "file": "BTS-01.eps",
     "folder": "License Plates (no logo) / kpop / EPS",
     "modified": "2020-11-04",
-    "thumb": 155
+    "thumb": 158,
+    "product": "bts-kpop-license-plate-frame",
+    "productTitle": "BTS Kpop License Plate Frame"
    },
    {
     "id": "bts2",
@@ -1470,7 +1762,9 @@ export const GROUPS = [
     "file": "BTS2.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
     "modified": "2019-06-13",
-    "thumb": 156
+    "thumb": 159,
+    "product": "bts-kpop-license-plate-frame",
+    "productTitle": "BTS Kpop License Plate Frame"
    },
    {
     "id": "dreamcatcher",
@@ -1479,7 +1773,7 @@ export const GROUPS = [
     "file": "dreamcatcher.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
     "modified": "2020-06-18",
-    "thumb": 157
+    "thumb": 160
    },
    {
     "id": "exo2",
@@ -1488,7 +1782,7 @@ export const GROUPS = [
     "file": "EXO2.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
     "modified": "2019-06-12",
-    "thumb": 158
+    "thumb": 161
    },
    {
     "id": "gfriend",
@@ -1497,7 +1791,7 @@ export const GROUPS = [
     "file": "gfriend.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
     "modified": "2020-01-09",
-    "thumb": 159
+    "thumb": 162
    },
    {
     "id": "girl-s-day",
@@ -1506,7 +1800,7 @@ export const GROUPS = [
     "file": "Girl's Day.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
     "modified": "2019-06-05",
-    "thumb": 160
+    "thumb": 163
    },
    {
     "id": "iu",
@@ -1515,7 +1809,7 @@ export const GROUPS = [
     "file": "IU.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
     "modified": "2019-06-05",
-    "thumb": 161
+    "thumb": 164
    },
    {
     "id": "iz1",
@@ -1524,7 +1818,9 @@ export const GROUPS = [
     "file": "IZ1.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
     "modified": "2019-06-04",
-    "thumb": 162
+    "thumb": 165,
+    "product": "i-zone-kpop-license-plate-frame",
+    "productTitle": "I*Zone Kpop License Plate Frame"
    },
    {
     "id": "loona-burn",
@@ -1533,7 +1829,7 @@ export const GROUPS = [
     "file": "Loona Burn.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
     "modified": "2020-01-30",
-    "thumb": 163
+    "thumb": 166
    },
    {
     "id": "jin-soul",
@@ -1542,7 +1838,7 @@ export const GROUPS = [
     "file": "jin soul.ai",
     "folder": "License Plates (LEGACY MOLD) / kpop",
     "modified": "2021-08-06",
-    "thumb": 164
+    "thumb": 167
    },
    {
     "id": "loona2",
@@ -1551,7 +1847,9 @@ export const GROUPS = [
     "file": "Loona2.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
     "modified": "2019-06-04",
-    "thumb": 165
+    "thumb": 168,
+    "product": "loona-kpop-license-plate-frame",
+    "productTitle": "Loona Kpop License Plate Frame"
    },
    {
     "id": "rv1",
@@ -1560,7 +1858,7 @@ export const GROUPS = [
     "file": "RV1.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
     "modified": "2019-11-01",
-    "thumb": 166
+    "thumb": 169
    },
    {
     "id": "rv2",
@@ -1569,7 +1867,9 @@ export const GROUPS = [
     "file": "RV2.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
     "modified": "2019-11-01",
-    "thumb": 167
+    "thumb": 170,
+    "product": "red-velvet-kpop-license-plate-frame",
+    "productTitle": "Red Velvet Kpop License Plate Frame"
    },
    {
     "id": "sistar",
@@ -1578,7 +1878,7 @@ export const GROUPS = [
     "file": "SISTAR.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
     "modified": "2019-06-04",
-    "thumb": 168
+    "thumb": 171
    },
    {
     "id": "stan-red-velvet",
@@ -1587,7 +1887,7 @@ export const GROUPS = [
     "file": "stan red velvet-01.eps",
     "folder": "License Plates (no logo) / kpop / EPS",
     "modified": "2021-03-01",
-    "thumb": 169
+    "thumb": 172
    },
    {
     "id": "twiceblack",
@@ -1596,7 +1896,9 @@ export const GROUPS = [
     "file": "TwiceBlack.png",
     "folder": "License Plates (no logo) / kpop / 300ppi",
     "modified": "2019-06-10",
-    "thumb": 170
+    "thumb": 173,
+    "product": "twice-kpop-license-plate-frame",
+    "productTitle": "Twice Kpop License Plate Frame"
    },
    {
     "id": "ugly-ass-loona-plate-frame",
@@ -1605,7 +1907,7 @@ export const GROUPS = [
     "file": "ugly ass loona plate frame.eps",
     "folder": "License Plates (LEGACY MOLD) / kpop / EPS",
     "modified": "2021-08-23",
-    "thumb": 171
+    "thumb": 174
    }
   ]
  },
@@ -1621,7 +1923,7 @@ export const GROUPS = [
     "file": "90s All That.png",
     "folder": "Domsem A3",
     "modified": "2026-08-11",
-    "thumb": 172
+    "thumb": 175
    },
    {
     "id": "dexter-s-lab",
@@ -1630,7 +1932,9 @@ export const GROUPS = [
     "file": "Dexter's Lab-02.png",
     "folder": "Domsem A3",
     "modified": "2026-09-15",
-    "thumb": 173
+    "thumb": 176,
+    "product": "dexters-laboratory-license-plate-frame",
+    "productTitle": "Dexter's Laboratory License Plate Frame"
    },
    {
     "id": "ed-edd-eddy",
@@ -1639,7 +1943,9 @@ export const GROUPS = [
     "file": "Ed Edd Eddy Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-11-26",
-    "thumb": 174
+    "thumb": 177,
+    "product": "ed-edd-eddy-license-plate-frame",
+    "productTitle": "Ed Edd & Eddy License Plate Frame"
    },
    {
     "id": "kon",
@@ -1648,7 +1954,16 @@ export const GROUPS = [
     "file": "Kon triple-02.png",
     "folder": "Domsem A3",
     "modified": "2026-03-17",
-    "thumb": 175
+    "thumb": 178
+   },
+   {
+    "id": "league-of-legends-iron",
+    "name": "League of Legends Iron IV",
+    "file": "League of Legends Iron IV-02.png",
+    "folder": "Domsem A3",
+    "modified": "2026-07-15",
+    "current": true,
+    "thumb": 179
    },
    {
     "id": "mystery-machine",
@@ -1657,7 +1972,7 @@ export const GROUPS = [
     "file": "Mystery Machine Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-11-19",
-    "thumb": 176
+    "thumb": 180
    },
    {
     "id": "naruto-akatsuki",
@@ -1666,7 +1981,7 @@ export const GROUPS = [
     "file": "Naruto Akatsuki.png",
     "folder": "Domsem A3",
     "modified": "2026-08-11",
-    "thumb": 177
+    "thumb": 181
    },
    {
     "id": "powerpuff-tripe",
@@ -1675,7 +1990,9 @@ export const GROUPS = [
     "file": "Powerpuff Tripe.png",
     "folder": "Domsem A3",
     "modified": "2025-12-16",
-    "thumb": 178
+    "thumb": 182,
+    "product": "powerpuff-girls-license-plate-frame",
+    "productTitle": "Powerpuff Girls License Plate Frame"
    },
    {
     "id": "scooby-doo",
@@ -1684,7 +2001,9 @@ export const GROUPS = [
     "file": "Scooby Doo Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-06-23",
-    "thumb": 179
+    "thumb": 183,
+    "product": "scooby-doo-license-plate-frame",
+    "productTitle": "Scooby Doo License Plate Frame"
    },
    {
     "id": "shrek",
@@ -1693,7 +2012,9 @@ export const GROUPS = [
     "file": "shrek-02.png",
     "folder": "Domsem A3",
     "modified": "2026-04-27",
-    "thumb": 180
+    "thumb": 184,
+    "product": "shrek-license-plate-frame",
+    "productTitle": "Shrek License Plate Frame"
    },
    {
     "id": "surprised-pikachu",
@@ -1702,7 +2023,9 @@ export const GROUPS = [
     "file": "Surprised Pikachu Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-11-22",
-    "thumb": 181
+    "thumb": 185,
+    "product": "surprised-pikachu-license-plate-frame",
+    "productTitle": "Surprised Pikachu License Plate Frame"
    },
    {
     "id": "ahegao",
@@ -1711,7 +2034,7 @@ export const GROUPS = [
     "file": "Ahegao.png",
     "folder": "License Plates (LEGACY MOLD) / KiersFamished / 300ppi",
     "modified": "2019-01-11",
-    "thumb": 182
+    "thumb": 186
    },
    {
     "id": "akira",
@@ -1720,7 +2043,7 @@ export const GROUPS = [
     "file": "Akira.png",
     "folder": "License Plates (LEGACY MOLD) / KiersFamished / 300ppi",
     "modified": "2019-01-13",
-    "thumb": 183
+    "thumb": 187
    },
    {
     "id": "air",
@@ -1729,7 +2052,7 @@ export const GROUPS = [
     "file": "air.png",
     "folder": "License Plates (no logo) / Avatar / 300ppi",
     "modified": "2020-07-17",
-    "thumb": 184
+    "thumb": 188
    },
    {
     "id": "earth",
@@ -1738,7 +2061,7 @@ export const GROUPS = [
     "file": "earth.png",
     "folder": "License Plates (no logo) / Avatar / 300ppi",
     "modified": "2020-07-17",
-    "thumb": 185
+    "thumb": 189
    },
    {
     "id": "fire",
@@ -1747,7 +2070,7 @@ export const GROUPS = [
     "file": "fire.png",
     "folder": "License Plates (no logo) / Avatar / 300ppi",
     "modified": "2020-07-17",
-    "thumb": 186
+    "thumb": 190
    },
    {
     "id": "water",
@@ -1756,7 +2079,7 @@ export const GROUPS = [
     "file": "water.png",
     "folder": "License Plates (no logo) / Avatar / 300ppi",
     "modified": "2020-07-17",
-    "thumb": 187
+    "thumb": 191
    },
    {
     "id": "d-va",
@@ -1765,7 +2088,7 @@ export const GROUPS = [
     "file": "D.VA.png",
     "folder": "License Plates (no logo) / Marcus Plates / 300ppi",
     "modified": "2020-07-23",
-    "thumb": 188
+    "thumb": 192
    },
    {
     "id": "baby-goku",
@@ -1774,7 +2097,7 @@ export const GROUPS = [
     "file": "Baby Goku.png",
     "folder": "License Plates (no logo) / DBZ / 300ppi",
     "modified": "2020-07-18",
-    "thumb": 189
+    "thumb": 193
    },
    {
     "id": "kakarot",
@@ -1783,7 +2106,7 @@ export const GROUPS = [
     "file": "Kakarot.png",
     "folder": "License Plates (no logo) / DBZ / 300ppi",
     "modified": "2020-07-18",
-    "thumb": 190
+    "thumb": 194
    },
    {
     "id": "dbz",
@@ -1792,7 +2115,7 @@ export const GROUPS = [
     "file": "DBZ.png",
     "folder": "License Plates (no logo) / DBZ / 300ppi",
     "modified": "2020-07-18",
-    "thumb": 191
+    "thumb": 195
    },
    {
     "id": "dbz-dragon",
@@ -1801,7 +2124,7 @@ export const GROUPS = [
     "file": "DBZ Dragon .png",
     "folder": "License Plates (no logo) / DBZ / 300ppi",
     "modified": "2020-07-18",
-    "thumb": 192
+    "thumb": 196
    },
    {
     "id": "evangeleon",
@@ -1810,7 +2133,7 @@ export const GROUPS = [
     "file": "Evangeleon.png",
     "folder": "License Plates (LEGACY MOLD) / KiersFamished / 300ppi",
     "modified": "2019-01-11",
-    "thumb": 193
+    "thumb": 197
    },
    {
     "id": "gojo-plate",
@@ -1819,7 +2142,7 @@ export const GROUPS = [
     "file": "gojo plate-01.eps",
     "folder": "License Plates (LEGACY MOLD)",
     "modified": "2024-09-10",
-    "thumb": 194
+    "thumb": 198
    },
    {
     "id": "hinata-shoyo",
@@ -1828,7 +2151,7 @@ export const GROUPS = [
     "file": "Hinata Shoyo.png",
     "folder": "License Plates (no logo) / Marcus Plates / 300ppi",
     "modified": "2020-07-23",
-    "thumb": 195
+    "thumb": 199
    },
    {
     "id": "hatsune-miku",
@@ -1837,7 +2160,7 @@ export const GROUPS = [
     "file": "hatsune miku.png",
     "folder": "License Plates (no logo) / 300ppi",
     "modified": "2020-07-21",
-    "thumb": 196
+    "thumb": 200
    },
    {
     "id": "h1",
@@ -1846,7 +2169,7 @@ export const GROUPS = [
     "file": "H1.png",
     "folder": "License Plates (LEGACY MOLD) / ChickenTie / 300ppi",
     "modified": "2019-02-02",
-    "thumb": 197
+    "thumb": 201
    },
    {
     "id": "hentai-bros",
@@ -1855,7 +2178,7 @@ export const GROUPS = [
     "file": "hentai bros-01.eps",
     "folder": "License Plates (LEGACY MOLD) / EPS",
     "modified": "2022-03-08",
-    "thumb": 198
+    "thumb": 202
    },
    {
     "id": "kingdom-farts",
@@ -1864,7 +2187,7 @@ export const GROUPS = [
     "file": "Kingdom Farts.png",
     "folder": "License Plates (LEGACY MOLD) / KiersFamished / 300ppi",
     "modified": "2019-02-01",
-    "thumb": 199
+    "thumb": 203
    },
    {
     "id": "kirby",
@@ -1873,7 +2196,25 @@ export const GROUPS = [
     "file": "kirby.png",
     "folder": "License Plates (no logo) / 300ppi",
     "modified": "2020-07-22",
-    "thumb": 200
+    "thumb": 204
+   },
+   {
+    "id": "persona",
+    "name": "Persona 5",
+    "file": "Persona.png",
+    "folder": "License Plates (LEGACY MOLD) / KiersFamished / 300ppi",
+    "modified": "2019-01-13",
+    "current": false,
+    "thumb": 205
+   },
+   {
+    "id": "pikachu",
+    "name": "Pikachu",
+    "file": "pika no logo.png",
+    "folder": "License Plates (no logo) / Meme Plates / 300ppi",
+    "modified": "2020-01-04",
+    "current": false,
+    "thumb": 206
    },
    {
     "id": "totally-spies",
@@ -1882,7 +2223,9 @@ export const GROUPS = [
     "file": "totally spies.png",
     "folder": "License Plates (no logo) / Cartoon plates / 300ppi",
     "modified": "2020-06-11",
-    "thumb": 201
+    "thumb": 207,
+    "product": "totally-spies-license-plate-frame",
+    "productTitle": "Totally Spies License Plate Frame"
    }
   ]
  },
@@ -1898,7 +2241,16 @@ export const GROUPS = [
     "file": "BAPE OG Recalibration.png",
     "folder": "Domsem A3",
     "modified": "2026-08-11",
-    "thumb": 202
+    "thumb": 208
+   },
+   {
+    "id": "bape-blue",
+    "name": "BAPE Camo Blue",
+    "file": "Bape Blue Recalibration.png",
+    "folder": "Domsem A3",
+    "modified": "2026-08-11",
+    "current": true,
+    "thumb": 209
    },
    {
     "id": "burberry",
@@ -1907,7 +2259,9 @@ export const GROUPS = [
     "file": "Burberry A3 Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-06-09",
-    "thumb": 203
+    "thumb": 210,
+    "product": "burberry-license-plate-frame",
+    "productTitle": "BRBY Luxury Plaid Pattern License Plate Frame"
    },
    {
     "id": "cinnamon",
@@ -1916,7 +2270,7 @@ export const GROUPS = [
     "file": "Cinnamon-02.png",
     "folder": "Domsem A3",
     "modified": "2026-07-17",
-    "thumb": 204
+    "thumb": 211
    },
    {
     "id": "dixie-cup",
@@ -1925,7 +2279,18 @@ export const GROUPS = [
     "file": "Dixie Cup Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-12-07",
-    "thumb": 205
+    "thumb": 212
+   },
+   {
+    "id": "gc-rainbow",
+    "name": "GC Rainbow",
+    "file": "GC Rainbow No Logo.png",
+    "folder": "Domsem A3",
+    "modified": "2026-09-10",
+    "current": true,
+    "product": "gucci-rainbow-license-plate-frame",
+    "productTitle": "GC Rainbow Luxury Style Pattern License Plate Frame",
+    "thumb": 213
    },
    {
     "id": "goyard-black",
@@ -1934,7 +2299,9 @@ export const GROUPS = [
     "file": "GOYARD Black Final-02.png",
     "folder": "Domsem A3",
     "modified": "2026-08-13",
-    "thumb": 206
+    "thumb": 214,
+    "product": "goyard-black-license-plate-frame",
+    "productTitle": "Gd (Black) License Plate Frame"
    },
    {
     "id": "red-gucci",
@@ -1943,7 +2310,9 @@ export const GROUPS = [
     "file": "red gucci triple.png",
     "folder": "Domsem A3",
     "modified": "2026-03-11",
-    "thumb": 207
+    "thumb": 215,
+    "product": "gucci-red-license-plate-frame",
+    "productTitle": "GC Luxury Pattern Style (Red) License Plate Frame"
    },
    {
     "id": "jazz-cup",
@@ -1952,7 +2321,9 @@ export const GROUPS = [
     "file": "JAZZ CUP V2 TRIPLE.png",
     "folder": "Domsem A3",
     "modified": "2025-12-03",
-    "thumb": 208
+    "thumb": 216,
+    "product": "solo-jazz-cup-v2-license-plate-frame-1",
+    "productTitle": "Solo Jazz Cup v2 License Plate Frame"
    },
    {
     "id": "lv-dark",
@@ -1961,7 +2332,7 @@ export const GROUPS = [
     "file": "LV Dark Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-11-25",
-    "thumb": 209
+    "thumb": 217
    },
    {
     "id": "lv-pink",
@@ -1970,7 +2341,9 @@ export const GROUPS = [
     "file": "LV Pink.png",
     "folder": "Domsem A3",
     "modified": "2025-12-12",
-    "thumb": 210
+    "thumb": 218,
+    "product": "copy-of-louis-vuitton-license-plate-frame",
+    "productTitle": "LV Pink License Plate Frame"
    },
    {
     "id": "rainbow",
@@ -1979,7 +2352,7 @@ export const GROUPS = [
     "file": "rainbow triple-02.png",
     "folder": "Domsem A3",
     "modified": "2026-04-29",
-    "thumb": 211
+    "thumb": 219
    },
    {
     "id": "gucci-dark",
@@ -1988,7 +2361,7 @@ export const GROUPS = [
     "file": "gucci dark no logo.png",
     "folder": "License Plates (no logo) / Designer Plates / 300ppi",
     "modified": "2020-01-04",
-    "thumb": 212
+    "thumb": 220
    },
    {
     "id": "gucci-red-black",
@@ -1997,7 +2370,7 @@ export const GROUPS = [
     "file": "gucci red black(LEGACY NO LOGO)-01.eps",
     "folder": "License Plates (no logo) / Designer Plates / EPS",
     "modified": "2021-07-20",
-    "thumb": 213
+    "thumb": 221
    },
    {
     "id": "illest-safari",
@@ -2006,7 +2379,7 @@ export const GROUPS = [
     "file": "illest safari-01.eps",
     "folder": "License Plates (LEGACY MOLD) / EPS",
     "modified": "2022-07-02",
-    "thumb": 214
+    "thumb": 222
    },
    {
     "id": "lv-black-and-grey",
@@ -2015,7 +2388,7 @@ export const GROUPS = [
     "file": "LV black and grey-01.eps",
     "folder": "License Plates (LEGACY MOLD) / Designer Plates / EPS",
     "modified": "2022-05-20",
-    "thumb": 215
+    "thumb": 223
    },
    {
     "id": "lv",
@@ -2024,7 +2397,9 @@ export const GROUPS = [
     "file": "LV no logo.png",
     "folder": "License Plates (no logo) / Designer Plates / 300ppi",
     "modified": "2020-01-04",
-    "thumb": 216
+    "thumb": 224,
+    "product": "louis-vuitton-license-plate-frame",
+    "productTitle": "LV Style Pattern License Plate Frame"
    },
    {
     "id": "takashi-muarakai",
@@ -2033,7 +2408,7 @@ export const GROUPS = [
     "file": "Takashi Muarakai.eps",
     "folder": "License Plates (LEGACY MOLD)",
     "modified": "2025-07-17",
-    "thumb": 217
+    "thumb": 225
    }
   ]
  },
@@ -2049,7 +2424,20 @@ export const GROUPS = [
     "file": "CHP 420-69 Narrow.png",
     "folder": "Domsem A3",
     "modified": "2026-08-01",
-    "thumb": 218
+    "thumb": 226,
+    "product": "420-69-plate-frame",
+    "productTitle": "CHP 420-69 license plate frame"
+   },
+   {
+    "id": "claude-ai",
+    "name": "Claude: More Tokens Daddy",
+    "file": "Claude.png",
+    "folder": "Domsem A3",
+    "modified": "2026-08-18",
+    "current": true,
+    "product": "claude-ai-license-plate-frame",
+    "productTitle": "Claude AI License Plate Frame",
+    "thumb": 227
    },
    {
     "id": "costco-hotdog",
@@ -2058,7 +2446,9 @@ export const GROUPS = [
     "file": "Costco Hotdog Flipped Final.png",
     "folder": "Domsem A3",
     "modified": "2026-08-15",
-    "thumb": 219
+    "thumb": 228,
+    "product": "costco-hot-dog-license-plate-frame",
+    "productTitle": "Costco \"Hot Dog\" License Plate Frame"
    },
    {
     "id": "dick-s-sporting-goods",
@@ -2067,7 +2457,7 @@ export const GROUPS = [
     "file": "Dick's Sporting Goods Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-11-20",
-    "thumb": 220
+    "thumb": 229
    },
    {
     "id": "doge",
@@ -2076,7 +2466,9 @@ export const GROUPS = [
     "file": "Doge Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-11-25",
-    "thumb": 221
+    "thumb": 230,
+    "product": "doge-license-plate-frame",
+    "productTitle": "Doge License Plate Frame"
    },
    {
     "id": "drive-safe",
@@ -2085,7 +2477,7 @@ export const GROUPS = [
     "file": "Drive Safe PNG.png",
     "folder": "Domsem A3 / Acrylic Frames",
     "modified": "2025-11-19",
-    "thumb": 222
+    "thumb": 231
    },
    {
     "id": "funded-by-onlyfans-color-layer",
@@ -2094,7 +2486,7 @@ export const GROUPS = [
     "file": "Funded by Onlyfans color layer.png",
     "folder": "Domsem A3",
     "modified": "2026-06-23",
-    "thumb": 223
+    "thumb": 232
    },
    {
     "id": "i-heart-abgs",
@@ -2103,7 +2495,7 @@ export const GROUPS = [
     "file": "I heart abgs.png",
     "folder": "Domsem A3",
     "modified": "2026-06-23",
-    "thumb": 224
+    "thumb": 233
    },
    {
     "id": "justiceklmar",
@@ -2112,7 +2504,7 @@ export const GROUPS = [
     "file": "justiceklmar-02.png",
     "folder": "Domsem A3",
     "modified": "2026-05-14",
-    "thumb": 225
+    "thumb": 234
    },
    {
     "id": "my-wife-is-always-right",
@@ -2121,7 +2513,9 @@ export const GROUPS = [
     "file": "My wife is always right.png",
     "folder": "Domsem A3",
     "modified": "2026-07-23",
-    "thumb": 226
+    "thumb": 235,
+    "product": "my-wife-is-always-right-license-plate-frame",
+    "productTitle": "My Wife Is Always Right License Plate Frame"
    },
    {
     "id": "narcan",
@@ -2130,7 +2524,9 @@ export const GROUPS = [
     "file": "Narcan Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-12-19",
-    "thumb": 227
+    "thumb": 236,
+    "product": "wockhardt-license-plate-frame",
+    "productTitle": "Narcan License Plate Frame"
    },
    {
     "id": "nyan-cat",
@@ -2139,7 +2535,9 @@ export const GROUPS = [
     "file": "Nyan Cat Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-11-20",
-    "thumb": 228
+    "thumb": 237,
+    "product": "nyan-cat-license-plate-frame",
+    "productTitle": "Nyan Cat License Plate Frame"
    },
    {
     "id": "onlyfans",
@@ -2148,7 +2546,9 @@ export const GROUPS = [
     "file": "onlyfans.png",
     "folder": "Domsem A3",
     "modified": "2026-06-04",
-    "thumb": 229
+    "thumb": 238,
+    "product": "only-fans-license-plate-frame",
+    "productTitle": "Subscribe to my OnlyFans License Plate Frame"
    },
    {
     "id": "plan-b",
@@ -2157,7 +2557,9 @@ export const GROUPS = [
     "file": "Plan B Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-11-24",
-    "thumb": 230
+    "thumb": 239,
+    "product": "plan-b-license-plate-frame",
+    "productTitle": "Plan B License Plate Frame"
    },
    {
     "id": "send-noods",
@@ -2166,7 +2568,7 @@ export const GROUPS = [
     "file": "Send Noods Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-01-23",
-    "thumb": 231
+    "thumb": 240
    },
    {
     "id": "suck-my-balls",
@@ -2175,7 +2577,7 @@ export const GROUPS = [
     "file": "Suck my Balls Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-12-09",
-    "thumb": 232
+    "thumb": 241
    },
    {
     "id": "this-plate-hung-itself",
@@ -2184,7 +2586,9 @@ export const GROUPS = [
     "file": "This plate hung itself Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-02-13",
-    "thumb": 233
+    "thumb": 242,
+    "product": "this-plate-hung-itself-license-plate-frame",
+    "productTitle": "\"This Plate Hung Itself\" License Plate Frame"
    },
    {
     "id": "ume-tea",
@@ -2193,7 +2597,9 @@ export const GROUPS = [
     "file": "UME tea Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2026-06-23",
-    "thumb": 234
+    "thumb": 243,
+    "product": "ume-tea-license-plate-frame",
+    "productTitle": "UME Tea License Plate Frame"
    },
    {
     "id": "wockhardt",
@@ -2202,7 +2608,9 @@ export const GROUPS = [
     "file": "Wockhardt Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-12-19",
-    "thumb": 235
+    "thumb": 244,
+    "product": "wockhard-codeine-license-plate-frame",
+    "productTitle": "Wockhardt Codeine License Plate Frame"
    },
    {
     "id": "cute-face-thing",
@@ -2211,7 +2619,7 @@ export const GROUPS = [
     "file": "cute face thing-01.eps",
     "folder": "License Plates (no logo) / Text Plates / EPS",
     "modified": "2021-07-20",
-    "thumb": 236
+    "thumb": 245
    },
    {
     "id": "2inch-punisher-gang",
@@ -2220,7 +2628,7 @@ export const GROUPS = [
     "file": "2inch punisher gang-01.eps",
     "folder": "License Plates (LEGACY MOLD) / Text Plates / EPS",
     "modified": "2023-05-15",
-    "thumb": 237
+    "thumb": 246
    },
    {
     "id": "abg-hunterz",
@@ -2229,7 +2637,7 @@ export const GROUPS = [
     "file": "abg hunterz-01.eps",
     "folder": "License Plates (no logo) / Text Plates / EPS",
     "modified": "2021-07-20",
-    "thumb": 238
+    "thumb": 247
    },
    {
     "id": "honda-thing",
@@ -2238,7 +2646,7 @@ export const GROUPS = [
     "file": "Honda Thing.png",
     "folder": "License Plates (no logo) / 300ppi",
     "modified": "2019-01-14",
-    "thumb": 239
+    "thumb": 248
    },
    {
     "id": "average-joes",
@@ -2247,7 +2655,7 @@ export const GROUPS = [
     "file": "average joes-01.eps",
     "folder": "License Plates (LEGACY MOLD) / EPS",
     "modified": "2022-02-16",
-    "thumb": 240
+    "thumb": 249
    },
    {
     "id": "bains",
@@ -2256,7 +2664,7 @@ export const GROUPS = [
     "file": "BAINS-01.eps",
     "folder": "License Plates (no logo) / Text Plates",
     "modified": "2021-07-01",
-    "thumb": 241
+    "thumb": 250
    },
    {
     "id": "eggplant",
@@ -2265,7 +2673,7 @@ export const GROUPS = [
     "file": "eggplant-01.eps",
     "folder": "License Plates (no logo) / Text Plates / EPS",
     "modified": "2021-07-20",
-    "thumb": 242
+    "thumb": 251
    },
    {
     "id": "epsilon",
@@ -2274,7 +2682,7 @@ export const GROUPS = [
     "file": "Epsilon+-01.eps",
     "folder": "License Plates (LEGACY MOLD) / Text Plates / EPS",
     "modified": "2023-02-09",
-    "thumb": 243
+    "thumb": 252
    },
    {
     "id": "financially-unstable",
@@ -2283,7 +2691,7 @@ export const GROUPS = [
     "file": "FINANCIALLY UNSTABLE-01.eps",
     "folder": "License Plates (LEGACY MOLD) / Text Plates",
     "modified": "2023-01-03",
-    "thumb": 244
+    "thumb": 253
    },
    {
     "id": "ftp",
@@ -2292,7 +2700,7 @@ export const GROUPS = [
     "file": "FTP-01.eps",
     "folder": "License Plates (LEGACY MOLD) / Text Plates",
     "modified": "2023-11-09",
-    "thumb": 245
+    "thumb": 254
    },
    {
     "id": "gofundme",
@@ -2301,7 +2709,7 @@ export const GROUPS = [
     "file": "gofundme-01.eps",
     "folder": "License Plates (LEGACY MOLD) / Meme Plates / EPS",
     "modified": "2021-08-26",
-    "thumb": 246
+    "thumb": 255
    },
    {
     "id": "horoscope-asparagus",
@@ -2310,7 +2718,7 @@ export const GROUPS = [
     "file": "horoscope asparagus-01.eps",
     "folder": "License Plates (LEGACY MOLD)",
     "modified": "2021-08-26",
-    "thumb": 247
+    "thumb": 256
    },
    {
     "id": "c-u-drift",
@@ -2319,7 +2727,7 @@ export const GROUPS = [
     "file": "c u drift.ai",
     "folder": "License Plates (LEGACY MOLD) / EPS",
     "modified": "2022-03-01",
-    "thumb": 248
+    "thumb": 257
    },
    {
     "id": "i-heart-bains",
@@ -2328,7 +2736,7 @@ export const GROUPS = [
     "file": "i heart bains-01.eps",
     "folder": "License Plates (LEGACY MOLD) / Text Plates",
     "modified": "2021-08-04",
-    "thumb": 249
+    "thumb": 258
    },
    {
     "id": "i-love-hot-moms",
@@ -2337,7 +2745,7 @@ export const GROUPS = [
     "file": "I love hot moms-01.eps",
     "folder": "License Plates (LEGACY MOLD) / Text Plates",
     "modified": "2024-05-20",
-    "thumb": 250
+    "thumb": 259
    },
    {
     "id": "illenium",
@@ -2346,7 +2754,9 @@ export const GROUPS = [
     "file": "Illenium.png",
     "folder": "License Plates (no logo) / Marcus Plates / 300ppi",
     "modified": "2020-07-23",
-    "thumb": 251
+    "thumb": 260,
+    "product": "illenium-license-plate-frame",
+    "productTitle": "ILLENIUM License Plate Frame"
    },
    {
     "id": "jinnspeed-plate",
@@ -2355,7 +2765,7 @@ export const GROUPS = [
     "file": "jinnspeed plate.eps",
     "folder": "License Plates (LEGACY MOLD) / Text Plates / EPS",
     "modified": "2023-05-19",
-    "thumb": 252
+    "thumb": 261
    },
    {
     "id": "measure-once-cut-twice",
@@ -2364,7 +2774,7 @@ export const GROUPS = [
     "file": "MEASURE ONCE CUT TWICE.eps",
     "folder": "License Plates (no logo) / Text Plates / EPS",
     "modified": "2020-11-04",
-    "thumb": 253
+    "thumb": 262
    },
    {
     "id": "nfs-plate",
@@ -2373,7 +2783,7 @@ export const GROUPS = [
     "file": "nfs plate-01.eps",
     "folder": "License Plates (no logo) / Text Plates / EPS",
     "modified": "2021-03-26",
-    "thumb": 254
+    "thumb": 263
    },
    {
     "id": "nightraid",
@@ -2382,7 +2792,16 @@ export const GROUPS = [
     "file": "Nightraid-01.eps",
     "folder": "License Plates (LEGACY MOLD) / Text Plates / EPS",
     "modified": "2023-03-23",
-    "thumb": 255
+    "thumb": 264
+   },
+   {
+    "id": "oops-my-bad",
+    "name": "Oops My Bad",
+    "file": "Cone Plate.png",
+    "folder": "License Plates (no logo) / 300ppi",
+    "modified": "2019-01-14",
+    "current": false,
+    "thumb": 265
    },
    {
     "id": "oregon-alumni",
@@ -2391,7 +2810,7 @@ export const GROUPS = [
     "file": "oregon alumni-01.eps",
     "folder": "License Plates (no logo) / Text Plates",
     "modified": "2021-03-04",
-    "thumb": 256
+    "thumb": 266
    },
    {
     "id": "rivian-kids-plate",
@@ -2400,7 +2819,7 @@ export const GROUPS = [
     "file": "rivian kids plate-01.eps",
     "folder": "License Plates (LEGACY MOLD) / Text Plates / EPS",
     "modified": "2022-02-15",
-    "thumb": 257
+    "thumb": 267
    },
    {
     "id": "seb-is-black",
@@ -2409,7 +2828,7 @@ export const GROUPS = [
     "file": "Seb is black.png",
     "folder": "License Plates (no logo) / 300ppi",
     "modified": "2019-01-11",
-    "thumb": 258
+    "thumb": 268
    },
    {
     "id": "invasionblack",
@@ -2418,7 +2837,7 @@ export const GROUPS = [
     "file": "invasionblack.png",
     "folder": "License Plates (no logo) / Text Plates / 300ppi",
     "modified": "2019-11-01",
-    "thumb": 259
+    "thumb": 269
    },
    {
     "id": "100k-followers",
@@ -2427,7 +2846,7 @@ export const GROUPS = [
     "file": "100k followers-01.eps",
     "folder": "License Plates (LEGACY MOLD)",
     "modified": "2021-08-19",
-    "thumb": 260
+    "thumb": 270
    },
    {
     "id": "turd",
@@ -2436,7 +2855,7 @@ export const GROUPS = [
     "file": "TuRD.eps",
     "folder": "License Plates (LEGACY MOLD)",
     "modified": "2021-04-29",
-    "thumb": 261
+    "thumb": 271
    }
   ]
  },
@@ -2452,7 +2871,7 @@ export const GROUPS = [
     "file": "squid game 067.png",
     "folder": "Domsem A3",
     "modified": "2026-02-18",
-    "thumb": 262
+    "thumb": 272
    }
   ]
  },
@@ -2468,7 +2887,9 @@ export const GROUPS = [
     "file": "Georgia Max Domsem Triple.png",
     "folder": "Domsem A3",
     "modified": "2025-11-26",
-    "thumb": 263
+    "thumb": 273,
+    "product": "georgia-max-coffee-license-plate-frame",
+    "productTitle": "Georgia Max Coffee License Plate Frame"
    },
    {
     "id": "7-11",
@@ -2477,7 +2898,7 @@ export const GROUPS = [
     "file": "7-11 V2-01.eps",
     "folder": "License Plates (LEGACY MOLD) / SmellyPanda / EPS",
     "modified": "2023-01-04",
-    "thumb": 264
+    "thumb": 274
    },
    {
     "id": "bh-cell",
@@ -2486,7 +2907,7 @@ export const GROUPS = [
     "file": "BH CELL.png",
     "folder": "License Plates (LEGACY MOLD) / Booty Hustlers / 300ppi",
     "modified": "2019-11-22",
-    "thumb": 265
+    "thumb": 275
    },
    {
     "id": "booty-hustlers-hks",
@@ -2495,7 +2916,7 @@ export const GROUPS = [
     "file": "Booty Hustlers hks (UPDATE)-01.eps",
     "folder": "License Plates (NEW MOLD) / Booty hustlers",
     "modified": "2021-10-25",
-    "thumb": 266
+    "thumb": 276
    },
    {
     "id": "bh-hks-black",
@@ -2504,7 +2925,7 @@ export const GROUPS = [
     "file": "bh hks black.png",
     "folder": "License Plates (LEGACY MOLD) / Booty Hustlers / 300ppi",
     "modified": "2019-12-13",
-    "thumb": 267
+    "thumb": 277
    },
    {
     "id": "booty-hustlers-license-plates",
@@ -2513,7 +2934,7 @@ export const GROUPS = [
     "file": "booty hustlers license plates(new mold)-08.eps",
     "folder": "License Plates (NEW MOLD) / Booty hustlers",
     "modified": "2021-10-22",
-    "thumb": 268
+    "thumb": 278
    },
    {
     "id": "bh-pink-black",
@@ -2522,7 +2943,7 @@ export const GROUPS = [
     "file": "bh pink black.png",
     "folder": "License Plates (LEGACY MOLD) / Booty Hustlers / 300ppi",
     "modified": "2019-12-13",
-    "thumb": 269
+    "thumb": 279
    },
    {
     "id": "smellypanda",
@@ -2531,7 +2952,7 @@ export const GROUPS = [
     "file": "SmellyPanda_Nissin.eps",
     "folder": "License Plates (LEGACY MOLD) / SmellyPanda / EPS",
     "modified": "2023-01-04",
-    "thumb": 270
+    "thumb": 280
    },
    {
     "id": "familymart",
@@ -2540,7 +2961,7 @@ export const GROUPS = [
     "file": "FamilyMart-01.eps",
     "folder": "License Plates (LEGACY MOLD) / SmellyPanda / EPS",
     "modified": "2023-01-04",
-    "thumb": 271
+    "thumb": 281
    },
    {
     "id": "smellypanda-kumon",
@@ -2549,16 +2970,7 @@ export const GROUPS = [
     "file": "SmellyPanda_Kumon-01.eps",
     "folder": "License Plates (LEGACY MOLD) / SmellyPanda / EPS",
     "modified": "2025-01-02",
-    "thumb": 272
-   },
-   {
-    "id": "lawson",
-    "name": "Lawson (SmellyPanda)",
-    "current": false,
-    "file": "Lawson (UPDATE)-01.eps",
-    "folder": "License Plates (NEW MOLD) / SmellyPanda",
-    "modified": "2022-08-09",
-    "thumb": 273
+    "thumb": 282
    },
    {
     "id": "smellypanda-pocari",
@@ -2567,7 +2979,7 @@ export const GROUPS = [
     "file": "SmellyPanda_Pocari (UPDATE)_Pocari.eps",
     "folder": "License Plates (NEW MOLD) / SmellyPanda",
     "modified": "2022-08-09",
-    "thumb": 274
+    "thumb": 283
    },
    {
     "id": "smellypanda-salonpas",
@@ -2576,7 +2988,7 @@ export const GROUPS = [
     "file": "SmellyPanda_Salonpas-01.eps",
     "folder": "License Plates (LEGACY MOLD) / SmellyPanda / EPS",
     "modified": "2025-01-02",
-    "thumb": 275
+    "thumb": 284
    },
    {
     "id": "smelly-panda-suica",
@@ -2585,7 +2997,7 @@ export const GROUPS = [
     "file": "Smelly Panda Suica-02.eps",
     "folder": "License Plates (LEGACY MOLD) / SmellyPanda / EPS",
     "modified": "2025-05-24",
-    "thumb": 276
+    "thumb": 285
    },
    {
     "id": "smellypanda-tenga",
@@ -2594,7 +3006,7 @@ export const GROUPS = [
     "file": "SmellyPanda_Tenga-01.eps",
     "folder": "License Plates (LEGACY MOLD) / SmellyPanda / EPS",
     "modified": "2025-01-02",
-    "thumb": 277
+    "thumb": 286
    },
    {
     "id": "smellypanda-white-rabbit",
@@ -2603,7 +3015,7 @@ export const GROUPS = [
     "file": "SmellyPanda-white rabbit.eps",
     "folder": "License Plates (LEGACY MOLD) / SmellyPanda / EPS",
     "modified": "2023-01-05",
-    "thumb": 278
+    "thumb": 287
    }
   ]
  }
