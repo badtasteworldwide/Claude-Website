@@ -12,7 +12,7 @@
         <a href="{{ collection.url }}" class="collection-card collection-card--sq">
           <div class="collection-card__bg" style="background: linear-gradient(135deg, var(--pink), var(--pink-deep));">
             {%- if collection.featured_image -%}
-              <img class="collection-card__photo" src="{{ collection.featured_image | image_url: width: 600 }}" alt="{{ collection.featured_image.alt | default: collection.title | escape }}" loading="lazy" width="600" height="600" style="width:100%; height:100%; object-fit:cover;">
+              <img class="collection-card__photo" src="{{ collection.featured_image | image_url: width: 600 }}" alt="{{ collection.featured_image.alt | default: collection.title | escape }}" loading="lazy" width="600" height="600" style="width:100%; height:100%; object-fit:contain; background:#fff;">
             {%- endif -%}
           </div>
           <div class="collection-card__overlay">

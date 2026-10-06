@@ -9,6 +9,7 @@
  */
 {
   "current": {
+    "favicon": "shopify://shop_images/flavicon-01.png",
     "accent_color": "#fa53c1",
     "accent_soft_color": "#fea5df",
     "accent_deep_color": "#d43ba2",
