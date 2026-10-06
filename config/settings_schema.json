@@ -47,9 +47,9 @@
     "settings": [
       { "type": "checkbox", "id": "enable_exit_modal", "label": "Enable discount popup", "default": false, "info": "Shows a discount offer once per visitor, after 2 minutes on the site. Create the matching discount code in Shopify admin." },
       { "type": "text", "id": "exit_modal_eyebrow", "label": "Eyebrow", "default": "Wait. Don't leave empty-handed." },
-      { "type": "text", "id": "exit_modal_title", "label": "Heading (HTML allowed)", "default": "Here's 15% off because we're desperate." },
+      { "type": "text", "id": "exit_modal_title", "label": "Heading (HTML allowed)", "default": "Here's 5% off because we're desperate." },
       { "type": "text", "id": "exit_modal_sub", "label": "Subtext", "default": "Because groveling works." },
-      { "type": "text", "id": "exit_modal_code", "label": "Discount code", "default": "BADTASTE15" },
+      { "type": "text", "id": "exit_modal_code", "label": "Discount code", "default": "BADTASTE5" },
       { "type": "url", "id": "exit_modal_link", "label": "Button link" },
       { "type": "text", "id": "exit_modal_cta", "label": "Button label", "default": "Claim My Discount →" }
     ]
