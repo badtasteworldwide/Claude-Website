@@ -1,0 +1,40 @@
+<div class="coll-hero">
+  <div class="coll-hero__inner">
+    <span class="section__eyebrow">The Blog</span>
+    <h1 class="coll-hero__title">{{ blog.title }}</h1>
+  </div>
+</div>
+
+<div class="coll-grid-wrap">
+  {%- paginate blog.articles by 12 -%}
+    <div class="blog-grid">
+      {%- for article in blog.articles -%}
+        <article class="blog-card">
+          {%- if article.image -%}
+            <a href="{{ article.url }}" style="display: block; border-bottom: 2px solid var(--ink);">
+              <img src="{{ article.image | image_url: width: 800 }}" alt="{{ article.image.alt | default: article.title | escape }}" loading="lazy" width="800" height="450" style="width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block;">
+            </a>
+          {%- endif -%}
+          <div style="padding: 20px;">
+            <div class="blog-card__date">{{ article.published_at | date: '%b %d, %Y' }}</div>
+            <a href="{{ article.url }}"><h2 class="blog-card__title">{{ article.title }}</h2></a>
+            <p style="font-size: 14px; margin-top: 8px;">{{ article.excerpt_or_content | strip_html | truncate: 120 }}</p>
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+    {%- if paginate.pages > 1 -%}
+      <nav class="pagination" role="navigation" aria-label="Pagination">
+        {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}" class="btn btn--sm btn--paper">← Prev</a>{%- endif -%}
+        {%- if paginate.next -%}<a href="{{ paginate.next.url }}" class="btn btn--sm btn--paper">Next →</a>{%- endif -%}
+      </nav>
+    {%- endif -%}
+  {%- endpaginate -%}
+</div>
+
+{% schema %}
+{
+  "name": "Blog",
+  "settings": []
+}
+{% endschema %}

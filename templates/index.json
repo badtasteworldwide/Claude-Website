@@ -1,0 +1,685 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "blocks": {
+        "stat1": {
+          "type": "stat",
+          "settings": {
+            "value": "4.9★",
+            "label": "Avg Rating"
+          }
+        },
+        "stat2": {
+          "type": "stat",
+          "settings": {
+            "value": "62+",
+            "label": "Frame Designs"
+          }
+        },
+        "stat3": {
+          "type": "stat",
+          "settings": {
+            "value": "24hr",
+            "label": "Ships From USA"
+          }
+        },
+        "stat4": {
+          "type": "stat",
+          "settings": {
+            "value": "$40+",
+            "label": "Free Shipping"
+          }
+        },
+        "chip1": {
+          "type": "theme_chip",
+          "settings": {
+            "label": "Bad Taste"
+          }
+        },
+        "chip2": {
+          "type": "theme_chip",
+          "settings": {
+            "label": "Konbini"
+          }
+        },
+        "chip3": {
+          "type": "theme_chip",
+          "settings": {
+            "label": "K-Pop"
+          }
+        },
+        "chip4": {
+          "type": "theme_chip",
+          "settings": {
+            "label": "Track"
+          }
+        },
+        "chip5": {
+          "type": "theme_chip",
+          "settings": {
+            "label": "Meme"
+          }
+        },
+        "chip6": {
+          "type": "theme_chip",
+          "settings": {
+            "label": "Booze"
+          }
+        }
+      },
+      "block_order": [
+        "stat1",
+        "stat2",
+        "stat3",
+        "stat4",
+        "chip1",
+        "chip2",
+        "chip3",
+        "chip4",
+        "chip5",
+        "chip6"
+      ],
+      "settings": {
+        "eyebrow": "Made in the USA · ships in 24hrs",
+        "heading": "<p>All things <em>bad taste</em> are cool.</p>",
+        "subheading": "License plate frames for K-pop stans, 3AM konbini runs, degenerate meme lords, track addicts, and everyone whose mom would hate their Lexus. Small-batch drops. Heavy plastic. No apologies.",
+        "cta1_label": "Shop The Drop →",
+        "cta1_link": "",
+        "cta2_label": "Find Your Frame",
+        "cta2_link": "",
+        "image": "shopify://shop_images/IMG_2333_08dfd075-2f3f-4825-a532-309ebc40cb0d.jpg",
+        "sticker_text": "NEW DROP",
+        "sticker_small": "FRESH THEMES"
+      }
+    },
+    "trust": {
+      "type": "trust-strip",
+      "blocks": {
+        "t1": {
+          "type": "item",
+          "settings": {
+            "text": "★ RATED 4.9/5 BY REAL DRIVERS"
+          }
+        },
+        "t2": {
+          "type": "item",
+          "settings": {
+            "text": "FREE SHIP $40+"
+          }
+        },
+        "t3": {
+          "type": "item",
+          "settings": {
+            "text": "24HR FROM USA"
+          }
+        },
+        "t4": {
+          "type": "item",
+          "settings": {
+            "text": "NO-HASSLE RETURNS"
+          }
+        },
+        "item_Maa8pR": {
+          "type": "item",
+          "settings": {
+            "text": "FREE SHIP $40+"
+          }
+        },
+        "t5": {
+          "type": "item",
+          "settings": {
+            "text": "★ SHIPS WORLDWIDE"
+          }
+        },
+        "t6": {
+          "type": "item",
+          "settings": {
+            "text": "HEAVY-DUTY ABS PLASTIC"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "item_Maa8pR",
+        "t5",
+        "t6"
+      ],
+      "settings": {}
+    },
+    "collections": {
+      "type": "collection-grid",
+      "blocks": {
+        "c1": {
+          "type": "collection",
+          "settings": {
+            "collection": "konbini-at-3am",
+            "title_override": "Konbini at 3AM",
+            "tag": "Best Seller",
+            "use_image": true,
+            "frame_top": "Konbini At 3AM",
+            "frame_bottom": "MIDNIGHT RUN",
+            "plate_number": "KONB·777",
+            "color_1": "#00a6e2",
+            "color_2": "#0077a3"
+          }
+        },
+        "c2": {
+          "type": "collection",
+          "settings": {
+            "collection": "kpop-license-plate-frames",
+            "title_override": "K-Pop Stans",
+            "tag": "Trending",
+            "use_image": true,
+            "frame_top": "Certified Stan",
+            "frame_bottom": "BIAS APPROVED",
+            "plate_number": "STAN·5",
+            "color_1": "#ff6fb5",
+            "color_2": "#ff1f8f"
+          }
+        },
+        "c3": {
+          "type": "collection",
+          "settings": {
+            "collection": "racing-livery-license-plate-frames",
+            "title_override": "Track Addicts",
+            "tag": "Restocked",
+            "use_image": true,
+            "frame_top": "Track Use Only",
+            "frame_bottom": "NO STREET DRIVING",
+            "plate_number": "APEX·911",
+            "color_1": "#e32c2b",
+            "color_2": "#8c0000"
+          }
+        },
+        "c4": {
+          "type": "collection",
+          "settings": {
+            "collection": "fast-food-themed-license-plate-frames",
+            "title_override": "Late Stage Capitalism Meals",
+            "tag": "New",
+            "use_image": true,
+            "frame_top": "Value Menu Royalty",
+            "frame_bottom": "LARGE FRIES ONLY",
+            "plate_number": "JOY·02",
+            "color_1": "#e32c2b",
+            "color_2": "#b00000"
+          }
+        },
+        "c5": {
+          "type": "collection",
+          "settings": {
+            "collection": "degenerate-meme-culture",
+            "title_override": "Degenerate Meme Culture",
+            "tag": "",
+            "use_image": true,
+            "frame_top": "Jet Fuel Can't Melt",
+            "frame_bottom": "STEEL MEMES",
+            "plate_number": "MEME·420",
+            "color_1": "#111111",
+            "color_2": "#333333"
+          }
+        },
+        "c6": {
+          "type": "collection",
+          "settings": {
+            "collection": "alcoholics-anonymous",
+            "title_override": "Booze Hall of Fame",
+            "tag": "",
+            "use_image": true,
+            "frame_top": "Last Call Legend",
+            "frame_bottom": "MEMBER SINCE FOREVER",
+            "plate_number": "BREW·86",
+            "color_1": "#f4b400",
+            "color_2": "#a06600"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6"
+      ],
+      "settings": {
+        "eyebrow": "06 Collections",
+        "heading": "<p>Pick your <em>flavor of bad.</em></p>",
+        "link_label": "View all collections →",
+        "link_url": ""
+      }
+    },
+    "featured": {
+      "type": "featured-products",
+      "settings": {
+        "eyebrow": "Best Sellers",
+        "heading": "<p>Frames <em>everyone else</em> is copying.</p>",
+        "link_label": "Shop all frames →",
+        "collection": "asian-themed-plate-frames",
+        "limit": 8
+      }
+    },
+    "bundle": {
+      "type": "bundle-builder",
+      "blocks": {
+        "tier2": {
+          "type": "tier",
+          "settings": {
+            "count": 2,
+            "left_strong": "2 Frames",
+            "left_rest": "Any theme",
+            "right": "FREE SHIPPING"
+          }
+        },
+        "tier3": {
+          "type": "tier",
+          "settings": {
+            "count": 3,
+            "left_strong": "3 Frames",
+            "left_rest": "Unlock the vault",
+            "right": "10% OFF + Free Ship"
+          }
+        },
+        "tier4": {
+          "type": "tier",
+          "settings": {
+            "count": 4,
+            "left_strong": "4+ Frames",
+            "left_rest": "You have a problem",
+            "right": "20% OFF + Sticker Pack"
+          }
+        }
+      },
+      "block_order": [
+        "tier2",
+        "tier3",
+        "tier4"
+      ],
+      "settings": {
+        "eyebrow": "Bundle & Save",
+        "heading": "<p>Build a <em>3-pack.</em><br/>Save up to 20%.</p>",
+        "subheading": "Because one frame is never enough. Daily driver, weekend car, whatever's in the garage — they all deserve bad taste.",
+        "collection": "",
+        "max_items": 3,
+        "note": "Tap to add · scroll for more"
+      }
+    },
+    "quiz": {
+      "type": "frame-finder",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "It's 3AM. Where are you?",
+            "options": "🍙 | Convenience store snack run | konbini\n🎤 | Refreshing tour dates | kpop\n🏁 | Mountain roads, no reason | track\n🍗 | Drive-thru, large fries | snack"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "Your dream car is…",
+            "options": "🚗 | Anything with pop-up headlights | track\n💗 | Whatever matches my phone case | kpop\n🚙 | A van full of snacks | konbini\n🛻 | Paid off and questionable | snack"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "Pick a group chat energy:",
+            "options": "📸 | Concert ticket presale intel | kpop\n🌙 | 2AM 'you up? let's drive' | track\n🧃 | Rating gas station drinks | konbini\n🍔 | Sending cursed food pics | snack"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "Your mom sees your car. She says:",
+            "options": "😤 | 'Take that off immediately' | track\n🥺 | 'Where can I get one?' | kpop\n😐 | Nothing. She's given up. | snack\n🙃 | 'Is that… a snack brand?' | konbini"
+          }
+        },
+        "r1": {
+          "type": "result",
+          "settings": {
+            "tag": "konbini",
+            "title": "You're a Konbini at 3AM person.",
+            "blurb": "Fluorescent lights, midnight snacks, zero regrets. Your frame is waiting in the cold-drink aisle of life.",
+            "collection": ""
+          }
+        },
+        "r2": {
+          "type": "result",
+          "settings": {
+            "tag": "kpop",
+            "title": "Certified stan behavior.",
+            "blurb": "Your bias would approve of this frame. Probably. We can't legally confirm that.",
+            "collection": ""
+          }
+        },
+        "r3": {
+          "type": "result",
+          "settings": {
+            "tag": "track",
+            "title": "Track addict detected.",
+            "blurb": "Send it. Tastefully. Actually no — just send it.",
+            "collection": ""
+          }
+        },
+        "r4": {
+          "type": "result",
+          "settings": {
+            "tag": "snack",
+            "title": "You're snack-motivated.",
+            "blurb": "The drive-thru knows your order by heart. Own it on your bumper.",
+            "collection": ""
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "eyebrow": "Frame Finder · 4 Questions",
+        "heading": "<p>What flavor of <em>bad</em> are you?</p>",
+        "subheading": "Answer 4 quick questions. We'll find the frame that matches your specific brand of questionable taste."
+      }
+    },
+    "reviews": {
+      "type": "reviews",
+      "blocks": {
+        "s1": {
+          "type": "stat",
+          "settings": {
+            "show_stars": true,
+            "value": "4.7 / 5",
+            "label": "Average rating"
+          }
+        },
+        "s2": {
+          "type": "stat",
+          "settings": {
+            "show_stars": false,
+            "value": "97%",
+            "label": "Would buy again"
+          }
+        },
+        "s3": {
+          "type": "stat",
+          "settings": {
+            "show_stars": false,
+            "value": "24,000+",
+            "label": "Frames shipped"
+          }
+        },
+        "s4": {
+          "type": "stat",
+          "settings": {
+            "show_stars": false,
+            "value": "10.5K",
+            "label": "IG followers"
+          }
+        },
+        "rv1": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "title": "\"Started a plague. Zero regrets.\"",
+            "body": "I see these on literally every Lexus in my neighborhood now. Came fast, feels heavy, survived a drive-thru.",
+            "name": "@a86slyr",
+            "product_name": "Snack Frame",
+            "verified": true
+          }
+        },
+        "rv2": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "title": "\"…it's just too cute.\"",
+            "body": "Put it on my mom's car without asking. She was mad for 3 minutes then asked where she could get the matching sticker.",
+            "name": "Hana B.",
+            "product_name": "Konbini Frame",
+            "verified": true
+          }
+        },
+        "rv3": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "title": "Finally, taste worth having",
+            "body": "Ordered 3, came in 2 days, thick plastic, screws included, didn't crack when I over-torqued. That's the whole review.",
+            "name": "Marcus T.",
+            "product_name": "Bundle of 3",
+            "verified": true
+          }
+        },
+        "rv4": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "title": "My HOA hates it",
+            "body": "Neighbor knocked on my door to ask what my frame means. I said nothing and closed the door. Worth every cent.",
+            "name": "Dani R.",
+            "product_name": "Meme Frame",
+            "verified": true
+          }
+        },
+        "rv5": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "title": "No one else makes these",
+            "body": "I bought this for my brother who is a big racing fan. The colors are correct and design lines crisp. I’m sure he will love it.",
+            "name": "Frank (via Etsy)",
+            "product_name": "Gulf Racing License Plate Frame",
+            "verified": true
+          }
+        },
+        "rv6": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "title": "\"What's this doing here?\"",
+            "body": "Cousin sent a photo from a roadside abroad with my plate frame in it. I have no explanation. 10/10 would confuse strangers again.",
+            "name": "Rick E.",
+            "product_name": "Bad Taste Frame",
+            "verified": true
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "rv1",
+        "rv2",
+        "rv3",
+        "rv4",
+        "rv5",
+        "rv6"
+      ],
+      "settings": {
+        "eyebrow": "The Receipts",
+        "heading": "<p>People with taste <em>talk about us.</em></p>"
+      }
+    },
+    "ugc": {
+      "type": "ugc-gallery",
+      "blocks": {
+        "tile_9aC3b4": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/IMG_1865.jpg",
+            "handle": "@costcoclaudia",
+            "plate_number": "BAD·420",
+            "color_1": "#fa53c1",
+            "color_2": "#d43ba2"
+          }
+        },
+        "u2": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/WhatsApp_Image_2025-11-24_at_8.30.55_PM_1.jpg",
+            "handle": "@hanabuu_",
+            "plate_number": "BAD·420",
+            "color_1": "#fa53c1",
+            "color_2": "#d43ba2"
+          }
+        },
+        "u1": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/WhatsApp_Image_2025-11-24_at_8.17.29_PM_1.jpg",
+            "handle": "@a86slyr",
+            "plate_number": "KONB·777",
+            "color_1": "#00a6e2",
+            "color_2": "#0077a3"
+          }
+        },
+        "u3": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/WhatsApp_Image_2025-11-24_at_8.17.29_PM.jpg",
+            "handle": "@stan4ever",
+            "plate_number": "STAN·5",
+            "color_1": "#ff6fb5",
+            "color_2": "#ff1f8f"
+          }
+        },
+        "u4": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/IMG_3537.jpg",
+            "handle": "@yukifl5",
+            "plate_number": "APEX·911",
+            "color_1": "#e32c2b",
+            "color_2": "#8c0000"
+          }
+        },
+        "u5": {
+          "type": "tile",
+          "settings": {
+            "image": "shopify://shop_images/EA70F3CA-4ADD-470C-B0FD-F5211CBCF72A.jpg",
+            "handle": "@thetrashvan",
+            "plate_number": "MEME·420",
+            "color_1": "#111111",
+            "color_2": "#333333"
+          }
+        }
+      },
+      "block_order": [
+        "tile_9aC3b4",
+        "u2",
+        "u1",
+        "u3",
+        "u4",
+        "u5"
+      ],
+      "settings": {
+        "eyebrow": "#BadTasteWorldwide",
+        "heading": "<p>Seen on <em>questionable</em> vehicles everywhere.</p>",
+        "link_label": "Tag us @badtaste.world →",
+        "link_url": "https://instagram.com"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "f1": {
+          "type": "item",
+          "settings": {
+            "question": "How fast do you ship?",
+            "answer": "<p>Everything ships within 24 hours from California, Monday–Friday. Free US shipping over $40. </p>"
+          }
+        },
+        "f2": {
+          "type": "item",
+          "settings": {
+            "question": "Will this fit my car?",
+            "answer": "<p>We make two sizes: US standard (12\"×6\") and US standard flipped (12\"x6\", tags on the bottom). Filter by size on any product page. Every frame comes individually bagged.</p>"
+          }
+        },
+        "f3": {
+          "type": "item",
+          "settings": {
+            "question": "What's the material?",
+            "answer": "<p>Injection-molded ABS plastic with UV-stable printed graphics. Same stuff dealers use — we just put weirder things on it. Tested in Arizona sun, Seattle rain, and one guy's Norwegian winter. Rated for 2 years of hard use.</p>"
+          }
+        },
+        "f4": {
+          "type": "item",
+          "settings": {
+            "question": "Can I return it?",
+            "answer": "<p>Hassle-free, no questions. If it arrives broken or we mess up the order, we'll replace it free. If you change your mind, we'll refund you minus return shipping.</p>"
+          }
+        },
+        "f5": {
+          "type": "item",
+          "settings": {
+            "question": "Do you make custom frames?",
+            "answer": "<p>Yes — minimum order is 5 units for fully custom designs, email badtasteworldwide@gmail.com</p>"
+          }
+        },
+        "f6": {
+          "type": "item",
+          "settings": {
+            "question": "Is this legal on my plates?",
+            "answer": "<p>US: legal in most states if it doesn't cover the plate number or state name. Check your local laws. We are not your lawyer. We are not even a lawyer.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4",
+        "f5",
+        "f6"
+      ],
+      "settings": {
+        "eyebrow": "FAQ",
+        "heading": "<p>Questions <em>with answers.</em></p>"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "disabled": true,
+      "settings": {
+        "heading": "<p>Get bad taste<br/>in your inbox.</p>",
+        "subheading": "Early access to drops + 10% off your first frame. No spam, just slop.",
+        "placeholder": "you@badtaste.com",
+        "button_label": "Sign Me Up",
+        "fine_print": "Join 32,000+ people with questionable judgment"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "trust",
+    "collections",
+    "featured",
+    "bundle",
+    "quiz",
+    "reviews",
+    "ugc",
+    "faq",
+    "newsletter"
+  ]
+}

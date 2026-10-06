@@ -1,0 +1,45 @@
+<section class="section" id="drops" style="padding-top: 20px;">
+  <div class="section__head">
+    <div>
+      {%- if section.settings.eyebrow != blank -%}<span class="section__eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2 class="section__title">{{ section.settings.heading }}</h2>
+    </div>
+    {%- if section.settings.link_label != blank -%}
+      <a href="{{ section.settings.collection.url | default: routes.all_products_collection_url }}" class="section__link">{{ section.settings.link_label }}</a>
+    {%- endif -%}
+  </div>
+  <div class="products">
+    {%- if section.settings.collection != blank -%}
+      {%- for product in section.settings.collection.products limit: section.settings.limit -%}
+        {%- render 'product-card', card_product: product -%}
+      {%- endfor -%}
+    {%- else -%}
+      {%- for i in (1..4) -%}
+        <article class="product-card">
+          <div class="product-card__image" style="background: linear-gradient(135deg, var(--pink), var(--pink-deep));">
+            <div class="product-card__mini-plate">{% render 'plate' %}</div>
+          </div>
+          <div class="product-card__info">
+            <div class="product-card__theme">Pick a collection</div>
+            <div class="product-card__name">Example product</div>
+            <div class="product-card__price-row"><span class="product-card__price">$24.99</span></div>
+          </div>
+        </article>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured products",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Best Sellers" },
+    { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>Frames <em>everyone else</em> is copying.</p>" },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "Shop all frames →" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "limit", "label": "Products to show", "min": 4, "max": 12, "step": 4, "default": 8 }
+  ],
+  "presets": [{ "name": "Featured products" }]
+}
+{% endschema %}

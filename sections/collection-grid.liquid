@@ -1,0 +1,285 @@
+<section class="section" id="collections">
+  <div class="section__head">
+    <div>
+      {%- if section.settings.eyebrow != blank -%}<span class="section__eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2 class="section__title">{{ section.settings.heading }}</h2>
+    </div>
+    {%- if section.settings.link_label != blank -%}
+      <a href="{{ section.settings.link_url | default: routes.collections_url }}" class="section__link">{{ section.settings.link_label }}</a>
+    {%- endif -%}
+  </div>
+  {%- assign uniform = false -%}
+  {%- if section.settings.layout == 'uniform' or section.settings.layout == blank -%}{%- assign uniform = true -%}{%- endif -%}
+  <div class="collections{% if uniform %} collections--uniform{% endif %}" style="--card-h: {{ section.settings.card_height | default: 260 }}px;">
+    {%- assign layout_classes = 'collection-card--wide,collection-card--sq,,,,collection-card--wide' | split: ',' -%}
+    {%- for block in section.blocks -%}
+      {%- assign coll = block.settings.collection -%}
+      {%- assign idx = forloop.index0 | modulo: 6 -%}
+      {%- assign size_class = '' -%}
+      {%- unless uniform -%}
+        {%- case block.settings.size -%}
+          {%- when 'wide' -%}{%- assign size_class = 'collection-card--wide' -%}
+          {%- when 'square' -%}{%- assign size_class = 'collection-card--sq' -%}
+          {%- when 'small' -%}{%- assign size_class = '' -%}
+          {%- else -%}{%- assign size_class = layout_classes[idx] -%}
+        {%- endcase -%}
+      {%- endunless -%}
+      <a href="{{ coll.url | default: '#' }}" class="collection-card {{ size_class }}" {{ block.shopify_attributes }}>
+        {%- if block.settings.tag != blank -%}<div class="collection-card__tag">{{ block.settings.tag }}</div>{%- endif -%}
+        <div class="collection-card__bg" style="background: linear-gradient(135deg, {{ block.settings.color_1 }}, {{ block.settings.color_2 }});">
+          {%- if block.settings.image != blank -%}
+            <img class="collection-card__photo" src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ block.settings.image.alt | default: block.settings.title_override | escape }}" loading="lazy" width="800" height="800">
+          {%- elsif coll.featured_image and block.settings.use_image -%}
+            <img class="collection-card__photo" src="{{ coll.featured_image | image_url: width: 800 }}" alt="{{ coll.title | escape }}" loading="lazy" width="800" height="800">
+          {%- else -%}
+            <div style="position:absolute; left:50%; top:45%; transform:translate(-50%,-50%); width:70%;">
+              {%- render 'plate',
+                top: block.settings.frame_top,
+                bottom: block.settings.frame_bottom,
+                number: block.settings.plate_number,
+                color1: block.settings.color_1,
+                color2: block.settings.color_2 -%}
+            </div>
+          {%- endif -%}
+        </div>
+        <div class="collection-card__overlay">
+          {%- if coll != blank -%}
+            <div class="collection-card__label">{{ coll.products_count }} frames</div>
+            <div class="collection-card__title">{{ block.settings.title_override | default: coll.title }}</div>
+          {%- else -%}
+            <div class="collection-card__title">{{ block.settings.title_override | default: 'Pick a collection' }}</div>
+          {%- endif -%}
+          <div class="collection-card__count">Shop the collection →</div>
+        </div>
+      </a>
+    {%- endfor -%}
+  </div>
+</section>
+
+<style>
+  .collections--uniform {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: none;
+    grid-auto-rows: var(--card-h, 260px);
+  }
+  .collections--uniform .collection-card { grid-column: span 1; grid-row: span 1; }
+  @media (max-width: 768px) {
+    .collections--uniform { grid-template-columns: repeat(2, 1fr); grid-auto-rows: auto; }
+    .collections--uniform .collection-card { aspect-ratio: 1/1; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Collections grid",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "06 Collections"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>Pick your <em>flavor of bad.</em></p>"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Link label",
+      "default": "View all collections →"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link URL"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "default": "uniform",
+      "options": [
+        {
+          "value": "uniform",
+          "label": "Uniform grid (all same size)"
+        },
+        {
+          "value": "mosaic",
+          "label": "Mosaic (mixed sizes)"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "card_height",
+      "label": "Card height (uniform layout)",
+      "min": 180,
+      "max": 400,
+      "step": 20,
+      "default": 260,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection card",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Card photo",
+          "info": "Shown instead of the plate graphic. Overrides the collection image."
+        },
+        {
+          "type": "select",
+          "id": "size",
+          "label": "Card size (mosaic layout only)",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "Auto pattern"
+            },
+            {
+              "value": "wide",
+              "label": "Wide"
+            },
+            {
+              "value": "square",
+              "label": "Medium"
+            },
+            {
+              "value": "small",
+              "label": "Small"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "title_override",
+          "label": "Title override (optional)"
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Corner tag (e.g. Best Seller)"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_image",
+          "label": "Use collection image instead of plate",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "frame_top",
+          "label": "Plate frame top text"
+        },
+        {
+          "type": "text",
+          "id": "frame_bottom",
+          "label": "Plate frame bottom text"
+        },
+        {
+          "type": "text",
+          "id": "plate_number",
+          "label": "Plate number"
+        },
+        {
+          "type": "color",
+          "id": "color_1",
+          "label": "Card color 1",
+          "default": "#fa53c1"
+        },
+        {
+          "type": "color",
+          "id": "color_2",
+          "label": "Card color 2",
+          "default": "#d43ba2"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collections grid",
+      "blocks": [
+        {
+          "type": "collection",
+          "settings": {
+            "tag": "Best Seller",
+            "frame_top": "Konbini at 3AM",
+            "frame_bottom": "MIDNIGHT SNACK RUN",
+            "plate_number": "JOY·02",
+            "color_1": "#e32c2b",
+            "color_2": "#b00000"
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+            "tag": "Trending",
+            "frame_top": "Stan Forever",
+            "frame_bottom": "BIAS ON BOARD",
+            "plate_number": "BUNNI·5",
+            "color_1": "#ff6fb5",
+            "color_2": "#ff1f8f"
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+            "tag": "Restocked",
+            "frame_top": "Track Use Only",
+            "frame_bottom": "NO STREET DRIVING",
+            "plate_number": "APEX·911",
+            "color_1": "#e32c2b",
+            "color_2": "#8c0000"
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+            "tag": "New",
+            "frame_top": "Late Stage Meals",
+            "frame_bottom": "VALUE MENU LIFESTYLE",
+            "plate_number": "MEAL·99",
+            "color_1": "#f4b400",
+            "color_2": "#a06600"
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+            "frame_top": "Certified Meme Lord",
+            "frame_bottom": "STEEL MEMES · SINCE 2001",
+            "plate_number": "MEME·420",
+            "color_1": "#111111",
+            "color_2": "#333333"
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+            "frame_top": "Bad Taste Worldwide",
+            "frame_bottom": "MADE IN QUESTIONABLE TASTE",
+            "plate_number": "BAD·420",
+            "color_1": "#fa53c1",
+            "color_2": "#d43ba2"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

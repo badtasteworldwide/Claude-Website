@@ -1,0 +1,61 @@
+<div class="cart-page page-shell page-shell--wide">
+  <h1 class="page-title">Your Cart {% if cart.item_count > 0 %}<span style="font-family: var(--font-mono); font-size: 16px; opacity: .6;">({{ cart.item_count }})</span>{% endif %}</h1>
+
+  {%- if cart.item_count == 0 -%}
+    <p style="font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.1em; margin: 40px 0;">Your cart is empty. Fix that.</p>
+    <a href="{{ routes.all_products_collection_url }}" class="btn btn--lg">Shop The Drop →</a>
+  {%- else -%}
+    <form action="{{ routes.cart_url }}" method="post" novalidate>
+      <div>
+        {%- for item in cart.items -%}
+          <div class="cart-line">
+            <a href="{{ item.url }}" class="cart-line__img" style="background: linear-gradient(135deg, var(--pink), var(--pink-deep));">
+              {%- if item.image -%}
+                <img src="{{ item.image | image_url: width: 200 }}" alt="{{ item.image.alt | default: item.product.title | escape }}" loading="lazy" width="100" height="100">
+              {%- endif -%}
+            </a>
+            <div class="cart-line__meta">
+              <a href="{{ item.url }}" class="cart-line__title">{{ item.product.title }}</a>
+              {%- unless item.product.has_only_default_variant -%}
+                <div style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft);">{{ item.variant.title }}</div>
+              {%- endunless -%}
+              {%- for discount in item.line_level_discount_allocations -%}
+                <div style="font-family: var(--font-mono); font-size: 11px; color: var(--green);">{{ discount.discount_application.title }} (−{{ discount.amount | money }})</div>
+              {%- endfor -%}
+              <div class="qty-stepper" style="margin-top: 8px;">
+                <button type="button" data-qty-minus aria-label="Decrease quantity">−</button>
+                <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="Quantity for {{ item.product.title | escape }}">
+                <button type="button" data-qty-plus aria-label="Increase quantity">+</button>
+              </div>
+            </div>
+            <div class="cart-line__right">
+              <strong style="font-family: var(--font-display); font-size: 18px;">{{ item.final_line_price | money }}</strong>
+              <a href="{{ item.url_to_remove }}" class="cart-line__remove">Remove</a>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <div class="cart-summary">
+        {%- if cart.cart_level_discount_applications.size > 0 -%}
+          {%- for discount in cart.cart_level_discount_applications -%}
+            <div class="cart-summary__row" style="color: var(--green);"><span>{{ discount.title }}</span><span>−{{ discount.total_allocated_amount | money }}</span></div>
+          {%- endfor -%}
+        {%- endif -%}
+        <div class="cart-summary__row"><span>Subtotal</span><strong style="font-family: var(--font-display); font-size: 24px;">{{ cart.total_price | money }}</strong></div>
+        <p style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin: 8px 0 16px;">Shipping + taxes calculated at checkout</p>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <button type="submit" name="update" class="btn btn--paper">Update Cart</button>
+          <button type="submit" name="checkout" class="btn btn--lg" style="flex: 1; justify-content: center;">Checkout →</button>
+        </div>
+      </div>
+    </form>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Cart page",
+  "settings": []
+}
+{% endschema %}

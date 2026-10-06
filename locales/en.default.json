@@ -1,0 +1,43 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "general": {
+    "meta": {
+      "page": "Page {{ page }}"
+    },
+    "404": {
+      "title": "Page not found",
+      "subtext": "The page you were looking for does not exist."
+    },
+    "search": {
+      "search": "Search",
+      "placeholder": "Search frames, collections, answers…"
+    },
+    "pagination": {
+      "previous": "← Prev",
+      "next": "Next →"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add To Cart →",
+      "sold_out": "Sold Out",
+      "quantity": "Quantity"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Your Cart",
+      "empty": "Your cart is empty.",
+      "checkout": "Checkout →",
+      "subtotal": "Subtotal"
+    }
+  }
+}

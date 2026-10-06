@@ -1,0 +1,295 @@
+<section class="hero" data-hero>
+  <div class="hero__grid">
+    <div class="hero__copy">
+      {%- if section.settings.eyebrow != blank -%}
+        <div class="hero__eyebrow"><span class="blip"></span> {{ section.settings.eyebrow }}</div>
+      {%- endif -%}
+      <h1 class="hero__title">{{ section.settings.heading }}</h1>
+      {%- if section.settings.subheading != blank -%}
+        <p class="hero__sub">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+      <div class="hero__cta-row">
+        {%- if section.settings.cta1_label != blank -%}
+          <a href="{{ section.settings.cta1_link }}" class="btn btn--lg">{{ section.settings.cta1_label }}</a>
+        {%- endif -%}
+        {%- if section.settings.cta2_label != blank -%}
+          <a href="{{ section.settings.cta2_link }}" class="btn btn--lg btn--paper">{{ section.settings.cta2_label }}</a>
+        {%- endif -%}
+      </div>
+      <div class="hero__meta">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'stat' -%}
+            <div class="hero__meta-item" {{ block.shopify_attributes }}>
+              <strong>{{ block.settings.value }}</strong><span>{{ block.settings.label }}</span>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <div class="hero__visual">
+      {%- if section.settings.image != blank -%}
+        <img class="hero__photo" data-hero-photo
+             src="{{ section.settings.image | image_url: width: 1200 }}"
+             srcset="{{ section.settings.image | image_url: width: 800 }} 800w, {{ section.settings.image | image_url: width: 1200 }} 1200w, {{ section.settings.image | image_url: width: 1600 }} 1600w"
+             sizes="(max-width: 960px) 100vw, 50vw"
+             alt="{{ section.settings.image.alt | default: shop.name | escape }}"
+             width="1200" height="1200"
+             style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition: opacity .18s ease;">
+      {%- else -%}
+        <div class="hero__bg-stripes"></div>
+        <div class="hero__car"><div class="hero__car-bg"></div></div>
+        <img class="hero__photo" data-hero-photo alt="" width="1200" height="1200" hidden
+             style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition: opacity .18s ease;">
+      {%- endif -%}
+      {%- if section.settings.sticker_text != blank -%}
+        <div class="hero__sticker">{{ section.settings.sticker_text }}{% if section.settings.sticker_small != blank %}<small>{{ section.settings.sticker_small }}</small>{% endif %}</div>
+      {%- endif -%}
+      <a data-hero-cta hidden class="btn" style="position:absolute; left:16px; bottom:76px; z-index:4;">Shop →</a>
+      {%- assign has_chips = false -%}
+      {%- for block in section.blocks -%}{%- if block.type == 'theme_chip' -%}{%- assign has_chips = true -%}{%- endif -%}{%- endfor -%}
+      {%- if has_chips -%}
+        <div class="theme-switcher">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'theme_chip' -%}
+              {%- assign chip_coll = block.settings.collection -%}
+              {%- assign chip_img = block.settings.image | default: chip_coll.featured_image -%}
+              <button type="button" class="hero-chip" {{ block.shopify_attributes }}
+                data-active="false"
+                data-label="{{ block.settings.label | escape }}"
+                {% if chip_coll != blank %}data-url="{{ chip_coll.url }}"{% endif %}
+                {% if chip_img %}data-image="{{ chip_img | image_url: width: 1200 }}"{% endif %}>{{ block.settings.label }}</button>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-chip {
+    font-family: var(--font-mono); font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 6px 10px; border: 2px solid var(--ink);
+    background: var(--cream); cursor: pointer; transition: all .15s;
+    white-space: nowrap;
+  }
+  .hero-chip:hover { background: var(--pink-soft); }
+  .hero-chip[data-active="true"] { background: var(--ink); color: var(--paper); }
+</style>
+<script>
+  (function () {
+    var hero = document.currentScript.previousElementSibling;
+    while (hero && !hero.hasAttribute('data-hero')) hero = hero.previousElementSibling;
+    if (!hero) hero = document.querySelector('[data-hero]');
+    if (!hero) return;
+    var chips = Array.prototype.slice.call(hero.querySelectorAll('.hero-chip'));
+    if (!chips.length) return;
+    var img = hero.querySelector('[data-hero-photo]');
+    var cta = hero.querySelector('[data-hero-cta]');
+    function activate(chip) {
+      chips.forEach(function (c) { c.dataset.active = String(c === chip); });
+      if (img && chip.dataset.image) {
+        img.style.opacity = '0';
+        setTimeout(function () {
+          img.src = chip.dataset.image;
+          img.removeAttribute('srcset');
+          img.hidden = false;
+          img.style.opacity = '1';
+        }, 180);
+      }
+      if (cta) {
+        if (chip.dataset.url) {
+          cta.href = chip.dataset.url;
+          cta.textContent = 'Shop ' + (chip.dataset.label || 'the collection') + ' \u2192';
+          cta.hidden = false;
+        } else {
+          cta.hidden = true;
+        }
+      }
+    }
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        if (chip.dataset.url && (chip.dataset.active === 'true' || !chip.dataset.image)) {
+          window.location.href = chip.dataset.url;
+          return;
+        }
+        activate(chip);
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Small-batch drops · ships in 24hrs"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>All things in <em>bad taste</em> is cool.</p>"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "License plate frames for K-pop stans, 3AM konbini runs, degenerate meme lords, track addicts, and everyone whose mom would hate their Lexus. Small-batch drops. Heavy plastic. No apologies."
+    },
+    {
+      "type": "text",
+      "id": "cta1_label",
+      "label": "Primary button label",
+      "default": "Shop The Drop →"
+    },
+    {
+      "type": "url",
+      "id": "cta1_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "cta2_label",
+      "label": "Secondary button label",
+      "default": "Find Your Frame"
+    },
+    {
+      "type": "url",
+      "id": "cta2_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "header",
+      "content": "Photo"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero photo",
+      "info": "Default hero photo. Collection buttons below swap it for each collection image."
+    },
+    {
+      "type": "text",
+      "id": "sticker_text",
+      "label": "Sticker text",
+      "default": "NEW DROP"
+    },
+    {
+      "type": "text",
+      "id": "sticker_small",
+      "label": "Sticker small text",
+      "default": "12 THEMES"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "default": "24hr"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Ships From LA"
+        }
+      ]
+    },
+    {
+      "type": "theme_chip",
+      "name": "Collection button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Button label",
+          "default": "Bad Taste"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection",
+          "info": "Button links here and shows this collection's image in the hero."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom image (optional)",
+          "info": "Overrides the collection image when this button is selected."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero",
+      "blocks": [
+        {
+          "type": "stat",
+          "settings": {
+            "value": "4.9★",
+            "label": "Customer rating"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "62+",
+            "label": "Frame Designs"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "24hr",
+            "label": "Ships From USA"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "$40+",
+            "label": "Free Shipping"
+          }
+        },
+        {
+          "type": "theme_chip",
+          "settings": {
+            "label": "Bad Taste"
+          }
+        },
+        {
+          "type": "theme_chip",
+          "settings": {
+            "label": "Konbini"
+          }
+        },
+        {
+          "type": "theme_chip",
+          "settings": {
+            "label": "K-Pop"
+          }
+        },
+        {
+          "type": "theme_chip",
+          "settings": {
+            "label": "Track"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

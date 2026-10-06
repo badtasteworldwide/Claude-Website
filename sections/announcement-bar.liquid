@@ -1,0 +1,41 @@
+{%- if section.blocks.size > 0 -%}
+<div class="promo-bar">
+  <div class="promo-bar__track" data-marquee>
+    {%- for block in section.blocks -%}
+      <span {{ block.shopify_attributes }}>
+        {%- if block.settings.link != blank -%}<a href="{{ block.settings.link }}">{{ block.settings.text }}</a>{%- else -%}{{ block.settings.text }}{%- endif -%}
+        <span class="dot">◆</span>
+      </span>
+    {%- endfor -%}
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "class": "shopify-section-announcement",
+  "max_blocks": 8,
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Message",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "★ FREE SHIPPING ON ORDERS $40+" },
+        { "type": "url", "id": "link", "label": "Link (optional)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement bar",
+      "blocks": [
+        { "type": "message", "settings": { "text": "★ HOLIDAY SALE · FREE SHIPPING ON ORDERS $40+" } },
+        { "type": "message", "settings": { "text": "NEW DROP · KONBINI AT 3AM · 24 FRAMES JUST ADDED" } },
+        { "type": "message", "settings": { "text": "BUNDLE 3 · SAVE 25% + FREE SHIP" } },
+        { "type": "message", "settings": { "text": "SHIPS IN 24HRS FROM LA" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

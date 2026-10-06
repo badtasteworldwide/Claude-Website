@@ -1,0 +1,83 @@
+<section class="reviews" id="reviews">
+  <div class="section__head">
+    <div>
+      {%- if section.settings.eyebrow != blank -%}<span class="section__eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2 class="section__title">{{ section.settings.heading }}</h2>
+    </div>
+  </div>
+  {%- assign has_stats = false -%}
+  {%- for block in section.blocks -%}{%- if block.type == 'stat' -%}{%- assign has_stats = true -%}{%- endif -%}{%- endfor -%}
+  {%- if has_stats -%}
+    <div class="reviews__stat-row">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'stat' -%}
+          <div class="reviews__stat" {{ block.shopify_attributes }}>
+            {%- if block.settings.show_stars -%}<span class="stars-big">★★★★★</span>{%- else -%}<strong>{{ block.settings.value }}</strong>{%- endif -%}
+            <span>{{ block.settings.label }}</span>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+  <div class="reviews__grid">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'review' -%}
+        <figure class="review-card" {{ block.shopify_attributes }}>
+          <div class="review-card__stars stars-row">{% for i in (1..block.settings.stars) %}★{% endfor %}{% assign empty_stars = 5 | minus: block.settings.stars %}{% for i in (1..empty_stars) %}{% unless empty_stars == 0 %}☆{% endunless %}{% endfor %}</div>
+          <div class="review-card__title">{{ block.settings.title }}</div>
+          <blockquote class="review-card__body">{{ block.settings.body }}</blockquote>
+          <figcaption class="review-card__meta">
+            <strong>{{ block.settings.name }}</strong>
+            <span>{{ block.settings.product_name }}{% if block.settings.verified %} · ✔ Verified{% endif %}</span>
+          </figcaption>
+        </figure>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Reviews",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Receipts" },
+    { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>People with taste <em>talk about us.</em></p>" }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        { "type": "checkbox", "id": "show_stars", "label": "Show stars instead of value", "default": false },
+        { "type": "text", "id": "value", "label": "Value", "default": "97%" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Would buy again" }
+      ]
+    },
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "range", "id": "stars", "label": "Stars", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "text", "id": "title", "label": "Title", "default": "\"Finally, taste worth having\"" },
+        { "type": "textarea", "id": "body", "label": "Body", "default": "Ordered 3, came in 2 days, thick plastic, screws included. That's the whole review." },
+        { "type": "text", "id": "name", "label": "Reviewer", "default": "Marcus T." },
+        { "type": "text", "id": "product_name", "label": "Product name", "default": "Bundle of 3" },
+        { "type": "checkbox", "id": "verified", "label": "Verified badge", "default": true }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews",
+      "blocks": [
+        { "type": "stat", "settings": { "show_stars": true, "label": "Rated by our customers" } },
+        { "type": "stat", "settings": { "value": "97%", "label": "Would buy again" } },
+        { "type": "stat", "settings": { "value": "24,000+", "label": "Frames shipped" } },
+        { "type": "review", "settings": { "stars": 5, "title": "\"Finally, taste worth having\"", "body": "Ordered 3, came in 2 days, thick plastic, screws included, didn't crack when I over-torqued. That's the whole review.", "name": "Marcus T.", "product_name": "Bundle of 3" } },
+        { "type": "review", "settings": { "stars": 5, "title": "\"My HOA hates it\"", "body": "Neighbor knocked on my door to ask what my frame means. I said nothing and closed the door. Worth every cent.", "name": "Dani R.", "product_name": "Meme Frame" } },
+        { "type": "review", "settings": { "stars": 4, "title": "\"Only thing the GT3 needed\"", "body": "Spent $200k on the car. Spent $25 on this. Guess which one gets more compliments at Cars & Coffee.", "name": "@apexhoonigan", "product_name": "Track Frame" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

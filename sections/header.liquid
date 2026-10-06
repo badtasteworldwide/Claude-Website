@@ -1,0 +1,37 @@
+<header class="header">
+  <div class="header__row">
+    <a href="{{ routes.root_url }}" class="logo" aria-label="{{ shop.name | escape }}">
+      {%- if section.settings.logo != blank -%}
+        <img src="{{ section.settings.logo | image_url: width: 360 }}" alt="{{ shop.name | escape }}" class="logo__img" width="180" height="{{ 180 | divided_by: section.settings.logo.aspect_ratio | round }}">
+      {%- else -%}
+        <span style="font-family: var(--font-display); font-size: 22px; text-transform: uppercase;">{{ shop.name }}</span>
+      {%- endif -%}
+      {%- if section.settings.tagline != blank -%}<small>{{ section.settings.tagline }}</small>{%- endif -%}
+    </a>
+    <nav class="nav" aria-label="Main">
+      {%- for link in section.settings.menu.links -%}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {%- endfor -%}
+    </nav>
+    <div class="header__tools">
+      <a class="icon-btn" href="{{ routes.search_url }}" aria-label="Search" title="Search">🔍</a>
+      {%- if shop.customer_accounts_enabled -%}
+        <a class="icon-btn" href="{{ routes.account_url }}" aria-label="Account" title="Account">👤</a>
+      {%- endif -%}
+      <button class="icon-btn" id="openCart" aria-label="Cart" type="button">
+        🛒<span class="icon-btn__count" data-cart-count>{{ cart.item_count }}</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo image" },
+    { "type": "text", "id": "tagline", "label": "Tagline under logo", "default": "WORLDWIDE · EST. 2019" },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" }
+  ]
+}
+{% endschema %}

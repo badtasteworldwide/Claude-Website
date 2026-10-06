@@ -1,0 +1,57 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Bad Taste Worldwide",
+    "theme_version": "1.0.0",
+    "theme_author": "Bad Taste Worldwide",
+    "theme_documentation_url": "https://badtaste.world",
+    "theme_support_url": "https://badtaste.world"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      { "type": "color", "id": "accent_color", "label": "Accent (hot pink)", "default": "#fa53c1" },
+      { "type": "color", "id": "accent_soft_color", "label": "Accent soft (backgrounds)", "default": "#fea5df" },
+      { "type": "color", "id": "accent_deep_color", "label": "Accent deep (gradients)", "default": "#d43ba2" },
+      { "type": "color", "id": "highlight_color", "label": "Highlight (acid yellow)", "default": "#f9ff00" }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      { "type": "image_picker", "id": "favicon", "label": "Favicon image", "info": "Will be scaled down to 32 x 32px" }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      { "type": "url", "id": "social_instagram", "label": "Instagram" },
+      { "type": "url", "id": "social_tiktok", "label": "TikTok" },
+      { "type": "url", "id": "social_facebook", "label": "Facebook" },
+      { "type": "url", "id": "social_youtube", "label": "YouTube" }
+    ]
+  },
+  {
+    "name": "Sticky buy bar",
+    "settings": [
+      { "type": "checkbox", "id": "enable_buybar", "label": "Show sticky buy bar on homepage", "default": true },
+      { "type": "text", "id": "buybar_thumb_text", "label": "Thumbnail text", "default": "BAD<br>TASTE" },
+      { "type": "text", "id": "buybar_title", "label": "Title", "default": "Bad Taste Worldwide Frame" },
+      { "type": "text", "id": "buybar_subtitle", "label": "Subtitle", "default": "Ships in 24hrs" },
+      { "type": "url", "id": "buybar_link", "label": "Link" },
+      { "type": "text", "id": "buybar_cta", "label": "Button label", "default": "Shop Now →" }
+    ]
+  },
+  {
+    "name": "Exit intent popup",
+    "settings": [
+      { "type": "checkbox", "id": "enable_exit_modal", "label": "Enable exit intent popup", "default": false, "info": "Shows a discount offer when the cursor leaves the page. Create the matching discount code in Shopify admin." },
+      { "type": "text", "id": "exit_modal_eyebrow", "label": "Eyebrow", "default": "Wait. Don't leave empty-handed." },
+      { "type": "text", "id": "exit_modal_title", "label": "Heading (HTML allowed)", "default": "Here's 15% off because we're desperate." },
+      { "type": "text", "id": "exit_modal_sub", "label": "Subtext", "default": "First order only. Because groveling works." },
+      { "type": "text", "id": "exit_modal_code", "label": "Discount code", "default": "BADTASTE15" },
+      { "type": "url", "id": "exit_modal_link", "label": "Button link" },
+      { "type": "text", "id": "exit_modal_cta", "label": "Button label", "default": "Claim My Discount →" }
+    ]
+  }
+]

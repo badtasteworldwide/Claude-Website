@@ -1,0 +1,51 @@
+<div class="coll-hero">
+  <div class="coll-hero__inner">
+    <span class="section__eyebrow">Search</span>
+    <h1 class="coll-hero__title">{% if search.performed %}“{{ search.terms }}”{% else %}Find your frame.{% endif %}</h1>
+    {%- if search.performed -%}
+      <div class="coll-hero__desc">{{ search.results_count }} result{% if search.results_count != 1 %}s{% endif %}</div>
+    {%- endif -%}
+  </div>
+</div>
+
+<div class="coll-grid-wrap">
+  <form action="{{ routes.search_url }}" method="get" class="search-form" role="search">
+    <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search frames, collections, answers…" aria-label="Search">
+    <input type="hidden" name="options[prefix]" value="last">
+    <button type="submit" class="btn">Search →</button>
+  </form>
+
+  {%- if search.performed -%}
+    {%- paginate search.results by 24 -%}
+      {%- if search.results.size > 0 -%}
+        <div class="products" style="margin-top: 40px;">
+          {%- for item in search.results -%}
+            {%- if item.object_type == 'product' -%}
+              {%- render 'product-card', card_product: item -%}
+            {%- else -%}
+              <article class="blog-card">
+                <div class="blog-card__date">{{ item.object_type | capitalize }}</div>
+                <a href="{{ item.url }}"><h3 class="blog-card__title">{{ item.title }}</h3></a>
+              </article>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- else -%}
+        <p style="font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.1em; padding: 60px 0; text-align: center;">No results. Try “frame”, “konbini”, or something weirder.</p>
+      {%- endif -%}
+      {%- if paginate.pages > 1 -%}
+        <nav class="pagination" role="navigation" aria-label="Pagination">
+          {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}" class="btn btn--sm btn--paper">← Prev</a>{%- endif -%}
+          {%- if paginate.next -%}<a href="{{ paginate.next.url }}" class="btn btn--sm btn--paper">Next →</a>{%- endif -%}
+        </nav>
+      {%- endif -%}
+    {%- endpaginate -%}
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Search page",
+  "settings": []
+}
+{% endschema %}

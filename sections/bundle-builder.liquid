@@ -1,0 +1,271 @@
+{%- assign src = section.settings.collection -%}
+{%- if src == blank -%}{%- assign src = collections['license-plate-frames'] -%}{%- endif -%}
+{%- if src == blank -%}{%- assign src = collections.all -%}{%- endif -%}
+<section class="bundle" id="bundle" data-bb data-bb-max="{{ section.settings.max_items }}" data-bb-currency="{{ cart.currency.symbol | default: '$' }}">
+  <div class="bundle__inner">
+    <div>
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="section__eyebrow" style="background: var(--yellow); color: var(--ink);">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+      <h2 class="bundle__title" style="margin-top:12px;">{{ section.settings.heading }}</h2>
+      {%- if section.settings.subheading != blank -%}
+        <p class="bundle__sub">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+      <div class="bundle__tiers">
+        {%- for block in section.blocks -%}
+          <div class="bundle__tier" data-count="{{ block.settings.count }}" {{ block.shopify_attributes }}>
+            <span><strong>{{ block.settings.left_strong }}</strong> · {{ block.settings.left_rest }}</span>
+            <span>{{ block.settings.right }}</span>
+          </div>
+        {%- endfor -%}
+      </div>
+      {%- if section.settings.note != blank -%}
+        <p style="margin-top:16px; font-family:var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color: var(--paper); opacity:.8;">{{ section.settings.note }}</p>
+      {%- endif -%}
+    </div>
+    <div class="bundle__builder">
+      <div style="font-family: var(--font-display); text-transform:uppercase; font-size:14px; margin-bottom:4px;">
+        Your Bundle <span data-bb-count style="color:var(--pink)">(0/{{ section.settings.max_items }})</span>
+      </div>
+      <div data-bb-cart style="font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-soft); margin-bottom:10px;"></div>
+
+      <div class="bb-search">
+        <input type="search" data-bb-search placeholder="{{ section.settings.search_placeholder | default: 'Search frames…' }}" autocomplete="off" aria-label="Search frames">
+        <div class="bb-search__results" data-bb-results hidden></div>
+      </div>
+
+      <div class="bundle__slots" data-bb-slots></div>
+
+      <div style="font-family: var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-soft); margin-bottom:8px;">{{ section.settings.options_label | default: 'Most popular frames · tap to add' }}</div>
+      <div class="bundle__options" data-bb-options>
+        {%- assign shown = 0 -%}
+        {%- for product in src.products limit: 24 -%}
+          {%- assign v = product.selected_or_first_available_variant -%}
+          {%- if v and product.available and shown < 12 -%}
+            {%- assign shown = shown | plus: 1 -%}
+            <button type="button" class="bundle__option" data-bb-option data-selected="false"
+              data-id="{{ v.id }}" data-price="{{ v.price }}" data-title="{{ product.title | escape }}"
+              data-thumb="{% if product.featured_image %}{{ product.featured_image | image_url: width: 200 }}{% endif %}"
+              title="{{ product.title | escape }}">
+              {%- if product.featured_image -%}
+                <img src="{{ product.featured_image | image_url: width: 200 }}" alt="{{ product.title | escape }}" loading="lazy" width="100" height="100" style="width:100%; height:auto; display:block;">
+              {%- else -%}
+                <span style="font-family:var(--font-mono); font-size:9px;">{{ product.title | truncate: 18 }}</span>
+              {%- endif -%}
+            </button>
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if shown == 0 -%}
+          <p style="font-family:var(--font-mono); font-size:11px;">No products found — pick a collection in the section settings.</p>
+        {%- endif -%}
+      </div>
+      <div class="bundle__summary">
+        <div>
+          <div style="font-size:10px; opacity:.7;">Subtotal</div>
+          <div class="bundle__summary-total"><span data-bb-total>$0</span></div>
+        </div>
+        <button type="button" class="btn" data-bb-add>Add Bundle →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .bb-search { position: relative; margin-bottom: 12px; }
+  .bb-search input {
+    width: 100%; box-sizing: border-box; padding: 10px 12px;
+    border: 2px solid var(--ink); background: var(--paper);
+    font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .bb-search input:focus { outline: 3px solid var(--pink); outline-offset: -1px; }
+  .bb-search__results {
+    position: absolute; left: 0; right: 0; top: calc(100% - 2px); z-index: 20;
+    background: var(--paper); border: 2px solid var(--ink); max-height: 260px; overflow: auto;
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+  .bb-search__row {
+    display: flex; align-items: center; gap: 10px; width: 100%;
+    padding: 8px 10px; border: 0; border-bottom: 1px solid var(--ink);
+    background: var(--paper); cursor: pointer; text-align: left;
+    font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .bb-search__row:hover { background: var(--pink-soft); }
+  .bb-search__row img { width: 36px; height: 36px; object-fit: cover; border: 1px solid var(--ink); flex: none; }
+  .bb-search__row .price { margin-left: auto; font-weight: 700; }
+</style>
+<script>
+  (function () {
+    var section = document.querySelector('[data-bb]');
+    if (!section) return;
+    var max = parseInt(section.dataset.bbMax, 10) || 3;
+    var sym = section.dataset.bbCurrency || '$';
+    var picked = [];
+    var cartQty = 0;
+    var slotsEl = section.querySelector('[data-bb-slots]');
+    var countEl = section.querySelector('[data-bb-count]');
+    var cartEl = section.querySelector('[data-bb-cart]');
+    var totalEl = section.querySelector('[data-bb-total]');
+    var addBtn = section.querySelector('[data-bb-add]');
+    var optionsEl = section.querySelector('[data-bb-options]');
+    var searchEl = section.querySelector('[data-bb-search]');
+    var resultsEl = section.querySelector('[data-bb-results]');
+
+    function money(cents) {
+      return sym + (cents / 100).toFixed(2).replace(/\.00$/, '');
+    }
+    function render() {
+      var slots = [];
+      for (var i = 0; i < max; i++) {
+        var p = picked[i];
+        if (p) {
+          slots.push('<div class="bundle__slot" data-filled="true"><button class="remove" type="button" data-bb-remove="' + i + '" aria-label="Remove ' + p.title + '">✕</button>' + (p.thumb ? '<img src="' + p.thumb + '" alt="" style="width:100%;height:100%;object-fit:cover;">' : '<span style="font-size:9px;">' + p.title + '</span>') + '</div>');
+        } else {
+          slots.push('<div class="bundle__slot">SLOT ' + (i + 1) + '<br>empty</div>');
+        }
+      }
+      slotsEl.innerHTML = slots.join('');
+      countEl.textContent = '(' + picked.length + '/' + max + ')';
+      cartEl.textContent = cartQty > 0 ? ('Already in your cart: ' + cartQty + ' item' + (cartQty === 1 ? '' : 's') + ' — tiers count them too') : '';
+      var total = picked.reduce(function (s, p) { return s + p.price; }, 0);
+      totalEl.textContent = money(total);
+      var opts = optionsEl.querySelectorAll('[data-bb-option]');
+      Array.prototype.forEach.call(opts, function (btn) {
+        var sel = picked.some(function (p) { return String(p.id) === btn.dataset.id; });
+        btn.dataset.selected = String(sel);
+      });
+      var tiers = section.querySelectorAll('.bundle__tier');
+      Array.prototype.forEach.call(tiers, function (t) {
+        t.dataset.hit = String(picked.length + cartQty >= parseInt(t.dataset.count, 10));
+      });
+    }
+    function add(item) {
+      if (picked.length >= max) picked.shift();
+      picked.push(item);
+      render();
+    }
+    function refreshCart() {
+      return fetch('/cart.js').then(function (r) { return r.json(); }).then(function (cart) {
+        cartQty = cart.item_count || 0;
+        render();
+      }).catch(function () {});
+    }
+
+    optionsEl.addEventListener('click', function (e) {
+      var t = e.target.closest('[data-bb-option]');
+      if (!t) return;
+      add({ id: parseInt(t.dataset.id, 10), price: parseInt(t.dataset.price, 10), title: t.dataset.title, thumb: t.dataset.thumb });
+    });
+    slotsEl.addEventListener('click', function (e) {
+      var idx = e.target.getAttribute('data-bb-remove');
+      if (idx === null) return;
+      picked.splice(parseInt(idx, 10), 1);
+      render();
+    });
+
+    /* Search via Shopify predictive search */
+    var timer = null;
+    searchEl.addEventListener('input', function () {
+      clearTimeout(timer);
+      var q = searchEl.value.trim();
+      if (q.length < 2) { resultsEl.hidden = true; resultsEl.innerHTML = ''; return; }
+      timer = setTimeout(function () {
+        fetch('/search/suggest.json?q=' + encodeURIComponent(q) + '&resources[type]=product&resources[limit]=8&resources[options][unavailable_products]=hide')
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            var prods = (data.resources && data.resources.results && data.resources.results.products) || [];
+            if (!prods.length) {
+              resultsEl.innerHTML = '<div class="bb-search__row" style="cursor:default;">No frames found</div>';
+              resultsEl.hidden = false;
+              return;
+            }
+            resultsEl.innerHTML = prods.map(function (p) {
+              var img = p.featured_image && p.featured_image.url ? p.featured_image.url : (p.image || '');
+              return '<button type="button" class="bb-search__row" data-handle="' + p.handle + '">' +
+                (img ? '<img src="' + img + '" alt="">' : '') +
+                '<span>' + p.title + '</span><span class="price">' + (p.price ? sym + p.price : '') + '</span></button>';
+            }).join('');
+            resultsEl.hidden = false;
+          }).catch(function () {});
+      }, 250);
+    });
+    resultsEl.addEventListener('click', function (e) {
+      var row = e.target.closest('[data-handle]');
+      if (!row) return;
+      fetch('/products/' + row.dataset.handle + '.js')
+        .then(function (r) { return r.json(); })
+        .then(function (product) {
+          var v = null;
+          for (var i = 0; i < product.variants.length; i++) {
+            if (product.variants[i].available) { v = product.variants[i]; break; }
+          }
+          if (!v) v = product.variants[0];
+          add({ id: v.id, price: v.price, title: product.title, thumb: product.featured_image || '' });
+          resultsEl.hidden = true;
+          searchEl.value = '';
+        }).catch(function () {});
+    });
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.bb-search')) resultsEl.hidden = true;
+    });
+
+    addBtn.addEventListener('click', function () {
+      if (!picked.length) return;
+      var counts = {};
+      picked.forEach(function (p) { counts[p.id] = (counts[p.id] || 0) + 1; });
+      var items = Object.keys(counts).map(function (id) { return { id: parseInt(id, 10), quantity: counts[id] }; });
+      addBtn.disabled = true; addBtn.textContent = 'Adding…';
+      var done = function () { addBtn.disabled = false; addBtn.textContent = 'Add Bundle →'; };
+      if (window.BTWaddItems) {
+        window.BTWaddItems(items).then(function () { picked = []; return refreshCart(); }).then(done).catch(function (err) {
+          alert((err && err.description) || 'Could not add bundle.'); done();
+        });
+      } else {
+        fetch('/cart/add.js', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ items: items }) })
+          .then(function (r) { if (!r.ok) throw new Error(); picked = []; return refreshCart(); })
+          .then(done)
+          .catch(function () { alert('Could not add bundle.'); done(); });
+      }
+    });
+
+    refreshCart();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Bundle builder",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Bundle & Save" },
+    { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>Build a <em>3-pack.</em><br>Save up to 25%.</p>" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Because one frame is never enough. Daily driver, weekend car, whatever's in the garage — they all deserve bad taste." },
+    { "type": "collection", "id": "collection", "label": "Products to offer", "info": "Leave empty to show your License Plate Frames collection. Set that collection's sort order to Best Selling in admin for true popularity ranking." },
+    { "type": "text", "id": "options_label", "label": "Products label", "default": "Most popular frames · tap to add" },
+    { "type": "text", "id": "search_placeholder", "label": "Search placeholder", "default": "Search frames…" },
+    { "type": "range", "id": "max_items", "label": "Bundle size", "min": 2, "max": 6, "step": 1, "default": 3 },
+    { "type": "text", "id": "note", "label": "Fine print", "default": "Discounts apply automatically at checkout." }
+  ],
+  "blocks": [
+    {
+      "type": "tier",
+      "name": "Discount tier",
+      "settings": [
+        { "type": "number", "id": "count", "label": "Item count for this tier", "default": 2 },
+        { "type": "text", "id": "left_strong", "label": "Tier name", "default": "2 Frames" },
+        { "type": "text", "id": "left_rest", "label": "Tier detail", "default": "Any theme" },
+        { "type": "text", "id": "right", "label": "Reward", "default": "15% OFF" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bundle builder",
+      "blocks": [
+        { "type": "tier", "settings": { "count": 2, "left_strong": "2 Frames", "left_rest": "Any theme", "right": "15% OFF" } },
+        { "type": "tier", "settings": { "count": 3, "left_strong": "3 Frames", "left_rest": "Unlock the vault", "right": "25% OFF + Free Ship" } },
+        { "type": "tier", "settings": { "count": 4, "left_strong": "4+ Frames", "left_rest": "You have a problem", "right": "30% OFF + Sticker Pack" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,66 @@
+<section class="ugc">
+  <div class="ugc__inner">
+    <div class="section__head">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}<span class="section__eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+        <h2 class="section__title">{{ section.settings.heading }}</h2>
+      </div>
+      {%- if section.settings.link_label != blank -%}
+        <a href="{{ section.settings.link_url }}" class="section__link">{{ section.settings.link_label }}</a>
+      {%- endif -%}
+    </div>
+    <div class="ugc__grid">
+      {%- for block in section.blocks -%}
+        <div class="ugc__tile" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            <img src="{{ block.settings.image | image_url: width: 500 }}" alt="{{ block.settings.handle | escape }}" loading="lazy" width="500" height="500" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+          {%- else -%}
+            <div class="ugc__tile-bg" style="background: linear-gradient(135deg, {{ block.settings.color_1 }}, {{ block.settings.color_2 }});">
+              <div style="width:80%;">{%- render 'plate', number: block.settings.plate_number, color1: block.settings.color_1, color2: block.settings.color_2 -%}</div>
+            </div>
+          {%- endif -%}
+          {%- if block.settings.handle != blank -%}<div class="ugc__handle">{{ block.settings.handle }}</div>{%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Social gallery",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "#BadTasteWorldwide" },
+    { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>Seen on <em>questionable</em> vehicles everywhere.</p>" },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "Tag us @badtaste.world →" },
+    { "type": "url", "id": "link_url", "label": "Link URL" }
+  ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Tile",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo" },
+        { "type": "text", "id": "handle", "label": "Handle", "default": "@badtaste.world" },
+        { "type": "text", "id": "plate_number", "label": "Fallback plate number", "default": "BAD·420" },
+        { "type": "color", "id": "color_1", "label": "Fallback color 1", "default": "#fa53c1" },
+        { "type": "color", "id": "color_2", "label": "Fallback color 2", "default": "#d43ba2" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Social gallery",
+      "blocks": [
+        { "type": "tile", "settings": { "handle": "@konbini.nights", "plate_number": "KONB·777", "color_1": "#00a6e2", "color_2": "#0077a3" } },
+        { "type": "tile", "settings": { "handle": "@bad.mom.worldwide", "plate_number": "BAD·420" } },
+        { "type": "tile", "settings": { "handle": "@bunnies4ever", "plate_number": "BUNNI·5", "color_1": "#ff6fb5", "color_2": "#ff1f8f" } },
+        { "type": "tile", "settings": { "handle": "@gt3rs.daily", "plate_number": "APEX·911", "color_1": "#e32c2b", "color_2": "#8c0000" } },
+        { "type": "tile", "settings": { "handle": "@thetrashvan", "plate_number": "MEME·420", "color_1": "#111111", "color_2": "#333333" } },
+        { "type": "tile", "settings": { "handle": "@garagebuilt.sg", "plate_number": "TRACK·1", "color_1": "#e32c2b", "color_2": "#8c0000" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

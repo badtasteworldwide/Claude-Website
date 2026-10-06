@@ -1,0 +1,102 @@
+<div id="cart-drawer-root">
+  <div class="drawer-overlay" id="drawerOverlay" data-open="false"></div>
+  <aside class="drawer" id="drawer" data-open="false" aria-hidden="true" aria-label="Cart">
+    <div class="drawer__head">
+      <div class="drawer__title">Cart <span style="font-family:var(--font-mono); font-size:13px; opacity:.6;">({{ cart.item_count }})</span></div>
+      <button class="drawer__close" id="closeDrawer" type="button" aria-label="Close cart">✕</button>
+    </div>
+
+    {%- assign threshold = section.settings.free_shipping_threshold | times: 100 -%}
+    {%- if threshold > 0 -%}
+      <div class="drawer__shipping">
+        {%- if cart.total_price >= threshold -%}
+          <span>🎉 <strong>You unlocked free shipping!</strong></span>
+          {%- assign pct = 100 -%}
+        {%- else -%}
+          {%- assign remaining = threshold | minus: cart.total_price -%}
+          <span>Add <strong>{{ remaining | money }}</strong> for free shipping.</span>
+          {%- assign pct = cart.total_price | times: 100 | divided_by: threshold -%}
+        {%- endif -%}
+        <div class="drawer__shipping-bar"><span style="width:{{ pct }}%;"></span></div>
+      </div>
+    {%- endif -%}
+
+    <div class="drawer__items" id="drawerItems">
+      {%- if cart.item_count == 0 -%}
+        <div class="drawer__empty">{{ section.settings.empty_text | default: 'Your cart is empty.<br>Go find something in bad taste.' }}</div>
+      {%- else -%}
+        {%- for item in cart.items -%}
+          <div class="drawer__item">
+            <div class="drawer__item-img" style="background: var(--pink-soft);">
+              {%- if item.image -%}
+                <img src="{{ item.image | image_url: width: 160 }}" alt="{{ item.title | escape }}" width="80" height="80" loading="lazy">
+              {%- else -%}
+                <div style="width:100%;">{%- render 'plate', number: item.product.title, truncate: 8, top: item.product.type -%}</div>
+              {%- endif -%}
+            </div>
+            <div class="drawer__item-info">
+              {%- if item.product.type != blank -%}<div class="drawer__item-theme">{{ item.product.type }}</div>{%- endif -%}
+              <div class="drawer__item-name">{{ item.product.title }}</div>
+              {%- unless item.variant.title == 'Default Title' -%}
+                <div class="drawer__item-theme">{{ item.variant.title }}</div>
+              {%- endunless -%}
+              <div class="drawer__item-qty">
+                <button type="button" data-qty="-" data-line-key="{{ item.key }}" data-current="{{ item.quantity }}" aria-label="Decrease quantity">−</button>
+                <span>{{ item.quantity }}</span>
+                <button type="button" data-qty="+" data-line-key="{{ item.key }}" data-current="{{ item.quantity }}" aria-label="Increase quantity">+</button>
+                <button type="button" class="drawer__item-remove" data-remove data-line-key="{{ item.key }}">Remove</button>
+              </div>
+              <div class="drawer__item-price">{{ item.final_line_price | money }}</div>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.upsell_text != blank and cart.item_count == 1 -%}
+      <div class="drawer__upsell" style="display:flex;">
+        <div class="drawer__upsell-text">{{ section.settings.upsell_text }}</div>
+        <a class="btn btn--sm btn--ink" href="{{ section.settings.upsell_link | default: '/collections/all' }}">Browse</a>
+      </div>
+    {%- endif -%}
+
+    <div class="drawer__foot">
+      <div class="drawer__total">
+        <span>Subtotal</span>
+        <strong>{{ cart.total_price | money }}</strong>
+      </div>
+      <form action="{{ routes.cart_url }}" method="post">
+        <button class="btn btn--full btn--lg" name="checkout" {% if cart.item_count == 0 %}disabled{% endif %}>Checkout · Secure →</button>
+      </form>
+      <div class="drawer__trust">
+        <span>🔒 Secure checkout</span>
+        <span>↩ 30-day returns</span>
+        <span>🚚 24hr ship</span>
+      </div>
+    </div>
+  </aside>
+</div>
+
+{% schema %}
+{
+  "name": "Cart drawer",
+  "settings": [
+    { "type": "number", "id": "free_shipping_threshold", "label": "Free shipping threshold (store currency, 0 to hide bar)", "default": 40 },
+    { "type": "richtext", "id": "empty_text", "label": "Empty cart text" },
+    { "type": "richtext", "id": "upsell_text", "label": "Upsell text (shows with 1 item in cart)", "default": "<p><strong>Add one more → 15% off</strong> Hit the 2-frame tier. Don't be a coward.</p>" },
+    { "type": "url", "id": "upsell_link", "label": "Upsell link" }
+  ]
+}
+{% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- render 'plate', number: item.product.title | truncate: 8, top: item.product.type
+    -%}"
+  to: "{%- render 'plate', number: item.product.title, truncate: 8, top: item.product.type
+    -%}"
+  position: 1848..1935
+{% endcomment %}

@@ -1,0 +1,11 @@
+{% comment %}
+  Renders the signature Bad Taste CSS license plate.
+  Accepts: top, bottom, number, color1, color2
+{% endcomment %}
+{%- assign p_color1 = color1 | default: '#fa53c1' -%}
+{%- assign p_color2 = color2 | default: '#d43ba2' -%}
+<div class="plate" style="--frame-grad: linear-gradient(135deg, {{ p_color1 }}, {{ p_color2 }});">
+  <div class="plate__frame-top" style="background: {{ p_color1 }};">{{ top | default: 'Bad Taste Worldwide' }}</div>
+  <div class="plate__number">{{ number | default: 'BAD·420' }}</div>
+  <div class="plate__frame-bottom" style="background: {{ p_color1 }};">{{ bottom | default: 'MADE IN QUESTIONABLE TASTE' }}</div>
+</div>

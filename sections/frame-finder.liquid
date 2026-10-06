@@ -1,0 +1,91 @@
+<section class="quiz" id="quiz" data-quiz>
+  <div class="quiz__inner">
+    {%- if section.settings.eyebrow != blank -%}<span class="section__eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+    <h2 class="quiz__title" style="margin-top:12px;">{{ section.settings.heading }}</h2>
+    {%- if section.settings.subheading != blank -%}<p class="quiz__sub">{{ section.settings.subheading }}</p>{%- endif -%}
+    <div class="quiz__card" data-quiz-card></div>
+  </div>
+
+  <script type="application/json" data-quiz-json>
+    {
+      "questions": [
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'question' -%}
+            {
+              "q": {{ block.settings.question | json }},
+              "options": [
+                {%- assign lines = block.settings.options | newline_to_br | split: '<br />' -%}
+                {%- for line in lines -%}
+                  {%- assign parts = line | strip | split: '|' -%}
+                  {%- if parts.size >= 3 -%}
+                    { "emoji": {{ parts[0] | strip | json }}, "label": {{ parts[1] | strip | json }}, "tag": {{ parts[2] | strip | json }} },
+                  {%- endif -%}
+                {%- endfor -%}
+                null
+              ]
+            },
+          {%- endif -%}
+        {%- endfor -%}
+        null
+      ],
+      "results": {
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'result' -%}
+            {{ block.settings.tag | strip | json }}: {
+              "title": {{ block.settings.title | json }},
+              "blurb": {{ block.settings.blurb | json }},
+              "url": {{ block.settings.collection.url | default: routes.all_products_collection_url | json }}
+            },
+          {%- endif -%}
+        {%- endfor -%}
+        "_": null
+      }
+    }
+  </script>
+</section>
+
+{% schema %}
+{
+  "name": "Frame finder quiz",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Frame Finder · 4 Questions" },
+    { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>What flavor of <em>bad</em> are you?</p>" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Answer 4 quick questions. We'll find the frame that matches your specific brand of questionable taste." }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "It's 3AM. Where are you?" },
+        { "type": "textarea", "id": "options", "label": "Options (one per line: emoji | label | tag)", "default": "🍙 | Convenience store snack run | konbini\n🎤 | Refreshing tour dates | kpop\n🏁 | Mountain roads, no reason | track\n🍗 | Drive-thru, large fries | snack" }
+      ]
+    },
+    {
+      "type": "result",
+      "name": "Result",
+      "settings": [
+        { "type": "text", "id": "tag", "label": "Tag (matches option tags)", "default": "konbini" },
+        { "type": "text", "id": "title", "label": "Result title", "default": "You're a Konbini at 3AM person." },
+        { "type": "text", "id": "blurb", "label": "Blurb", "default": "Fluorescent lights, midnight snacks, zero regrets." },
+        { "type": "collection", "id": "collection", "label": "Collection to recommend" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Frame finder quiz",
+      "blocks": [
+        { "type": "question", "settings": { "question": "It's 3AM. Where are you?", "options": "🍙 | Convenience store snack run | konbini\n🎤 | Refreshing tour dates | kpop\n🏁 | Mountain roads, no reason | track\n🍗 | Drive-thru, large fries | snack" } },
+        { "type": "question", "settings": { "question": "Your dream car is…", "options": "🚗 | Kei van with curtains | konbini\n💜 | Anything in lavender wrap | kpop\n🏎 | Caged, gutted, loud | track\n🛻 | Whatever fits the most snacks | snack" } },
+        { "type": "question", "settings": { "question": "Pick a bumper energy:", "options": "🏪 | Open 24 hours | konbini\n📣 | Honk if you stan | kpop\n⏱ | My other car is a lap record | track\n🍟 | Fries before guys | snack" } },
+        { "type": "question", "settings": { "question": "Your group chat calls you…", "options": "🌙 | The night owl | konbini\n💿 | The album collector | kpop\n🔧 | The garage gremlin | track\n😋 | The food critic | snack" } },
+        { "type": "result", "settings": { "tag": "konbini", "title": "You're a Konbini at 3AM person.", "blurb": "Fluorescent lights, midnight snacks, zero regrets." } },
+        { "type": "result", "settings": { "tag": "kpop", "title": "Certified stan behavior.", "blurb": "Your bias would approve of this frame." } },
+        { "type": "result", "settings": { "tag": "track", "title": "Track addict detected.", "blurb": "Send it. Tastefully. Actually no — just send it." } },
+        { "type": "result", "settings": { "tag": "snack", "title": "You're snack-motivated.", "blurb": "The drive-thru knows your order. Own it." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

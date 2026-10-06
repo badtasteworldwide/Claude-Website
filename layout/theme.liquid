@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    {{- page_title -}}
+    {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+    {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+  </title>
+  {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+  <link rel="canonical" href="{{ canonical_url }}">
+  {%- if settings.favicon != blank -%}
+    <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+  {%- endif -%}
+
+  {{ 'archivo-black-latin.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+  {{ 'inter-latin.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+  {{ 'fonts.css' | asset_url | stylesheet_tag }}
+  {{ 'base.css' | asset_url | stylesheet_tag }}
+  <style>
+    :root {
+      --accent: {{ settings.accent_color | default: '#fa53c1' }};
+      --pink-soft: {{ settings.accent_soft_color | default: '#fea5df' }};
+      --pink-deep: {{ settings.accent_deep_color | default: '#d43ba2' }};
+      --yellow: {{ settings.highlight_color | default: '#f9ff00' }};
+    }
+  </style>
+
+  <script>
+    window.BTW = {
+      moneyFormat: {{ shop.money_format | json }},
+      exitModal: {{ settings.enable_exit_modal | json }}
+    };
+  </script>
+  <script src="{{ 'theme.js' | asset_url }}" defer></script>
+
+  {{ content_for_header }}
+</head>
+<body>
+  <a class="skip-link" href="#MainContent">Skip to content</a>
+
+  {% sections 'header-group' %}
+
+  <main id="MainContent" role="main">
+    {{ content_for_layout }}
+  </main>
+
+  {% sections 'footer-group' %}
+
+  {% section 'cart-drawer' %}
+
+  {%- if settings.enable_buybar and template == 'index' -%}
+    <div class="buybar" id="buybar" data-visible="false">
+      <div class="buybar__left">
+        <div class="buybar__thumb">{{ settings.buybar_thumb_text | default: 'BAD<br>TASTE' }}</div>
+        <div class="buybar__text">
+          <strong>{{ settings.buybar_title | default: 'Bad Taste Worldwide Frame' }}</strong>
+          <span>{{ settings.buybar_subtitle | default: 'Ships in 24hrs' }}</span>
+        </div>
+      </div>
+      <a href="{{ settings.buybar_link | default: '/collections/all' }}" class="btn">{{ settings.buybar_cta | default: 'Shop Now →' }}</a>
+    </div>
+  {%- endif -%}
+
+  {%- if settings.enable_exit_modal -%}
+    <div class="modal-overlay" id="modalOverlay" data-open="false">
+      <div class="modal" role="dialog" aria-modal="true" aria-label="Discount offer">
+        <button class="modal__close" id="modalClose" aria-label="Close">✕</button>
+        <div class="modal__head">
+          <div class="modal__eyebrow">{{ settings.exit_modal_eyebrow | default: "Wait. Don't leave empty-handed." }}</div>
+          <div class="modal__title">{{ settings.exit_modal_title | default: "Here's <span style='background:var(--ink); color:var(--yellow); padding:0 8px;'>15% off</span><br>because we're desperate." }}</div>
+        </div>
+        <div class="modal__body">
+          <p class="modal__sub">{{ settings.exit_modal_sub | default: 'First order only. Because groveling works.' }}</p>
+          <div class="modal__code">{{ settings.exit_modal_code | default: 'BADTASTE15' }}</div>
+          <p class="modal__sub">Use it at checkout before it expires in <strong id="modalTimer">09:59</strong>.</p>
+          <a href="{{ settings.exit_modal_link | default: '/collections/all' }}" class="btn btn--full btn--lg" id="modalClaim">{{ settings.exit_modal_cta | default: 'Claim My Discount →' }}</a>
+          <button style="margin-top:12px; font-family:var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-soft); text-decoration:underline; background:none; border:none; cursor:pointer;" id="modalDecline">No thanks, I hate savings.</button>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+</body>
+</html>

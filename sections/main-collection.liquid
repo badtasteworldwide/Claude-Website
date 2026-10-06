@@ -1,0 +1,66 @@
+<div class="coll-hero">
+  <div class="coll-hero__inner">
+    <span class="section__eyebrow">{{ collection.products_count }} Frames</span>
+    <h1 class="coll-hero__title">{{ collection.title }}</h1>
+    {%- if collection.description != blank -%}
+      <div class="coll-hero__desc rte">{{ collection.description }}</div>
+    {%- endif -%}
+  </div>
+</div>
+
+{%- paginate collection.products by section.settings.products_per_page -%}
+  <div class="coll-grid-wrap">
+    <div class="coll-toolbar">
+      {%- assign showing_from = paginate.current_offset | plus: 1 -%}
+      {%- assign showing_to = paginate.current_offset | plus: paginate.page_size -%}
+      {%- if showing_to > collection.products_count -%}{%- assign showing_to = collection.products_count -%}{%- endif -%}
+      <span style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-soft);">
+        Showing {{ showing_from }}–{{ showing_to }} of {{ collection.products_count }}
+      </span>
+      <form method="get" action="{{ collection.url }}">
+        <select name="sort_by" onchange="this.form.submit()" aria-label="Sort by" style="font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; padding: 8px 12px; border: 2px solid var(--ink); background: var(--paper);">
+          {%- assign sort_options = 'manual,Featured|best-selling,Best Selling|price-ascending,Price Low–High|price-descending,Price High–Low|created-descending,Newest|title-ascending,A–Z' | split: '|' -%}
+          {%- for opt in sort_options -%}
+            {%- assign pair = opt | split: ',' -%}
+            <option value="{{ pair[0] }}" {% if collection.sort_by == pair[0] %}selected{% endif %}>{{ pair[1] }}</option>
+          {%- endfor -%}
+        </select>
+      </form>
+    </div>
+
+    {%- if collection.products.size > 0 -%}
+      <div class="products">
+        {%- for product in collection.products -%}
+          {%- render 'product-card', card_product: product -%}
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <p style="font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.1em; padding: 60px 0; text-align: center;">Nothing here yet. Check back for the next drop.</p>
+    {%- endif -%}
+
+    {%- if paginate.pages > 1 -%}
+      <nav class="pagination" role="navigation" aria-label="Pagination">
+        {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}" class="btn btn--sm btn--paper">← Prev</a>{%- endif -%}
+        {%- for part in paginate.parts -%}
+          {%- if part.is_link -%}
+            <a href="{{ part.url }}" class="btn btn--sm btn--paper">{{ part.title }}</a>
+          {%- elsif part.title == paginate.current_page -%}
+            <span class="btn btn--sm btn--ink current">{{ part.title }}</span>
+          {%- else -%}
+            <span class="btn btn--sm btn--paper" style="pointer-events:none;">{{ part.title }}</span>
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if paginate.next -%}<a href="{{ paginate.next.url }}" class="btn btn--sm btn--paper">Next →</a>{%- endif -%}
+      </nav>
+    {%- endif -%}
+  </div>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Collection page",
+  "settings": [
+    { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 8, "max": 48, "step": 4, "default": 24 }
+  ]
+}
+{% endschema %}

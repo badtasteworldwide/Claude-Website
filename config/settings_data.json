@@ -1,0 +1,42 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "accent_color": "#fa53c1",
+    "accent_soft_color": "#fea5df",
+    "accent_deep_color": "#d43ba2",
+    "highlight_color": "#f9ff00",
+    "social_instagram": "https://instagram.com/badtaste.world",
+    "social_tiktok": "https://www.tiktok.com/@badtaste.world",
+    "enable_buybar": true,
+    "buybar_thumb_text": "BAD<br>TASTE",
+    "buybar_title": "Bad Taste Worldwide Frame",
+    "buybar_subtitle": "Ships in 24hrs",
+    "buybar_cta": "Shop Now →",
+    "enable_exit_modal": false,
+    "exit_modal_eyebrow": "Wait. Don't leave empty-handed.",
+    "exit_modal_title": "Here's 15% off because we're desperate.",
+    "exit_modal_sub": "First order only. Because groveling works.",
+    "exit_modal_code": "BADTASTE15",
+    "exit_modal_cta": "Claim My Discount →",
+    "sections": {
+      "cart-drawer": {
+        "type": "cart-drawer",
+        "settings": {
+          "free_shipping_threshold": 40,
+          "empty_text": "",
+          "upsell_text": "<p><strong>Add one more → 15% off</strong> Hit the 2-frame tier. Don't be a coward.</p>",
+          "upsell_link": ""
+        }
+      }
+    },
+    "content_for_index": []
+  }
+}

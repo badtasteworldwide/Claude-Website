@@ -1,0 +1,40 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "acc1": {
+          "type": "accordion",
+          "settings": {
+            "question": "Shipping & returns",
+            "answer": "<p>Ships in 24 hours from Los Angeles. Free US shipping over $40. 30-day returns, no questions.</p>"
+          }
+        },
+        "acc2": {
+          "type": "accordion",
+          "settings": {
+            "question": "Fit & materials",
+            "answer": "<p>US standard (12\"×6\") and JDM/Euro (520mm × 110mm) sizes. Injection-molded ABS plastic with UV-stable printed graphics. Screws and caps included.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "acc1",
+        "acc2"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
