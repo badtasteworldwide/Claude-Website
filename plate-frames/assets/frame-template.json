@@ -1,0 +1,18 @@
+{
+  "_comment": "Bad Taste license plate frame template. x positions are fractions of the outer width, y positions and radii are fractions of the outer height (hole diameter is a fraction of width); origin top-left. Measured from the 2025 F1 artwork files.",
+  "widthIn": 12.25,
+  "heightIn": 6.2,
+  "thicknessIn": 0.12,
+  "outerRadius": 0.062,
+  "window": {
+    "left": 0.0387,
+    "right": 0.9605,
+    "top": 0.0974,
+    "notchTop": 0.1813,
+    "shoulderStart": 0.129,
+    "shoulderEnd": 0.2025,
+    "bottom": 0.8224,
+    "radius": 0.037
+  },
+  "holes": { "x": [0.2138, 0.7862], "y": 0.1184, "diameter": 0.0243 }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "bad-taste-website",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:frame-model": "node plate-frames/tools/export-model.mjs"
+  },
+  "devDependencies": {
+    "three": "0.170.0"
+  }
+}
