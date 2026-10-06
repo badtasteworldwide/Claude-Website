@@ -17,7 +17,7 @@
         "m1": {
           "type": "message",
           "settings": {
-            "text": "★ FREE SHIPPING ON ORDERS $40+",
+            "text": "★ FREE US SHIPPING ON $40+ IN PLATE FRAMES",
             "link": ""
           }
         },
@@ -31,7 +31,7 @@
         "m3": {
           "type": "message",
           "settings": {
-            "text": "BUNDLE 3 · SAVE 25% + FREE SHIP",
+            "text": "BUNDLE 3 FRAMES · 10% OFF · 4+ = 15% OFF",
             "link": ""
           }
         },

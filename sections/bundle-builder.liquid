@@ -13,7 +13,7 @@
       {%- endif -%}
       <div class="bundle__tiers">
         {%- for block in section.blocks -%}
-          <div class="bundle__tier" data-count="{{ block.settings.count }}" {{ block.shopify_attributes }}>
+          <div class="bundle__tier" data-count="{{ block.settings.count }}" data-percent="{{ block.settings.percent | default: 0 }}" {{ block.shopify_attributes }}>
             <span><strong>{{ block.settings.left_strong }}</strong> · {{ block.settings.left_rest }}</span>
             <span>{{ block.settings.right }}</span>
           </div>
@@ -25,7 +25,7 @@
     </div>
     <div class="bundle__builder">
       <div style="font-family: var(--font-display); text-transform:uppercase; font-size:14px; margin-bottom:4px;">
-        Your Bundle <span data-bb-count style="color:var(--pink)">(0/{{ section.settings.max_items }})</span>
+        Your Bundle <span data-bb-count aria-live="polite" style="color:var(--pink-deep)">(0/{{ section.settings.max_items }})</span>
       </div>
       <div data-bb-cart style="font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-soft); margin-bottom:10px;"></div>
 
@@ -62,7 +62,8 @@
       <div class="bundle__summary">
         <div>
           <div style="font-size:10px; opacity:.7;">Subtotal</div>
-          <div class="bundle__summary-total"><span data-bb-total>$0</span></div>
+          <div class="bundle__summary-total" aria-live="polite"><s data-bb-was hidden></s> <span data-bb-total>$0</span></div>
+          <div class="bundle__summary-note" data-bb-saving></div>
         </div>
         <button type="button" class="btn" data-bb-add>Add Bundle →</button>
       </div>
@@ -125,13 +126,23 @@
       }
       slotsEl.innerHTML = slots.join('');
       countEl.textContent = '(' + picked.length + '/' + max + ')';
-      cartEl.textContent = cartQty > 0 ? ('Already in your cart: ' + cartQty + ' item' + (cartQty === 1 ? '' : 's') + ' — tiers count them too') : '';
+      cartEl.textContent = cartQty > 0 ? ('Frames already in your cart: ' + cartQty + ' — they count toward your tier') : '';
       var total = picked.reduce(function (s, p) { return s + p.price; }, 0);
-      totalEl.textContent = money(total);
+      // Estimate the automatic bundle discount (mirrors the tier blocks' percent).
+      var frames = picked.length + cartQty, pct = 0;
+      Array.prototype.forEach.call(section.querySelectorAll('.bundle__tier'), function (t) {
+        if (frames >= parseInt(t.dataset.count, 10)) pct = Math.max(pct, parseFloat(t.dataset.percent) || 0);
+      });
+      var wasEl = section.querySelector('[data-bb-was]'), saveEl = section.querySelector('[data-bb-saving]');
+      totalEl.textContent = money(total * (1 - pct / 100));
+      wasEl.hidden = !(pct && total);
+      wasEl.textContent = money(total);
+      saveEl.textContent = pct && total ? (pct + '% bundle discount, applied at checkout') : '';
       var opts = optionsEl.querySelectorAll('[data-bb-option]');
       Array.prototype.forEach.call(opts, function (btn) {
         var sel = picked.some(function (p) { return String(p.id) === btn.dataset.id; });
         btn.dataset.selected = String(sel);
+        btn.setAttribute('aria-pressed', String(sel));
       });
       var tiers = section.querySelectorAll('.bundle__tier');
       Array.prototype.forEach.call(tiers, function (t) {
@@ -145,7 +156,9 @@
     }
     function refreshCart() {
       return fetch('/cart.js').then(function (r) { return r.json(); }).then(function (cart) {
-        cartQty = cart.item_count || 0;
+        // Only plate frames count toward bundle tiers (same rule as the discount).
+        cartQty = (cart.items || []).filter(function (i) { return /frame/i.test(i.product_title); })
+          .reduce(function (s, i) { return s + i.quantity; }, 0);
         render();
       }).catch(function () {});
     }
@@ -237,12 +250,12 @@
   "max_blocks": 4,
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Bundle & Save" },
-    { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>Build a <em>3-pack.</em><br>Save up to 20%.</p>" },
+    { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>Build a <em>4-pack.</em><br>Save up to 15%.</p>" },
     { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Because one frame is never enough. Daily driver, weekend car, whatever's in the garage — they all deserve bad taste." },
     { "type": "collection", "id": "collection", "label": "Products to offer", "info": "Leave empty to show your License Plate Frames collection. Set that collection's sort order to Best Selling in admin for true popularity ranking." },
     { "type": "text", "id": "options_label", "label": "Products label", "default": "Most popular frames · tap to add" },
     { "type": "text", "id": "search_placeholder", "label": "Search placeholder", "default": "Search frames…" },
-    { "type": "range", "id": "max_items", "label": "Bundle size", "min": 2, "max": 6, "step": 1, "default": 3 },
+    { "type": "range", "id": "max_items", "label": "Bundle size", "min": 2, "max": 6, "step": 1, "default": 4 },
     { "type": "text", "id": "note", "label": "Fine print", "default": "Discounts apply automatically at checkout." }
   ],
   "blocks": [
@@ -251,6 +264,7 @@
       "name": "Discount tier",
       "settings": [
         { "type": "number", "id": "count", "label": "Item count for this tier", "default": 2 },
+        { "type": "number", "id": "percent", "label": "Discount % (must match the automatic discount)", "default": 0 },
         { "type": "text", "id": "left_strong", "label": "Tier name", "default": "2 Frames" },
         { "type": "text", "id": "left_rest", "label": "Tier detail", "default": "Any theme" },
         { "type": "text", "id": "right", "label": "Reward", "default": "FREE SHIP ON $40+" }
@@ -261,9 +275,9 @@
     {
       "name": "Bundle builder",
       "blocks": [
-        { "type": "tier", "settings": { "count": 2, "left_strong": "2 Frames", "left_rest": "Any theme", "right": "FREE SHIP ON $40+" } },
-        { "type": "tier", "settings": { "count": 3, "left_strong": "3 Frames", "left_rest": "Unlock the vault", "right": "10% OFF + FREE SHIP" } },
-        { "type": "tier", "settings": { "count": 4, "left_strong": "4+ Frames", "left_rest": "You have a problem", "right": "20% OFF + FREE SHIP" } }
+        { "type": "tier", "settings": { "count": 2, "left_strong": "2 Frames", "left_rest": "Any theme", "right": "FREE US SHIP $40+" } },
+        { "type": "tier", "settings": { "count": 3, "percent": 10, "left_strong": "3 Frames", "left_rest": "Unlock the vault", "right": "10% OFF + FREE US SHIP" } },
+        { "type": "tier", "settings": { "count": 4, "percent": 15, "left_strong": "4+ Frames", "left_rest": "You have a problem", "right": "15% OFF + FREE US SHIP" } }
       ]
     }
   ]

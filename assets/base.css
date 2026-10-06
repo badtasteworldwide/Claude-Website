@@ -438,7 +438,7 @@ a:hover { text-decoration: underline; }
   border: 2px solid var(--paper); padding: 24px;
 }
 .bundle__slots {
-  display: grid; grid-template-columns: repeat(3, 1fr);
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
   gap: 12px; margin-bottom: 16px;
 }
 .bundle__slot {
@@ -1023,3 +1023,6 @@ table.order-table th { background: var(--ink); color: var(--paper); font-family:
   .cart-line { grid-template-columns: 72px 1fr; }
   .cart-line__right { grid-column: 1 / -1; }
 }
+.bundle__summary-note { font-size: 11px; margin-top: 2px; opacity: .8; }
+[data-bb-was] { font-size: .6em; opacity: .6; }
+[data-bb-was][hidden] { display: none; }
