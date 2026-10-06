@@ -117,7 +117,10 @@ class FrameViewer {
     const plateGeo = new THREE.ShapeGeometry(s, 12);
     const puv = plateGeo.attributes.uv;
     for (let i = 0; i < puv.count; i++) puv.setXY(i, puv.getX(i) / pw + 0.5, puv.getY(i) / ph + 0.5);
-    this.plate = new THREE.Mesh(plateGeo, new THREE.MeshStandardMaterial({ color: 0xf4f5f7, roughness: 0.35, metalness: 0, side })); // blank until loadPlate()
+    this.plate = new THREE.Mesh(plateGeo, new THREE.MeshStandardMaterial({ color: 0xf4f5f7, roughness: 0.35, metalness: 0, side: THREE.FrontSide })); // blank until loadPlate()
+    // Back of the plate: bare aluminium, so turning the frame round never
+    // shows the printed face mirrored through it.
+    this.plate.add(new THREE.Mesh(plateGeo, new THREE.MeshStandardMaterial({ color: 0xb9bcc1, metalness: 0.7, roughness: 0.42, side: THREE.BackSide })));
     this.plate.position.set(0, 0.05, -FRAME.depth / 2 + 0.012); // flush with the back, as when bolted on
     this.rig.add(this.plate);
 

@@ -91,8 +91,11 @@ export class FrameViewer {
     this.plate = new THREE.Mesh(
       plateGeo,
       // Blank sheeting until loadPlate() brings in the stamped plate.
-      new THREE.MeshStandardMaterial({ color: 0xf4f5f7, roughness: 0.35, metalness: 0, side: THREE.DoubleSide }),
+      new THREE.MeshStandardMaterial({ color: 0xf4f5f7, roughness: 0.35, metalness: 0, side: THREE.FrontSide }),
     );
+    // Back of the plate: bare aluminium, so turning the frame round never
+    // shows the printed face mirrored through it.
+    this.plate.add(new THREE.Mesh(plateGeo, new THREE.MeshStandardMaterial({ color: 0xb9bcc1, metalness: 0.7, roughness: 0.42, side: THREE.BackSide })));
     this.plate.position.set(0, 0.05, -FRAME.depth / 2 + 0.012); // flush with the back, as when bolted on
     this.rig.add(this.plate);
 
