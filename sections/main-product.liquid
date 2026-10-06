@@ -1,4 +1,6 @@
 {%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign has_frame_3d = false -%}
+{%- if product.handle contains 'plate-frame' -%}{%- assign has_frame_3d = true -%}{%- endif -%}
 <div class="pdp" data-pdp>
   <div class="pdp__grid">
     <div class="pdp__media">
@@ -19,9 +21,23 @@
               color2: product.metafields.custom.plate_color_2 -%}
           </div>
         {%- endif -%}
+        {%- if has_frame_3d -%}
+          {%- comment -%} 3D slide, filled in by plate-frame-garage.js when this product has a design in Content > Files > pfg-catalog.json. {%- endcomment -%}
+          <div class="pfg3d" data-pfg-pdp hidden
+            data-handle="{{ product.handle }}"
+            data-catalog="{{ 'pfg-catalog.json' | file_url }}"
+            data-thumbs="{{ 'pfg-thumbs.webp' | file_url }}"
+            data-model="{{ 'pfg-frame.glb' | file_url }}"
+            data-sheet="{{ 'pfg-sheet-00.webp' | file_url }}">
+            <canvas aria-label="3D preview of this frame. Drag to rotate."></canvas>
+            <span class="pfg3d__loading">Loading 3D…</span>
+            <span class="pfg3d__hint">3D · Drag to rotate</span>
+            <div class="pfg3d__designs" data-role="designs" role="group" aria-label="Designs" hidden></div>
+          </div>
+        {%- endif -%}
       </div>
-      {%- if product.images.size > 1 -%}
-        <div class="pdp__thumbs">
+      {%- if product.images.size > 1 or has_frame_3d and product.images.size > 0 -%}
+        <div class="pdp__thumbs"{% if product.images.size < 2 %} style="display: none;"{% endif %}>
           {%- for image in product.images limit: 8 -%}
             <button type="button" class="pdp__thumb" data-src="{{ image | image_url: width: 1000 }}" data-active="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="View image {{ forloop.index }}">
               <img src="{{ image | image_url: width: 160 }}" alt="{{ image.alt | default: product.title | escape }}" loading="lazy" width="160" height="160">
@@ -113,6 +129,11 @@
     {{ product.variants | json }}
   </script>
 </div>
+
+{%- if has_frame_3d -%}
+  {{ 'plate-frame-garage.css' | asset_url | stylesheet_tag }}
+  <script type="module" src="{{ 'plate-frame-garage.js' | asset_url }}"></script>
+{%- endif -%}
 
 {% schema %}
 {
