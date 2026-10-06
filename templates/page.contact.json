@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-contact",
+      "settings": {
+        "email": "badtasteworldwide@gmail.com",
+        "location": "Bay Area, California"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
