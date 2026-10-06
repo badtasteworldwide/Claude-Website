@@ -23,9 +23,9 @@
     "buybar_cta": "Shop All Frames",
     "enable_exit_modal": true,
     "exit_modal_eyebrow": "Wait. Don't leave empty-handed.",
-    "exit_modal_title": "Here's 15% off because we're desperate.",
+    "exit_modal_title": "Here's 5% off because we're desperate.",
     "exit_modal_sub": "You've been here 2 minutes. Because groveling works.",
-    "exit_modal_code": "BADTASTE15",
+    "exit_modal_code": "BADTASTE5",
     "exit_modal_cta": "Claim My Discount →",
     "sections": {
       "cart-drawer": {

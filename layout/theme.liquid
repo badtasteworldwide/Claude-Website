@@ -73,11 +73,11 @@
         <button type="button" class="modal__close" id="modalClose" aria-label="Close">✕</button>
         <div class="modal__head">
           <div class="modal__eyebrow">{{ settings.exit_modal_eyebrow | default: "Wait. Don't leave empty-handed." }}</div>
-          <div class="modal__title" id="modalTitle">{{ settings.exit_modal_title | default: "Here's <span style='background:var(--ink); color:var(--yellow); padding:0 8px;'>15% off</span><br>because we're desperate." }}</div>
+          <div class="modal__title" id="modalTitle">{{ settings.exit_modal_title | default: "Here's <span style='background:var(--ink); color:var(--yellow); padding:0 8px;'>5% off</span><br>because we're desperate." }}</div>
         </div>
         <div class="modal__body">
           <p class="modal__sub">{{ settings.exit_modal_sub | default: 'Because groveling works.' }}</p>
-          <div class="modal__code">{{ settings.exit_modal_code | default: 'BADTASTE15' }}</div>
+          <div class="modal__code">{{ settings.exit_modal_code | default: 'BADTASTE5' }}</div>
           <p class="modal__sub">Enter it at checkout. 15% off your order, one use per customer. Can’t be combined with bundle discounts.</p>
           <a href="{{ settings.exit_modal_link | default: '/collections/all' }}" class="btn btn--full btn--lg" id="modalClaim">{{ settings.exit_modal_cta | default: 'Claim My Discount →' }}</a>
           <button type="button" class="modal__decline" id="modalDecline">No Thanks</button>
