@@ -137,12 +137,13 @@
   /* ---------------- Quantity steppers ---------------- */
   function bindQtySteppers() {
     document.addEventListener('click', function (e) {
-      var t = e.target.closest('[data-step]');
+      var t = e.target.closest('[data-step], [data-qty-minus], [data-qty-plus]');
       if (!t) return;
       var input = t.parentElement.querySelector('input[type="number"]');
       if (!input) return;
+      var up = t.dataset.step === '+' || t.hasAttribute('data-qty-plus');
       var v = parseInt(input.value, 10) || 1;
-      input.value = Math.max(parseInt(input.min, 10) || 1, v + (t.dataset.step === '+' ? 1 : -1));
+      input.value = Math.max(parseInt(input.min, 10) || 1, v + (up ? 1 : -1));
       input.dispatchEvent(new Event('change', { bubbles: true }));
     });
   }
