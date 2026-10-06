@@ -357,36 +357,30 @@
     }, { passive: true });
   }
 
-  /* ---------------- Exit intent modal ---------------- */
+  /* ---------------- Discount modal (once per visitor, after 2 min on site) ---------------- */
   function bindExitModal() {
     var overlay = $('#modalOverlay');
     if (!overlay) return;
-    var KEY = 'btw-exit-shown';
+    var SHOWN_KEY = 'btw-discount-shown';
+    var START_KEY = 'btw-visit-start';
+    var DELAY_MS = 2 * 60 * 1000;
+    function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+    function set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+    if (get(SHOWN_KEY)) return;
+    // Time on site is counted across page views, so navigating doesn't reset the clock.
+    var start = parseInt(get(START_KEY), 10);
+    if (!start) { start = Date.now(); set(START_KEY, String(start)); }
     function show() {
-      if (sessionStorage.getItem(KEY)) return;
-      sessionStorage.setItem(KEY, '1');
+      if (get(SHOWN_KEY)) return;
+      set(SHOWN_KEY, '1');
       overlay.dataset.open = 'true';
     }
     function hide() { overlay.dataset.open = 'false'; }
-    document.addEventListener('mouseout', function (e) {
-      if (!e.relatedTarget && e.clientY <= 0) show();
-    });
+    setTimeout(show, Math.max(0, start + DELAY_MS - Date.now()));
     ['#modalClose', '#modalDecline', '#modalClaim'].forEach(function (sel) {
       var el = $(sel); if (el) el.addEventListener('click', hide);
     });
     overlay.addEventListener('click', function (e) { if (e.target === overlay) hide(); });
-    // countdown
-    var timer = $('#modalTimer');
-    if (timer) {
-      var secs = 599;
-      setInterval(function () {
-        if (overlay.dataset.open !== 'true' || secs <= 0) return;
-        secs--;
-        var m = String(Math.floor(secs / 60)).padStart(2, '0');
-        var s = String(secs % 60).padStart(2, '0');
-        timer.textContent = m + ':' + s;
-      }, 1000);
-    }
   }
 
   /* ---------------- Newsletter (customer form ajax-ish feedback) ---------------- */

@@ -74,9 +74,9 @@
           <div class="modal__title">{{ settings.exit_modal_title | default: "Here's <span style='background:var(--ink); color:var(--yellow); padding:0 8px;'>15% off</span><br>because we're desperate." }}</div>
         </div>
         <div class="modal__body">
-          <p class="modal__sub">{{ settings.exit_modal_sub | default: 'First order only. Because groveling works.' }}</p>
+          <p class="modal__sub">{{ settings.exit_modal_sub | default: 'Because groveling works.' }}</p>
           <div class="modal__code">{{ settings.exit_modal_code | default: 'BADTASTE15' }}</div>
-          <p class="modal__sub">Use it at checkout before it expires in <strong id="modalTimer">09:59</strong>.</p>
+          <p class="modal__sub">Enter it at checkout. One use per customer.</p>
           <a href="{{ settings.exit_modal_link | default: '/collections/all' }}" class="btn btn--full btn--lg" id="modalClaim">{{ settings.exit_modal_cta | default: 'Claim My Discount →' }}</a>
           <button style="margin-top:12px; font-family:var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-soft); text-decoration:underline; background:none; border:none; cursor:pointer;" id="modalDecline">No thanks, I hate savings.</button>
         </div>
