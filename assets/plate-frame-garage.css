@@ -74,6 +74,13 @@
 .pfg-btn:hover { background: var(--pfg-bg); }
 .pfg-btn[aria-pressed="true"] { background: var(--pfg-fg); color: var(--pfg-panel); }
 .pfg-icon { padding: 8px 10px; }
+.pfg-credit { position: absolute; left: 24px; bottom: 16px; margin: 0; max-width: 32ch; font-size: 10.5px; line-height: 1.4; color: var(--pfg-muted); z-index: 1; }
+.pfg-credit a { color: inherit; }
+/* Car mode: fade top and bottom so the heading, dock and credit stay legible over the car. */
+.pfg-bay::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s;
+  background: linear-gradient(var(--pfg-bay) 0, color-mix(in srgb, var(--pfg-bay) 70%, transparent) 14%, transparent 34%, transparent 82%, color-mix(in srgb, var(--pfg-bay) 80%, transparent) 100%); }
+.pfg--car .pfg-bay::after { opacity: 1; }
+.pfg-bay > :not(canvas) { z-index: 1; }
 
 @media (max-width: 820px) {
   .pfg { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto; height: auto; }
@@ -98,6 +105,12 @@
 .pfg3d__designs[hidden] { display: none; }
 .pfg3d__designs button { font-family: var(--font-mono, ui-monospace, monospace); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 9px; min-height: 30px; border: 2px solid var(--ink, #111); background: var(--paper, #fff); color: var(--ink, #111); cursor: pointer; }
 .pfg3d__designs button[aria-pressed="true"] { background: var(--ink, #111); color: var(--paper, #fff); }
+.pfg3d__car { position: absolute; left: 12px; top: 12px; font-family: var(--font-mono, ui-monospace, monospace); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 9px; min-height: 30px; border: 2px solid var(--ink, #111); background: var(--paper, #fff); color: var(--ink, #111); cursor: pointer; }
+.pfg3d__car[aria-pressed="true"] { background: var(--ink, #111); color: var(--paper, #fff); }
+.pfg3d__car[hidden], .pfg3d__credit[hidden] { display: none; }
+.pfg3d__credit { position: absolute; right: 12px; bottom: 12px; margin: 0; max-width: 30ch; text-align: right; font-family: var(--font-mono, ui-monospace, monospace); font-size: 9px; line-height: 1.35; color: #444; background: #ffffffcc; padding: 4px 6px; }
+.pfg3d__credit a { color: inherit; }
+.pfg3d--car .pfg3d__designs { right: 40%; }
 .pfg3d-thumb { position: relative; display: grid; place-items: center; background: radial-gradient(120% 90% at 50% 35%, #ffffff, #e6e6eb); }
 .pfg3d-thumb__art { width: 88%; aspect-ratio: 320 / 164; display: block; }
 .pfg3d-thumb__tag { position: absolute; left: 3px; top: 3px; font-family: var(--font-mono, ui-monospace, monospace); font-size: 9px; font-weight: 700; line-height: 1; padding: 3px 4px; background: var(--ink, #111); color: var(--paper, #fff); }
