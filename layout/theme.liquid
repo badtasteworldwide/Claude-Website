@@ -37,8 +37,7 @@
     };
   </script>
   <script src="{{ 'theme.js' | asset_url }}" defer></script>
-  {%- comment -%} Loaded as a module so Shopify's JS optimizer keeps the dynamic import() intact. {%- endcomment -%}
-  <script src="{{ 'frame3d.js' | asset_url }}" type="module"></script>
+  <script src="{{ 'frame3d.js' | asset_url }}" defer></script>
 
   {{ content_for_header }}
 </head>

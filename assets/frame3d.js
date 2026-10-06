@@ -1,11 +1,31 @@
 /* Bad Taste 3D frame viewer loader (ES module).
    Keeps three.js (~180 KB gzipped) off the page until a viewer is opened,
-   or until an autoload viewer scrolls into view. Must stay a module: as a
-   classic script, Shopify's minifier rewrites import() into require(). */
+   or until an autoload viewer scrolls into view. No dynamic import: Shopify's
+   minifier rewrites it into require(), which browsers lack. The viewer module is added as a
+   <script type="module"> and registers window.BTWframeViewer. */
 (function () {
   'use strict';
 
   var saveData = navigator.connection && navigator.connection.saveData;
+  var viewerModule = null;
+
+  function loadViewer(url) {
+    if (window.BTWframeViewer) return Promise.resolve(window.BTWframeViewer);
+    if (!viewerModule) {
+      viewerModule = new Promise(function (resolve, reject) {
+        var s = document.createElement('script');
+        s.type = 'module';
+        s.src = url;
+        s.onload = function () {
+          if (window.BTWframeViewer) resolve(window.BTWframeViewer);
+          else reject(new Error('3D viewer module did not register'));
+        };
+        s.onerror = function () { viewerModule = null; reject(new Error('3D viewer module failed to load')); };
+        document.head.appendChild(s);
+      });
+    }
+    return viewerModule;
+  }
 
   function setStatus(root, msg) {
     var s = root.querySelector('[data-frame3d-status]');
@@ -18,7 +38,7 @@
     var startBtn = root.querySelector('[data-frame3d-start]');
     if (startBtn) startBtn.disabled = true;
     setStatus(root, 'Loading 3D view…');
-    root._viewer = import(root.dataset.module)
+    root._viewer = loadViewer(root.dataset.module)
       .then(function (mod) {
         canvas.hidden = false;
         return mod.mount(canvas, root.dataset.texture);
@@ -98,5 +118,3 @@
 
   window.BTWframe3d = { start: start, showTexture: showTexture };
 })();
-
-export {};

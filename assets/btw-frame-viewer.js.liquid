@@ -392,3 +392,6 @@ export async function mount(canvas, textureUrl) {
   await v.show(textureUrl);
   return v;
 }
+
+// Loaded via <script type="module"> by frame3d.js (no dynamic import).
+window.BTWframeViewer = { mount };
