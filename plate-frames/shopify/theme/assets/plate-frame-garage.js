@@ -28,31 +28,6 @@ const FRAME = {
 const HOME = [0, 0.4, 24];
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-function plateTexture() {
-  const c = document.createElement("canvas");
-  c.width = 1200;
-  c.height = 600;
-  const g = c.getContext("2d");
-  const bg = g.createLinearGradient(0, 0, 0, 600);
-  bg.addColorStop(0, "#fbfbfd");
-  bg.addColorStop(1, "#e4e7ee");
-  g.fillStyle = bg;
-  g.fillRect(0, 0, 1200, 600);
-  g.textAlign = "center";
-  g.fillStyle = "#e0437f";
-  g.font = "italic 700 56px Georgia, serif";
-  g.fillText("Bad Taste", 600, 190);
-  g.fillStyle = "#1c2a5c";
-  g.font = "700 180px 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif";
-  g.fillText("B4D T4ST", 600, 380);
-  g.font = "600 30px 'Helvetica Neue', Arial, sans-serif";
-  g.fillStyle = "#6b7280";
-  g.fillText("W O R L D W I D E", 600, 445);
-  const t = new THREE.CanvasTexture(c);
-  t.colorSpace = THREE.SRGBColorSpace;
-  return t;
-}
-
 function shadowTexture() {
   const c = document.createElement("canvas");
   c.width = 256;
@@ -66,6 +41,11 @@ function shadowTexture() {
   g.fillRect(0, 0, 256, 256);
   return new THREE.CanvasTexture(c);
 }
+
+// Other pfg-* files sit next to the model in Content > Files.
+const sibling = (url, name) => url.replace(/pfg-[\w-]+\.\w+/, name).replace(/[?&]v=\d+/, "");
+const loadPlate = (viewer, modelUrl) =>
+  viewer.loadPlate(sibling(modelUrl, "pfg-plate.webp"), sibling(modelUrl, "pfg-plate-normal.webp")).catch(console.error);
 
 function loadImage(url) {
   return new Promise((resolve, reject) => {
@@ -137,8 +117,8 @@ class FrameViewer {
     const plateGeo = new THREE.ShapeGeometry(s, 12);
     const puv = plateGeo.attributes.uv;
     for (let i = 0; i < puv.count; i++) puv.setXY(i, puv.getX(i) / pw + 0.5, puv.getY(i) / ph + 0.5);
-    this.plate = new THREE.Mesh(plateGeo, new THREE.MeshStandardMaterial({ map: plateTexture(), roughness: 0.4, metalness: 0.15, side }));
-    this.plate.position.set(0, 0.05, -0.01); // against the rear bosses
+    this.plate = new THREE.Mesh(plateGeo, new THREE.MeshStandardMaterial({ color: 0xf4f5f7, roughness: 0.35, metalness: 0, side })); // blank until loadPlate()
+    this.plate.position.set(0, 0.05, -FRAME.depth / 2 + 0.012); // flush with the back, as when bolted on
     this.rig.add(this.plate);
 
     const screwMat = new THREE.MeshStandardMaterial({ color: 0xd8dade, metalness: 1, roughness: 0.22 });
@@ -173,6 +153,18 @@ class FrameViewer {
     this.visible = true;
     new IntersectionObserver(([e]) => (this.visible = e.isIntersecting)).observe(canvas);
     renderer.setAnimationLoop(() => this.visible && this.tick());
+  }
+
+  // Stamped California plate baked by tools/ca_plate.py: colour (alpha cuts
+  // the mounting slots) plus a normal map for the embossing.
+  async loadPlate(colorUrl, normalUrl) {
+    const loader = new THREE.TextureLoader();
+    const [map, normalMap] = await Promise.all([loader.loadAsync(colorUrl), loader.loadAsync(normalUrl)]);
+    map.colorSpace = THREE.SRGBColorSpace;
+    map.anisotropy = normalMap.anisotropy = this.renderer.capabilities.getMaxAnisotropy();
+    Object.assign(this.plate.material, { map, normalMap, alphaTest: 0.5 });
+    this.plate.material.color.set(0xffffff);
+    this.plate.material.needsUpdate = true;
   }
 
   async loadModel(url) {
@@ -348,6 +340,7 @@ async function mount(root) {
 
   await loadThree();
   viewer = new FrameViewer($("stage"), root.dataset.sheet, cat.texture);
+  loadPlate(viewer, root.dataset.model);
   await Promise.all([viewer.loadModel(root.dataset.model), viewer.show(designs[state.index])]);
   $("loading").hidden = true;
 
@@ -444,6 +437,7 @@ async function mountProduct(root) {
   show(true);
   await loadThree();
   viewer = new FrameViewer(root.querySelector("canvas"), root.dataset.sheet, cat.texture, { gallery: true });
+  loadPlate(viewer, root.dataset.model);
   await Promise.all([viewer.loadModel(root.dataset.model), viewer.show(mine[0])]);
   root.dataset.ready = "";
   // Slow turntable until the shopper grabs it.

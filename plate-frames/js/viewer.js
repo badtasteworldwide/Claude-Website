@@ -17,33 +17,6 @@ export const FRAME = {
 const HOME = new THREE.Vector3(0, 0.4, 24);
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-function plateTexture() {
-  // A demo plate so the frame reads at real scale (12 x 6 in).
-  const c = document.createElement("canvas");
-  c.width = 1200;
-  c.height = 600;
-  const g = c.getContext("2d");
-  const bg = g.createLinearGradient(0, 0, 0, 600);
-  bg.addColorStop(0, "#fbfbfd");
-  bg.addColorStop(1, "#e4e7ee");
-  g.fillStyle = bg;
-  g.fillRect(0, 0, 1200, 600);
-  g.textAlign = "center";
-  g.fillStyle = "#e0437f";
-  // Only rows ~110-480 show through the frame window.
-  g.font = "italic 700 56px Georgia, serif";
-  g.fillText("Bad Taste", 600, 190);
-  g.fillStyle = "#1c2a5c";
-  g.font = "700 180px 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif";
-  g.fillText("B4D T4ST", 600, 380);
-  g.font = "600 30px 'Helvetica Neue', Arial, sans-serif";
-  g.fillStyle = "#6b7280";
-  g.fillText("W O R L D W I D E", 600, 445);
-  const t = new THREE.CanvasTexture(c);
-  t.colorSpace = THREE.SRGBColorSpace;
-  return t;
-}
-
 function shadowTexture() {
   const c = document.createElement("canvas");
   c.width = 256;
@@ -117,9 +90,10 @@ export class FrameViewer {
     for (let i = 0; i < puv.count; i++) puv.setXY(i, puv.getX(i) / pw + 0.5, puv.getY(i) / ph + 0.5);
     this.plate = new THREE.Mesh(
       plateGeo,
-      new THREE.MeshStandardMaterial({ map: plateTexture(), roughness: 0.4, metalness: 0.15, side: THREE.DoubleSide }),
+      // Blank sheeting until loadPlate() brings in the stamped plate.
+      new THREE.MeshStandardMaterial({ color: 0xf4f5f7, roughness: 0.35, metalness: 0, side: THREE.DoubleSide }),
     );
-    this.plate.position.set(0, 0.05, -0.01);
+    this.plate.position.set(0, 0.05, -FRAME.depth / 2 + 0.012); // flush with the back, as when bolted on
     this.rig.add(this.plate);
 
     const screwMat = new THREE.MeshStandardMaterial({ color: 0xd8dade, metalness: 1, roughness: 0.22 });
@@ -154,6 +128,18 @@ export class FrameViewer {
     new ResizeObserver(() => this.resize()).observe(canvas.parentElement);
     this.resize();
     renderer.setAnimationLoop(() => this.tick());
+  }
+
+  // Stamped California plate baked by tools/ca_plate.py: colour (alpha cuts
+  // the mounting slots) plus a normal map for the embossing.
+  async loadPlate(colorUrl, normalUrl) {
+    const loader = new THREE.TextureLoader();
+    const [map, normalMap] = await Promise.all([loader.loadAsync(colorUrl), loader.loadAsync(normalUrl)]);
+    map.colorSpace = THREE.SRGBColorSpace;
+    map.anisotropy = normalMap.anisotropy = this.renderer.capabilities.getMaxAnisotropy();
+    Object.assign(this.plate.material, { map, normalMap, alphaTest: 0.5 });
+    this.plate.material.color.set(0xffffff);
+    this.plate.material.needsUpdate = true;
   }
 
   async loadModel(url) {

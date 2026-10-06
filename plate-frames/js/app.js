@@ -120,6 +120,8 @@ async function boot() {
   select(first, { push: false });
 
   viewer = new FrameViewer($("stage"));
+  // The plate is decoration: if it fails the frame still shows on blank sheeting.
+  viewer.loadPlate(asset("plate/ca-plate.webp"), asset("plate/ca-plate-normal.webp")).catch(console.error);
   await Promise.all([viewer.loadModel(asset("models/plate-frame.glb")), viewer.show(textureUrl(DESIGNS[state.index]))]);
   $("loading").hidden = true;
 

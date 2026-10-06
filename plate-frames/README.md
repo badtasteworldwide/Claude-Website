@@ -60,3 +60,7 @@ The section reads its data from **Content → Files**: `pfg-catalog.json`, `pfg-
 ### Product page gallery
 
 `shopify/theme/sections/main-product.liquid` is the store theme's product section with a 3D slide added to the photo gallery. On any product whose handle contains `plate-frame`, `plate-frame-garage.js` looks the handle up in `pfg-catalog.json`. When it finds a design, it puts a 3D thumbnail first in the gallery and shows the frame turning slowly. Clicking a photo thumbnail, or a variant change, shows the photo. Products with several designs (for example White Claw flavours) get a row of design buttons. three.js only loads when a design is found.
+
+## Demo plate
+
+The plate behind every frame is a standard California passenger plate stamped `BADT4ST`: white sheeting, red "California" script, dark blue embossed characters, red `dmv.ca.gov` (on standard plates since 2011), a raised border and four mounting slots, at 12 × 6 in. `tools/ca_plate.py [SERIAL]` bakes `assets/plate/ca-plate.webp` (colour; the alpha cuts the slots) and `ca-plate-normal.webp` (the embossing). The serial glyphs are drawn as vector shapes in the style of the California dies, because the faithful digital version (Penitentiary Gothic) is a paid font. The script uses Yellowtail (Apache 2.0, `tools/fonts/`). On Shopify they are `pfg-plate.webp` and `pfg-plate-normal.webp` in Files. As on a real car, the plate sits flush with the back of the frame, so a thick frame bar can hide part of the script and `dmv.ca.gov`.
