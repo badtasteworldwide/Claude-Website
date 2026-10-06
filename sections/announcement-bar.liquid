@@ -1,5 +1,5 @@
 {%- if section.blocks.size > 0 -%}
-<div class="promo-bar">
+<div class="promo-bar{% if section.blocks.size == 1 %} promo-bar--static{% endif %}">
   <div class="promo-bar__track" data-marquee>
     {%- for block in section.blocks -%}
       <span {{ block.shopify_attributes }}>

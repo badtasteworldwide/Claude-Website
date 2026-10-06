@@ -89,18 +89,21 @@
 
 <style>
   .contact__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 48px; align-items: start; margin-top: 24px; }
-  .contact__facts { display: grid; gap: 14px; margin: 24px 0; }
-  .contact__facts dt { font: 600 11px/1 var(--font-mono); text-transform: uppercase; letter-spacing: .12em; color: var(--ink-soft); margin-bottom: 4px; }
-  .contact__facts dd { margin: 0; font-size: 18px; overflow-wrap: anywhere; }
-  .contact__facts a, .contact__links a, .contact__privacy a { text-decoration: underline; text-underline-offset: 3px; }
+  .contact__facts { display: grid; margin: 28px 0; }
+  .contact__facts { border-top: 3px solid var(--ink); }
+  .contact__facts > div { padding: 14px 0; border-bottom: 3px solid var(--ink); }
+  .contact__facts dt { font: 800 11px/1 var(--font-label); text-transform: uppercase; letter-spacing: .02em; color: var(--ink-soft); margin-bottom: 6px; }
+  .contact__facts dd { margin: 0; font-family: var(--font-display); text-transform: uppercase; font-size: 17px; line-height: 1.2; overflow-wrap: anywhere; }
+  .contact__facts a, .contact__links a, .contact__privacy a { text-decoration: underline; text-decoration-color: var(--pink-deep); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+  .contact__facts dd a { text-transform: none; font-family: var(--font-sans); font-weight: 700; font-size: 18px; }
   .contact__links { font-size: 15px; }
-  .contact__form { display: grid; gap: 18px; padding: 28px; background: var(--paper); border: 2px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); }
+  .contact__form { display: grid; gap: 20px; padding: 32px; background: var(--paper); border: 3px solid var(--ink); box-shadow: 10px 10px 0 var(--pink); }
   .contact .field { display: grid; gap: 6px; }
-  .contact label { font: 700 13px/1.2 var(--font-sans); text-transform: uppercase; letter-spacing: .06em; }
-  .contact .field__hint { font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--ink-soft); }
+  .contact label { font: 800 12px/1.2 var(--font-label); text-transform: uppercase; letter-spacing: .02em; }
+  .contact .field__hint { font-family: var(--font-sans); font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--ink-soft); }
   .contact input, .contact select, .contact textarea {
     width: 100%; min-width: 0; padding: 12px 14px; font: 16px/1.4 var(--font-sans);
-    color: var(--ink); background: #fff; border: 2px solid var(--ink); border-radius: 0;
+    color: var(--ink); background: #fff; border: 2px solid var(--ink); border-radius: 0; min-height: 48px;
   }
   .contact textarea { resize: vertical; min-height: 140px; }
   .contact input:focus-visible, .contact select:focus-visible, .contact textarea:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; box-shadow: 0 0 0 6px var(--yellow); }
@@ -110,7 +113,8 @@
   .contact__notice--ok { background: var(--yellow); }
   .contact__notice--error { background: #ffe3e6; color: #6b0011; }
   .contact__notice ul { margin: 6px 0 0 18px; font-weight: 400; }
-  .contact__form .btn { justify-self: start; color: var(--ink); }
+  .contact__form .btn { justify-self: start; }
+  .contact select { -webkit-appearance: none; appearance: none; padding-right: 40px; background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%), linear-gradient(135deg, var(--ink) 50%, transparent 50%); background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%; background-size: 6px 6px; background-repeat: no-repeat; }
   .contact__privacy { margin: 0; font-size: 13px; color: var(--ink-soft); }
   @media (max-width: 860px) { .contact__grid { grid-template-columns: minmax(0, 1fr); gap: 28px; } .contact__form { padding: 20px; } }
 </style>

@@ -16,8 +16,8 @@
     <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
   {%- endif -%}
 
-  {{ 'archivo-black-latin.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
-  {{ 'inter-latin.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+  {{ 'dela-gothic-one-latin.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+  {{ 'archivo-var-latin.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
   {{ 'fonts.css' | asset_url | stylesheet_tag }}
   {{ 'base.css' | asset_url | stylesheet_tag }}
   <style>
@@ -78,7 +78,7 @@
           <div class="modal__code">{{ settings.exit_modal_code | default: 'BADTASTE5' }}</div>
           <p class="modal__sub">Enter it at checkout. One use per customer.</p>
           <a href="{{ settings.exit_modal_link | default: '/collections/all' }}" class="btn btn--full btn--lg" id="modalClaim">{{ settings.exit_modal_cta | default: 'Claim My Discount →' }}</a>
-          <button style="margin-top:12px; font-family:var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-soft); text-decoration:underline; background:none; border:none; cursor:pointer;" id="modalDecline">No thanks, I hate savings.</button>
+          <button style="margin-top:12px; font-family:var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:0.02em; color:var(--ink-soft); text-decoration:underline; background:none; border:none; cursor:pointer;" id="modalDecline">No thanks, I hate savings.</button>
         </div>
       </div>
     </div>
