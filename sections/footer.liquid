@@ -34,7 +34,7 @@
         <a href="{{ policy.url }}">{{ policy.title }}</a>
       {%- endfor -%}
       <a href="{{ section.settings.contact_url | default: '/pages/contact' }}">Contact</a>
-      <a href="{{ section.settings.privacy_choices_url | default: '/pages/data-sharing-opt-out' }}">Your Privacy Choices</a>
+      {%- if section.settings.privacy_choices_url != blank -%}<a href="{{ section.settings.privacy_choices_url }}">Your Privacy Choices</a>{%- endif -%}
     </nav>
     <div>
       {%- for type in shop.enabled_payment_types -%}
@@ -52,7 +52,7 @@
   "settings": [
     { "type": "image_picker", "id": "brand_image", "label": "Brand image" },
     { "type": "url", "id": "contact_url", "label": "Contact page", "info": "Defaults to /pages/contact" },
-    { "type": "url", "id": "privacy_choices_url", "label": "“Your Privacy Choices” link", "info": "Defaults to Shopify’s data sharing opt-out page (/pages/data-sharing-opt-out). Turn it on in Settings → Customer privacy." },
+    { "type": "url", "id": "privacy_choices_url", "label": "“Your Privacy Choices” link", "info": "Turn on the data sharing opt-out page in Settings → Customer privacy, then paste its URL here (usually /pages/data-sharing-opt-out)." },
     { "type": "textarea", "id": "disclaimer", "label": "Non-affiliation disclaimer" },
     { "type": "text", "id": "tagline", "label": "Tagline", "default": "License plate frames for people who know better and do it anyway. Designed in LA, shipped worldwide." },
     { "type": "text", "id": "location", "label": "Location line", "default": "Los Angeles, CA" }
