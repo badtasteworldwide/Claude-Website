@@ -1,0 +1,127 @@
+<div class="page-shell contact">
+  <h1 class="page-title">{{ page.title }}</h1>
+
+  <div class="contact__grid">
+    <div class="contact__intro">
+      {%- if page.content != blank -%}
+        <div class="rte">{{ page.content }}</div>
+      {%- endif -%}
+      <dl class="contact__facts">
+        {%- if section.settings.email != blank -%}
+          <div>
+            <dt>Email</dt>
+            <dd><a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a></dd>
+          </div>
+        {%- endif -%}
+        {%- if section.settings.location != blank -%}
+          <div>
+            <dt>Studio</dt>
+            <dd>{{ section.settings.location }}</dd>
+          </div>
+        {%- endif -%}
+        {%- if settings.social_instagram != blank -%}
+          <div>
+            <dt>Instagram</dt>
+            <dd><a href="{{ settings.social_instagram }}">@{{ settings.social_instagram | split: '/' | last }}</a></dd>
+          </div>
+        {%- endif -%}
+      </dl>
+      <p class="contact__links">
+        Quick answers: <a href="{{ routes.root_url }}#faq">FAQ</a>,
+        <a href="/policies/shipping-policy">Shipping</a>,
+        <a href="/policies/refund-policy">Returns</a>.
+      </p>
+    </div>
+
+    {%- form 'contact', id: 'ContactForm', class: 'contact__form' -%}
+      {%- if form.posted_successfully? -%}
+        <p class="contact__notice contact__notice--ok" role="status" tabindex="-1" autofocus>
+          Thanks, your message is in. We'll reply to the email you gave us.
+        </p>
+      {%- elsif form.errors -%}
+        <div class="contact__notice contact__notice--error" role="alert" tabindex="-1" autofocus>
+          <p>Please fix the following and send again:</p>
+          <ul>
+            {%- for field in form.errors -%}
+              <li>{% if field == 'form' %}{{ form.errors.messages[field] }}{% else %}{{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}{% endif %}</li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+      <div class="field">
+        <label for="ContactForm-name">Name</label>
+        <input id="ContactForm-name" type="text" name="contact[name]" autocomplete="name"
+               value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}">
+      </div>
+      <div class="field">
+        <label for="ContactForm-email">Email <span aria-hidden="true">*</span></label>
+        <input id="ContactForm-email" type="email" name="contact[email]" autocomplete="email" spellcheck="false" required
+               aria-required="true" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+               {% if form.errors contains 'email' %}aria-invalid="true" aria-describedby="ContactForm-email-error"{% endif %}>
+        {%- if form.errors contains 'email' -%}
+          <p class="field__error" id="ContactForm-email-error">Email {{ form.errors.messages['email'] }}</p>
+        {%- endif -%}
+      </div>
+      <div class="field">
+        <label for="ContactForm-topic">What's it about?</label>
+        <select id="ContactForm-topic" name="contact[topic]">
+          {%- assign topics = section.settings.topics | newline_to_br | split: '<br />' -%}
+          {%- for t in topics -%}
+            {%- assign t = t | strip -%}
+            {%- if t != blank -%}<option value="{{ t | escape }}">{{ t }}</option>{%- endif -%}
+          {%- endfor -%}
+        </select>
+      </div>
+      <div class="field">
+        <label for="ContactForm-order">Order number <span class="field__hint">(optional)</span></label>
+        <input id="ContactForm-order" type="text" name="contact[order]" placeholder="e.g. #4512…" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="field">
+        <label for="ContactForm-body">Message <span aria-hidden="true">*</span></label>
+        <textarea id="ContactForm-body" name="contact[body]" rows="6" required aria-required="true">{{ form.body }}</textarea>
+      </div>
+      <button type="submit" class="btn btn--lg">Send Message</button>
+      <p class="contact__privacy">We only use your details to reply. See our <a href="/policies/privacy-policy">Privacy Policy</a>.</p>
+    {%- endform -%}
+  </div>
+</div>
+
+<style>
+  .contact__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 48px; align-items: start; margin-top: 24px; }
+  .contact__facts { display: grid; gap: 14px; margin: 24px 0; }
+  .contact__facts dt { font: 600 11px/1 var(--font-mono); text-transform: uppercase; letter-spacing: .12em; color: var(--ink-soft); margin-bottom: 4px; }
+  .contact__facts dd { margin: 0; font-size: 18px; overflow-wrap: anywhere; }
+  .contact__facts a, .contact__links a, .contact__privacy a { text-decoration: underline; text-underline-offset: 3px; }
+  .contact__links { font-size: 15px; }
+  .contact__form { display: grid; gap: 18px; padding: 28px; background: var(--paper); border: 2px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); }
+  .contact .field { display: grid; gap: 6px; }
+  .contact label { font: 700 13px/1.2 var(--font-sans); text-transform: uppercase; letter-spacing: .06em; }
+  .contact .field__hint { font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--ink-soft); }
+  .contact input, .contact select, .contact textarea {
+    width: 100%; min-width: 0; padding: 12px 14px; font: 16px/1.4 var(--font-sans);
+    color: var(--ink); background: #fff; border: 2px solid var(--ink); border-radius: 0;
+  }
+  .contact textarea { resize: vertical; min-height: 140px; }
+  .contact input:focus-visible, .contact select:focus-visible, .contact textarea:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; box-shadow: 0 0 0 6px var(--yellow); }
+  .contact [aria-invalid="true"] { border-color: #b00020; }
+  .field__error { margin: 0; font-size: 14px; color: #b00020; }
+  .contact__notice { padding: 14px 16px; border: 2px solid var(--ink); font-weight: 600; }
+  .contact__notice--ok { background: var(--yellow); }
+  .contact__notice--error { background: #ffe3e6; color: #6b0011; }
+  .contact__notice ul { margin: 6px 0 0 18px; font-weight: 400; }
+  .contact__form .btn { justify-self: start; color: var(--ink); }
+  .contact__privacy { margin: 0; font-size: 13px; color: var(--ink-soft); }
+  @media (max-width: 860px) { .contact__grid { grid-template-columns: minmax(0, 1fr); gap: 28px; } .contact__form { padding: 20px; } }
+</style>
+
+{% schema %}
+{
+  "name": "Contact page",
+  "settings": [
+    { "type": "text", "id": "email", "label": "Email shown", "default": "badtasteworldwide@gmail.com" },
+    { "type": "text", "id": "location", "label": "Studio location", "default": "Bay Area, California" },
+    { "type": "textarea", "id": "topics", "label": "Topics (one per line)", "default": "Order question\nShipping or tracking\nDamaged or wrong item\nReturns\nCustom or bulk order (5+ units)\nSomething else" }
+  ]
+}
+{% endschema %}
