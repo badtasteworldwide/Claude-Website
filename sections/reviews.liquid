@@ -49,8 +49,8 @@
       "name": "Stat",
       "settings": [
         { "type": "checkbox", "id": "show_stars", "label": "Show stars instead of value", "default": false },
-        { "type": "text", "id": "value", "label": "Value", "default": "97%" },
-        { "type": "text", "id": "label", "label": "Label", "default": "Would buy again" }
+        { "type": "text", "id": "value", "label": "Value", "default": "3,300+" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Orders shipped" }
       ]
     },
     {
@@ -58,11 +58,11 @@
       "name": "Review",
       "settings": [
         { "type": "range", "id": "stars", "label": "Stars", "min": 1, "max": 5, "step": 1, "default": 5 },
-        { "type": "text", "id": "title", "label": "Title", "default": "\"Finally, taste worth having\"" },
-        { "type": "textarea", "id": "body", "label": "Body", "default": "Ordered 3, came in 2 days, thick plastic, screws included. That's the whole review." },
-        { "type": "text", "id": "name", "label": "Reviewer", "default": "Marcus T." },
-        { "type": "text", "id": "product_name", "label": "Product name", "default": "Bundle of 3" },
-        { "type": "checkbox", "id": "verified", "label": "Verified badge", "default": true }
+        { "type": "text", "id": "title", "label": "Title", "default": "Review title" },
+        { "type": "textarea", "id": "body", "label": "Body", "default": "Paste a real customer review here." },
+        { "type": "text", "id": "name", "label": "Reviewer", "default": "Customer name" },
+        { "type": "text", "id": "product_name", "label": "Product name", "default": "Product" },
+        { "type": "checkbox", "id": "verified", "label": "Verified badge", "default": false }
       ]
     }
   ],
@@ -70,12 +70,9 @@
     {
       "name": "Reviews",
       "blocks": [
-        { "type": "stat", "settings": { "show_stars": true, "label": "Rated by our customers" } },
-        { "type": "stat", "settings": { "value": "97%", "label": "Would buy again" } },
-        { "type": "stat", "settings": { "value": "24,000+", "label": "Frames shipped" } },
-        { "type": "review", "settings": { "stars": 5, "title": "\"Finally, taste worth having\"", "body": "Ordered 3, came in 2 days, thick plastic, screws included, didn't crack when I over-torqued. That's the whole review.", "name": "Marcus T.", "product_name": "Bundle of 3" } },
-        { "type": "review", "settings": { "stars": 5, "title": "\"My HOA hates it\"", "body": "Neighbor knocked on my door to ask what my frame means. I said nothing and closed the door. Worth every cent.", "name": "Dani R.", "product_name": "Meme Frame" } },
-        { "type": "review", "settings": { "stars": 4, "title": "\"Only thing the GT3 needed\"", "body": "Spent $200k on the car. Spent $25 on this. Guess which one gets more compliments at Cars & Coffee.", "name": "@apexhoonigan", "product_name": "Track Frame" } }
+        { "type": "stat", "settings": { "value": "3,300+", "label": "Orders shipped" } },
+        { "type": "stat", "settings": { "value": "4,500+", "label": "Items sold" } },
+        { "type": "stat", "settings": { "value": "160", "label": "Frame designs" } }
       ]
     }
   ]

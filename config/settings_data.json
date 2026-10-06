@@ -20,10 +20,10 @@
     "buybar_title": "Bad Taste Worldwide Frame",
     "buybar_subtitle": "Ships in 24hrs",
     "buybar_cta": "Shop Now →",
-    "enable_exit_modal": false,
+    "enable_exit_modal": true,
     "exit_modal_eyebrow": "Wait. Don't leave empty-handed.",
     "exit_modal_title": "Here's 15% off because we're desperate.",
-    "exit_modal_sub": "First order only. Because groveling works.",
+    "exit_modal_sub": "One use per customer. Because groveling works.",
     "exit_modal_code": "BADTASTE15",
     "exit_modal_cta": "Claim My Discount →",
     "sections": {

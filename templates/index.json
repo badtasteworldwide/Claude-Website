@@ -15,14 +15,14 @@
         "stat1": {
           "type": "stat",
           "settings": {
-            "value": "4.9★",
-            "label": "Avg Rating"
+            "value": "3,300+",
+            "label": "Orders Shipped"
           }
         },
         "stat2": {
           "type": "stat",
           "settings": {
-            "value": "62+",
+            "value": "160",
             "label": "Frame Designs"
           }
         },
@@ -108,7 +108,7 @@
         "t1": {
           "type": "item",
           "settings": {
-            "text": "★ RATED 4.9/5 BY REAL DRIVERS"
+            "text": "3,300+ ORDERS SHIPPED"
           }
         },
         "t2": {
@@ -132,7 +132,7 @@
         "item_Maa8pR": {
           "type": "item",
           "settings": {
-            "text": "FREE SHIP $40+"
+            "text": "160 FRAME DESIGNS"
           }
         },
         "t5": {
@@ -281,7 +281,7 @@
             "count": 2,
             "left_strong": "2 Frames",
             "left_rest": "Any theme",
-            "right": "FREE SHIPPING"
+            "right": "FREE SHIP ON $40+"
           }
         },
         "tier3": {
@@ -290,7 +290,7 @@
             "count": 3,
             "left_strong": "3 Frames",
             "left_rest": "Unlock the vault",
-            "right": "10% OFF + Free Ship"
+            "right": "10% OFF + FREE SHIP"
           }
         },
         "tier4": {
@@ -299,7 +299,7 @@
             "count": 4,
             "left_strong": "4+ Frames",
             "left_rest": "You have a problem",
-            "right": "20% OFF + Sticker Pack"
+            "right": "20% OFF + FREE SHIP"
           }
         }
       },
@@ -404,120 +404,48 @@
     "reviews": {
       "type": "reviews",
       "blocks": {
-        "s1": {
-          "type": "stat",
-          "settings": {
-            "show_stars": true,
-            "value": "4.7 / 5",
-            "label": "Average rating"
-          }
-        },
-        "s2": {
+        "stat_real_1": {
           "type": "stat",
           "settings": {
             "show_stars": false,
-            "value": "97%",
-            "label": "Would buy again"
+            "value": "3,300+",
+            "label": "Orders shipped"
           }
         },
-        "s3": {
+        "stat_real_2": {
           "type": "stat",
           "settings": {
             "show_stars": false,
-            "value": "24,000+",
-            "label": "Frames shipped"
+            "value": "3,100+",
+            "label": "Customers"
           }
         },
-        "s4": {
+        "stat_real_3": {
           "type": "stat",
           "settings": {
             "show_stars": false,
-            "value": "10.5K",
-            "label": "IG followers"
+            "value": "4,500+",
+            "label": "Items sold"
           }
         },
-        "rv1": {
-          "type": "review",
+        "stat_real_4": {
+          "type": "stat",
           "settings": {
-            "stars": 5,
-            "title": "\"Started a plague. Zero regrets.\"",
-            "body": "I see these on literally every Lexus in my neighborhood now. Came fast, feels heavy, survived a drive-thru.",
-            "name": "@a86slyr",
-            "product_name": "Snack Frame",
-            "verified": true
-          }
-        },
-        "rv2": {
-          "type": "review",
-          "settings": {
-            "stars": 5,
-            "title": "\"…it's just too cute.\"",
-            "body": "Put it on my mom's car without asking. She was mad for 3 minutes then asked where she could get the matching sticker.",
-            "name": "Hana B.",
-            "product_name": "Konbini Frame",
-            "verified": true
-          }
-        },
-        "rv3": {
-          "type": "review",
-          "settings": {
-            "stars": 5,
-            "title": "Finally, taste worth having",
-            "body": "Ordered 3, came in 2 days, thick plastic, screws included, didn't crack when I over-torqued. That's the whole review.",
-            "name": "Marcus T.",
-            "product_name": "Bundle of 3",
-            "verified": true
-          }
-        },
-        "rv4": {
-          "type": "review",
-          "settings": {
-            "stars": 5,
-            "title": "My HOA hates it",
-            "body": "Neighbor knocked on my door to ask what my frame means. I said nothing and closed the door. Worth every cent.",
-            "name": "Dani R.",
-            "product_name": "Meme Frame",
-            "verified": true
-          }
-        },
-        "rv5": {
-          "type": "review",
-          "settings": {
-            "stars": 5,
-            "title": "No one else makes these",
-            "body": "I bought this for my brother who is a big racing fan. The colors are correct and design lines crisp. I’m sure he will love it.",
-            "name": "Frank (via Etsy)",
-            "product_name": "Gulf Racing License Plate Frame",
-            "verified": true
-          }
-        },
-        "rv6": {
-          "type": "review",
-          "settings": {
-            "stars": 5,
-            "title": "\"What's this doing here?\"",
-            "body": "Cousin sent a photo from a roadside abroad with my plate frame in it. I have no explanation. 10/10 would confuse strangers again.",
-            "name": "Rick E.",
-            "product_name": "Bad Taste Frame",
-            "verified": true
+            "show_stars": false,
+            "value": "160",
+            "label": "Frame designs"
           }
         }
       },
       "block_order": [
-        "s1",
-        "s2",
-        "s3",
-        "s4",
-        "rv1",
-        "rv2",
-        "rv3",
-        "rv4",
-        "rv5",
-        "rv6"
+        "stat_real_1",
+        "stat_real_2",
+        "stat_real_3",
+        "stat_real_4"
       ],
       "settings": {
         "eyebrow": "The Receipts",
-        "heading": "<p>People with taste <em>talk about us.</em></p>"
+        "heading": "<p>Bad taste, <em>by the numbers.</em></p>"
       }
     },
     "ugc": {
@@ -657,17 +585,6 @@
         "eyebrow": "FAQ",
         "heading": "<p>Questions <em>with answers.</em></p>"
       }
-    },
-    "newsletter": {
-      "type": "newsletter",
-      "disabled": true,
-      "settings": {
-        "heading": "<p>Get bad taste<br/>in your inbox.</p>",
-        "subheading": "Early access to drops + 10% off your first frame. No spam, just slop.",
-        "placeholder": "you@badtaste.com",
-        "button_label": "Sign Me Up",
-        "fine_print": "Join 32,000+ people with questionable judgment"
-      }
     }
   },
   "order": [
@@ -679,7 +596,6 @@
     "quiz",
     "reviews",
     "ugc",
-    "faq",
-    "newsletter"
+    "faq"
   ]
 }
