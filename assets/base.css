@@ -1059,3 +1059,9 @@ table.order-table th { background: var(--ink); color: var(--paper); font-family:
   .hero__visual { aspect-ratio: 4 / 5; }
   .hero__photo-wrap, .hero__visual[data-fit] .hero__photo-wrap { top: 4%; bottom: 36%; }
 }
+
+/* Footer legal links */
+.footer__bottom { flex-wrap: wrap; gap: 12px 24px; }
+.footer__legal { display: flex; flex-wrap: wrap; gap: 6px 16px; }
+.footer__legal a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.footer__disclaimer { max-width: 1200px; margin: 16px auto 0; font-size: 12px; line-height: 1.5; opacity: .8; }
