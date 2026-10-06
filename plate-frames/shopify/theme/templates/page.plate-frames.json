@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "garage": {
+      "type": "plate-frame-garage",
+      "settings": {}
+    }
+  },
+  "order": ["garage"]
+}

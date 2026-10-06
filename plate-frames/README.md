@@ -46,3 +46,13 @@ A3 sheets (top slot is used).
 Sources: Illumaesthetic Drive → **License Plates** (DomSem A3, License Plates (NEW MOLD),
 (LEGACY MOLD), (no logo), Alina's Designs). Customer one-offs and any design showing the
 Illumaesthetic wordmark are excluded.
+
+## Shopify section
+
+`shopify/theme/` is a drop-in theme section (Online Store 2.0):
+
+- `sections/plate-frame-garage.liquid`: the markup and the theme editor settings.
+- `assets/plate-frame-garage.{js,css}`: the viewer. three.js is loaded from jsDelivr.
+- `templates/page.plate-frames.json`: a page template containing just the section.
+
+The section reads its data from **Content → Files**: `pfg-catalog.json`, `pfg-frame.glb`, `pfg-thumbs.webp` and `pfg-sheet-00…35.webp` (8 textures per sheet). `python3 tools/shopify_pack.py` regenerates them into `shopify/files/`, which is gitignored. Re-upload them under the same names after the catalog changes. `shopify/test.html` mocks the Liquid output for local testing.
