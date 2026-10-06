@@ -37,7 +37,7 @@
       { "type": "checkbox", "id": "enable_buybar", "label": "Show sticky buy bar on homepage", "default": true },
       { "type": "text", "id": "buybar_thumb_text", "label": "Thumbnail text", "default": "BAD<br>TASTE" },
       { "type": "text", "id": "buybar_title", "label": "Title", "default": "Bad Taste Worldwide Frame" },
-      { "type": "text", "id": "buybar_subtitle", "label": "Subtitle", "default": "Ships in 24hrs" },
+      { "type": "text", "id": "buybar_subtitle", "label": "Subtitle", "default": "Lightning fast shipping!" },
       { "type": "url", "id": "buybar_link", "label": "Link" },
       { "type": "text", "id": "buybar_cta", "label": "Button label", "default": "Shop Now →" }
     ]

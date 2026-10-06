@@ -29,8 +29,8 @@
         "stat3": {
           "type": "stat",
           "settings": {
-            "value": "24hr",
-            "label": "Ships From USA"
+            "value": "⚡",
+            "label": "Lightning Fast Shipping!"
           }
         },
         "stat4": {
@@ -90,7 +90,7 @@
         "chip6"
       ],
       "settings": {
-        "eyebrow": "Made in the USA · ships in 24hrs",
+        "eyebrow": "Made in the USA · Lightning fast shipping!",
         "heading": "<p>All things <em>bad taste</em> are cool.</p>",
         "subheading": "License plate frames for K-pop stans, 3AM konbini runs, degenerate meme lords, track addicts, and everyone whose mom would hate their Lexus. Small-batch drops. Heavy plastic. No apologies.",
         "cta1_label": "Shop The Drop →",
@@ -120,7 +120,7 @@
         "t3": {
           "type": "item",
           "settings": {
-            "text": "24HR FROM USA"
+            "text": "⚡ LIGHTNING FAST SHIPPING!"
           }
         },
         "t4": {
@@ -534,7 +534,7 @@
           "type": "item",
           "settings": {
             "question": "How fast do you ship?",
-            "answer": "<p>Everything ships within 24 hours from California, Monday–Friday. Free US shipping over $40. </p>"
+            "answer": "<p>Lightning fast shipping from California, Monday–Friday. Free US shipping over $40. </p>"
           }
         },
         "f2": {
