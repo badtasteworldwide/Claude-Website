@@ -70,8 +70,8 @@
         "subheading": "License plate frames for K-pop stans, 3AM konbini runs, meme lords and track addicts. Heavy plastic. No apologies.",
         "cta1_label": "Shop All Frames",
         "cta1_link": "",
-        "cta2_label": "Find Your Frame",
-        "cta2_link": "",
+        "cta2_label": "Browse Collections",
+        "cta2_link": "#collections",
         "image": "shopify://shop_images/IMG_2333_08dfd075-2f3f-4825-a532-309ebc40cb0d.jpg",
         "sticker_text": "NEW DROP",
         "sticker_small": "FRESH THEMES"
@@ -295,90 +295,6 @@
         "note": "Discount applies automatically at checkout to plate frames only: 3 frames = 10% off, 4+ = 15% off. Doesn’t combine with discount codes."
       }
     },
-    "quiz": {
-      "type": "frame-finder",
-      "blocks": {
-        "q1": {
-          "type": "question",
-          "settings": {
-            "question": "It's 3AM. Where are you?",
-            "options": "🍙 | Convenience store snack run | konbini\n🎤 | Refreshing tour dates | kpop\n🏁 | Mountain roads, no reason | track\n🍗 | Drive-thru, large fries | snack"
-          }
-        },
-        "q2": {
-          "type": "question",
-          "settings": {
-            "question": "Your dream car is…",
-            "options": "🚗 | Anything with pop-up headlights | track\n💗 | Whatever matches my phone case | kpop\n🚙 | A van full of snacks | konbini\n🛻 | Paid off and questionable | snack"
-          }
-        },
-        "q3": {
-          "type": "question",
-          "settings": {
-            "question": "Pick a group chat energy:",
-            "options": "📸 | Concert ticket presale intel | kpop\n🌙 | 2AM 'you up? let's drive' | track\n🧃 | Rating gas station drinks | konbini\n🍔 | Sending cursed food pics | snack"
-          }
-        },
-        "q4": {
-          "type": "question",
-          "settings": {
-            "question": "Your mom sees your car. She says:",
-            "options": "😤 | 'Take that off immediately' | track\n🥺 | 'Where can I get one?' | kpop\n😐 | Nothing. She's given up. | snack\n🙃 | 'Is that… a snack brand?' | konbini"
-          }
-        },
-        "r1": {
-          "type": "result",
-          "settings": {
-            "tag": "konbini",
-            "title": "You're a Konbini at 3AM person.",
-            "blurb": "Fluorescent lights, midnight snacks, zero regrets. Your frame is waiting in the cold-drink aisle of life.",
-            "collection": "konbini-at-3am"
-          }
-        },
-        "r2": {
-          "type": "result",
-          "settings": {
-            "tag": "kpop",
-            "title": "Certified stan behavior.",
-            "blurb": "Your bias would approve of this frame. Probably. We can't legally confirm that.",
-            "collection": "kpop-license-plate-frames"
-          }
-        },
-        "r3": {
-          "type": "result",
-          "settings": {
-            "tag": "track",
-            "title": "Track addict detected.",
-            "blurb": "Send it. Tastefully. Actually no, just send it.",
-            "collection": "racing-livery-license-plate-frames"
-          }
-        },
-        "r4": {
-          "type": "result",
-          "settings": {
-            "tag": "snack",
-            "title": "You're snack-motivated.",
-            "blurb": "The drive-thru knows your order by heart. Own it on your bumper.",
-            "collection": "fast-food-themed-license-plate-frames"
-          }
-        }
-      },
-      "block_order": [
-        "q1",
-        "q2",
-        "q3",
-        "q4",
-        "r1",
-        "r2",
-        "r3",
-        "r4"
-      ],
-      "settings": {
-        "eyebrow": "",
-        "heading": "<p>What flavor of <em>bad</em> are you?</p>",
-        "subheading": "Answer 4 quick questions. We'll find the frame that matches your specific brand of questionable taste."
-      }
-    },
     "reviews": {
       "type": "reviews",
       "blocks": {
@@ -594,7 +510,6 @@
     "garage",
     "featured",
     "bundle",
-    "quiz",
     "reviews",
     "ugc",
     "faq"
