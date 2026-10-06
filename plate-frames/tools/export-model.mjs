@@ -45,7 +45,7 @@ for (let t = 0; t < pos.count / 3; t++) {
   const zmin = Math.min(a.z, b.z, c.z);
   const front = n.z > 0.98 && zmin > max.z - 0.01;
   // The print wraps onto the sides of the 3 mm face plate (z 5..8); the rear
-  // pocket, wall, bosses and tabs (z 0..5) are bare plastic.
+  // pocket, wall, bosses and tabs (z 0..5) are bare white plastic.
   const plateSide = zmin >= FACE_Z0 - 0.01 && Math.abs(n.z) < 0.5;
   buckets[front ? FACE : plateSide ? EDGE : BACK].push(t);
 }
