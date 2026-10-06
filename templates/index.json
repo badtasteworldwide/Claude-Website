@@ -43,37 +43,44 @@
         "chip1": {
           "type": "theme_chip",
           "settings": {
-            "label": "Bad Taste"
+            "label": "Bad Taste",
+            "collection": "bad-taste-products",
+            "product": "bad-taste-license-plate-frame"
           }
         },
         "chip2": {
           "type": "theme_chip",
           "settings": {
-            "label": "Konbini"
+            "label": "Konbini",
+            "collection": "konbini-at-3am"
           }
         },
         "chip3": {
           "type": "theme_chip",
           "settings": {
-            "label": "K-Pop"
+            "label": "K-Pop",
+            "collection": "kpop-license-plate-frames"
           }
         },
         "chip4": {
           "type": "theme_chip",
           "settings": {
-            "label": "Track"
+            "label": "Track",
+            "collection": "racing-livery-license-plate-frames"
           }
         },
         "chip5": {
           "type": "theme_chip",
           "settings": {
-            "label": "Meme"
+            "label": "Meme",
+            "collection": "degenerate-meme-culture"
           }
         },
         "chip6": {
           "type": "theme_chip",
           "settings": {
-            "label": "Booze"
+            "label": "Booze",
+            "collection": "alcoholics-anonymous"
           }
         }
       },
