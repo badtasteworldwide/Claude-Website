@@ -17,7 +17,7 @@
         "brand_image": "shopify://shop_images/logo_header.jpg",
         "tagline": "License plate frames for people who know better and do it anyway. Designed in CA, shipped from CA.",
         "location": "BAY AREA, CA, USA",
-        "privacy_choices_url": "/pages/privacy-choices"
+        "privacy_choices_url": "shopify://pages/privacy-choices"
       }
     }
   },
