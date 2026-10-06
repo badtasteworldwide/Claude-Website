@@ -37,7 +37,7 @@
           "type": "stat",
           "settings": {
             "value": "$40+",
-            "label": "Free Shipping"
+            "label": "Free US Ship on Frames"
           }
         },
         "chip1": {
@@ -97,7 +97,7 @@
         "chip6"
       ],
       "settings": {
-        "eyebrow": "Made in the USA · Lightning fast shipping!",
+        "eyebrow": "Designed in California · Lightning fast shipping!",
         "heading": "<p>All things <em>bad taste</em> are cool.</p>",
         "subheading": "License plate frames for K-pop stans, 3AM konbini runs, degenerate meme lords, track addicts, and everyone whose mom would hate their Lexus. Small-batch drops. Heavy plastic. No apologies.",
         "cta1_label": "Shop The Drop →",
@@ -121,7 +121,7 @@
         "t2": {
           "type": "item",
           "settings": {
-            "text": "FREE SHIP $40+"
+            "text": "FREE US SHIPPING ON $40+ IN FRAMES"
           }
         },
         "t3": {
@@ -133,7 +133,7 @@
         "t4": {
           "type": "item",
           "settings": {
-            "text": "NO-HASSLE RETURNS"
+            "text": "DAMAGED? FREE REPLACEMENT"
           }
         },
         "item_Maa8pR": {
@@ -534,7 +534,7 @@
         "eyebrow": "#BadTasteWorldwide",
         "heading": "<p>Seen on <em>questionable</em> vehicles everywhere.</p>",
         "link_label": "Tag us @badtaste.world →",
-        "link_url": "https://instagram.com"
+        "link_url": "https://instagram.com/badtaste.world"
       }
     },
     "faq": {
@@ -544,42 +544,42 @@
           "type": "item",
           "settings": {
             "question": "How fast do you ship?",
-            "answer": "<p>Lightning fast shipping from California, Monday–Friday. Free US shipping over $40. </p>"
+            "answer": "<p>Lightning fast shipping from California, Monday to Friday. Free US shipping on $40+ in plate frames. International orders may owe import VAT/duties on delivery. Current processing and delivery times are in our <a href=\"/policies/shipping-policy\">Shipping Policy</a>.</p>"
           }
         },
         "f2": {
           "type": "item",
           "settings": {
             "question": "Will this fit my car?",
-            "answer": "<p>We make two sizes: US standard (12\"×6\") and US standard flipped (12\"x6\", tags on the bottom). Filter by size on any product page. Every frame comes individually bagged.</p>"
+            "answer": "<p>We make two sizes: US standard (12″×6″) and US standard flipped (12″×6″, tags on the bottom). Choose your size on the product page. Every frame comes individually bagged.</p>"
           }
         },
         "f3": {
           "type": "item",
           "settings": {
             "question": "What's the material?",
-            "answer": "<p>Injection-molded ABS plastic with UV-stable printed graphics. Same stuff dealers use — we just put weirder things on it. Tested in Arizona sun, Seattle rain, and one guy's Norwegian winter. Rated for 2 years of hard use.</p>"
+            "answer": "<p>Injection-molded ABS plastic with UV-resistant printed graphics. Customers run them from Phoenix to Seattle.</p>"
           }
         },
         "f4": {
           "type": "item",
           "settings": {
             "question": "Can I return it?",
-            "answer": "<p>Hassle-free, no questions. If it arrives broken or we mess up the order, we'll replace it free. If you change your mind, we'll refund you minus return shipping.</p>"
+            "answer": "<p>Arrived broken, or we got your order wrong? We’ll replace it free. Changed your mind? Returns are accepted under our <a href=\"/policies/refund-policy\">Refund Policy</a>; refunds are the item price minus return shipping.</p>"
           }
         },
         "f5": {
           "type": "item",
           "settings": {
             "question": "Do you make custom frames?",
-            "answer": "<p>Yes — minimum order is 5 units for fully custom designs, email badtasteworldwide@gmail.com</p>"
+            "answer": "<p>Yes. Minimum order is 5 units for fully custom designs. Email <a href=\"mailto:badtasteworldwide@gmail.com\">badtasteworldwide@gmail.com</a>.</p>"
           }
         },
         "f6": {
           "type": "item",
           "settings": {
             "question": "Is this legal on my plates?",
-            "answer": "<p>US: legal in most states if it doesn't cover the plate number or state name. Check your local laws. We are not your lawyer. We are not even a lawyer.</p>"
+            "answer": "<p>Our frames are designed to leave the plate number and state name visible on standard US plates. Laws vary: some states (including California, Vehicle Code §5201) prohibit covering any of the plate’s lettering, registration stickers or slogans. Check your state’s vehicle code before installing. Not legal advice.</p>"
           }
         }
       },
