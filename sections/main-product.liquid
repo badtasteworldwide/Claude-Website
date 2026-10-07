@@ -1,6 +1,11 @@
 {%- assign current_variant = product.selected_or_first_available_variant -%}
 {%- assign has_frame_3d = false -%}
 {%- if product.handle contains 'plate-frame' -%}{%- assign has_frame_3d = true -%}{%- endif -%}
+{%- comment -%} Same rule the bundle discount uses: any product with "frame" in its title. {%- endcomment -%}
+{%- assign title_lc = product.title | downcase -%}
+{%- assign type_lc = product.type | downcase -%}
+{%- assign is_frame = false -%}
+{%- if title_lc contains 'frame' or type_lc contains 'frame' -%}{%- assign is_frame = true -%}{%- endif -%}
 {%- liquid
   comment
     Gallery well follows the photo's own shape (most are 4:3), clamped so an
@@ -89,7 +94,7 @@
         {%- if current_variant.compare_at_price > current_variant.price -%}
           <span class="badge badge--yellow pdp__badge-save">SAVE {{ current_variant.compare_at_price | minus: current_variant.price | money_without_trailing_zeros }}</span>
         {%- endif -%}
-        {%- if has_frame_3d -%}<span class="pdp__bundle-hint">3 frames = 10% off · 4+ = 15% off</span>{%- endif -%}
+        {%- if is_frame -%}<span class="pdp__bundle-hint">3 frames = 10% off · 4+ = 15% off</span>{%- endif -%}
       </div>
 
       {%- form 'product', product, data-product-form: '', id: 'PdpForm' -%}
