@@ -446,7 +446,9 @@ img { overflow-wrap: anywhere; }            /* broken-image alt text can't widen
   .qty-stepper button { width: 40px; height: auto; min-height: 54px; }
   .qty-stepper input { width: 40px; height: auto; }
   .qty-row .product-card__stock { grid-column: 1 / -1; grid-row: 4; justify-self: start; margin-top: 10px; }
-  .pdp__atc-row { grid-column: 2; grid-row: 3; }
+  .pdp__atc-row { grid-column: 2; grid-row: 3; min-width: 0; }
+  .pdp__atc-row .btn { white-space: normal; min-width: 0; }
+  .pdp__atc-row [data-atc-price] { display: none; }   /* price sits right above and in the sticky bar */
   .pdp__atc-row .btn--lg { min-height: 54px; padding: 12px 14px; font-size: 15px; box-shadow: 4px 4px 0 var(--ink); }
   .pdp__trust { margin-top: 16px; font-size: 11px; background: var(--paper); border: 2px solid var(--ink); padding: 10px 12px; color: var(--ink); }
   .pdp__desc { margin: 20px 0 16px; padding-top: 18px; font-size: 15px; }
