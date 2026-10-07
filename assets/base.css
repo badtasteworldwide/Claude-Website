@@ -1150,7 +1150,7 @@ legend.option-label { padding: 0; }
 .sticky-atc__cart { position: relative; width: 48px; height: 50px; display: inline-flex; align-items: center; justify-content: center; border: 2px solid var(--paper); color: var(--paper); }
 .sticky-atc__cart b { position: absolute; top: -8px; right: -8px; min-width: 20px; height: 20px; padding: 0 4px; display: inline-flex; align-items: center; justify-content: center; background: var(--yellow); color: var(--ink); border: 2px solid var(--ink); font: 800 11px/1 var(--font-label); }
 .sticky-atc__img { width: 56px; height: 42px; }
-@media (max-width: 380px) { .sticky-atc__img { display: none; } }
+@media (max-width: 380px) { .sticky-atc__img { display: none; } .sticky-atc { grid-template-columns: minmax(0, 1fr) auto auto; } }
 
 /* ---------- Collection page chips ---------- */
 .coll-hero__more { margin-top: 14px; max-width: 64ch; }
