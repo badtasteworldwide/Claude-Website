@@ -348,7 +348,12 @@ async function mount(root) {
   const $ = (r) => root.querySelector(`[data-role="${r}"]`);
   setBust(root.dataset.catalog);
   const cat = await fetch(root.dataset.catalog).then((r) => r.json());
-  const designs = cat.groups.flatMap((g) => g.designs.map((d) => ({ ...d, group: g })));
+  // Best sellers first: data-popular lists product handles in sales order
+  // (snippets/pfg-popular.liquid). Unranked designs keep catalog order.
+  const rankOf = new Map((root.dataset.popular || "").split(",").filter(Boolean).map((h, i) => [h, i]));
+  const rank = (d) => rankOf.get(d.product) ?? Infinity;
+  const designs = cat.groups.flatMap((g) => g.designs.map((d) => ({ ...d, group: g }))).sort((a, b) => rank(a) - rank(b));
+  const groups = [...cat.groups].sort((a, b) => Math.min(...a.designs.map(rank)) - Math.min(...b.designs.map(rank)));
   const state = { index: 0, filter: "current", query: "", closed: new Set() };
   // Absolute, so the CSS url() doesn't resolve against the stylesheet.
   root.style.setProperty("--pfg-thumbs", `url("${new URL(root.dataset.thumbs, location.href).href}")`);
@@ -368,8 +373,8 @@ async function mount(root) {
     const list = $("list");
     list.replaceChildren();
     let shown = 0;
-    for (const g of cat.groups) {
-      const items = designs.filter((d) => d.group === g && visible(d));
+    for (const g of groups) {
+      const items = designs.filter((d) => d.group.id === g.id && visible(d));
       if (!items.length) continue;
       shown += items.length;
       const sec = document.createElement("details");
@@ -429,7 +434,11 @@ async function mount(root) {
   }
 
   function step(dir) {
-    const ids = [...root.querySelectorAll(".pfg-card")].map((c) => c.dataset.id);
+    // The homepage hero has no visible list: step through every frame in
+    // best-seller order rather than category by category.
+    const ids = root.classList.contains("pfg--hero")
+      ? designs.filter(visible).map((d) => d.id)
+      : [...root.querySelectorAll(".pfg-card")].map((c) => c.dataset.id);
     if (!ids.length) return select(state.index + dir);
     const at = ids.indexOf(designs[state.index].id);
     const next = ids[(at + dir + ids.length) % ids.length] ?? ids[0];
@@ -452,7 +461,7 @@ async function mount(root) {
     renderList();
   }
 
-  // Start on a design from the URL (?frame=<id>) or the first one in store.
+  // Start on a design from the URL (?frame=<id>) or the top seller in store.
   const want = new URLSearchParams(location.search).get("frame");
   const first = Math.max(0, designs.findIndex((d) => (want ? d.id === want : inStore(d))));
   setFilter(inStore(designs[first]) ? "current" : "all");

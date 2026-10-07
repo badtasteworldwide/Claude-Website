@@ -1,0 +1,18 @@
+{%- comment -%}
+  Product handles of a collection sorted "Best selling", comma-separated, for
+  the 3D viewer's queue (data-popular): the viewer opens on the top seller and
+  steps through frames in sales order. Shopify keeps the order current.
+  Pass collection: <a collection object>; otherwise the all-frames collection
+  below is used. Outputs nothing if the collection doesn't exist.
+{%- endcomment -%}
+{%- liquid
+  assign pop = collection
+  if pop == blank
+    assign pop = collections['labor-day-sale-plate-frames']
+  endif
+-%}
+{%- if pop != blank and pop.products_count > 0 -%}
+  {%- paginate pop.products by 250 -%}
+    {%- for p in pop.products -%}{{ p.handle }}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}
+  {%- endpaginate -%}
+{%- endif -%}

@@ -9,6 +9,7 @@
   class="pfg{% if section.settings.dark %} pfg--dark{% endif %}"
   data-pfg
   data-catalog="{{ 'pfg-catalog.json' | file_url }}"
+  data-popular="{% render 'pfg-popular', collection: section.settings.popular %}"
   data-thumbs="{{ 'pfg-thumbs.webp' | file_url }}"
   data-model="{{ 'pfg-frame.glb' | file_url }}"
   data-sheet="{{ 'pfg-sheet-00.webp' | file_url }}"
@@ -62,7 +63,8 @@
     { "type": "text", "id": "heading", "label": "Heading", "default": "Plate Frame Garage" },
     { "type": "range", "id": "height", "label": "Height (desktop)", "min": 60, "max": 100, "step": 5, "unit": "vh", "default": 85 },
     { "type": "color", "id": "accent", "label": "Accent colour", "default": "#d81b6d" },
-    { "type": "checkbox", "id": "dark", "label": "Dark showroom", "default": true }
+    { "type": "checkbox", "id": "dark", "label": "Dark showroom", "default": true },
+    { "type": "collection", "id": "popular", "label": "Best-seller order", "info": "A collection sorted Best selling that holds every frame. The viewer opens on its top seller. Leave empty for Labor Day Sale — Plate Frames." }
   ],
   "presets": [{ "name": "Plate Frame Garage" }]
 }
