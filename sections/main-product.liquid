@@ -164,6 +164,10 @@
       <strong>{{ product.title | remove: ' License Plate Frame' }}</strong>
       <span><b data-sticky-price>{{ current_variant.price | money }}</b> <span data-sticky-variant>{% unless product.has_only_default_variant %}{{ current_variant.title }}{% endunless %}</span></span>
     </div>
+    <button type="button" class="sticky-atc__cart" data-open-cart tabindex="-1" aria-label="Cart, {{ cart.item_count }} items">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 8h16l-1.2 12H5.2z" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M8.5 10V6.5a3.5 3.5 0 0 1 7 0V10" fill="none" stroke="currentColor" stroke-width="2.4"/></svg>
+      <b data-cart-count>{{ cart.item_count }}</b>
+    </button>
     <button type="submit" form="PdpForm" class="btn sticky-atc__btn" data-sticky-btn tabindex="-1" {% unless current_variant.available %}disabled{% endunless %}>{% if current_variant.available %}Add to cart{% else %}Sold out{% endif %}</button>
   </div>
 

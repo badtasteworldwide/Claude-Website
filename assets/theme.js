@@ -512,19 +512,21 @@
     var anchor = $('[data-atc-anchor]');
     if (!bar || !anchor || !('IntersectionObserver' in window)) return;
     var btn = $('[data-sticky-btn]', bar);
-    var passed = false;
+    var shown = null;
+    var mobile = window.matchMedia('(max-width: 960px)').matches;
+    // In the thumb zone whenever the real button is not in view, including on first paint
+    // when it sits below the fold or behind the shop bar (the bottom 72px counts as hidden).
     new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
-        // Show only once the real button has scrolled up past the top, not before the shopper reaches it.
-        var show = !en.isIntersecting && en.boundingClientRect.top < 0;
-        if (show === passed) return;
-        passed = show;
+        var show = !en.isIntersecting;
+        if (show === shown) return;
+        shown = show;
         bar.dataset.visible = String(show);
         bar.setAttribute('aria-hidden', String(!show));
-        if (btn) btn.tabIndex = show ? 0 : -1;
+        $$('button, a', bar).forEach(function (el) { el.tabIndex = show ? 0 : -1; });
         document.documentElement.classList.toggle('sticky-atc-on', show);
       });
-    }, { threshold: 0 }).observe(anchor);
+    }, { threshold: 1, rootMargin: mobile ? '0px 0px -72px 0px' : '0px' }).observe(anchor);
   }
 
   /* ---------------- PDP: swipe the main photo ---------------- */
