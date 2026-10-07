@@ -1,16 +1,32 @@
 {%- assign current_variant = product.selected_or_first_available_variant -%}
 {%- assign has_frame_3d = false -%}
 {%- if product.handle contains 'plate-frame' -%}{%- assign has_frame_3d = true -%}{%- endif -%}
+{%- liquid
+  comment
+    Gallery well follows the photo's own shape (most are 4:3), clamped so an
+    odd upload can't make the page jump. Photos are contained, never cropped.
+  endcomment
+  assign media_ratio = 1.3333
+  if product.featured_image
+    assign media_ratio = product.featured_image.aspect_ratio
+    if media_ratio > 1.6
+      assign media_ratio = 1.6
+    elsif media_ratio < 0.8
+      assign media_ratio = 0.8
+    endif
+  endif
+-%}
 <div class="pdp" data-pdp>
   <div class="pdp__grid">
     <div class="pdp__media">
-      <div class="pdp__main-img">
+      <div class="pdp__main-img" style="--media-ratio: {{ media_ratio }};" data-gallery-main>
         {%- if product.featured_image -%}
           <img src="{{ product.featured_image | image_url: width: 1000 }}"
-               srcset="{{ product.featured_image | image_url: width: 600 }} 600w, {{ product.featured_image | image_url: width: 1000 }} 1000w, {{ product.featured_image | image_url: width: 1400 }} 1400w"
-               sizes="(max-width: 960px) 100vw, 50vw"
+               srcset="{{ product.featured_image | image_url: width: 500 }} 500w, {{ product.featured_image | image_url: width: 750 }} 750w, {{ product.featured_image | image_url: width: 1000 }} 1000w, {{ product.featured_image | image_url: width: 1400 }} 1400w"
+               sizes="(max-width: 960px) 100vw, 55vw"
                alt="{{ product.featured_image.alt | default: product.title | escape }}"
-               width="1000" height="1000">
+               fetchpriority="high" decoding="async"
+               width="1000" height="{{ 1000 | divided_by: product.featured_image.aspect_ratio | round }}">
         {%- else -%}
           <div style="width: 80%;">
             {%- render 'plate',
@@ -21,9 +37,12 @@
               color2: product.metafields.custom.plate_color_2 -%}
           </div>
         {%- endif -%}
+        {%- if product.images.size > 1 -%}
+          <span class="pdp__count" aria-hidden="true"><span data-gallery-index>1</span>/{{ product.images.size | at_most: 8 }}</span>
+        {%- endif -%}
         {%- if has_frame_3d -%}
-          {%- comment -%} 3D slide, filled in by plate-frame-garage.js when this product has a design in Content > Files > pfg-catalog.json. {%- endcomment -%}
-          <div class="pfg3d" data-pfg-pdp hidden
+          {%- comment -%} 3D slide, filled in by plate-frame-garage.js, which now loads only when the shopper taps "3D". {%- endcomment -%}
+          <div class="pfg3d" data-pfg-pdp-lazy hidden
             data-handle="{{ product.handle }}"
             data-catalog="{{ 'pfg-catalog.json' | file_url }}"
             data-thumbs="{{ 'pfg-thumbs.webp' | file_url }}"
@@ -38,21 +57,28 @@
           </div>
         {%- endif -%}
       </div>
-      {%- if product.images.size > 1 or has_frame_3d and product.images.size > 0 -%}
-        <div class="pdp__thumbs"{% if product.images.size < 2 %} style="display: none;"{% endif %}>
-          {%- for image in product.images limit: 8 -%}
-            <button type="button" class="pdp__thumb" data-src="{{ image | image_url: width: 1000 }}" data-active="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="View image {{ forloop.index }}">
-              <img src="{{ image | image_url: width: 160 }}" alt="{{ image.alt | default: product.title | escape }}" loading="lazy" width="160" height="160">
+      {%- if product.images.size > 1 or has_frame_3d -%}
+        <div class="pdp__thumbs">
+          {%- if product.images.size > 0 -%}
+            {%- for image in product.images limit: 8 -%}
+              <button type="button" class="pdp__thumb{% if product.images.size == 1 %} pdp__thumb--solo{% endif %}" data-src="{{ image | image_url: width: 1000 }}" data-active="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="View photo {{ forloop.index }}">
+                <img src="{{ image | image_url: width: 160 }}" alt="" loading="lazy" width="160" height="{{ 160 | divided_by: image.aspect_ratio | round }}">
+              </button>
+            {%- endfor -%}
+          {%- endif -%}
+          {%- if has_frame_3d -%}
+            <button type="button" class="pdp__3d-btn" data-load-3d
+              data-css="{{ 'plate-frame-garage.css' | asset_url }}"
+              data-js="{{ 'plate-frame-garage.js' | asset_url }}">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M12 2.5 21 7.5v9L12 21.5 3 16.5v-9z M3 7.5l9 5 9-5 M12 12.5v9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg>
+              <span data-3d-label>Spin it in 3D</span>
             </button>
-          {%- endfor -%}
+          {%- endif -%}
         </div>
       {%- endif -%}
     </div>
 
     <div class="pdp__info">
-      <div class="pdp__vendor">
-        {%- if product.type != blank -%}{{ product.type }}{%- else -%}{{ product.vendor }}{%- endif -%}
-      </div>
       <h1 class="pdp__title">{{ product.title }}</h1>
 
       <div class="pdp__price-row">
@@ -63,49 +89,51 @@
         {%- if current_variant.compare_at_price > current_variant.price -%}
           <span class="badge badge--yellow pdp__badge-save">SAVE {{ current_variant.compare_at_price | minus: current_variant.price | money_without_trailing_zeros }}</span>
         {%- endif -%}
+        {%- if has_frame_3d -%}<span class="pdp__bundle-hint">3 frames = 10% off · 4+ = 15% off</span>{%- endif -%}
       </div>
 
-      {%- form 'product', product, data-product-form: '' -%}
+      {%- form 'product', product, data-product-form: '', id: 'PdpForm' -%}
         <input type="hidden" name="id" value="{{ current_variant.id }}">
 
         {%- unless product.has_only_default_variant -%}
           <div data-variant-picker>
             {%- for option in product.options_with_values -%}
-              <div class="option-row">
-                <div class="option-label">{{ option.name }}</div>
-                <div class="option-pills">
+              <fieldset class="option-row">
+                <legend class="option-label">{{ option.name }}</legend>
+                <div class="option-pills{% if option.values.size <= 3 %} option-pills--grid{% endif %}" style="--opt-count: {{ option.values.size | at_most: 3 }};">
                   {%- for value in option.values -%}
+                    {%- assign label_main = value | split: ' (' | first -%}
+                    {%- assign label_sub = '' -%}
+                    {%- if value contains ' (' -%}{%- assign label_sub = value | split: ' (' | last | remove: ')' -%}{%- endif -%}
                     <label class="option-pill">
                       <input type="radio" name="option-{{ option.position }}" value="{{ value | escape }}"
                         {% if option.selected_value == value %}checked{% endif %}>
-                      <span>{{ value }}</span>
+                      <span>{{ label_main }}{% if label_sub != blank %}<small>{{ label_sub }}</small>{% endif %}</span>
                     </label>
                   {%- endfor -%}
                 </div>
-              </div>
+              </fieldset>
             {%- endfor -%}
           </div>
         {%- endunless -%}
 
-        <div class="qty-row">
-          <span class="option-label">Quantity</span>
+        <div class="pdp__buy">
           <div class="qty-stepper">
             <button type="button" data-qty-minus aria-label="Decrease quantity">−</button>
-            <input type="number" name="quantity" value="1" min="1" aria-label="Quantity">
+            <input type="number" name="quantity" value="1" min="1" inputmode="numeric" aria-label="Quantity">
             <button type="button" data-qty-plus aria-label="Increase quantity">+</button>
           </div>
-          {%- if current_variant.inventory_management and current_variant.inventory_quantity > 0 and current_variant.inventory_quantity <= section.settings.low_stock_threshold -%}
-            <span class="product-card__stock">Only {{ current_variant.inventory_quantity }} left</span>
-          {%- endif -%}
+          <div class="pdp__atc-row" data-atc-anchor>
+            {%- if current_variant.available -%}
+              <button type="submit" class="btn btn--lg btn--full" data-atc data-label="Add to cart">Add to cart</button>
+            {%- else -%}
+              <button type="submit" class="btn btn--lg btn--full" data-atc data-label="Add to cart" disabled>Sold out</button>
+            {%- endif -%}
+          </div>
         </div>
-
-        <div class="pdp__atc-row">
-          {%- if current_variant.available -%}
-            <button type="submit" class="btn btn--lg btn--full" data-label="Add To Cart →">Add To Cart → <span data-atc-price>· {{ current_variant.price | money }}</span></button>
-          {%- else -%}
-            <button type="submit" class="btn btn--lg btn--full" disabled>Sold Out</button>
-          {%- endif -%}
-        </div>
+        {%- if current_variant.inventory_management and current_variant.inventory_quantity > 0 and current_variant.inventory_quantity <= section.settings.low_stock_threshold -%}
+          <p class="pdp__stock"><span class="product-card__stock">Only {{ current_variant.inventory_quantity }} left</span></p>
+        {%- endif -%}
       {%- endform -%}
 
       {%- if section.settings.trust_text != blank -%}
@@ -115,7 +143,7 @@
       <div class="pdp__desc rte">{{ product.description }}</div>
 
       {%- if section.settings.show_faq_accordion -%}
-        <div class="faq__list" style="margin-top: 24px;">
+        <div class="faq__list pdp__acc">
           {%- for block in section.blocks -%}
             <details class="faq__item" {{ block.shopify_attributes }}>
               <summary class="faq__q">{{ block.settings.question }}<span class="faq__toggle" aria-hidden="true">+</span></summary>
@@ -127,15 +155,22 @@
     </div>
   </div>
 
+  {%- comment -%} Sticky add-to-cart: slides up once the main button scrolls away. Submits the same form. {%- endcomment -%}
+  <div class="sticky-atc" data-sticky-atc aria-hidden="true">
+    {%- if product.featured_image -%}
+      <img class="sticky-atc__img" src="{{ product.featured_image | image_url: width: 160 }}" alt="" width="64" height="{{ 64 | divided_by: product.featured_image.aspect_ratio | round }}" loading="lazy">
+    {%- endif -%}
+    <div class="sticky-atc__text">
+      <strong>{{ product.title | remove: ' License Plate Frame' }}</strong>
+      <span><span data-sticky-variant>{% unless product.has_only_default_variant %}{{ current_variant.title }}{% endunless %}</span> <b data-sticky-price>{{ current_variant.price | money }}</b></span>
+    </div>
+    <button type="submit" form="PdpForm" class="btn sticky-atc__btn" data-sticky-btn tabindex="-1" {% unless current_variant.available %}disabled{% endunless %}>{% if current_variant.available %}Add to cart{% else %}Sold out{% endif %}</button>
+  </div>
+
   <script type="application/json" data-variants-json>
     {{ product.variants | json }}
   </script>
 </div>
-
-{%- if has_frame_3d -%}
-  {{ 'plate-frame-garage.css' | asset_url | stylesheet_tag }}
-  <script type="module" src="{{ 'plate-frame-garage.js' | asset_url }}"></script>
-{%- endif -%}
 
 {% schema %}
 {

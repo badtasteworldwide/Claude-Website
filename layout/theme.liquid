@@ -2,7 +2,8 @@
 <html lang="{{ request.locale.iso_code }}">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fea5df">
   <title>
     {{- page_title -}}
     {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
@@ -39,7 +40,7 @@
 
   {{ content_for_header }}
 </head>
-<body>
+<body class="template-{{ template.name }}">
   <a class="skip-link" href="#MainContent">Skip to content</a>
 
   {% sections 'header-group' %}
@@ -52,18 +53,7 @@
 
   {% section 'cart-drawer' %}
 
-  {%- if settings.enable_buybar and template == 'index' -%}
-    <div class="buybar" id="buybar" data-visible="false">
-      <div class="buybar__left">
-        <div class="buybar__thumb">{{ settings.buybar_thumb_text | default: 'BAD<br>TASTE' }}</div>
-        <div class="buybar__text">
-          <strong>{{ settings.buybar_title | default: 'Bad Taste Worldwide Frame' }}</strong>
-          <span>{{ settings.buybar_subtitle | default: 'Lightning fast shipping!' }}</span>
-        </div>
-      </div>
-      <a href="{{ settings.buybar_link | default: '/collections/all' }}" class="btn">{{ settings.buybar_cta | default: 'Shop Now →' }}</a>
-    </div>
-  {%- endif -%}
+  {%- comment -%} The old homepage buy bar is retired: the bottom shop bar (header section) does its job without covering content. {%- endcomment -%}
 
   {%- if settings.enable_exit_modal -%}
     <div class="modal-overlay" id="modalOverlay" data-open="false">

@@ -3,9 +3,20 @@
     <span class="section__eyebrow">{{ collection.products_count }} Frames</span>
     <h1 class="coll-hero__title">{{ collection.title }}</h1>
     {%- if collection.description != blank -%}
-      <div class="coll-hero__desc rte">{{ collection.description }}</div>
+      <details class="coll-hero__more">
+        <summary>About this collection</summary>
+        <div class="coll-hero__desc rte">{{ collection.description }}</div>
+      </details>
     {%- endif -%}
   </div>
+  {%- if section.settings.quick_collections.size > 0 -%}
+    <nav class="coll-chips" aria-label="Jump to a collection">
+      <a href="{{ routes.all_products_collection_url }}" {% if collection.handle == 'all' %}aria-current="page"{% endif %}>All</a>
+      {%- for c in section.settings.quick_collections -%}
+        <a href="{{ c.url }}" {% if c.handle == collection.handle %}aria-current="page"{% endif %}>{{ c.title }}</a>
+      {%- endfor -%}
+    </nav>
+  {%- endif -%}
 </div>
 
 {%- paginate collection.products by section.settings.products_per_page -%}
@@ -31,7 +42,13 @@
     {%- if collection.products.size > 0 -%}
       <div class="products">
         {%- for product in collection.products -%}
-          {%- render 'product-card', card_product: product -%}
+          {%- liquid
+            assign eager = false
+            if forloop.index <= 4
+              assign eager = true
+            endif
+          -%}
+          {%- render 'product-card', card_product: product, eager: eager -%}
         {%- endfor -%}
       </div>
     {%- else -%}
@@ -60,7 +77,8 @@
 {
   "name": "Collection page",
   "settings": [
-    { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 8, "max": 48, "step": 4, "default": 24 }
+    { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 8, "max": 48, "step": 4, "default": 24 },
+    { "type": "collection_list", "id": "quick_collections", "label": "Collection chips", "limit": 12 }
   ]
 }
 {% endschema %}

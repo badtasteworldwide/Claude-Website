@@ -9,20 +9,20 @@
         <a href="{{ section.settings.link_url }}" class="section__link">{{ section.settings.link_label }}</a>
       {%- endif -%}
     </div>
-    <div class="ugc__grid">
+    <ul class="ugc__grid" role="list">
+      {%- comment -%} Only real customer photos: a tile with no photo is skipped, never shown blank. {%- endcomment -%}
       {%- for block in section.blocks -%}
-        <div class="ugc__tile" {{ block.shopify_attributes }}>
-          {%- if block.settings.image != blank -%}
-            <img src="{{ block.settings.image | image_url: width: 500 }}" alt="{{ block.settings.handle | escape }}" loading="lazy" width="500" height="500" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-          {%- else -%}
-            <div class="ugc__tile-bg" style="background: linear-gradient(135deg, {{ block.settings.color_1 }}, {{ block.settings.color_2 }});">
-              <div style="width:80%;">{%- render 'plate', number: block.settings.plate_number, color1: block.settings.color_1, color2: block.settings.color_2 -%}</div>
-            </div>
-          {%- endif -%}
-          {%- if block.settings.handle != blank -%}<div class="ugc__handle">{{ block.settings.handle }}</div>{%- endif -%}
-        </div>
+        {%- if block.settings.image != blank -%}
+          <li class="ugc__tile" {{ block.shopify_attributes }}>
+            <img src="{{ block.settings.image | image_url: width: 500, height: 500, crop: 'center' }}"
+                 srcset="{{ block.settings.image | image_url: width: 300, height: 300, crop: 'center' }} 300w, {{ block.settings.image | image_url: width: 500, height: 500, crop: 'center' }} 500w"
+                 sizes="(max-width: 600px) 44vw, 16vw"
+                 alt="Customer car with a Bad Taste frame{% if block.settings.handle != blank %}, shared by {{ block.settings.handle | escape }}{% endif %}" loading="lazy" decoding="async" width="500" height="500">
+            {%- if block.settings.handle != blank -%}<span class="ugc__handle">{{ block.settings.handle }}</span>{%- endif -%}
+          </li>
+        {%- endif -%}
       {%- endfor -%}
-    </div>
+    </ul>
   </div>
 </section>
 
