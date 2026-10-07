@@ -32,11 +32,14 @@ const HOME = [0, 0.4, 24];
 // top edge falls off the frame instead of showing as a white line (~2.4 mm).
 // (A plain shift would drag the texture's last row up into view instead.)
 const PRINT_LIFT = 0.015;
-// Demo car (Files: pfg-car.glb, tools/car_model.mjs): where the frame's
-// centre sits on the model's rear bumper (metres, model space; the car faces
-// +z, so its rear is at -z). The bumper bulges out to z = -1.934 just above
-// the plate recess, so the frame sits on that outer surface, not in the recess.
-const CAR_PLATE = [0, 0.3, -1.936];
+// Demo car (Files: pfg-car-civic.glb, plate-frames/assets/models/civic/): where
+// the frame's centre sits on the model's hatch (metres, model space; the car
+// faces +z, so its rear is at -z). The plate centre is at y = 0.719; the hatch
+// is tilted and its lip overhangs to z = -2.463 just above the plate, so the
+// frame sits on that outer surface, not in the recess. The previous car
+// (pfg-car.glb) used [0, 0.3, -1.936] and is still in Files.
+const CAR_FILE = "pfg-car-civic.glb";
+const CAR_PLATE = [0, 0.719, -2.465];
 // Orbit limits with the car on: stay behind it, above the ground, outside it.
 const CAR_ORBIT = { minAzimuthAngle: -1.2, maxAzimuthAngle: 1.2, maxPolarAngle: 1.64, minDistance: 14, maxDistance: 80 };
 // Plate centre height when the frame is flipped: the frame hole (2.516 in
@@ -443,7 +446,7 @@ async function mount(root) {
   const car = (on) => {
     $("credit").hidden = !on;
     root.classList.toggle("pfg--car", on);
-    viewer.setCar(on, sibling(root.dataset.model, "pfg-car.glb")).catch(console.error);
+    viewer.setCar(on, sibling(root.dataset.model, CAR_FILE)).catch(console.error);
   };
   for (const [role, fn] of [["plate", (on) => viewer.setPlate(on)], ["car", car], ["spin", (on) => viewer.setTurntable(on)]]) {
     $(role).addEventListener("click", () => {
@@ -547,7 +550,7 @@ async function mountProduct(root) {
       carBtn.setAttribute("aria-pressed", String(on));
       root.querySelector('[data-role="credit"]').hidden = !on;
       root.classList.toggle("pfg3d--car", on);
-      viewer.setCar(on, sibling(root.dataset.model, "pfg-car.glb")).catch(console.error);
+      viewer.setCar(on, sibling(root.dataset.model, CAR_FILE)).catch(console.error);
     });
   }
   // Slow turntable until the shopper grabs it.
