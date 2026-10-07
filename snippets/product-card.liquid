@@ -1,4 +1,8 @@
-{% comment %} Renders a product card. Accepts: card_product {% endcomment %}
+{% comment %}
+  Renders a product card.
+  Accepts: card_product, eager (bool: first-screen cards load right away), sizes (img sizes attr)
+  Product photos are mostly 4:3, so the photo well is 4:3 and photos are never cropped.
+{% endcomment %}
 {%- liquid
   assign cp = card_product
   assign on_sale = false
@@ -6,9 +10,11 @@
     assign on_sale = true
     assign save_amount = cp.compare_at_price | minus: cp.price | money_without_trailing_zeros
   endif
+  assign img_sizes = sizes | default: '(max-width: 600px) 50vw, (max-width: 960px) 33vw, 25vw'
 -%}
 <article class="product-card">
-  <a href="{{ cp.url }}" class="product-card__image" style="background: linear-gradient(135deg, var(--pink), var(--pink-deep));">
+  <div class="product-card__media">
+  <a href="{{ cp.url }}" class="product-card__image" tabindex="-1" aria-hidden="true">
     <div class="product-card__badges">
       {%- unless cp.available -%}
         <span class="badge badge--red">SOLD OUT</span>
@@ -25,9 +31,11 @@
     {%- if cp.featured_image -%}
       <img class="product-card__photo"
            src="{{ cp.featured_image | image_url: width: 600 }}"
-           srcset="{{ cp.featured_image | image_url: width: 400 }} 400w, {{ cp.featured_image | image_url: width: 600 }} 600w, {{ cp.featured_image | image_url: width: 900 }} 900w"
-           sizes="(max-width: 520px) 100vw, (max-width: 960px) 50vw, 25vw"
-           alt="{{ cp.featured_image.alt | default: cp.title | escape }}" loading="lazy" width="600" height="600">
+           srcset="{{ cp.featured_image | image_url: width: 300 }} 300w, {{ cp.featured_image | image_url: width: 450 }} 450w, {{ cp.featured_image | image_url: width: 600 }} 600w, {{ cp.featured_image | image_url: width: 900 }} 900w"
+           sizes="{{ img_sizes }}"
+           alt="{{ cp.featured_image.alt | default: cp.title | escape }}"
+           {% if eager %}fetchpriority="high"{% else %}loading="lazy"{% endif %} decoding="async"
+           width="600" height="{{ 600 | divided_by: cp.featured_image.aspect_ratio | round }}">
     {%- else -%}
       <div class="product-card__mini-plate">
         {%- render 'plate',
@@ -38,18 +46,17 @@
           color2: cp.metafields.custom.plate_color_2 -%}
       </div>
     {%- endif -%}
-    {%- if cp.available and cp.variants.size == 1 and cp.selected_or_first_available_variant -%}
-      <button type="button" class="btn btn--sm btn--ink product-card__quickadd" data-quick-add="{{ cp.selected_or_first_available_variant.id }}">+ Quick Add · {{ cp.price | money }}</button>
-    {%- elsif cp.available -%}
-      <span class="btn btn--sm btn--ink product-card__quickadd">Choose Options →</span>
-    {%- endif -%}
   </a>
+  {%- if cp.available and cp.variants.size == 1 and cp.selected_or_first_available_variant -%}
+    <button type="button" class="btn btn--sm btn--ink product-card__quickadd" data-quick-add="{{ cp.selected_or_first_available_variant.id }}">+ Quick Add · {{ cp.price | money }}</button>
+  {%- endif -%}
+  </div>
   <div class="product-card__info">
     {%- if cp.type != blank -%}<div class="product-card__theme">{{ cp.type }}</div>{%- endif -%}
-    <a href="{{ cp.url }}"><div class="product-card__name">{{ cp.title }}</div></a>
+    <a href="{{ cp.url }}" class="product-card__link"><span class="product-card__name">{{ cp.title | remove: ' License Plate Frame' }}</span></a>
     <div class="product-card__price-row">
       <span class="product-card__price">{{ cp.price | money }}</span>
-      {%- if on_sale -%}<span class="product-card__compare">{{ cp.compare_at_price | money }}</span>{%- endif -%}
+      {%- if on_sale -%}<span class="product-card__compare"><span class="visually-hidden">Was </span>{{ cp.compare_at_price | money }}</span>{%- endif -%}
     </div>
   </div>
 </article>

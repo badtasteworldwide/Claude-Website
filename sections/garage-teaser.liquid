@@ -1,0 +1,74 @@
+{%- comment -%}
+  3D garage, tap to load. The viewer (three.js + model + texture sheets) is
+  well over half a megabyte, so it never loads on its own: the markup waits in
+  a <template> until the shopper asks for it. Product photos stay first.
+{%- endcomment -%}
+<section class="garage-teaser" data-garage-teaser>
+  <div class="garage-teaser__inner">
+    <div class="garage-teaser__copy">
+      <h2 class="garage-teaser__title">{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}<p class="garage-teaser__text">{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+    <div class="garage-teaser__stage" data-garage-stage>
+      <div class="garage-teaser__poster">
+        {%- if section.settings.image != blank -%}
+          <img src="{{ section.settings.image | image_url: width: 800 }}"
+               srcset="{{ section.settings.image | image_url: width: 400 }} 400w, {{ section.settings.image | image_url: width: 800 }} 800w, {{ section.settings.image | image_url: width: 1200 }} 1200w"
+               sizes="(max-width: 600px) 38vw, 30vw" alt="" loading="lazy" decoding="async"
+               width="800" height="{{ 800 | divided_by: section.settings.image.aspect_ratio | round }}">
+        {%- endif -%}
+        <button type="button" class="btn garage-teaser__btn" data-garage-load>
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M12 2.5 21 7.5v9L12 21.5 3 16.5v-9z M3 7.5l9 5 9-5 M12 12.5v9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg>
+          {{ section.settings.button_label }}
+        </button>
+        <span class="garage-teaser__note">{{ section.settings.note }}</span>
+      </div>
+      <template data-garage-template>
+        <div class="hero__visual hero__visual--3d garage-teaser__live">
+          {%- render 'hero-garage' -%}
+        </div>
+      </template>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var root = document.currentScript.previousElementSibling;
+    if (!root || !root.hasAttribute('data-garage-teaser')) return;
+    var btn = root.querySelector('[data-garage-load]');
+    var tpl = root.querySelector('[data-garage-template]');
+    var stage = root.querySelector('[data-garage-stage]');
+    if (!btn || !tpl || !stage) return;
+    btn.addEventListener('click', function () {
+      var frag = tpl.content.cloneNode(true);
+      // Scripts cloned out of a <template> are inert: recreate them so they run.
+      var scripts = Array.prototype.slice.call(frag.querySelectorAll('script'));
+      scripts.forEach(function (old) {
+        var s = document.createElement('script');
+        if (old.type) s.type = old.type;
+        if (old.src) s.src = old.src; else s.textContent = old.textContent;
+        old.replaceWith(s);
+      });
+      stage.innerHTML = '';
+      stage.appendChild(frag);
+      stage.classList.add('is-live');
+      var focusable = stage.querySelector('canvas, button, a');
+      if (focusable && focusable.focus) { try { focusable.setAttribute('tabindex', focusable.getAttribute('tabindex') || '0'); focusable.focus({ preventScroll: true }); } catch (e) {} }
+    }, { once: true });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "3D garage (tap to load)",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Spin it before you buy it." },
+    { "type": "text", "id": "text", "label": "Text", "default": "Every design on a 3D frame. Drag to rotate, put it on a car." },
+    { "type": "image_picker", "id": "image", "label": "Poster image (shown before 3D loads)" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Load the 3D garage" },
+    { "type": "text", "id": "note", "label": "Small print under the button", "default": "Bigger download. Best on Wi-Fi." }
+  ],
+  "presets": [{ "name": "3D garage (tap to load)" }]
+}
+{% endschema %}

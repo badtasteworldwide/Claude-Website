@@ -11,7 +11,17 @@
   "sections": {
     "main": {
       "type": "main-collection",
-      "settings": {}
+      "settings": {
+        "quick_collections": [
+          "konbini-at-3am",
+          "kpop-license-plate-frames",
+          "racing-livery-license-plate-frames",
+          "fast-food-themed-license-plate-frames",
+          "degenerate-meme-culture",
+          "alcoholics-anonymous",
+          "asian-themed-plate-frames"
+        ]
+      }
     }
   },
   "order": [

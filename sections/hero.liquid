@@ -1,176 +1,92 @@
-<section class="hero" data-hero>
-  <div class="hero__grid">
+{%- liquid
+  assign rail = section.settings.rail_collection
+  if rail == blank
+    assign rail = collections.all
+  endif
+  assign shop_url = section.settings.cta1_link | default: routes.all_products_collection_url
+-%}
+<section class="hero hero--shop" data-hero>
+  <div class="hero__inner">
     <div class="hero__copy">
       {%- if section.settings.eyebrow != blank -%}
-        <div class="hero__eyebrow"><span class="blip"></span> {{ section.settings.eyebrow }}</div>
+        <div class="hero__eyebrow">{{ section.settings.eyebrow }}</div>
       {%- endif -%}
       <h1 class="hero__title">{{ section.settings.heading }}</h1>
       {%- if section.settings.subheading != blank -%}
-        <p class="hero__sub">{{ section.settings.subheading }}</p>
+        <p class="hero__sub{% if section.settings.mobile_subheading != blank %} hero__sub--desktop{% endif %}">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+      {%- if section.settings.mobile_subheading != blank -%}
+        <p class="hero__sub hero__sub--mobile">{{ section.settings.mobile_subheading }}</p>
       {%- endif -%}
       <div class="hero__cta-row">
         {%- if section.settings.cta1_label != blank -%}
-          <a href="{{ section.settings.cta1_link | default: routes.all_products_collection_url }}" class="btn btn--lg">{{ section.settings.cta1_label }}</a>
+          <a href="{{ shop_url }}" class="btn btn--lg">{{ section.settings.cta1_label }}</a>
         {%- endif -%}
         {%- if section.settings.cta2_label != blank -%}
           <a href="{{ section.settings.cta2_link | default: '#collections' }}" class="btn btn--lg btn--paper">{{ section.settings.cta2_label }}</a>
         {%- endif -%}
       </div>
-      <div class="hero__meta">
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'stat' -%}
-            <div class="hero__meta-item" {{ block.shopify_attributes }}>
-              <strong>{{ block.settings.value }}</strong><span>{{ block.settings.label }}</span>
-            </div>
-          {%- endif -%}
-        {%- endfor -%}
-      </div>
     </div>
 
-    {%- liquid
-      assign hero_fit = 'photo'
-      if section.settings.image != blank
-        if section.settings.image.aspect_ratio >= 1.8
-          assign hero_fit = 'banner'
-        elsif section.settings.image.aspect_ratio < 1
-          assign hero_fit = 'portrait'
-        endif
-      endif
-    -%}
     {%- if section.settings.visual == 'garage' -%}
-    <div class="hero__visual hero__visual--3d">
-      {%- render 'hero-garage' -%}
-    </div>
-    {%- else -%}
-    <div class="hero__visual" data-fit="{{ hero_fit }}">
-      {%- if section.settings.image != blank -%}
-        <img class="hero__backdrop" data-hero-backdrop src="{{ section.settings.image | image_url: width: 600 }}" alt="" aria-hidden="true" width="600" height="600">
-        <div class="hero__photo-wrap">
-        <img class="hero__photo" data-hero-photo
-             src="{{ section.settings.image | image_url: width: 1200 }}"
-             srcset="{{ section.settings.image | image_url: width: 800 }} 800w, {{ section.settings.image | image_url: width: 1200 }} 1200w, {{ section.settings.image | image_url: width: 1600 }} 1600w"
-             sizes="(max-width: 960px) 100vw, 50vw"
-             alt="{{ section.settings.image.alt | default: shop.name | escape }}"
-             width="1200" height="{{ 1200 | divided_by: section.settings.image.aspect_ratio | round }}" fetchpriority="high">
-        </div>
-      {%- else -%}
-        <div class="hero__bg-stripes"></div>
-        <div class="hero__car"><div class="hero__car-bg"></div></div>
-        <img class="hero__backdrop" data-hero-backdrop alt="" aria-hidden="true" width="600" height="600" hidden>
-        <div class="hero__photo-wrap">
-          <img class="hero__photo" data-hero-photo alt="" width="1200" height="600" hidden>
-        </div>
-      {%- endif -%}
-      {%- if section.settings.sticker_text != blank -%}
-        <div class="hero__sticker">{{ section.settings.sticker_text }}{% if section.settings.sticker_small != blank %}<small>{{ section.settings.sticker_small }}</small>{% endif %}</div>
-      {%- endif -%}
-      <a data-hero-cta href="{{ section.settings.cta1_link | default: routes.all_products_collection_url }}" class="btn hero__shop-btn">Shop all frames →</a>
-      {%- assign has_chips = false -%}
-      {%- for block in section.blocks -%}{%- if block.type == 'theme_chip' -%}{%- assign has_chips = true -%}{%- endif -%}{%- endfor -%}
-      {%- if has_chips -%}
-        <div class="theme-switcher">
-          {%- for block in section.blocks -%}
-            {%- if block.type == 'theme_chip' -%}
-              {%- assign chip_coll = block.settings.collection -%}
-              {%- assign chip_prod = block.settings.product -%}
-              {%- assign chip_img = block.settings.image | default: chip_prod.featured_image | default: chip_coll.featured_image -%}
-              {%- assign chip_url = chip_coll.url | default: chip_prod.url -%}
-              <button type="button" class="hero-chip" {{ block.shopify_attributes }}
-                data-active="false" aria-pressed="false"
-                data-label="{{ block.settings.label | escape }}"
-                {% if chip_url %}data-url="{{ chip_url }}"{% endif %}
-                {% if chip_img %}data-image="{{ chip_img | image_url: width: 1600 }}" data-aspect="{{ chip_img.aspect_ratio }}"{% endif %}>{{ block.settings.label }}</button>
-            {%- endif -%}
-          {%- endfor -%}
-        </div>
-      {%- endif -%}
-    </div>
+      {%- comment -%}
+        Desktop keeps the live hero: the 3D configurator card mounts straight away.
+        At 960px and below it stays an inert <template> (no CSS, JS or three.js);
+        phones get the tap-to-load garage section lower on the page instead.
+      {%- endcomment -%}
+      <div class="hero__visual hero__visual--3d hero__desk3d" data-hero-3d>
+        <template>{%- render 'hero-garage' -%}</template>
+      </div>
+      <script>
+        (function () {
+          var box = document.currentScript.previousElementSibling;
+          if (!box || !window.matchMedia('(min-width: 961px)').matches) return;
+          var tpl = box.querySelector('template');
+          var frag = tpl.content.cloneNode(true);
+          Array.prototype.slice.call(frag.querySelectorAll('script')).forEach(function (old) {
+            var s = document.createElement('script');
+            if (old.type) s.type = old.type;
+            if (old.src) s.src = old.src; else s.textContent = old.textContent;
+            old.replaceWith(s);
+          });
+          tpl.replaceWith(frag);
+          document.documentElement.classList.add('hero-3d-live');
+        })();
+      </script>
     {%- endif -%}
+
+    <div class="hero-rail">
+      <div class="hero-rail__head">
+        <h2 class="hero-rail__label">{{ section.settings.rail_label | default: 'Best sellers' }}</h2>
+        <a class="hero-rail__link" href="{{ rail.url | default: shop_url }}">{{ section.settings.rail_link_label | default: 'Shop all' }} <span aria-hidden="true">→</span></a>
+      </div>
+      <ul class="hero-rail__track" role="list">
+        {%- for product in rail.products limit: section.settings.rail_limit -%}
+          <li class="hero-rail__slide">
+            {%- liquid
+              assign eager = false
+              if forloop.index <= 2
+                assign eager = true
+              endif
+            -%}
+            {%- render 'product-card', card_product: product, eager: eager, sizes: '(max-width: 600px) 50vw, (max-width: 960px) 34vw, 20vw' -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
   </div>
 </section>
-
-<style>
-  .hero-chip {
-    font-family: var(--font-label); font-size: 11px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.02em;
-    padding: 8px 10px; min-height: 40px; border: 2px solid var(--ink);
-    background: var(--paper); cursor: pointer; transition: background .12s;
-    white-space: nowrap;
-  }
-  .hero-chip:hover { background: var(--yellow); }
-  .hero-chip[data-active="true"] { background: var(--ink); color: var(--paper); }
-  .hero-chip:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
-  .hero__shop-btn { position: absolute; left: 16px; bottom: 84px; z-index: 9; }
-  @media (max-width: 600px) { .hero__shop-btn { bottom: 120px; padding: 10px 16px; font-size: 12px; } }
-</style>
-<script>
-  (function () {
-    var hero = document.currentScript.previousElementSibling;
-    while (hero && !hero.hasAttribute('data-hero')) hero = hero.previousElementSibling;
-    if (!hero) hero = document.querySelector('[data-hero]');
-    if (!hero) return;
-    var chips = Array.prototype.slice.call(hero.querySelectorAll('.hero-chip'));
-    if (!chips.length) return;
-    var img = hero.querySelector('[data-hero-photo]');
-    var backdrop = hero.querySelector('[data-hero-backdrop]');
-    var cta = hero.querySelector('[data-hero-cta]');
-    // Warm the cache so switching is instant.
-    chips.forEach(function (c) { if (c.dataset.image) { var i = new Image(); i.src = c.dataset.image; } });
-    var swapToken = 0;
-    function activate(chip) {
-      chips.forEach(function (c) {
-        var on = c === chip;
-        c.dataset.active = String(on);
-        c.setAttribute('aria-pressed', String(on));
-      });
-      if (img && chip.dataset.image) {
-        img.style.opacity = '0';
-        // Swap only once the new photo is decoded, and only if no newer chip was clicked meanwhile.
-        var my = ++swapToken;
-        var pre = new Image();
-        pre.src = chip.dataset.image;
-        var ready = Promise.race([
-          pre.decode ? pre.decode().catch(function () {}) : Promise.resolve(),
-          new Promise(function (r) { setTimeout(r, 2500); }) // don't stay blank on a stalled request
-        ]);
-        var faded = new Promise(function (r) { setTimeout(r, 180); });
-        Promise.all([ready, faded]).then(function () {
-          if (my !== swapToken) return;
-          img.src = chip.dataset.image;
-          img.removeAttribute('srcset');
-          img.alt = chip.dataset.label || '';
-          img.hidden = false;
-          img.style.opacity = '1';
-          // One-shot zoom-in on change (CSS skips it for reduced motion).
-          img.classList.remove('is-zooming'); void img.offsetWidth; img.classList.add('is-zooming');
-          if (backdrop) { backdrop.src = chip.dataset.image; backdrop.hidden = false; }
-          var a = parseFloat(chip.dataset.aspect) || 1;
-          hero.querySelector('.hero__visual').dataset.fit = a >= 1.8 ? 'banner' : (a < 1 ? 'portrait' : 'photo');
-        });
-      }
-      if (cta && chip.dataset.url) {
-        cta.href = chip.dataset.url;
-        cta.textContent = 'Shop ' + (chip.dataset.label || 'the collection') + ' \u2192';
-      }
-    }
-    chips.forEach(function (chip) {
-      // First click previews the collection; clicking the selected chip again opens it.
-      chip.addEventListener('click', function () {
-        if (chip.dataset.url && (chip.dataset.active === 'true' || !chip.dataset.image)) {
-          window.location.href = chip.dataset.url;
-          return;
-        }
-        activate(chip);
-      });
-    });
-  })();
-</script>
 
 {% schema %}
 {
   "name": "Hero",
   "settings": [
-    { "type": "select", "id": "visual", "label": "Right-hand card", "options": [{ "value": "photo", "label": "Collection photos" }, { "value": "garage", "label": "3D frame configurator" }], "default": "photo" },
+    { "type": "collection", "id": "rail_collection", "label": "Best-seller rail collection", "info": "Real product photos shown in the first screen." },
+    { "type": "range", "id": "rail_limit", "label": "Products in the rail", "min": 4, "max": 12, "step": 1, "default": 8 },
+    { "type": "text", "id": "rail_label", "label": "Rail label", "default": "Best sellers" },
+    { "type": "text", "id": "rail_link_label", "label": "Rail link label", "default": "Shop all" },
+    { "type": "textarea", "id": "mobile_subheading", "label": "Short subheading for phones", "info": "Shown at 960px and below instead of the subheading, so the best sellers stay on the first screen." },
+    { "type": "select", "id": "visual", "label": "Legacy card (unused)", "options": [{ "value": "photo", "label": "Collection photos" }, { "value": "garage", "label": "3D frame configurator" }], "default": "photo" },
     {
       "type": "text",
       "id": "eyebrow",

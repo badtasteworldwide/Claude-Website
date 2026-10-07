@@ -14,13 +14,13 @@
       <div class="bundle__tiers">
         {%- for block in section.blocks -%}
           <div class="bundle__tier" data-count="{{ block.settings.count }}" data-percent="{{ block.settings.percent | default: 0 }}" {{ block.shopify_attributes }}>
-            <span><strong>{{ block.settings.left_strong }}</strong> · {{ block.settings.left_rest }}</span>
+            <span><strong>{{ block.settings.left_strong }}</strong> <span class="bundle__tier-sep">·</span> {{ block.settings.left_rest }}</span>
             <span>{{ block.settings.right }}</span>
           </div>
         {%- endfor -%}
       </div>
       {%- if section.settings.note != blank -%}
-        <p style="margin-top:16px; font-family:var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:0.02em; color: var(--ink-mute); max-width: 52ch; line-height: 1.5;">{{ section.settings.note }}</p>
+        <p class="bundle__note" style="margin-top:16px; font-family:var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:0.02em; color: var(--ink-mute); max-width: 52ch; line-height: 1.5;">{{ section.settings.note }}</p>
       {%- endif -%}
     </div>
     <div class="bundle__builder">
@@ -36,7 +36,7 @@
 
       <div class="bundle__slots" data-bb-slots></div>
 
-      <div style="font-family: var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:0.02em; color:var(--ink-soft); margin-bottom:8px;">{{ section.settings.options_label | default: 'Most popular frames · tap to add' }}</div>
+      <div class="bundle__options-label" style="font-family: var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:0.02em; color:var(--ink-soft); margin-bottom:8px;">{{ section.settings.options_label | default: 'Most popular frames · tap to add' }}</div>
       <div class="bundle__options" data-bb-options>
         {%- assign shown = 0 -%}
         {%- for product in src.products limit: 24 -%}
@@ -56,7 +56,7 @@
           {%- endif -%}
         {%- endfor -%}
         {%- if shown == 0 -%}
-          <p style="font-family:var(--font-mono); font-size:11px;">No products found — pick a collection in the section settings.</p>
+          <p style="font-family:var(--font-mono); font-size:11px;">No products found. Pick a collection in the section settings.</p>
         {%- endif -%}
       </div>
       <div class="bundle__summary">
@@ -126,7 +126,7 @@
       }
       slotsEl.innerHTML = slots.join('');
       countEl.textContent = '(' + picked.length + '/' + max + ')';
-      cartEl.textContent = cartQty > 0 ? ('Frames already in your cart: ' + cartQty + ' — they count toward your tier') : '';
+      cartEl.textContent = cartQty > 0 ? ('Frames already in your cart: ' + cartQty + '. They count toward your tier.') : '';
       var total = picked.reduce(function (s, p) { return s + p.price; }, 0);
       // Estimate the automatic bundle discount (mirrors the tier blocks' percent).
       var frames = picked.length + cartQty, pct = 0;
@@ -251,7 +251,7 @@
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Bundle & Save" },
     { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>Build a <em>4-pack.</em><br>Save up to 15%.</p>" },
-    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Because one frame is never enough. Daily driver, weekend car, whatever's in the garage — they all deserve bad taste." },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Because one frame is never enough. Daily driver, weekend car, whatever's in the garage. They all deserve bad taste." },
     { "type": "collection", "id": "collection", "label": "Products to offer", "info": "Leave empty to show your License Plate Frames collection. Set that collection's sort order to Best Selling in admin for true popularity ranking." },
     { "type": "text", "id": "options_label", "label": "Products label", "default": "Most popular frames · tap to add" },
     { "type": "text", "id": "search_placeholder", "label": "Search placeholder", "default": "Search frames…" },

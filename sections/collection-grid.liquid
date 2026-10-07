@@ -1,4 +1,4 @@
-<section class="section" id="collections">
+<section class="section section--colls" id="collections">
   <div class="section__head">
     <div>
       {%- if section.settings.eyebrow != blank -%}<span class="section__eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
@@ -35,10 +35,10 @@
             {%- if img.aspect_ratio >= 1.8 -%}
               {%- comment -%} 2:1 cover = centred 3:4 poster + blurred padding: crop to the poster, sides show the block colours. {%- endcomment -%}
               <span class="collection-card__poster">
-                <img class="collection-card__photo" src="{{ img | image_url: width: 1400 }}" srcset="{{ img | image_url: width: 900 }} 900w, {{ img | image_url: width: 1400 }} 1400w, {{ img | image_url: width: 1800 }} 1800w" sizes="(max-width: 768px) 100vw, 50vw" alt="{{ img_alt }}" loading="lazy" width="1400" height="{{ 1400 | divided_by: img.aspect_ratio | round }}">
+                <img class="collection-card__photo" src="{{ img | image_url: width: 1400 }}" srcset="{{ img | image_url: width: 600 }} 600w, {{ img | image_url: width: 900 }} 900w, {{ img | image_url: width: 1400 }} 1400w, {{ img | image_url: width: 1800 }} 1800w" sizes="(max-width: 768px) 260px, 50vw" alt="{{ img_alt }}" loading="lazy" width="1400" height="{{ 1400 | divided_by: img.aspect_ratio | round }}">
               </span>
             {%- else -%}
-              <img class="collection-card__photo" src="{{ img | image_url: width: 900 }}" srcset="{{ img | image_url: width: 600 }} 600w, {{ img | image_url: width: 900 }} 900w" sizes="(max-width: 768px) 50vw, 33vw" alt="{{ img_alt }}" loading="lazy" width="900" height="{{ 900 | divided_by: img.aspect_ratio | round }}">
+              <img class="collection-card__photo" src="{{ img | image_url: width: 900 }}" srcset="{{ img | image_url: width: 300 }} 300w, {{ img | image_url: width: 600 }} 600w, {{ img | image_url: width: 900 }} 900w" sizes="(max-width: 768px) 76vw, 33vw" alt="{{ img_alt }}" loading="lazy" width="900" height="{{ 900 | divided_by: img.aspect_ratio | round }}">
             {%- endif -%}
           {%- else -%}
             <div style="position:absolute; left:50%; top:45%; transform:translate(-50%,-50%); width:70%;">
@@ -101,13 +101,32 @@
   .collection-card__count { margin-top: 0; justify-self: start; white-space: nowrap; border-bottom: 2px solid currentColor; padding-bottom: 1px; }
   .collection-card:hover .collection-card__count { background: var(--yellow); color: var(--ink); border-color: var(--ink); }
   .collection-card:nth-child(3n+3):hover .collection-card__count { background: var(--paper); }
+  /* Phones: a swipeable poster picker instead of a 6-card wall (one screen, not three). */
   @media (max-width: 768px) {
-    .collections--uniform { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 14px; }
-    .collections--uniform .collection-card, .collection-card { aspect-ratio: auto; box-shadow: var(--shadow-sm); }
-    .collection-card__media { aspect-ratio: 4 / 3; }
-    .collection-card__info { grid-template-columns: 1fr; padding: 10px; }
-    .collection-card__title { font-size: 14px; }
-    .collection-card__count { display: none; }
+    .section--colls { padding-top: 20px; padding-bottom: 24px; }
+    .section--colls .section__head { margin-bottom: 12px; align-items: center; flex-wrap: nowrap; }
+    .section--colls .section__eyebrow { display: none; }
+    .section--colls .section__title { font-size: 20px; max-width: none; }
+    .section--colls .section__link { white-space: nowrap; padding: 10px 10px; font-size: 11px; min-height: 44px; display: inline-flex; align-items: center; }
+    .collections--uniform {
+      display: flex; gap: 10px; overflow-x: auto; overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter);
+      margin: 0 calc(var(--gutter) * -1); padding: 2px var(--gutter) 8px;
+      scrollbar-width: none;
+    }
+    .collections--uniform::-webkit-scrollbar { display: none; }
+    .collections--uniform .collection-card {
+      flex: 0 0 76%; scroll-snap-align: start; box-shadow: var(--shadow-sm); border-width: 2px; aspect-ratio: auto;
+    }
+    .collections--uniform .collection-card:hover { transform: none; box-shadow: var(--shadow-sm); }
+    /* Covers are 4:3: show the whole cover, never crop it. */
+    .collections--uniform .collection-card__media { aspect-ratio: 4 / 3; }
+    .collections--uniform .collection-card__media > .collection-card__bg > .collection-card__photo { object-fit: contain; }
+    .collections--uniform .collection-card__info { padding: 10px 12px 12px; row-gap: 2px; border-top-width: 2px; }
+    .collections--uniform .collection-card__label { margin-bottom: 2px; font-size: 11px; }
+    .collections--uniform .collection-card__title { font-size: 17px; line-height: 1.12; overflow-wrap: anywhere; }
+    .collections--uniform .collection-card__count { display: none; }
+    .section--colls .section__link { display: none; }
   }
 </style>
 

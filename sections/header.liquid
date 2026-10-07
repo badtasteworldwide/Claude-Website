@@ -2,7 +2,7 @@
   <div class="header__row">
     <a href="{{ routes.root_url }}" class="logo" aria-label="{{ shop.name | escape }}">
       {%- if section.settings.logo != blank -%}
-        <img src="{{ section.settings.logo | image_url: width: 360 }}" alt="{{ shop.name | escape }}" class="logo__img" width="180" height="{{ 180 | divided_by: section.settings.logo.aspect_ratio | round }}">
+        <img src="{{ section.settings.logo | image_url: width: 360 }}" alt="{{ shop.name | escape }}" class="logo__img" width="180" height="{{ 180 | divided_by: section.settings.logo.aspect_ratio | round }}" fetchpriority="high">
       {%- else -%}
         <span>{{ shop.name }}</span>
       {%- endif -%}
@@ -14,16 +14,95 @@
       {%- endfor -%}
     </nav>
     <div class="header__tools">
-      <a class="icon-btn" href="{{ routes.search_url }}" aria-label="Search" title="Search"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M232.49,215.51,185,168a92.12,92.12,0,1,0-17,17l47.53,47.54a12,12,0,0,0,17-17ZM44,112a68,68,0,1,1,68,68A68.07,68.07,0,0,1,44,112Z"/></svg></a>
+      <a class="icon-btn header__search" href="{{ routes.search_url }}" data-sheet-open="search" aria-label="Search" title="Search"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M232.49,215.51,185,168a92.12,92.12,0,1,0-17,17l47.53,47.54a12,12,0,0,0,17-17ZM44,112a68,68,0,1,1,68,68A68.07,68.07,0,0,1,44,112Z"/></svg></a>
       {%- if shop.customer_accounts_enabled -%}
-        <a class="icon-btn" href="{{ routes.account_url }}" aria-label="Account" title="Account"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M234.38,210a123.36,123.36,0,0,0-60.78-53.23,76,76,0,1,0-91.2,0A123.36,123.36,0,0,0,21.62,210a12,12,0,1,0,20.77,12c18.12-31.32,50.12-50,85.61-50s67.49,18.69,85.61,50a12,12,0,0,0,20.77-12ZM76,96a52,52,0,1,1,52,52A52.06,52.06,0,0,1,76,96Z"/></svg></a>
+        <a class="icon-btn header__account" href="{{ routes.account_url }}" aria-label="Account" title="Account"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M234.38,210a123.36,123.36,0,0,0-60.78-53.23,76,76,0,1,0-91.2,0A123.36,123.36,0,0,0,21.62,210a12,12,0,1,0,20.77,12c18.12-31.32,50.12-50,85.61-50s67.49,18.69,85.61,50a12,12,0,0,0,20.77-12ZM76,96a52,52,0,1,1,52,52A52.06,52.06,0,0,1,76,96Z"/></svg></a>
       {%- endif -%}
-      <button class="icon-btn" id="openCart" aria-label="Cart" type="button">
+      <button class="icon-btn header__cart" id="openCart" data-open-cart aria-label="Cart, {{ cart.item_count }} items" type="button">
         <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M243.86,197.65l-14.25-120A20.06,20.06,0,0,0,209.67,60H179.83A52,52,0,0,0,76.17,60H46.33A20.06,20.06,0,0,0,26.39,77.65l-14.25,120A20,20,0,0,0,32.08,220H223.92a20,20,0,0,0,19.94-22.35ZM128,36a28,28,0,0,1,27.71,24H100.29A28,28,0,0,1,128,36ZM36.5,196,49.81,84H76v20a12,12,0,0,0,24,0V84h56v20a12,12,0,0,0,24,0V84h26.19L219.5,196Z"/></svg><span class="icon-btn__count" data-cart-count>{{ cart.item_count }}</span>
       </button>
     </div>
   </div>
 </header>
+
+{%- comment -%}
+  Thumb-zone shop bar (phones and tablets): the four things a shopper needs,
+  pinned to the bottom edge where the thumb already is.
+{%- endcomment -%}
+<nav class="tabbar" aria-label="Shop">
+  <a class="tabbar__item" href="{{ section.settings.shop_link | default: routes.all_products_collection_url }}">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9h18M5 9V20h14V9M3.5 9 5 4h14l1.5 5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="miter"/><path d="M10 20v-6h4v6" fill="none" stroke="currentColor" stroke-width="2.4"/></svg>
+    <span>Shop all</span>
+  </a>
+  <button class="tabbar__item" type="button" data-sheet-open="collections" aria-haspopup="dialog" aria-controls="sheet-collections">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z" fill="none" stroke="currentColor" stroke-width="2.4"/></svg>
+    <span>Collections</span>
+  </button>
+  <button class="tabbar__item" type="button" data-sheet-open="search" aria-haspopup="dialog" aria-controls="sheet-search">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.6"/><path d="m15.5 15.5 5 5" stroke="currentColor" stroke-width="2.8" stroke-linecap="square"/></svg>
+    <span>Search</span>
+  </button>
+  <button class="tabbar__item tabbar__item--cart" type="button" data-open-cart aria-label="Cart, {{ cart.item_count }} items">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 8h16l-1.2 12H5.2z" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M8.5 10V6.5a3.5 3.5 0 0 1 7 0V10" fill="none" stroke="currentColor" stroke-width="2.4"/></svg>
+    <span>Cart</span>
+    <b class="tabbar__count" data-cart-count>{{ cart.item_count }}</b>
+  </button>
+</nav>
+
+<div class="sheet-overlay" data-sheet-overlay hidden></div>
+
+<div class="sheet" id="sheet-collections" role="dialog" aria-modal="true" aria-labelledby="sheet-collections-title" data-sheet="collections" hidden>
+  <div class="sheet__head">
+    <h2 class="sheet__title" id="sheet-collections-title">Pick your poison</h2>
+    <button type="button" class="sheet__close" data-sheet-close aria-label="Close collections">✕</button>
+  </div>
+  <div class="sheet__body">
+    <a class="sheet-all" href="{{ routes.all_products_collection_url }}"><span>Every frame</span><span aria-hidden="true">→</span></a>
+    <ul class="sheet-colls">
+      {%- for c in section.settings.sheet_collections -%}
+        <li>
+          <a href="{{ c.url }}" class="sheet-coll">
+            <span class="sheet-coll__img">
+              {%- if c.featured_image -%}
+                <img src="{{ c.featured_image | image_url: width: 240 }}" alt="" loading="lazy" width="120" height="{{ 120 | divided_by: c.featured_image.aspect_ratio | round }}">
+              {%- endif -%}
+            </span>
+            <span class="sheet-coll__name">{{ c.title }}</span>
+            <span class="sheet-coll__count">{{ c.products_count }}</span>
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+    <div class="sheet-links">
+      <a href="{{ routes.collections_url }}">All collections</a>
+      {%- for link in section.settings.menu.links -%}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {%- endfor -%}
+      {%- if shop.customer_accounts_enabled -%}<a href="{{ routes.account_url }}">Account</a>{%- endif -%}
+    </div>
+  </div>
+</div>
+
+<div class="sheet sheet--search" id="sheet-search" role="dialog" aria-modal="true" aria-labelledby="sheet-search-title" data-sheet="search" hidden>
+  <div class="sheet__head">
+    <h2 class="sheet__title" id="sheet-search-title">Find your frame</h2>
+    <button type="button" class="sheet__close" data-sheet-close aria-label="Close search">✕</button>
+  </div>
+  <div class="sheet__body">
+    <form action="{{ routes.search_url }}" method="get" role="search" class="sheet-search">
+      <input type="hidden" name="type" value="product">
+      <label class="visually-hidden" for="sheet-search-q">Search frames</label>
+      <input id="sheet-search-q" type="search" name="q" placeholder="Ramen, Blackpink, Ferrari…" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" data-predictive>
+      <button type="submit" class="btn btn--sm">Go</button>
+    </form>
+    <div class="sheet-results" data-predictive-results aria-live="polite"></div>
+    <div class="sheet-quick" data-predictive-empty>
+      {%- for c in section.settings.sheet_collections limit: 6 -%}
+        <a href="{{ c.url }}">{{ c.title }}</a>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
 
 {% schema %}
 {
@@ -31,7 +110,10 @@
   "settings": [
     { "type": "image_picker", "id": "logo", "label": "Logo image" },
     { "type": "text", "id": "tagline", "label": "Tagline under logo", "default": "WORLDWIDE · EST. 2019" },
-    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" }
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "header", "content": "Mobile shop bar" },
+    { "type": "url", "id": "shop_link", "label": "\"Shop all\" link" },
+    { "type": "collection_list", "id": "sheet_collections", "label": "Collections in the picker", "limit": 12 }
   ]
 }
 {% endschema %}
