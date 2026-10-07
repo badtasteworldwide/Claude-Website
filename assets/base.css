@@ -1434,3 +1434,18 @@ body.pdp-sticky-on .tabbar { transform: translateY(110%); }
   .zgarage__badge { width: 50px; height: 50px; font-size: 18px; top: -16px; right: -12px; }
   .zreceipt__title { display: none; }
 }
+/* Interface guideline pass */
+a, button, summary, label { touch-action: manipulation; -webkit-tap-highlight-color: rgba(250, 83, 193, .25); }
+.zfeed, .zgarage, #faq { scroll-margin-top: 96px; }
+.drawer__items, .mnav__sheet { overscroll-behavior: contain; }
+.rcard { transition: box-shadow .12s var(--ease); }
+.rcard:hover, .rcard:focus-within { box-shadow: 6px 6px 0 var(--pink-deep); }
+.rcard__link:focus-visible { outline-offset: -6px; }
+@media (max-width: 959px) {
+  /* keep focused/anchored elements clear of the thumb bar */
+  html { scroll-padding-bottom: 90px; }
+  .zfeed, .zgarage, #faq { scroll-margin-top: 12px; }
+}
+@media (max-width: 760px) {
+  .zreceipt__title { display: block; position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
