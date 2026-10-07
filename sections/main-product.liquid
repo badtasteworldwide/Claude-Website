@@ -163,7 +163,7 @@
     {%- endif -%}
     <div class="sticky-atc__text">
       <strong>{{ product.title | remove: ' License Plate Frame' }}</strong>
-      <span><span data-sticky-variant>{% unless product.has_only_default_variant %}{{ current_variant.title }} · {% endunless %}</span><span data-sticky-price>{{ current_variant.price | money }}</span></span>
+      <span><b data-sticky-price>{{ current_variant.price | money }}</b><span data-sticky-variant>{% unless product.has_only_default_variant %} · {{ current_variant.title }}{% endunless %}</span></span>
     </div>
     <button type="button" class="btn sticky-atc__btn" data-sticky-btn{% unless current_variant.available %} disabled{% endunless %}>{% if current_variant.available %}Add to cart{% else %}Sold out{% endif %}</button>
   </div>
@@ -261,7 +261,7 @@
       stickyBtn.textContent = /sold/i.test(t) ? 'Sold out' : (/unavailable/i.test(t) ? 'Unavailable' : (/adding/i.test(t) ? 'Adding…' : 'Add to cart'));
       if (priceSrc) price.textContent = priceSrc.textContent;
       var picked = Array.prototype.map.call(pdp.querySelectorAll('[data-variant-picker] input:checked'), function (i) { return i.value; });
-      if (picked.length) variantEl.textContent = picked.join(' / ') + ' · ';
+      if (picked.length) variantEl.textContent = ' · ' + picked.join(' / ');
     }
     new MutationObserver(mirror).observe(mainBtn, { attributes: true, childList: true, subtree: true, characterData: true });
     if (priceSrc) new MutationObserver(mirror).observe(priceSrc, { childList: true, characterData: true, subtree: true });

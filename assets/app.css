@@ -185,7 +185,7 @@ img { overflow-wrap: anywhere; }            /* broken-image alt text can't widen
   /* Hero: one tight block that hands straight off to products */
   .hero__grid { padding: 16px var(--gutter) 14px; gap: 0; }
   .hero__eyebrow, .hero__cta-row, .hero__meta { display: none; }
-  .hero__title { font-size: clamp(36px, 10.6vw, 48px); line-height: .98; }
+  .hero__title { font-size: clamp(34px, 9.9vw, 46px); line-height: .98; }
   .hero__title em { box-shadow: 4px 4px 0 var(--pink); }
   .hero__sub { margin-top: 12px; font-size: 15.5px; line-height: 1.45; max-width: 36ch; }
   .hero__sub--long { display: none; }
@@ -244,7 +244,9 @@ img { overflow-wrap: anywhere; }            /* broken-image alt text can't widen
   }
   .section__head:has(.section__link-short) > div { display: contents; }
   .section__head:has(.section__link-short) .section__eyebrow { grid-column: 1; grid-row: 1; justify-self: start; margin-bottom: 8px; }
-  .section__head:has(.section__link-short) .section__link { grid-column: 2; grid-row: 1; margin-bottom: 8px; }
+  .section__head:has(.section__link-short) .section__link { grid-column: 2; grid-row: 1; margin-bottom: 8px; min-height: 34px; position: relative; }
+  .section__head:has(.section__link-short) .section__link::after { content: ""; position: absolute; inset: -6px -4px; }  /* 46px tap area */
+  .section__head:has(.section__link-short) .section__title { font-size: clamp(22px, 6.3vw, 28px); }
   .section__head:has(.section__link-short) .section__title { grid-column: 1 / -1; grid-row: 2; max-width: none; }
   .section__head > div { min-width: 0; }
   .section__eyebrow { font-size: 10.5px; margin-bottom: 10px; }
@@ -465,6 +467,7 @@ img { overflow-wrap: anywhere; }            /* broken-image alt text can't widen
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis; word-spacing: 0.12em;
   }
   .sticky-atc__text > span { font-family: var(--font-label); font-size: 11px; font-weight: 700; color: var(--ink-mute); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sticky-atc__text b { color: var(--yellow); font-weight: 800; font-size: 13px; }
   .sticky-atc__btn { flex: none; min-height: 48px; padding: 10px 16px; font-size: 14px; border-color: var(--paper); box-shadow: 3px 3px 0 var(--pink-soft); }
   .sticky-atc :focus-visible { outline-color: var(--yellow); }
 
