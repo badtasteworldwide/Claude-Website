@@ -68,13 +68,14 @@
 
 <style>
   .collections--uniform {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     grid-template-rows: none;
     grid-auto-rows: auto;
+    gap: 28px 24px;
   }
   .collections--uniform .collection-card { grid-column: span 1; grid-row: span 1; }
-  /* Photo on top, caption below, so the title never covers the cover art.
-     Collection covers are 2:1 with blurred padding around a centred 3:4 poster;
+  /* Photo on top, caption slab below, so the title never covers the cover art.
+     Covers are 2:1 with blurred padding around a centred 3:4 poster;
      a 4:3 frame shows the whole poster and trims only padding. */
   .collection-card { display: flex; flex-direction: column; background: var(--paper); }
   .collection-card__media { position: relative; overflow: hidden; aspect-ratio: 4 / 3; flex: none; }
@@ -82,24 +83,30 @@
   .collection-card__poster {
     position: absolute; top: 0; bottom: 0; left: 50%; transform: translateX(-50%);
     height: 100%; aspect-ratio: 3 / 4; overflow: hidden;
-    border-inline: 2px solid var(--ink); box-shadow: 0 0 28px rgba(0, 0, 0, .35);
+    border-inline: 3px solid var(--ink);
   }
   .collection-card__poster .collection-card__photo { transform: scale(1.03); }
+  /* Caption slabs rotate through the colorway: ink, bubblegum, highlighter. */
   .collection-card__info {
-    display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; column-gap: 12px;
-    padding: 12px 14px 14px; border-top: 2px solid var(--ink); background: var(--ink); color: var(--paper);
+    display: grid; grid-template-columns: minmax(0, 1fr); align-items: end; row-gap: 10px;
+    padding: 14px 16px 16px; border-top: 3px solid var(--ink); background: var(--ink); color: var(--paper);
     flex: 1 1 auto; align-content: end;
   }
-  .collection-card__info .collection-card__tag { position: static; display: inline-block; margin-left: 8px; padding: 2px 6px; font-size: 10px; border-width: 1px; vertical-align: 1px; }
-  .collection-card__label { grid-column: 1 / -1; margin-bottom: 4px; }
-  .collection-card__title { font-size: clamp(18px, 1.6vw, 24px); line-height: 1; overflow-wrap: anywhere; }
-  .collection-card__count { margin-top: 0; white-space: nowrap; }
-  .collection-card:hover .collection-card__count { color: var(--yellow); opacity: 1; }
+  .collection-card:nth-child(3n+2) .collection-card__info { background: var(--pink-soft); color: var(--ink); }
+  .collection-card:nth-child(3n+3) .collection-card__info { background: var(--yellow); color: var(--ink); }
+  .collection-card__info .collection-card__tag { position: static; display: inline-block; margin-left: 8px; padding: 2px 6px; font-size: 10px; vertical-align: 1px; }
+  .collection-card:nth-child(3n+3) .collection-card__info .collection-card__tag { background: var(--paper); }
+  .collection-card__label { grid-column: 1 / -1; margin-bottom: 6px; }
+  .collection-card__title { font-size: clamp(17px, 1.6vw, 23px); line-height: 1.1; overflow-wrap: normal; hyphens: none; }
+  .collection-card__count { margin-top: 0; justify-self: start; white-space: nowrap; border-bottom: 2px solid currentColor; padding-bottom: 1px; }
+  .collection-card:hover .collection-card__count { background: var(--yellow); color: var(--ink); border-color: var(--ink); }
+  .collection-card:nth-child(3n+3):hover .collection-card__count { background: var(--paper); }
   @media (max-width: 768px) {
-    .collections--uniform { grid-template-columns: repeat(2, 1fr); }
-    .collections--uniform .collection-card, .collection-card { aspect-ratio: auto; }
+    .collections--uniform { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 14px; }
+    .collections--uniform .collection-card, .collection-card { aspect-ratio: auto; box-shadow: var(--shadow-sm); }
     .collection-card__media { aspect-ratio: 4 / 3; }
     .collection-card__info { grid-template-columns: 1fr; padding: 10px; }
+    .collection-card__title { font-size: 14px; }
     .collection-card__count { display: none; }
   }
 </style>
