@@ -6,8 +6,27 @@
       {%- endif -%}
       <h1 class="hero__title">{{ section.settings.heading }}</h1>
       {%- if section.settings.subheading != blank -%}
-        <p class="hero__sub">{{ section.settings.subheading }}</p>
+        <p class="hero__sub{% if section.settings.subheading_mobile != blank %} hero__sub--long{% endif %}">{{ section.settings.subheading }}</p>
       {%- endif -%}
+      {%- if section.settings.subheading_mobile != blank -%}
+        <p class="hero__sub hero__sub--short">{{ section.settings.subheading_mobile }}</p>
+      {%- endif -%}
+      {%- comment -%} Phone only: thumb-friendly flavor chips + the 3D entry point, in place of the big visual card. {%- endcomment -%}
+      <div class="hero__rail" role="list" aria-label="Shop by flavor">
+        {%- if section.settings.visual == 'garage' -%}
+          <span role="listitem"><button type="button" class="hero__chip hero__chip--3d" data-garage-open aria-haspopup="dialog" aria-controls="heroGarage">
+            <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M225.6,62.64l-88-48.17a19.91,19.91,0,0,0-19.2,0l-88,48.17A20,20,0,0,0,20,80.19v95.62a20,20,0,0,0,10.4,17.55l88,48.17a19.89,19.89,0,0,0,19.2,0l88-48.17A20,20,0,0,0,236,175.81V80.19A20,20,0,0,0,225.6,62.64ZM128,36.57,200,76,128,115.4,56,76ZM44,96.79l72,39.4v76.67L44,173.44Zm96,116.07V136.19l72-39.4v76.65Z"/></svg>
+            Spin it in 3D</button></span>
+        {%- endif -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'theme_chip' -%}
+            {%- assign chip_url = block.settings.collection.url | default: block.settings.product.url -%}
+            {%- if chip_url -%}
+              <span role="listitem"><a class="hero__chip" href="{{ chip_url }}">{{ block.settings.label }}</a></span>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
       <div class="hero__cta-row">
         {%- if section.settings.cta1_label != blank -%}
           <a href="{{ section.settings.cta1_link | default: routes.all_products_collection_url }}" class="btn btn--lg">{{ section.settings.cta1_label }}</a>
@@ -38,7 +57,8 @@
       endif
     -%}
     {%- if section.settings.visual == 'garage' -%}
-    <div class="hero__visual hero__visual--3d">
+    <div class="hero__visual hero__visual--3d" id="heroGarage" data-garage-card aria-label="3D frame viewer">
+      <button type="button" class="hero__garage-close" data-garage-close aria-label="Close 3D viewer"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M208.49,191.51a12,12,0,0,1-17,17L128,145,64.49,208.49a12,12,0,0,1-17-17L111,128,47.51,64.49a12,12,0,0,1,17-17L128,111l63.51-63.52a12,12,0,0,1,17,17L145,128Z"/></svg><span>Close</span></button>
       {%- render 'hero-garage' -%}
     </div>
     {%- else -%}
@@ -166,6 +186,37 @@
   })();
 </script>
 
+<script>
+  /* Phone: the 3D card is an opt-in full-screen viewer. three.js (~600KB) is only
+     fetched when the shopper taps "Spin it in 3D" (see snippets/hero-garage). */
+  (function () {
+    var card = document.querySelector('[data-garage-card]');
+    var opener = document.querySelector('[data-garage-open]');
+    if (!card || !opener) return;
+    var closer = card.querySelector('[data-garage-close]');
+    function open() {
+      card.dataset.open = 'true';
+      card.setAttribute('role', 'dialog');
+      card.setAttribute('aria-modal', 'true');
+      document.documentElement.classList.add('is-locked');
+      if (window.BTWloadGarage) window.BTWloadGarage();
+      closer.focus();
+    }
+    function close() {
+      card.dataset.open = 'false';
+      card.removeAttribute('role');
+      card.removeAttribute('aria-modal');
+      document.documentElement.classList.remove('is-locked');
+      opener.focus();
+    }
+    opener.addEventListener('click', open);
+    closer.addEventListener('click', close);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && card.dataset.open === 'true') close();
+    });
+  })();
+</script>
+
 {% schema %}
 {
   "name": "Hero",
@@ -188,6 +239,13 @@
       "id": "subheading",
       "label": "Subheading",
       "default": "License plate frames for K-pop stans, 3AM konbini runs, degenerate meme lords, track addicts, and everyone whose mom would hate their Lexus. Small-batch drops. Heavy plastic. No apologies."
+    },
+    {
+      "type": "text",
+      "id": "subheading_mobile",
+      "label": "Short subheading (phones)",
+      "info": "Shown instead of the subheading on small screens. Leave empty to use the full subheading.",
+      "default": "License plate frames for K-pop stans, 3AM konbini runs, meme lords and track addicts."
     },
     {
       "type": "text",

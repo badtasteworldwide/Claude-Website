@@ -14,11 +14,11 @@
       {%- endfor -%}
     </nav>
     <div class="header__tools">
-      <a class="icon-btn" href="{{ routes.search_url }}" aria-label="Search" title="Search"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M232.49,215.51,185,168a92.12,92.12,0,1,0-17,17l47.53,47.54a12,12,0,0,0,17-17ZM44,112a68,68,0,1,1,68,68A68.07,68.07,0,0,1,44,112Z"/></svg></a>
+      <a class="icon-btn icon-btn--tabdup" href="{{ routes.search_url }}" aria-label="Search" title="Search"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M232.49,215.51,185,168a92.12,92.12,0,1,0-17,17l47.53,47.54a12,12,0,0,0,17-17ZM44,112a68,68,0,1,1,68,68A68.07,68.07,0,0,1,44,112Z"/></svg></a>
       {%- if shop.customer_accounts_enabled -%}
         <a class="icon-btn" href="{{ routes.account_url }}" aria-label="Account" title="Account"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M234.38,210a123.36,123.36,0,0,0-60.78-53.23,76,76,0,1,0-91.2,0A123.36,123.36,0,0,0,21.62,210a12,12,0,1,0,20.77,12c18.12-31.32,50.12-50,85.61-50s67.49,18.69,85.61,50a12,12,0,0,0,20.77-12ZM76,96a52,52,0,1,1,52,52A52.06,52.06,0,0,1,76,96Z"/></svg></a>
       {%- endif -%}
-      <button class="icon-btn" id="openCart" aria-label="Cart" type="button">
+      <button class="icon-btn icon-btn--tabdup" id="openCart" aria-label="Cart" type="button">
         <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M243.86,197.65l-14.25-120A20.06,20.06,0,0,0,209.67,60H179.83A52,52,0,0,0,76.17,60H46.33A20.06,20.06,0,0,0,26.39,77.65l-14.25,120A20,20,0,0,0,32.08,220H223.92a20,20,0,0,0,19.94-22.35ZM128,36a28,28,0,0,1,27.71,24H100.29A28,28,0,0,1,128,36ZM36.5,196,49.81,84H76v20a12,12,0,0,0,24,0V84h56v20a12,12,0,0,0,24,0V84h26.19L219.5,196Z"/></svg><span class="icon-btn__count" data-cart-count>{{ cart.item_count }}</span>
       </button>
     </div>

@@ -41,7 +41,25 @@
     </div>
   </div>
 </div>
-<script type="module" src="{{ 'plate-frame-garage.js' | asset_url }}"></script>
+{%- comment -%}
+  Loader instead of a plain module tag: desktop mounts the viewer right away (as before);
+  phones only fetch the viewer and three.js when the shopper opens it (BTWloadGarage).
+{%- endcomment -%}
+<script>
+  (function () {
+    var src = {{ 'plate-frame-garage.js' | asset_url | json }};
+    var loaded = false;
+    function load() {
+      if (loaded) return;
+      loaded = true;
+      import(src).catch(function (e) { console.error(e); });
+    }
+    window.BTWloadGarage = load;
+    var mq = window.matchMedia('(min-width: 961px)');
+    if (mq.matches) load();
+    else if (mq.addEventListener) mq.addEventListener('change', function (e) { if (e.matches) load(); });
+  })();
+</script>
 <style>
   /* Hero card skin: the garage's own CSS stays untouched; these rules only
      re-dress the compact .pfg--hero copy in the theme's print-shop language. */

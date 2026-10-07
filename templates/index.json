@@ -107,7 +107,8 @@
         "image": "shopify://shop_images/IMG_2333_08dfd075-2f3f-4825-a532-309ebc40cb0d.jpg",
         "sticker_text": "NEW DROP",
         "sticker_small": "FRESH THEMES",
-        "visual": "garage"
+        "visual": "garage",
+        "subheading_mobile": "License plate frames for K-pop stans, 3AM konbini runs, meme lords and track addicts."
       }
     },
     "trust": {
@@ -128,7 +129,7 @@
         "t3": {
           "type": "item",
           "settings": {
-            "text": "⚡ LIGHTNING FAST SHIPPING!"
+            "text": "LIGHTNING FAST SHIPPING!"
           }
         },
         "t4": {
@@ -146,7 +147,7 @@
         "t5": {
           "type": "item",
           "settings": {
-            "text": "★ SHIPS WORLDWIDE"
+            "text": "SHIPS WORLDWIDE"
           }
         },
         "t6": {
@@ -516,12 +517,12 @@
   },
   "order": [
     "hero",
+    "featured",
     "trust",
     "collections",
-    "featured",
     "bundle",
-    "reviews",
     "ugc",
+    "reviews",
     "faq"
   ]
 }

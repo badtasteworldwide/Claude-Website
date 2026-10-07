@@ -6,6 +6,14 @@
     assign on_sale = true
     assign save_amount = cp.compare_at_price | minus: cp.price | money_without_trailing_zeros
   endif
+  comment
+    The type label above the name already says "License Plate Frame", so the card
+    drops that tail from the name to keep phone cards to two lines. Full title stays in alt text.
+  endcomment
+  assign short_name = cp.title | remove: ' License Plate Frame' | remove: ' license plate frame' | remove: ' License plate frame'
+  if short_name == blank
+    assign short_name = cp.title
+  endif
 -%}
 <article class="product-card">
   <a href="{{ cp.url }}" class="product-card__image" style="background: linear-gradient(135deg, var(--pink), var(--pink-deep));">
@@ -26,8 +34,8 @@
       <img class="product-card__photo"
            src="{{ cp.featured_image | image_url: width: 600 }}"
            srcset="{{ cp.featured_image | image_url: width: 400 }} 400w, {{ cp.featured_image | image_url: width: 600 }} 600w, {{ cp.featured_image | image_url: width: 900 }} 900w"
-           sizes="(max-width: 520px) 100vw, (max-width: 960px) 50vw, 25vw"
-           alt="{{ cp.featured_image.alt | default: cp.title | escape }}" loading="lazy" width="600" height="600">
+           sizes="(max-width: 960px) 62vw, 25vw"
+           alt="{{ cp.featured_image.alt | default: cp.title | escape }}" loading="lazy" width="600" height="450">
     {%- else -%}
       <div class="product-card__mini-plate">
         {%- render 'plate',
@@ -46,7 +54,7 @@
   </a>
   <div class="product-card__info">
     {%- if cp.type != blank -%}<div class="product-card__theme">{{ cp.type }}</div>{%- endif -%}
-    <a href="{{ cp.url }}"><div class="product-card__name">{{ cp.title }}</div></a>
+    <a href="{{ cp.url }}" class="product-card__link"><span class="product-card__name">{{ short_name }}</span></a>
     <div class="product-card__price-row">
       <span class="product-card__price">{{ cp.price | money }}</span>
       {%- if on_sale -%}<span class="product-card__compare">{{ cp.compare_at_price | money }}</span>{%- endif -%}

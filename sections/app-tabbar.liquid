@@ -1,0 +1,100 @@
+{%- comment -%}
+  Phone app shell: a bottom thumb-zone tab bar (Home / Shop / Search / Bundle / Cart)
+  plus the two bottom sheets it opens. Hidden above 960px, and on product pages,
+  where the sticky add-to-cart bar owns the bottom of the screen instead.
+{%- endcomment -%}
+{%- liquid
+  assign handles = section.settings.collections | split: ','
+  assign t = template.name
+-%}
+{%- unless t == 'product' -%}
+<nav class="tabbar" aria-label="Shop menu">
+  <a class="tabbar__tab" href="{{ routes.root_url }}"{% if t == 'index' %} aria-current="page"{% endif %}>
+    <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M222.14,105.85l-80-80a20,20,0,0,0-28.28,0l-80,80A19.86,19.86,0,0,0,28,120v96a12,12,0,0,0,12,12h64a12,12,0,0,0,12-12V164h24v52a12,12,0,0,0,12,12h64a12,12,0,0,0,12-12V120A19.86,19.86,0,0,0,222.14,105.85ZM204,204H164V152a12,12,0,0,0-12-12H104a12,12,0,0,0-12,12v52H52V121.65l76-76,76,76Z"/></svg>
+    <span>Home</span>
+  </a>
+  <button class="tabbar__tab" type="button" data-sheet-open="shopSheet" aria-haspopup="dialog"{% if t == 'collection' or t == 'list-collections' %} aria-current="page"{% endif %}>
+    <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M100,36H56A20,20,0,0,0,36,56v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V56A20,20,0,0,0,100,36ZM96,96H60V60H96ZM200,36H156a20,20,0,0,0-20,20v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V56A20,20,0,0,0,200,36Zm-4,60H160V60h36Zm-96,40H56a20,20,0,0,0-20,20v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V156A20,20,0,0,0,100,136Zm-4,60H60V160H96Zm104-60H156a20,20,0,0,0-20,20v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V156A20,20,0,0,0,200,136Zm-4,60H160V160h36Z"/></svg>
+    <span>Shop</span>
+  </button>
+  <button class="tabbar__tab" type="button" data-sheet-open="searchSheet" aria-haspopup="dialog"{% if t == 'search' %} aria-current="page"{% endif %}>
+    <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M232.49,215.51,185,168a92.12,92.12,0,1,0-17,17l47.53,47.54a12,12,0,0,0,17-17ZM44,112a68,68,0,1,1,68,68A68.07,68.07,0,0,1,44,112Z"/></svg>
+    <span>Search</span>
+  </button>
+  <a class="tabbar__tab tabbar__tab--bundle" href="{{ routes.root_url }}#bundle">
+    <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M234.36,170A12,12,0,0,1,230,186.37l-96,56a12,12,0,0,1-12.1,0l-96-56a12,12,0,0,1,12.09-20.74l90,52.48L218,165.63A12,12,0,0,1,234.36,170ZM218,117.63,128,170.11,38.05,117.63A12,12,0,0,0,26,138.37l96,56a12,12,0,0,0,12.1,0l96-56A12,12,0,0,0,218,117.63ZM20,80a12,12,0,0,1,6-10.37l96-56a12.06,12.06,0,0,1,12.1,0l96,56a12,12,0,0,1,0,20.74l-96,56a12,12,0,0,1-12.1,0l-96-56A12,12,0,0,1,20,80Zm35.82,0L128,122.11,200.18,80,128,37.89Z"/></svg>
+    <span>Bundle</span>
+    <em class="tabbar__flag" aria-hidden="true">-15%</em>
+  </a>
+  <button class="tabbar__tab" type="button" data-open-cart aria-label="Cart, {{ cart.item_count }} items" data-cart-label>
+    <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M243.86,197.65l-14.25-120A20.06,20.06,0,0,0,209.67,60H179.83A52,52,0,0,0,76.17,60H46.33A20.06,20.06,0,0,0,26.39,77.65l-14.25,120A20,20,0,0,0,32.08,220H223.92a20,20,0,0,0,19.94-22.35ZM128,36a28,28,0,0,1,27.71,24H100.29A28,28,0,0,1,128,36ZM36.5,196,49.81,84H76v20a12,12,0,0,0,24,0V84h56v20a12,12,0,0,0,24,0V84h26.19L219.5,196Z"/></svg>
+    <span>Cart</span>
+    <b class="tabbar__count" data-cart-count{% if cart.item_count == 0 %} data-empty{% endif %}>{{ cart.item_count }}</b>
+  </button>
+</nav>
+{%- endunless -%}
+
+<dialog class="sheet" id="shopSheet" aria-labelledby="shopSheetTitle">
+  <div class="sheet__head">
+    <h2 class="sheet__title" id="shopSheetTitle">Pick your flavor</h2>
+    <button class="sheet__close" type="button" data-sheet-close aria-label="Close">
+      <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M208.49,191.51a12,12,0,0,1-17,17L128,145,64.49,208.49a12,12,0,0,1-17-17L111,128,47.51,64.49a12,12,0,0,1,17-17L128,111l63.51-63.52a12,12,0,0,1,17,17L145,128Z"/></svg>
+    </button>
+  </div>
+  <div class="sheet__body">
+    <a class="sheet__all" href="{{ routes.all_products_collection_url }}">
+      <span>Every frame we make</span>
+      <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M224.49,136.49l-72,72a12,12,0,0,1-17-17L187,140H40a12,12,0,0,1,0-24H187L135.51,64.48a12,12,0,0,1,17-17l72,72A12,12,0,0,1,224.49,136.49Z"/></svg>
+    </a>
+    <ul class="sheet__list" role="list">
+      {%- for h in handles -%}
+        {%- assign c = collections[h] -%}
+        {%- if c != blank and c.products_count > 0 -%}
+          <li>
+            <a class="sheet__row" href="{{ c.url }}">
+              <span class="sheet__thumb">
+                {%- if c.featured_image -%}
+                  <img src="{{ c.featured_image | image_url: width: 160, height: 120, crop: 'center' }}" alt="" width="80" height="60" loading="lazy">
+                {%- endif -%}
+              </span>
+              <span class="sheet__name">{{ c.title }}</span>
+              <span class="sheet__count">{{ c.products_count }}</span>
+            </a>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</dialog>
+
+<dialog class="sheet sheet--search" id="searchSheet" aria-labelledby="searchSheetTitle">
+  <div class="sheet__head">
+    <h2 class="sheet__title" id="searchSheetTitle">Find your frame</h2>
+    <button class="sheet__close" type="button" data-sheet-close aria-label="Close">
+      <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M208.49,191.51a12,12,0,0,1-17,17L128,145,64.49,208.49a12,12,0,0,1-17-17L111,128,47.51,64.49a12,12,0,0,1,17-17L128,111l63.51-63.52a12,12,0,0,1,17,17L145,128Z"/></svg>
+    </button>
+  </div>
+  <div class="sheet__body">
+    <form class="sheet__search" action="{{ routes.search_url }}" method="get" role="search">
+      <input type="hidden" name="type" value="product">
+      <label class="visually-hidden" for="sheetSearchInput">Search frames</label>
+      <input id="sheetSearchInput" type="search" name="q" placeholder="Shin Ramyun, Blackpink, F1…" autocomplete="off" autocapitalize="off" enterkeyhint="search" data-sheet-search>
+      <button type="submit" class="btn btn--sm btn--ink">Go</button>
+    </form>
+    <ul class="sheet__list sheet__results" role="list" data-sheet-results aria-live="polite"></ul>
+  </div>
+</dialog>
+
+{% schema %}
+{
+  "name": "App tab bar",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "collections",
+      "label": "Collections in the Shop sheet (handles, comma separated)",
+      "default": "konbini-at-3am,kpop-license-plate-frames,racing-livery-license-plate-frames,fast-food-themed-license-plate-frames,degenerate-meme-culture,alcoholics-anonymous,snack-themed-license-plate-frames,beverage-license-plate-frames,formula-1-teams-license-plate-frames,designer-luxury-license-plate-frames,license-plates"
+    }
+  ]
+}
+{% endschema %}

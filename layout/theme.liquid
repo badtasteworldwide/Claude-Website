@@ -20,6 +20,7 @@
   {{ 'archivo-var-latin.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
   {{ 'fonts.css' | asset_url | stylesheet_tag }}
   {{ 'base.css' | asset_url | stylesheet_tag }}
+  {{ 'app.css' | asset_url | stylesheet_tag }}
   <style>
     :root {
       --accent: {{ settings.accent_color | default: '#fa53c1' }};
@@ -39,7 +40,7 @@
 
   {{ content_for_header }}
 </head>
-<body>
+<body class="tpl-{{ template.name }}{% unless template.name == 'product' %} has-tabbar{% endunless %}">
   <a class="skip-link" href="#MainContent">Skip to content</a>
 
   {% sections 'header-group' %}
@@ -51,6 +52,8 @@
   {% sections 'footer-group' %}
 
   {% section 'cart-drawer' %}
+
+  {% section 'app-tabbar' %}
 
   {%- if settings.enable_buybar and template == 'index' -%}
     <div class="buybar" id="buybar" data-visible="false">

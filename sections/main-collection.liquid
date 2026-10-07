@@ -10,24 +10,39 @@
 
 {%- paginate collection.products by section.settings.products_per_page -%}
   <div class="coll-grid-wrap">
-    <div class="coll-toolbar">
-      {%- assign showing_from = paginate.current_offset | plus: 1 -%}
-      {%- assign showing_to = paginate.current_offset | plus: paginate.page_size -%}
-      {%- if showing_to > collection.products_count -%}{%- assign showing_to = collection.products_count -%}{%- endif -%}
-      <span class="coll-toolbar__count">
-        Showing {{ showing_from }}–{{ showing_to }} of {{ collection.products_count }}
-      </span>
-      <form method="get" action="{{ collection.url }}">
-        <select name="sort_by" onchange="this.form.submit()" aria-label="Sort by">
+    {%- assign chip_handles = section.settings.chip_collections | split: ',' -%}
+    {%- assign current_in_list = false -%}
+    {%- for h in chip_handles -%}{%- if h == collection.handle -%}{%- assign current_in_list = true -%}{%- endif -%}{%- endfor -%}
+    <div class="coll-bar" data-coll-bar>
+      <form class="coll-bar__sort" method="get" action="{{ collection.url }}">
+        <label class="visually-hidden" for="SortBy">Sort by</label>
+        <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M40,92H70.06a36,36,0,0,0,67.88,0H216a12,12,0,0,0,0-24H137.94a36,36,0,0,0-67.88,0H40a12,12,0,0,0,0,24Zm64-24A12,12,0,1,1,92,80,12,12,0,0,1,104,68Zm112,96H201.94a36,36,0,0,0-67.88,0H40a12,12,0,0,0,0,24h94.06a36,36,0,0,0,67.88,0H216a12,12,0,0,0,0-24Zm-48,24a12,12,0,1,1,12-12A12,12,0,0,1,168,188Z"/></svg>
+        <select id="SortBy" name="sort_by" onchange="this.form.submit()">
           {%- assign sort_options = 'manual,Featured|best-selling,Best Selling|price-ascending,Price Low–High|price-descending,Price High–Low|created-descending,Newest|title-ascending,A–Z' | split: '|' -%}
           {%- for opt in sort_options -%}
             {%- assign pair = opt | split: ',' -%}
             <option value="{{ pair[0] }}" {% if collection.sort_by == pair[0] %}selected{% endif %}>{{ pair[1] }}</option>
           {%- endfor -%}
         </select>
+        <noscript><button type="submit" class="btn btn--sm btn--paper">Sort</button></noscript>
       </form>
+      <nav class="coll-bar__chips" aria-label="Browse other collections">
+        <a class="coll-chip" href="{{ routes.all_products_collection_url }}"{% if collection.handle == 'all' %} aria-current="page"{% endif %}>All frames</a>
+        {%- unless current_in_list or collection.handle == 'all' -%}
+          <a class="coll-chip" href="{{ collection.url }}" aria-current="page">{{ collection.title }}</a>
+        {%- endunless -%}
+        {%- for h in chip_handles -%}
+          {%- assign c = collections[h] -%}
+          {%- if c != blank and c.products_count > 0 -%}
+            <a class="coll-chip" href="{{ c.url }}"{% if c.handle == collection.handle %} aria-current="page"{% endif %}>{{ c.title }}</a>
+          {%- endif -%}
+        {%- endfor -%}
+      </nav>
     </div>
-
+    {%- assign showing_from = paginate.current_offset | plus: 1 -%}
+    {%- assign showing_to = paginate.current_offset | plus: paginate.page_size -%}
+    {%- if showing_to > collection.products_count -%}{%- assign showing_to = collection.products_count -%}{%- endif -%}
+    <p class="coll-toolbar__count">Showing {{ showing_from }}–{{ showing_to }} of {{ collection.products_count }}</p>
     {%- if collection.products.size > 0 -%}
       <div class="products">
         {%- for product in collection.products -%}
@@ -60,7 +75,8 @@
 {
   "name": "Collection page",
   "settings": [
-    { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 8, "max": 48, "step": 4, "default": 24 }
+    { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 8, "max": 48, "step": 4, "default": 24 },
+    { "type": "textarea", "id": "chip_collections", "label": "Collection chips (handles, comma separated)", "default": "konbini-at-3am,kpop-license-plate-frames,racing-livery-license-plate-frames,fast-food-themed-license-plate-frames,degenerate-meme-culture,alcoholics-anonymous,snack-themed-license-plate-frames,beverage-license-plate-frames,formula-1-teams-license-plate-frames,designer-luxury-license-plate-frames" }
   ]
 }
 {% endschema %}

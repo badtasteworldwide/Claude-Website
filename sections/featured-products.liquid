@@ -1,18 +1,23 @@
-<section class="section" id="drops" style="padding-top: 20px;">
+<section class="section section--drops" id="drops">
   <div class="section__head">
     <div>
       {%- if section.settings.eyebrow != blank -%}<span class="section__eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
       <h2 class="section__title">{{ section.settings.heading }}</h2>
     </div>
     {%- if section.settings.link_label != blank -%}
-      <a href="{{ section.settings.collection.url | default: routes.all_products_collection_url }}" class="section__link">{{ section.settings.link_label }}</a>
+      <a href="{{ section.settings.collection.url | default: routes.all_products_collection_url }}" class="section__link"><span class="section__link-long">{{ section.settings.link_label }}</span><span class="section__link-short" aria-hidden="true">See all</span></a>
     {%- endif -%}
   </div>
-  <div class="products">
+  <div class="products rail rail--products" data-rail tabindex="0" role="region" aria-label="{{ section.settings.eyebrow | default: 'Products' | escape }}, swipe for more">
     {%- if section.settings.collection != blank -%}
       {%- for product in section.settings.collection.products limit: section.settings.limit -%}
         {%- render 'product-card', card_product: product -%}
       {%- endfor -%}
+      <a class="rail-end" href="{{ section.settings.collection.url | default: routes.all_products_collection_url }}">
+        <span class="rail-end__big">{{ section.settings.collection.products_count }}</span>
+        <span class="rail-end__label">frames in this lineup</span>
+        <span class="rail-end__cta">See them all →</span>
+      </a>
     {%- else -%}
       {%- for i in (1..4) -%}
         <article class="product-card">
@@ -28,6 +33,7 @@
       {%- endfor -%}
     {%- endif -%}
   </div>
+  <div class="rail-progress" aria-hidden="true"></div>
 </section>
 
 {% schema %}

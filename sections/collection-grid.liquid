@@ -5,12 +5,12 @@
       <h2 class="section__title">{{ section.settings.heading }}</h2>
     </div>
     {%- if section.settings.link_label != blank -%}
-      <a href="{{ section.settings.link_url | default: routes.collections_url }}" class="section__link">{{ section.settings.link_label }}</a>
+      <a href="{{ section.settings.link_url | default: routes.collections_url }}" class="section__link"><span class="section__link-long">{{ section.settings.link_label }}</span><span class="section__link-short" aria-hidden="true">See all</span></a>
     {%- endif -%}
   </div>
   {%- assign uniform = false -%}
   {%- if section.settings.layout == 'uniform' or section.settings.layout == blank -%}{%- assign uniform = true -%}{%- endif -%}
-  <div class="collections{% if uniform %} collections--uniform{% endif %}" style="--card-h: {{ section.settings.card_height | default: 260 }}px;">
+  <div class="collections{% if uniform %} collections--uniform{% endif %} rail rail--wide" data-rail tabindex="0" role="region" aria-label="Collections, swipe for more" style="--card-h: {{ section.settings.card_height | default: 260 }}px;">
     {%- assign layout_classes = 'collection-card--wide,collection-card--sq,,,,collection-card--wide' | split: ',' -%}
     {%- for block in section.blocks -%}
       {%- assign coll = block.settings.collection -%}
@@ -64,6 +64,7 @@
       </a>
     {%- endfor -%}
   </div>
+  <div class="rail-progress" aria-hidden="true"></div>
 </section>
 
 <style>
@@ -101,13 +102,19 @@
   .collection-card__count { margin-top: 0; justify-self: start; white-space: nowrap; border-bottom: 2px solid currentColor; padding-bottom: 1px; }
   .collection-card:hover .collection-card__count { background: var(--yellow); color: var(--ink); border-color: var(--ink); }
   .collection-card:nth-child(3n+3):hover .collection-card__count { background: var(--paper); }
+  @media (max-width: 960px) {
+    .collections.rail .collection-card { box-shadow: var(--shadow-sm); }
+    .collections.rail .collection-card__info { padding: 12px 14px 14px; row-gap: 6px; }
+    .collections.rail .collection-card__title { font-size: 18px; }
+    .collections.rail .collection-card__count { display: inline-block; }
+  }
   @media (max-width: 768px) {
     .collections--uniform { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 14px; }
     .collections--uniform .collection-card, .collection-card { aspect-ratio: auto; box-shadow: var(--shadow-sm); }
     .collection-card__media { aspect-ratio: 4 / 3; }
     .collection-card__info { grid-template-columns: 1fr; padding: 10px; }
-    .collection-card__title { font-size: 14px; }
-    .collection-card__count { display: none; }
+    .collections:not(.rail) .collection-card__title { font-size: 14px; }
+    .collections:not(.rail) .collection-card__count { display: none; }
   }
 </style>
 

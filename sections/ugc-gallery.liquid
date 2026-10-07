@@ -9,11 +9,11 @@
         <a href="{{ section.settings.link_url }}" class="section__link">{{ section.settings.link_label }}</a>
       {%- endif -%}
     </div>
-    <div class="ugc__grid">
+    <div class="ugc__grid rail rail--ugc" data-rail tabindex="0" role="region" aria-label="Customer photos, swipe for more">
       {%- for block in section.blocks -%}
         <div class="ugc__tile" {{ block.shopify_attributes }}>
           {%- if block.settings.image != blank -%}
-            <img src="{{ block.settings.image | image_url: width: 500 }}" alt="{{ block.settings.handle | escape }}" loading="lazy" width="500" height="500" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+            <img src="{{ block.settings.image | image_url: width: 500 }}" srcset="{{ block.settings.image | image_url: width: 360 }} 360w, {{ block.settings.image | image_url: width: 500 }} 500w" sizes="(max-width: 960px) 46vw, 16vw" alt="A Bad Taste frame on a customer's car{% if block.settings.handle != blank %}, {{ block.settings.handle | escape }}{% endif %}" loading="lazy" width="500" height="500" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" onerror="this.parentNode.hidden=true">
           {%- else -%}
             <div class="ugc__tile-bg" style="background: linear-gradient(135deg, {{ block.settings.color_1 }}, {{ block.settings.color_2 }});">
               <div style="width:80%;">{%- render 'plate', number: block.settings.plate_number, color1: block.settings.color_1, color2: block.settings.color_2 -%}</div>
@@ -23,6 +23,7 @@
         </div>
       {%- endfor -%}
     </div>
+    <div class="rail-progress" aria-hidden="true"></div>
   </div>
 </section>
 

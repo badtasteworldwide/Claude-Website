@@ -3,14 +3,24 @@
 {%- if product.handle contains 'plate-frame' -%}{%- assign has_frame_3d = true -%}{%- endif -%}
 <div class="pdp" data-pdp>
   <div class="pdp__grid">
+    {%- liquid
+      assign gallery_ar = 1.3333
+      if product.featured_image
+        assign gallery_ar = product.featured_image.aspect_ratio
+      endif
+      if gallery_ar < 1
+        assign gallery_ar = 1
+      endif
+    -%}
     <div class="pdp__media">
-      <div class="pdp__main-img">
+      <div class="pdp__gallery" style="--ar: {{ gallery_ar }};">
+      <div class="pdp__main-img" data-gallery tabindex="0" role="region" aria-label="Product photos{% if product.images.size > 1 %}, swipe for more{% endif %}">
         {%- if product.featured_image -%}
           <img src="{{ product.featured_image | image_url: width: 1000 }}"
                srcset="{{ product.featured_image | image_url: width: 600 }} 600w, {{ product.featured_image | image_url: width: 1000 }} 1000w, {{ product.featured_image | image_url: width: 1400 }} 1400w"
                sizes="(max-width: 960px) 100vw, 50vw"
                alt="{{ product.featured_image.alt | default: product.title | escape }}"
-               width="1000" height="1000">
+               width="1000" height="{{ 1000 | divided_by: gallery_ar | round }}" fetchpriority="high">
         {%- else -%}
           <div style="width: 80%;">
             {%- render 'plate',
@@ -37,12 +47,31 @@
             <p class="pfg3d__credit" data-role="credit" hidden>Car: “Car Concept” by Eric Chadwick / Darmstadt Graphics Group, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, modified (logos removed, simplified)</p>
           </div>
         {%- endif -%}
+        {%- comment -%} Extra photos: swipeable slides on phones, hidden on desktop (thumbnails drive the main image there). {%- endcomment -%}
+        {%- for image in product.images offset: 1 limit: 7 -%}
+          <img class="pdp__slide"
+               src="{{ image | image_url: width: 1000 }}"
+               srcset="{{ image | image_url: width: 600 }} 600w, {{ image | image_url: width: 1000 }} 1000w"
+               sizes="100vw" loading="lazy"
+               alt="{{ image.alt | default: product.title | escape }}"
+               width="1000" height="{{ 1000 | divided_by: image.aspect_ratio | round }}">
+        {%- endfor -%}
+      </div>
+      {%- if product.images.size > 1 -%}
+        <span class="pdp__count" aria-hidden="true"><b data-slide-index>1</b>/{{ product.images.size | at_most: 8 }}</span>
+      {%- endif -%}
+      {%- if has_frame_3d -%}
+        <button type="button" class="pdp__spin" data-spin hidden aria-pressed="false">
+          <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false"><path d="M225.6,62.64l-88-48.17a19.91,19.91,0,0,0-19.2,0l-88,48.17A20,20,0,0,0,20,80.19v95.62a20,20,0,0,0,10.4,17.55l88,48.17a19.89,19.89,0,0,0,19.2,0l88-48.17A20,20,0,0,0,236,175.81V80.19A20,20,0,0,0,225.6,62.64ZM128,36.57,200,76,128,115.4,56,76ZM44,96.79l72,39.4v76.67L44,173.44Zm96,116.07V136.19l72-39.4v76.65Z"/></svg>
+          <span data-spin-label>Spin it in 3D</span>
+        </button>
+      {%- endif -%}
       </div>
       {%- if product.images.size > 1 or has_frame_3d and product.images.size > 0 -%}
         <div class="pdp__thumbs"{% if product.images.size < 2 %} style="display: none;"{% endif %}>
           {%- for image in product.images limit: 8 -%}
             <button type="button" class="pdp__thumb" data-src="{{ image | image_url: width: 1000 }}" data-active="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="View image {{ forloop.index }}">
-              <img src="{{ image | image_url: width: 160 }}" alt="{{ image.alt | default: product.title | escape }}" loading="lazy" width="160" height="160">
+              <img src="{{ image | image_url: width: 160 }}" alt="{{ image.alt | default: product.title | escape }}" loading="lazy" width="160" height="120">
             </button>
           {%- endfor -%}
         </div>
@@ -65,7 +94,7 @@
         {%- endif -%}
       </div>
 
-      {%- form 'product', product, data-product-form: '' -%}
+      {%- form 'product', product, data-product-form: '', class: 'pdp__form' -%}
         <input type="hidden" name="id" value="{{ current_variant.id }}">
 
         {%- unless product.has_only_default_variant -%}
@@ -127,6 +156,19 @@
     </div>
   </div>
 
+  {%- if current_variant -%}
+  <div class="sticky-atc" data-sticky-atc data-visible="false">
+    {%- if product.featured_image -%}
+      <img class="sticky-atc__thumb" src="{{ product.featured_image | image_url: width: 120 }}" alt="" width="60" height="45" loading="lazy">
+    {%- endif -%}
+    <div class="sticky-atc__text">
+      <strong>{{ product.title | remove: ' License Plate Frame' }}</strong>
+      <span><span data-sticky-variant>{% unless product.has_only_default_variant %}{{ current_variant.title }} · {% endunless %}</span><span data-sticky-price>{{ current_variant.price | money }}</span></span>
+    </div>
+    <button type="button" class="btn sticky-atc__btn" data-sticky-btn{% unless current_variant.available %} disabled{% endunless %}>{% if current_variant.available %}Add to cart{% else %}Sold out{% endif %}</button>
+  </div>
+  {%- endif -%}
+
   <script type="application/json" data-variants-json>
     {{ product.variants | json }}
   </script>
@@ -134,8 +176,100 @@
 
 {%- if has_frame_3d -%}
   {{ 'plate-frame-garage.css' | asset_url | stylesheet_tag }}
-  <script type="module" src="{{ 'plate-frame-garage.js' | asset_url }}"></script>
+  {%- comment -%}
+    Desktop mounts the 3D slide straight away, as before. Phones get photos first and a
+    "Spin it in 3D" chip; the viewer and three.js load only when it is tapped. The chip
+    appears only once the catalog confirms this product has a 3D design.
+  {%- endcomment -%}
+  <script>
+    (function () {
+      var src = {{ 'plate-frame-garage.js' | asset_url | json }};
+      var root = document.querySelector('[data-pfg-pdp]');
+      var chip = document.querySelector('[data-spin]');
+      if (!root) return;
+      var loaded = false;
+      function load() { if (!loaded) { loaded = true; import(src).catch(function (e) { console.error(e); }); } }
+      if (window.matchMedia('(min-width: 961px)').matches || !chip) { load(); return; }
+      var label = chip.querySelector('[data-spin-label]');
+      var gallery = document.querySelector('[data-gallery]');
+      function sync() {
+        var on = !root.hidden;
+        chip.setAttribute('aria-pressed', String(on));
+        chip.dataset.loading = 'false';
+        label.textContent = on ? 'Back to photos' : 'Spin it in 3D';
+        if (on && gallery) gallery.scrollTo({ left: 0 });
+        if (gallery) gallery.dataset.mode = on ? '3d' : 'photos';
+      }
+      new MutationObserver(sync).observe(root, { attributes: true, attributeFilter: ['hidden'] });
+      chip.addEventListener('click', function () {
+        var thumb3d = document.querySelector('.pfg3d-thumb');
+        if (!loaded) { chip.dataset.loading = 'true'; label.textContent = 'Loading 3D…'; load(); return; }
+        if (!root.hidden) {
+          var photo = document.querySelector('.pdp__thumb:not(.pfg3d-thumb)');
+          if (photo) photo.click(); else root.hidden = true;
+        } else if (thumb3d) thumb3d.click();
+      });
+      // Reveal the chip only for products that have a 3D design (catalog is a small cached JSON).
+      var check = function () {
+        fetch(root.dataset.catalog).then(function (r) { return r.json(); }).then(function (cat) {
+          var has = (cat.groups || []).some(function (g) {
+            return (g.designs || []).some(function (d) { return d.product === root.dataset.handle; });
+          });
+          if (has) chip.hidden = false;
+        }).catch(function () {});
+      };
+      if ('requestIdleCallback' in window) requestIdleCallback(check, { timeout: 3000 }); else setTimeout(check, 1500);
+    })();
+  </script>
 {%- endif -%}
+<script>
+  (function () {
+    var pdp = document.querySelector('[data-pdp]');
+    if (!pdp) return;
+    /* Swipe gallery counter */
+    var gallery = pdp.querySelector('[data-gallery]');
+    var idx = pdp.querySelector('[data-slide-index]');
+    if (gallery && idx) {
+      var ticking = false;
+      gallery.addEventListener('scroll', function () {
+        if (ticking) return; ticking = true;
+        requestAnimationFrame(function () {
+          ticking = false;
+          idx.textContent = Math.round(gallery.scrollLeft / Math.max(1, gallery.clientWidth)) + 1;
+        });
+      }, { passive: true });
+    }
+    /* Sticky add-to-cart: shows once the real button scrolls up out of view */
+    var bar = pdp.querySelector('[data-sticky-atc]');
+    var form = pdp.querySelector('form[data-product-form]');
+    var mainBtn = form && form.querySelector('[type="submit"]');
+    var row = pdp.querySelector('.pdp__atc-row');
+    if (!bar || !form || !mainBtn || !row) return;
+    var stickyBtn = bar.querySelector('[data-sticky-btn]');
+    var price = bar.querySelector('[data-sticky-price]');
+    var variantEl = bar.querySelector('[data-sticky-variant]');
+    var priceSrc = pdp.querySelector('[data-price]');
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        var e = entries[0];
+        bar.dataset.visible = String(!e.isIntersecting && e.boundingClientRect.top < 0);
+      }).observe(row);
+    }
+    function mirror() {
+      stickyBtn.disabled = mainBtn.disabled;
+      var t = mainBtn.textContent;
+      stickyBtn.textContent = /sold/i.test(t) ? 'Sold out' : (/unavailable/i.test(t) ? 'Unavailable' : (/adding/i.test(t) ? 'Adding…' : 'Add to cart'));
+      if (priceSrc) price.textContent = priceSrc.textContent;
+      var picked = Array.prototype.map.call(pdp.querySelectorAll('[data-variant-picker] input:checked'), function (i) { return i.value; });
+      if (picked.length) variantEl.textContent = picked.join(' / ') + ' · ';
+    }
+    new MutationObserver(mirror).observe(mainBtn, { attributes: true, childList: true, subtree: true, characterData: true });
+    if (priceSrc) new MutationObserver(mirror).observe(priceSrc, { childList: true, characterData: true, subtree: true });
+    stickyBtn.addEventListener('click', function () {
+      if (form.requestSubmit) form.requestSubmit(mainBtn); else mainBtn.click();
+    });
+  })();
+</script>
 
 {% schema %}
 {
