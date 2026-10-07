@@ -38,7 +38,7 @@
                 <img class="collection-card__photo" src="{{ img | image_url: width: 1400 }}" srcset="{{ img | image_url: width: 600 }} 600w, {{ img | image_url: width: 900 }} 900w, {{ img | image_url: width: 1400 }} 1400w, {{ img | image_url: width: 1800 }} 1800w" sizes="(max-width: 768px) 260px, 50vw" alt="{{ img_alt }}" loading="lazy" width="1400" height="{{ 1400 | divided_by: img.aspect_ratio | round }}">
               </span>
             {%- else -%}
-              <img class="collection-card__photo" src="{{ img | image_url: width: 900 }}" srcset="{{ img | image_url: width: 300 }} 300w, {{ img | image_url: width: 600 }} 600w, {{ img | image_url: width: 900 }} 900w" sizes="(max-width: 768px) 130px, 33vw" alt="{{ img_alt }}" loading="lazy" width="900" height="{{ 900 | divided_by: img.aspect_ratio | round }}">
+              <img class="collection-card__photo" src="{{ img | image_url: width: 900 }}" srcset="{{ img | image_url: width: 300 }} 300w, {{ img | image_url: width: 600 }} 600w, {{ img | image_url: width: 900 }} 900w" sizes="(max-width: 768px) 76vw, 33vw" alt="{{ img_alt }}" loading="lazy" width="900" height="{{ 900 | divided_by: img.aspect_ratio | round }}">
             {%- endif -%}
           {%- else -%}
             <div style="position:absolute; left:50%; top:45%; transform:translate(-50%,-50%); width:70%;">
@@ -116,16 +116,17 @@
     }
     .collections--uniform::-webkit-scrollbar { display: none; }
     .collections--uniform .collection-card {
-      flex: 0 0 116px; scroll-snap-align: start; box-shadow: var(--shadow-sm); border-width: 2px; aspect-ratio: auto;
+      flex: 0 0 76%; scroll-snap-align: start; box-shadow: var(--shadow-sm); border-width: 2px; aspect-ratio: auto;
     }
     .collections--uniform .collection-card:hover { transform: none; box-shadow: var(--shadow-sm); }
-    .collections--uniform .collection-card__media { aspect-ratio: 3 / 4; }
-    .collections--uniform .collection-card__poster { left: 0; transform: none; width: 100%; border-inline: 0; }
-    .collections--uniform .collection-card__poster .collection-card__photo { transform: none; }
-    .collections--uniform .collection-card__info { padding: 7px 8px 8px; row-gap: 0; border-top-width: 2px; }
-    .collections--uniform .collection-card__label { display: none; }
-    .collections--uniform .collection-card__title { font-size: 12px; line-height: 1.15; overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.3em; }
+    /* Covers are 4:3: show the whole cover, never crop it. */
+    .collections--uniform .collection-card__media { aspect-ratio: 4 / 3; }
+    .collections--uniform .collection-card__media > .collection-card__bg > .collection-card__photo { object-fit: contain; }
+    .collections--uniform .collection-card__info { padding: 10px 12px 12px; row-gap: 2px; border-top-width: 2px; }
+    .collections--uniform .collection-card__label { margin-bottom: 2px; font-size: 11px; }
+    .collections--uniform .collection-card__title { font-size: 17px; line-height: 1.12; overflow-wrap: anywhere; }
     .collections--uniform .collection-card__count { display: none; }
+    .section--colls .section__link { display: none; }
   }
 </style>
 

@@ -1334,6 +1334,7 @@ legend.option-label { padding: 0; }
   .ugc__grid::-webkit-scrollbar { display: none; }
   .ugc__tile, .ugc__tile:nth-child(n) { flex: 0 0 42%; transform: none; scroll-snap-align: start; box-shadow: var(--shadow-sm); }
   .ugc .section__head { margin-bottom: 14px; }
+  .ugc .section__eyebrow, .faq .section__eyebrow { display: none; }
 
   /* 3D teaser */
   .garage-teaser__inner { grid-template-columns: minmax(0, 1fr); gap: 16px; }
