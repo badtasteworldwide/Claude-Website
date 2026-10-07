@@ -1,115 +1,62 @@
-<section class="section" id="collections">
-  <div class="section__head">
-    <div>
+{%- comment -%}
+  Collection feed: one full-bleed panel per collection (4:3 cover, never cropped),
+  a tilted title sticker, a one-line joke and a shop button. Panels cycle through
+  ink, bubblegum and highlighter bands. "Start number" keeps numbering going when
+  the feed is split into two sections around another panel.
+{%- endcomment -%}
+<section class="zfeed" id="{{ section.settings.anchor | default: 'collections' }}">
+  {%- if section.settings.heading != blank -%}
+    <div class="zfeed__head">
       {%- if section.settings.eyebrow != blank -%}<span class="section__eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
-      <h2 class="section__title">{{ section.settings.heading }}</h2>
+      <h2 class="section__title zfeed__title">{{ section.settings.heading }}</h2>
     </div>
-    {%- if section.settings.link_label != blank -%}
-      <a href="{{ section.settings.link_url | default: routes.collections_url }}" class="section__link">{{ section.settings.link_label }}</a>
-    {%- endif -%}
-  </div>
-  {%- assign uniform = false -%}
-  {%- if section.settings.layout == 'uniform' or section.settings.layout == blank -%}{%- assign uniform = true -%}{%- endif -%}
-  <div class="collections{% if uniform %} collections--uniform{% endif %}" style="--card-h: {{ section.settings.card_height | default: 260 }}px;">
-    {%- assign layout_classes = 'collection-card--wide,collection-card--sq,,,,collection-card--wide' | split: ',' -%}
+  {%- endif -%}
+  <div class="zfeed__list">
+    {%- assign start = section.settings.start_number | default: 1 -%}
+    {%- assign tones = 'ink,pink,yellow' | split: ',' -%}
     {%- for block in section.blocks -%}
       {%- assign coll = block.settings.collection -%}
-      {%- assign idx = forloop.index0 | modulo: 6 -%}
-      {%- assign size_class = '' -%}
-      {%- unless uniform -%}
-        {%- case block.settings.size -%}
-          {%- when 'wide' -%}{%- assign size_class = 'collection-card--wide' -%}
-          {%- when 'square' -%}{%- assign size_class = 'collection-card--sq' -%}
-          {%- when 'small' -%}{%- assign size_class = '' -%}
-          {%- else -%}{%- assign size_class = layout_classes[idx] -%}
-        {%- endcase -%}
-      {%- endunless -%}
-      <a href="{{ coll.url | default: '#' }}" class="collection-card {{ size_class }}" {{ block.shopify_attributes }}>
-        <div class="collection-card__media">
-        <div class="collection-card__bg" style="background: linear-gradient(135deg, {{ block.settings.color_1 }}, {{ block.settings.color_2 }});">
-          {%- assign img = block.settings.image -%}
-          {%- assign img_alt = block.settings.title_override -%}
-          {%- if img == blank and block.settings.use_image -%}{%- assign img = coll.featured_image -%}{%- assign img_alt = coll.title -%}{%- endif -%}
+      {%- assign n = forloop.index0 | plus: start -%}
+      {%- assign tone_i = n | minus: 1 | modulo: 3 -%}
+      {%- assign flip = n | modulo: 2 -%}
+      {%- assign title = block.settings.title_override | default: coll.title | default: 'Pick a collection' -%}
+      {%- assign img = block.settings.image -%}
+      {%- if img == blank and block.settings.use_image -%}{%- assign img = coll.featured_image -%}{%- endif -%}
+      {%- assign joke = block.settings.joke -%}
+      {%- if joke == blank and block.settings.frame_top != blank -%}{%- assign joke = block.settings.frame_top | append: '. ' | append: block.settings.frame_bottom -%}{%- endif -%}
+      <article class="zpanel zpanel--{{ tones[tone_i] }}{% if flip == 0 %} zpanel--flip{% endif %}" {{ block.shopify_attributes }}>
+        <a class="zpanel__media" href="{{ coll.url | default: '#' }}" tabindex="-1" aria-hidden="true" style="--c1: {{ block.settings.color_1 }}; --c2: {{ block.settings.color_2 }};">
           {%- if img != blank -%}
-            {%- assign img_alt = img.alt | default: img_alt | escape -%}
-            {%- if img.aspect_ratio >= 1.8 -%}
-              {%- comment -%} 2:1 cover = centred 3:4 poster + blurred padding: crop to the poster, sides show the block colours. {%- endcomment -%}
-              <span class="collection-card__poster">
-                <img class="collection-card__photo" src="{{ img | image_url: width: 1400 }}" srcset="{{ img | image_url: width: 900 }} 900w, {{ img | image_url: width: 1400 }} 1400w, {{ img | image_url: width: 1800 }} 1800w" sizes="(max-width: 768px) 100vw, 50vw" alt="{{ img_alt }}" loading="lazy" width="1400" height="{{ 1400 | divided_by: img.aspect_ratio | round }}">
-              </span>
-            {%- else -%}
-              <img class="collection-card__photo" src="{{ img | image_url: width: 900 }}" srcset="{{ img | image_url: width: 600 }} 600w, {{ img | image_url: width: 900 }} 900w" sizes="(max-width: 768px) 50vw, 33vw" alt="{{ img_alt }}" loading="lazy" width="900" height="{{ 900 | divided_by: img.aspect_ratio | round }}">
-            {%- endif -%}
+            <img src="{{ img | image_url: width: 900 }}"
+                 srcset="{{ img | image_url: width: 600 }} 600w, {{ img | image_url: width: 900 }} 900w, {{ img | image_url: width: 1200 }} 1200w, {{ img | image_url: width: 1600 }} 1600w"
+                 sizes="(max-width: 760px) 100vw, (max-width: 1100px) 50vw, 33vw"
+                 alt="" loading="lazy" decoding="async"
+                 width="900" height="{{ 900 | divided_by: img.aspect_ratio | round }}"
+                 style="aspect-ratio: {{ img.aspect_ratio }};">
           {%- else -%}
-            <div style="position:absolute; left:50%; top:45%; transform:translate(-50%,-50%); width:70%;">
-              {%- render 'plate',
-                top: block.settings.frame_top,
-                bottom: block.settings.frame_bottom,
-                number: block.settings.plate_number,
-                color1: block.settings.color_1,
-                color2: block.settings.color_2 -%}
-            </div>
+            <span class="zpanel__plate">
+              {%- render 'plate', top: block.settings.frame_top, bottom: block.settings.frame_bottom, number: block.settings.plate_number, color1: block.settings.color_1, color2: block.settings.color_2 -%}
+            </span>
           {%- endif -%}
+          {%- if block.settings.tag != blank -%}<span class="zpanel__tag">{{ block.settings.tag }}</span>{%- endif -%}
+        </a>
+        <div class="zpanel__body">
+          <span class="zpanel__no" aria-hidden="true">No.{% if n < 10 %}0{% endif %}{{ n }}</span>
+          <h3 class="zpanel__title"><a href="{{ coll.url | default: '#' }}">{{ title }}</a></h3>
+          {%- if joke != blank -%}<p class="zpanel__joke">{{ joke }}</p>{%- endif -%}
+          <a class="btn zpanel__cta" href="{{ coll.url | default: '#' }}" aria-label="Shop {{ title | escape }}{% if coll != blank %}, {{ coll.products_count }} frames{% endif %}">
+            {%- if coll != blank -%}Shop {{ coll.products_count }} frames{%- else -%}Shop{%- endif -%} <span aria-hidden="true">&rarr;</span>
+          </a>
         </div>
-        </div>
-        <div class="collection-card__info">
-          {%- if coll != blank -%}
-            <div class="collection-card__label">{{ coll.products_count }} frames{%- if block.settings.tag != blank -%}<span class="collection-card__tag">{{ block.settings.tag }}</span>{%- endif -%}</div>
-            <div class="collection-card__title">{{ block.settings.title_override | default: coll.title }}</div>
-          {%- else -%}
-            <div class="collection-card__title">{{ block.settings.title_override | default: 'Pick a collection' }}</div>
-          {%- endif -%}
-          <div class="collection-card__count">Shop the collection →</div>
-        </div>
-      </a>
+      </article>
     {%- endfor -%}
   </div>
+  {%- if section.settings.link_label != blank -%}
+    <div class="zfeed__foot">
+      <a href="{{ section.settings.link_url | default: routes.collections_url }}" class="section__link">{{ section.settings.link_label }}</a>
+    </div>
+  {%- endif -%}
 </section>
-
-<style>
-  .collections--uniform {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-template-rows: none;
-    grid-auto-rows: auto;
-    gap: 28px 24px;
-  }
-  .collections--uniform .collection-card { grid-column: span 1; grid-row: span 1; }
-  /* Photo on top, caption slab below, so the title never covers the cover art.
-     Covers are 2:1 with blurred padding around a centred 3:4 poster;
-     a 4:3 frame shows the whole poster and trims only padding. */
-  .collection-card { display: flex; flex-direction: column; background: var(--paper); }
-  .collection-card__media { position: relative; overflow: hidden; aspect-ratio: 4 / 3; flex: none; }
-  .collections:not(.collections--uniform) .collection-card__media { aspect-ratio: auto; min-height: 140px; }
-  .collection-card__poster {
-    position: absolute; top: 0; bottom: 0; left: 50%; transform: translateX(-50%);
-    height: 100%; aspect-ratio: 3 / 4; overflow: hidden;
-    border-inline: 3px solid var(--ink);
-  }
-  .collection-card__poster .collection-card__photo { transform: scale(1.03); }
-  /* Caption slabs rotate through the colorway: ink, bubblegum, highlighter. */
-  .collection-card__info {
-    display: grid; grid-template-columns: minmax(0, 1fr); align-items: end; row-gap: 10px;
-    padding: 14px 16px 16px; border-top: 3px solid var(--ink); background: var(--ink); color: var(--paper);
-    flex: 1 1 auto; align-content: end;
-  }
-  .collection-card:nth-child(3n+2) .collection-card__info { background: var(--pink-soft); color: var(--ink); }
-  .collection-card:nth-child(3n+3) .collection-card__info { background: var(--yellow); color: var(--ink); }
-  .collection-card__info .collection-card__tag { position: static; display: inline-block; margin-left: 8px; padding: 2px 6px; font-size: 10px; vertical-align: 1px; }
-  .collection-card:nth-child(3n+3) .collection-card__info .collection-card__tag { background: var(--paper); }
-  .collection-card__label { grid-column: 1 / -1; margin-bottom: 6px; }
-  .collection-card__title { font-size: clamp(17px, 1.6vw, 23px); line-height: 1.1; overflow-wrap: normal; hyphens: none; }
-  .collection-card__count { margin-top: 0; justify-self: start; white-space: nowrap; border-bottom: 2px solid currentColor; padding-bottom: 1px; }
-  .collection-card:hover .collection-card__count { background: var(--yellow); color: var(--ink); border-color: var(--ink); }
-  .collection-card:nth-child(3n+3):hover .collection-card__count { background: var(--paper); }
-  @media (max-width: 768px) {
-    .collections--uniform { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 14px; }
-    .collections--uniform .collection-card, .collection-card { aspect-ratio: auto; box-shadow: var(--shadow-sm); }
-    .collection-card__media { aspect-ratio: 4 / 3; }
-    .collection-card__info { grid-template-columns: 1fr; padding: 10px; }
-    .collection-card__title { font-size: 14px; }
-    .collection-card__count { display: none; }
-  }
-</style>
 
 {% schema %}
 {
@@ -139,6 +86,8 @@
       "id": "link_url",
       "label": "Link URL"
     },
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "collections" },
+    { "type": "number", "id": "start_number", "label": "Start number", "default": 1, "info": "Use 4 for a second feed that continues after three panels." },
     {
       "type": "select",
       "id": "layout",
@@ -211,6 +160,7 @@
           "id": "title_override",
           "label": "Title override (optional)"
         },
+        { "type": "text", "id": "joke", "label": "One-line joke", "info": "Falls back to the plate frame top and bottom text." },
         {
           "type": "text",
           "id": "tag",

@@ -1,39 +1,29 @@
-<section class="reviews" id="reviews">
-  <div class="section__head">
-    <div>
-      {%- if section.settings.eyebrow != blank -%}<span class="section__eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
-      <h2 class="section__title">{{ section.settings.heading }}</h2>
+{%- comment -%} The numbers, printed as a till receipt. Stats live here only (the hero no longer repeats them). {%- endcomment -%}
+<section class="zreceipt" id="reviews">
+  <div class="zreceipt__paper">
+    <div class="zreceipt__top">
+      <span class="zreceipt__shop">Bad Taste Worldwide</span>
+      <span class="zreceipt__sub">{{ section.settings.eyebrow }}</span>
     </div>
-  </div>
-  {%- assign has_stats = false -%}
-  {%- for block in section.blocks -%}{%- if block.type == 'stat' -%}{%- assign has_stats = true -%}{%- endif -%}{%- endfor -%}
-  {%- if has_stats -%}
-    <div class="reviews__stat-row">
+    <h2 class="zreceipt__title">{{ section.settings.heading }}</h2>
+    <dl class="zreceipt__rows">
       {%- for block in section.blocks -%}
         {%- if block.type == 'stat' -%}
-          <div class="reviews__stat" {{ block.shopify_attributes }}>
-            {%- if block.settings.show_stars -%}<span class="stars-big">★★★★★</span>{%- else -%}<strong>{{ block.settings.value }}</strong>{%- endif -%}
-            <span>{{ block.settings.label }}</span>
-          </div>
+          <div class="zreceipt__row" {{ block.shopify_attributes }}><dt>{{ block.settings.label }}</dt><dd>{{ block.settings.value }}</dd></div>
         {%- endif -%}
       {%- endfor -%}
-    </div>
-  {%- endif -%}
-  <div class="reviews__grid">
-    {%- for block in section.blocks -%}
-      {%- if block.type == 'review' -%}
-        <figure class="review-card" {{ block.shopify_attributes }}>
-          <div class="review-card__stars stars-row">{% for i in (1..block.settings.stars) %}★{% endfor %}{% assign empty_stars = 5 | minus: block.settings.stars %}{% for i in (1..empty_stars) %}{% unless empty_stars == 0 %}☆{% endunless %}{% endfor %}</div>
-          <div class="review-card__title">{{ block.settings.title }}</div>
-          <blockquote class="review-card__body">{{ block.settings.body }}</blockquote>
-          <figcaption class="review-card__meta">
-            <strong>{{ block.settings.name }}</strong>
-            <span>{{ block.settings.product_name }}{% if block.settings.verified %} · Verified{% endif %}</span>
-          </figcaption>
-        </figure>
-      {%- endif -%}
-    {%- endfor -%}
+    </dl>
+    <div class="zreceipt__total"><span>Regrets</span><span>0</span></div>
+    <p class="zreceipt__thanks">Thank you for shopping in bad taste</p>
   </div>
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'review' -%}
+      <figure class="review-card" {{ block.shopify_attributes }}>
+        <blockquote class="review-card__body">{{ block.settings.body }}</blockquote>
+        <figcaption class="review-card__meta"><strong>{{ block.settings.name }}</strong></figcaption>
+      </figure>
+    {%- endif -%}
+  {%- endfor -%}
 </section>
 
 {% schema %}

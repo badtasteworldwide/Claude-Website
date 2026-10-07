@@ -1,28 +1,26 @@
-<section class="ugc">
-  <div class="ugc__inner">
-    <div class="section__head">
-      <div>
-        {%- if section.settings.eyebrow != blank -%}<span class="section__eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
-        <h2 class="section__title">{{ section.settings.heading }}</h2>
-      </div>
-      {%- if section.settings.link_label != blank -%}
-        <a href="{{ section.settings.link_url }}" class="section__link">{{ section.settings.link_label }}</a>
+{%- comment -%} Customer photos as a swipeable strip of tilted prints. Tiles without a photo are skipped. {%- endcomment -%}
+<section class="zugc">
+  <div class="zugc__head">
+    {%- if section.settings.eyebrow != blank -%}<span class="zugc__tagline">{{ section.settings.eyebrow }}</span>{%- endif -%}
+    <h2 class="section__title zugc__title">{{ section.settings.heading }}</h2>
+  </div>
+  <ul class="zugc__rail" aria-label="Customer photos">
+    {%- for block in section.blocks -%}
+      {%- if block.settings.image != blank -%}
+        <li class="zugc__tile" {{ block.shopify_attributes }}>
+          <img src="{{ block.settings.image | image_url: width: 480, height: 600, crop: 'center' }}"
+               srcset="{{ block.settings.image | image_url: width: 320, height: 400, crop: 'center' }} 320w, {{ block.settings.image | image_url: width: 480, height: 600, crop: 'center' }} 480w, {{ block.settings.image | image_url: width: 720, height: 900, crop: 'center' }} 720w"
+               sizes="240px" alt="Customer photo by {{ block.settings.handle | escape }}" loading="lazy" decoding="async" width="480" height="600">
+          {%- if block.settings.handle != blank -%}<span class="zugc__handle">{{ block.settings.handle }}</span>{%- endif -%}
+        </li>
       {%- endif -%}
-    </div>
-    <div class="ugc__grid">
-      {%- for block in section.blocks -%}
-        <div class="ugc__tile" {{ block.shopify_attributes }}>
-          {%- if block.settings.image != blank -%}
-            <img src="{{ block.settings.image | image_url: width: 500 }}" alt="{{ block.settings.handle | escape }}" loading="lazy" width="500" height="500" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-          {%- else -%}
-            <div class="ugc__tile-bg" style="background: linear-gradient(135deg, {{ block.settings.color_1 }}, {{ block.settings.color_2 }});">
-              <div style="width:80%;">{%- render 'plate', number: block.settings.plate_number, color1: block.settings.color_1, color2: block.settings.color_2 -%}</div>
-            </div>
-          {%- endif -%}
-          {%- if block.settings.handle != blank -%}<div class="ugc__handle">{{ block.settings.handle }}</div>{%- endif -%}
-        </div>
-      {%- endfor -%}
-    </div>
+    {%- endfor -%}
+  </ul>
+  <div class="zugc__foot">
+    <a href="{{ routes.all_products_collection_url }}" class="btn zugc__shop">Shop all frames <span aria-hidden="true">&rarr;</span></a>
+    {%- if section.settings.link_label != blank -%}
+      <a href="{{ section.settings.link_url }}" class="zugc__ig">{{ section.settings.link_label }}</a>
+    {%- endif -%}
   </div>
 </section>
 

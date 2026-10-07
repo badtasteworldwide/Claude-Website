@@ -39,7 +39,7 @@
 
   {{ content_for_header }}
 </head>
-<body>
+<body class="tpl-{{ template.name }}">
   <a class="skip-link" href="#MainContent">Skip to content</a>
 
   {% sections 'header-group' %}
@@ -52,18 +52,25 @@
 
   {% section 'cart-drawer' %}
 
-  {%- if settings.enable_buybar and template == 'index' -%}
-    <div class="buybar" id="buybar" data-visible="false">
-      <div class="buybar__left">
-        <div class="buybar__thumb">{{ settings.buybar_thumb_text | default: 'BAD<br>TASTE' }}</div>
-        <div class="buybar__text">
-          <strong>{{ settings.buybar_title | default: 'Bad Taste Worldwide Frame' }}</strong>
-          <span>{{ settings.buybar_subtitle | default: 'Lightning fast shipping!' }}</span>
-        </div>
-      </div>
-      <a href="{{ settings.buybar_link | default: '/collections/all' }}" class="btn">{{ settings.buybar_cta | default: 'Shop Now →' }}</a>
-    </div>
-  {%- endif -%}
+  {%- comment -%} Thumb bar: phones only. Replaces the old sticky buy bar, which covered content. {%- endcomment -%}
+  <nav class="tabbar" id="tabbar" aria-label="Quick links">
+    <a class="tabbar__item" href="{{ routes.all_products_collection_url }}"{% if template.name == 'collection' and collection.handle == 'all' %} aria-current="page"{% endif %}>
+      <svg viewBox="0 0 256 256" aria-hidden="true" focusable="false"><path fill="currentColor" d="M232 96a7.9 7.9 0 0 0-.3-2.2l-14.4-50.2A16.1 16.1 0 0 0 202 32H54a16.1 16.1 0 0 0-15.3 11.6L24.3 93.8A7.9 7.9 0 0 0 24 96v16a40 40 0 0 0 16 32v64a16 16 0 0 0 16 16h144a16 16 0 0 0 16-16v-64a40 40 0 0 0 16-32Zm-178-48h148l11.4 40H42.6Zm50 56h48v8a24 24 0 0 1-48 0Zm-64 8v-8h48v8a24 24 0 0 1-48 0Zm160 96H56v-56.8a40.3 40.3 0 0 0 8 .8 40 40 0 0 0 32-16 40 40 0 0 0 64 0 40 40 0 0 0 32 16 40.3 40.3 0 0 0 8-.8Zm-8-72a24 24 0 0 1-24-24v-8h48v8a24 24 0 0 1-24 24Z"/></svg>
+      <span>Shop all</span>
+    </a>
+    <a class="tabbar__item" href="{{ routes.collections_url }}"{% if template.name == 'list-collections' %} aria-current="page"{% endif %}>
+      <svg viewBox="0 0 256 256" aria-hidden="true" focusable="false"><path fill="currentColor" d="M104 40H56a16 16 0 0 0-16 16v48a16 16 0 0 0 16 16h48a16 16 0 0 0 16-16V56a16 16 0 0 0-16-16Zm0 64H56V56h48Zm96-64h-48a16 16 0 0 0-16 16v48a16 16 0 0 0 16 16h48a16 16 0 0 0 16-16V56a16 16 0 0 0-16-16Zm0 64h-48V56h48Zm-96 32H56a16 16 0 0 0-16 16v48a16 16 0 0 0 16 16h48a16 16 0 0 0 16-16v-48a16 16 0 0 0-16-16Zm0 64H56v-48h48Zm96-64h-48a16 16 0 0 0-16 16v48a16 16 0 0 0 16 16h48a16 16 0 0 0 16-16v-48a16 16 0 0 0-16-16Zm0 64h-48v-48h48Z"/></svg>
+      <span>Themes</span>
+    </a>
+    <a class="tabbar__item" href="{{ routes.search_url }}"{% if template.name == 'search' %} aria-current="page"{% endif %}>
+      <svg viewBox="0 0 256 256" aria-hidden="true" focusable="false"><path fill="currentColor" d="M232.49,215.51,185,168a92.12,92.12,0,1,0-17,17l47.53,47.54a12,12,0,0,0,17-17ZM44,112a68,68,0,1,1,68,68A68.07,68.07,0,0,1,44,112Z"/></svg>
+      <span>Search</span>
+    </a>
+    <button class="tabbar__item tabbar__item--cart" type="button" data-open-cart>
+      <svg viewBox="0 0 256 256" aria-hidden="true" focusable="false"><path fill="currentColor" d="M243.86,197.65l-14.25-120A20.06,20.06,0,0,0,209.67,60H179.83A52,52,0,0,0,76.17,60H46.33A20.06,20.06,0,0,0,26.39,77.65l-14.25,120A20,20,0,0,0,32.08,220H223.92a20,20,0,0,0,19.94-22.35ZM128,36a28,28,0,0,1,27.71,24H100.29A28,28,0,0,1,128,36ZM36.5,196,49.81,84H76v20a12,12,0,0,0,24,0V84h56v20a12,12,0,0,0,24,0V84h26.19L219.5,196Z"/></svg>
+      <span>Cart <b data-cart-count>{{ cart.item_count }}</b></span>
+    </button>
+  </nav>
 
   {%- if settings.enable_exit_modal -%}
     <div class="modal-overlay" id="modalOverlay" data-open="false">

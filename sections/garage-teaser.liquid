@@ -1,0 +1,81 @@
+{%- comment -%}
+  3D garage as its own feed panel. Nothing heavy loads with the page: the viewer
+  markup waits in a <template> and the garage stylesheet + module (which pulls
+  three.js, about 600 KB) are only requested when the shopper taps the button.
+{%- endcomment -%}
+{%- assign p = section.settings.product -%}
+{%- assign preview = section.settings.image | default: p.featured_image -%}
+<section class="zgarage" id="garage" data-zgarage
+  data-css="{{ 'plate-frame-garage.css' | asset_url }}"
+  data-js="{{ 'plate-frame-garage.js' | asset_url }}">
+  <div class="zgarage__head">
+    <h2 class="zgarage__title">{{ section.settings.heading }}</h2>
+    {%- if section.settings.text != blank -%}<p class="zgarage__text">{{ section.settings.text }}</p>{%- endif -%}
+  </div>
+  <div class="zgarage__stage" data-zgarage-stage>
+    <div class="zgarage__poster" data-zgarage-poster>
+      {%- if preview != blank -%}
+        <img src="{{ preview | image_url: width: 800 }}"
+             srcset="{{ preview | image_url: width: 500 }} 500w, {{ preview | image_url: width: 800 }} 800w, {{ preview | image_url: width: 1200 }} 1200w"
+             sizes="(max-width: 760px) 80vw, 480px"
+             alt="{{ preview.alt | default: p.title | escape }}" loading="lazy" decoding="async"
+             width="800" height="{{ 800 | divided_by: preview.aspect_ratio | round }}">
+      {%- endif -%}
+      <span class="zgarage__badge" aria-hidden="true">3D</span>
+    </div>
+    <button type="button" class="btn btn--yellow zgarage__load" data-zgarage-load>
+      {{ section.settings.button_label }}
+    </button>
+    <p class="zgarage__weight">{{ section.settings.weight_note }}</p>
+  </div>
+  <div class="zgarage__foot">
+    <a class="zgarage__link" href="{{ section.settings.all_url | default: '/pages/plate-frames' }}">{{ section.settings.all_label }}</a>
+    <a class="btn btn--sm zgarage__shop" href="{{ routes.all_products_collection_url }}">Shop all frames <span aria-hidden="true">&rarr;</span></a>
+  </div>
+  <template data-zgarage-tpl>{%- render 'hero-garage', deferred: true, all_designs_url: section.settings.all_url -%}</template>
+</section>
+
+<script>
+  (function () {
+    var root = document.currentScript.previousElementSibling;
+    if (!root || !root.hasAttribute('data-zgarage')) return;
+    var btn = root.querySelector('[data-zgarage-load]');
+    btn.addEventListener('click', function () {
+      var stage = root.querySelector('[data-zgarage-stage]');
+      var tpl = root.querySelector('[data-zgarage-tpl]');
+      btn.disabled = true;
+      btn.textContent = 'Warming up the garage…';
+      var css = document.createElement('link');
+      css.rel = 'stylesheet'; css.href = root.dataset.css;
+      css.onload = function () {
+        stage.classList.add('is-live');
+        stage.innerHTML = '';
+        stage.appendChild(tpl.content.cloneNode(true));
+        var js = document.createElement('script');
+        js.type = 'module'; js.src = root.dataset.js;
+        document.body.appendChild(js);
+        var canvas = stage.querySelector('canvas');
+        if (canvas) { canvas.setAttribute('tabindex', '0'); canvas.focus({ preventScroll: true }); }
+      };
+      css.onerror = function () { btn.disabled = false; btn.textContent = 'Could not load. Try again'; };
+      document.head.appendChild(css);
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "3D garage panel",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Spin it in 3D." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Drag it, zoom it, park it on a car. The 3D viewer is a hefty download, so it waits for your tap." },
+    { "type": "product", "id": "product", "label": "Preview product", "info": "Its photo is shown until the viewer loads." },
+    { "type": "image_picker", "id": "image", "label": "Preview image (optional)" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Load the 3D garage" },
+    { "type": "text", "id": "weight_note", "label": "Size note", "default": "About 600 KB. Wi-Fi recommended, but we won't tell." },
+    { "type": "text", "id": "all_label", "label": "All designs link label", "default": "Open the full garage →" },
+    { "type": "url", "id": "all_url", "label": "All designs link" }
+  ],
+  "presets": [{ "name": "3D garage panel" }]
+}
+{% endschema %}

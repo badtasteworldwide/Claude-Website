@@ -2,8 +2,10 @@
   Compact Plate Frame Garage for the hero card: same markup, data and script as
   sections/plate-frame-garage.liquid, with the design rail hidden. Visitors step
   through designs with the dock arrows; "All designs" opens the full garage page.
+  Pass deferred: true to leave out the stylesheet and module script; the caller
+  then loads them on demand (sections/garage-teaser.liquid does this on tap).
 {%- endcomment -%}
-{{ 'plate-frame-garage.css' | asset_url | stylesheet_tag }}
+{%- unless deferred -%}{{ 'plate-frame-garage.css' | asset_url | stylesheet_tag }}{%- endunless -%}
 <div
   class="pfg pfg--dark pfg--hero"
   data-pfg
@@ -41,7 +43,7 @@
     </div>
   </div>
 </div>
-<script type="module" src="{{ 'plate-frame-garage.js' | asset_url }}"></script>
+{%- unless deferred -%}<script type="module" src="{{ 'plate-frame-garage.js' | asset_url }}"></script>{%- endunless -%}
 <style>
   /* Hero card skin: the garage's own CSS stays untouched; these rules only
      re-dress the compact .pfg--hero copy in the theme's print-shop language. */

@@ -405,7 +405,16 @@
     bindBuybar();
     if (window.BTW && window.BTW.exitModal) bindExitModal();
     bindNewsletterFocus();
-    var openCart = $('#openCart');
-    if (openCart) openCart.addEventListener('click', function (e) { e.preventDefault(); openDrawer(); });
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest('#openCart, [data-open-cart]');
+      if (t) { e.preventDefault(); openDrawer(); }
+      // Close the mobile menu sheet on outside tap.
+      $$('[data-mnav][open]').forEach(function (d) { if (!d.contains(e.target)) d.removeAttribute('open'); });
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      $$('[data-mnav][open]').forEach(function (d) { d.removeAttribute('open'); d.querySelector('summary').focus(); });
+      var d = $('#drawer'); if (d && d.dataset.open === 'true') closeDrawer();
+    });
   });
 })();

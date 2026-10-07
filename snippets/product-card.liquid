@@ -26,8 +26,8 @@
       <img class="product-card__photo"
            src="{{ cp.featured_image | image_url: width: 600 }}"
            srcset="{{ cp.featured_image | image_url: width: 400 }} 400w, {{ cp.featured_image | image_url: width: 600 }} 600w, {{ cp.featured_image | image_url: width: 900 }} 900w"
-           sizes="(max-width: 520px) 100vw, (max-width: 960px) 50vw, 25vw"
-           alt="{{ cp.featured_image.alt | default: cp.title | escape }}" loading="lazy" width="600" height="600">
+           sizes="(max-width: 960px) 50vw, 25vw"
+           alt="{{ cp.featured_image.alt | default: cp.title | escape }}" loading="lazy" decoding="async" width="600" height="{{ 600 | divided_by: cp.featured_image.aspect_ratio | round }}">
     {%- else -%}
       <div class="product-card__mini-plate">
         {%- render 'plate',
@@ -46,7 +46,7 @@
   </a>
   <div class="product-card__info">
     {%- if cp.type != blank -%}<div class="product-card__theme">{{ cp.type }}</div>{%- endif -%}
-    <a href="{{ cp.url }}"><div class="product-card__name">{{ cp.title }}</div></a>
+    <a href="{{ cp.url }}"><div class="product-card__name">{{ cp.title | remove: ' License Plate Frame' | remove: ' license plate frame' }}</div></a>
     <div class="product-card__price-row">
       <span class="product-card__price">{{ cp.price | money }}</span>
       {%- if on_sale -%}<span class="product-card__compare">{{ cp.compare_at_price | money }}</span>{%- endif -%}

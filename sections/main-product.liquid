@@ -4,13 +4,19 @@
 <div class="pdp" data-pdp>
   <div class="pdp__grid">
     <div class="pdp__media">
-      <div class="pdp__main-img">
+      {%- liquid
+        assign media_ar = 1
+        if product.featured_image
+          assign media_ar = product.featured_image.aspect_ratio | at_least: 1 | at_most: 2
+        endif
+      -%}
+      <div class="pdp__main-img" style="--media-ar: {{ media_ar }};" data-pdp-main>
         {%- if product.featured_image -%}
           <img src="{{ product.featured_image | image_url: width: 1000 }}"
                srcset="{{ product.featured_image | image_url: width: 600 }} 600w, {{ product.featured_image | image_url: width: 1000 }} 1000w, {{ product.featured_image | image_url: width: 1400 }} 1400w"
                sizes="(max-width: 960px) 100vw, 50vw"
                alt="{{ product.featured_image.alt | default: product.title | escape }}"
-               width="1000" height="1000">
+               width="1000" height="{{ 1000 | divided_by: product.featured_image.aspect_ratio | round }}" fetchpriority="high">
         {%- else -%}
           <div style="width: 80%;">
             {%- render 'plate',
@@ -36,13 +42,16 @@
             <button type="button" class="pfg3d__car" data-role="car" aria-pressed="false" hidden>On a car</button>
             <p class="pfg3d__credit" data-role="credit" hidden>Car: “Car Concept” by Eric Chadwick / Darmstadt Graphics Group, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, modified (logos removed, simplified)</p>
           </div>
+          <button type="button" class="pdp__3d-btn" data-pdp-3d hidden
+            data-css="{{ 'plate-frame-garage.css' | asset_url }}"
+            data-js="{{ 'plate-frame-garage.js' | asset_url }}">Spin it in 3D</button>
         {%- endif -%}
       </div>
       {%- if product.images.size > 1 or has_frame_3d and product.images.size > 0 -%}
         <div class="pdp__thumbs"{% if product.images.size < 2 %} style="display: none;"{% endif %}>
           {%- for image in product.images limit: 8 -%}
             <button type="button" class="pdp__thumb" data-src="{{ image | image_url: width: 1000 }}" data-active="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="View image {{ forloop.index }}">
-              <img src="{{ image | image_url: width: 160 }}" alt="{{ image.alt | default: product.title | escape }}" loading="lazy" width="160" height="160">
+              <img src="{{ image | image_url: width: 200 }}" alt="" loading="lazy" width="200" height="{{ 200 | divided_by: image.aspect_ratio | round }}">
             </button>
           {%- endfor -%}
         </div>
@@ -99,9 +108,9 @@
           {%- endif -%}
         </div>
 
-        <div class="pdp__atc-row">
+        <div class="pdp__atc-row" data-pdp-atc>
           {%- if current_variant.available -%}
-            <button type="submit" class="btn btn--lg btn--full" data-label="Add To Cart →">Add To Cart → <span data-atc-price>· {{ current_variant.price | money }}</span></button>
+            <button type="submit" class="btn btn--lg btn--full" data-label="Add To Cart →">Add To Cart →</button>
           {%- else -%}
             <button type="submit" class="btn btn--lg btn--full" disabled>Sold Out</button>
           {%- endif -%}
@@ -130,12 +139,107 @@
   <script type="application/json" data-variants-json>
     {{ product.variants | json }}
   </script>
+
+  {%- comment -%} Sticky add to cart: slides in once the real button scrolls away; it submits the real form. {%- endcomment -%}
+  <div class="pdp-sticky" data-pdp-sticky aria-hidden="true">
+    <button type="button" class="pdp-sticky__cart" data-open-cart tabindex="-1" aria-label="Open cart">
+      <svg viewBox="0 0 256 256" aria-hidden="true" focusable="false"><path fill="currentColor" d="M243.86,197.65l-14.25-120A20.06,20.06,0,0,0,209.67,60H179.83A52,52,0,0,0,76.17,60H46.33A20.06,20.06,0,0,0,26.39,77.65l-14.25,120A20,20,0,0,0,32.08,220H223.92a20,20,0,0,0,19.94-22.35ZM128,36a28,28,0,0,1,27.71,24H100.29A28,28,0,0,1,128,36ZM36.5,196,49.81,84H76v20a12,12,0,0,0,24,0V84h56v20a12,12,0,0,0,24,0V84h26.19L219.5,196Z"/></svg>
+      <b data-cart-count>{{ cart.item_count }}</b>
+    </button>
+    <div class="pdp-sticky__info">
+      <span class="pdp-sticky__variant" data-sticky-variant>{% unless product.has_only_default_variant %}{{ current_variant.title }}{% endunless %}</span>
+      <span class="pdp-sticky__price" data-sticky-price>{{ current_variant.price | money }}</span>
+    </div>
+    <button type="button" class="btn pdp-sticky__btn" data-sticky-add tabindex="-1" {% unless current_variant.available %}disabled{% endunless %}>{% if current_variant.available %}Add To Cart{% else %}Sold Out{% endif %}</button>
+  </div>
 </div>
 
-{%- if has_frame_3d -%}
-  {{ 'plate-frame-garage.css' | asset_url | stylesheet_tag }}
-  <script type="module" src="{{ 'plate-frame-garage.js' | asset_url }}"></script>
-{%- endif -%}
+<script>
+  (function () {
+    var pdp = document.querySelector('[data-pdp]');
+    if (!pdp) return;
+    var form = pdp.querySelector('form[data-product-form]');
+    var realBtn = form && form.querySelector('[type="submit"]');
+    var bar = pdp.querySelector('[data-pdp-sticky]');
+    var stickyBtn = bar.querySelector('[data-sticky-add]');
+    var priceEl = pdp.querySelector('[data-price]');
+    var stickyPrice = bar.querySelector('[data-sticky-price]');
+    var stickyVariant = bar.querySelector('[data-sticky-variant]');
+
+    /* Sticky bar: visible while the real add-to-cart row is off screen (below or above). */
+    var atc = pdp.querySelector('[data-pdp-atc]');
+    function setShown(on) {
+      bar.dataset.visible = String(on);
+      bar.setAttribute('aria-hidden', String(!on));
+      Array.prototype.forEach.call(bar.querySelectorAll('button'), function (b) { b.tabIndex = on ? 0 : -1; });
+      document.body.classList.toggle('pdp-sticky-on', on);
+    }
+    if (atc && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        var e = entries[0];
+        // Only after the shopper has scrolled past it, not before they reach it.
+        setShown(!e.isIntersecting && e.boundingClientRect.top < 0);
+      }).observe(atc);
+    }
+    stickyBtn.addEventListener('click', function () {
+      if (!form || stickyBtn.disabled) return;
+      if (form.requestSubmit) form.requestSubmit(realBtn); else realBtn.click();
+    });
+    /* Mirror price, variant and button state from the real form. */
+    function sync() {
+      if (priceEl) stickyPrice.textContent = priceEl.textContent;
+      var picked = Array.prototype.map.call(pdp.querySelectorAll('[data-variant-picker] input:checked'), function (i) { return i.value; });
+      if (picked.length) stickyVariant.textContent = picked.join(' / ');
+      if (realBtn) {
+        stickyBtn.disabled = realBtn.disabled;
+        var t = realBtn.textContent.trim();
+        stickyBtn.textContent = /adding/i.test(t) ? 'Adding…' : (realBtn.disabled ? (t.replace(/\s*→\s*$/, '') || 'Sold Out') : 'Add To Cart');
+      }
+    }
+    if (priceEl) new MutationObserver(sync).observe(priceEl, { childList: true, characterData: true, subtree: true });
+    if (realBtn) new MutationObserver(sync).observe(realBtn, { childList: true, attributes: true, attributeFilter: ['disabled'], characterData: true, subtree: true });
+    pdp.addEventListener('change', function () { setTimeout(sync, 0); });
+
+    /* Swipe the main photo to step through the thumbnails. */
+    var main = pdp.querySelector('[data-pdp-main]');
+    var x0 = null, y0 = null;
+    main.addEventListener('touchstart', function (e) { if (e.target.closest('.pfg3d')) return; x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
+    main.addEventListener('touchend', function (e) {
+      if (x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0; x0 = null;
+      if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
+      var thumbs = Array.prototype.slice.call(pdp.querySelectorAll('.pdp__thumb'));
+      if (thumbs.length < 2) return;
+      var i = thumbs.findIndex(function (t) { return t.dataset.active === 'true'; });
+      var next = thumbs[(Math.max(i, 0) + (dx < 0 ? 1 : -1) + thumbs.length) % thumbs.length];
+      next.click();
+      next.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    }, { passive: true });
+
+    /* 3D on demand: show the button only if this product has a 3D design, and fetch
+       the viewer (three.js, ~600 KB) only when it is tapped. */
+    var btn3d = pdp.querySelector('[data-pdp-3d]');
+    var root3d = pdp.querySelector('[data-pfg-pdp]');
+    if (btn3d && root3d) {
+      var check = function () {
+        fetch(root3d.dataset.catalog).then(function (r) { return r.json(); }).then(function (cat) {
+          var has = (cat.groups || []).some(function (g) { return (g.designs || []).some(function (d) { return d.product === root3d.dataset.handle; }); });
+          if (has) btn3d.hidden = false;
+        }).catch(function () {});
+      };
+      if ('requestIdleCallback' in window) requestIdleCallback(check, { timeout: 3000 }); else setTimeout(check, 1500);
+      btn3d.addEventListener('click', function () {
+        btn3d.disabled = true; btn3d.textContent = 'Loading 3D…';
+        var css = document.createElement('link'); css.rel = 'stylesheet'; css.href = btn3d.dataset.css;
+        document.head.appendChild(css);
+        var js = document.createElement('script'); js.type = 'module'; js.src = btn3d.dataset.js;
+        document.body.appendChild(js);
+        var t = setInterval(function () { if (!root3d.hidden) { clearInterval(t); btn3d.hidden = true; } }, 200);
+        setTimeout(function () { clearInterval(t); if (root3d.hidden) { btn3d.disabled = false; btn3d.textContent = 'Spin it in 3D'; } }, 20000);
+      });
+    }
+  })();
+</script>
 
 {% schema %}
 {

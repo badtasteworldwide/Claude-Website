@@ -11,161 +11,24 @@
   "sections": {
     "hero": {
       "type": "hero",
-      "blocks": {
-        "stat1": {
-          "type": "stat",
-          "settings": {
-            "value": "3,300+",
-            "label": "Orders Shipped"
-          }
-        },
-        "stat2": {
-          "type": "stat",
-          "settings": {
-            "value": "160",
-            "label": "Frame Designs"
-          }
-        },
-        "stat3": {
-          "type": "stat",
-          "settings": {
-            "value": "⚡",
-            "label": "Lightning Fast Shipping!"
-          }
-        },
-        "stat4": {
-          "type": "stat",
-          "settings": {
-            "value": "$40+",
-            "label": "Free US Ship on Frames"
-          }
-        },
-        "chip1": {
-          "type": "theme_chip",
-          "settings": {
-            "label": "Bad Taste",
-            "collection": "bad-taste-products",
-            "product": "bad-taste-license-plate-frame"
-          }
-        },
-        "chip2": {
-          "type": "theme_chip",
-          "settings": {
-            "label": "Konbini",
-            "collection": "konbini-at-3am"
-          }
-        },
-        "chip3": {
-          "type": "theme_chip",
-          "settings": {
-            "label": "K-Pop",
-            "collection": "kpop-license-plate-frames"
-          }
-        },
-        "chip4": {
-          "type": "theme_chip",
-          "settings": {
-            "label": "Track",
-            "collection": "racing-livery-license-plate-frames"
-          }
-        },
-        "chip5": {
-          "type": "theme_chip",
-          "settings": {
-            "label": "Meme",
-            "collection": "degenerate-meme-culture"
-          }
-        },
-        "chip6": {
-          "type": "theme_chip",
-          "settings": {
-            "label": "Booze",
-            "collection": "alcoholics-anonymous"
-          }
-        }
-      },
-      "block_order": [
-        "stat1",
-        "stat2",
-        "stat3",
-        "stat4",
-        "chip1",
-        "chip2",
-        "chip3",
-        "chip4",
-        "chip5",
-        "chip6"
-      ],
+      "blocks": {},
+      "block_order": [],
       "settings": {
-        "eyebrow": "Designed in California · Lightning fast shipping!",
+        "eyebrow": "",
         "heading": "<p>Tastes so <em>bad</em> it's good.</p>",
-        "subheading": "License plate frames for K-pop stans, 3AM konbini runs, degenerate meme lords, track addicts, and everyone whose mom would hate their Lexus. Small-batch drops. Heavy plastic. No apologies.",
-        "cta1_label": "Shop The Drop →",
+        "subheading": "License plate frames for K-pop stans, 3AM konbini runs, degenerate meme lords and track addicts. Heavy plastic. No apologies.",
+        "cta1_label": "Shop all frames",
         "cta1_link": "",
-        "cta2_label": "Browse Collections",
+        "cta2_label": "Pick your flavor",
         "cta2_link": "#collections",
         "image": "shopify://shop_images/IMG_2333_08dfd075-2f3f-4825-a532-309ebc40cb0d.jpg",
-        "sticker_text": "NEW DROP",
-        "sticker_small": "FRESH THEMES",
-        "visual": "garage"
+        "sticker_text": "Best",
+        "sticker_small": "Sellers",
+        "visual": "garage",
+        "rail_collection": "asian-themed-plate-frames",
+        "rail_limit": 8,
+        "rail_label": "Best sellers"
       }
-    },
-    "trust": {
-      "type": "trust-strip",
-      "blocks": {
-        "t1": {
-          "type": "item",
-          "settings": {
-            "text": "3,300+ ORDERS SHIPPED"
-          }
-        },
-        "t2": {
-          "type": "item",
-          "settings": {
-            "text": "FREE US SHIPPING ON $40+ IN FRAMES"
-          }
-        },
-        "t3": {
-          "type": "item",
-          "settings": {
-            "text": "⚡ LIGHTNING FAST SHIPPING!"
-          }
-        },
-        "t4": {
-          "type": "item",
-          "settings": {
-            "text": "DAMAGED? FREE REPLACEMENT"
-          }
-        },
-        "item_Maa8pR": {
-          "type": "item",
-          "settings": {
-            "text": "160 FRAME DESIGNS"
-          }
-        },
-        "t5": {
-          "type": "item",
-          "settings": {
-            "text": "★ SHIPS WORLDWIDE"
-          }
-        },
-        "t6": {
-          "type": "item",
-          "settings": {
-            "text": "HEAVY-DUTY ABS PLASTIC"
-          }
-        }
-      },
-      "block_order": [
-        "t1",
-        "t2",
-        "t3",
-        "t4",
-        "item_Maa8pR",
-        "t5",
-        "t6"
-      ],
-      "settings": {}
     },
     "collections": {
       "type": "collection-grid",
@@ -181,7 +44,8 @@
             "frame_bottom": "MIDNIGHT RUN",
             "plate_number": "KONB·777",
             "color_1": "#00a6e2",
-            "color_2": "#0077a3"
+            "color_2": "#0077a3",
+            "joke": "Your car smells like onigiri. Commit to it."
           }
         },
         "c2": {
@@ -195,7 +59,8 @@
             "frame_bottom": "BIAS APPROVED",
             "plate_number": "STAN·5",
             "color_1": "#ff6fb5",
-            "color_2": "#ff1f8f"
+            "color_2": "#ff1f8f",
+            "joke": "Bias approved. Your coworkers will ask. Tell them everything."
           }
         },
         "c3": {
@@ -209,75 +74,23 @@
             "frame_bottom": "NO STREET DRIVING",
             "plate_number": "APEX·911",
             "color_1": "#e32c2b",
-            "color_2": "#8c0000"
-          }
-        },
-        "c4": {
-          "type": "collection",
-          "settings": {
-            "collection": "fast-food-themed-license-plate-frames",
-            "title_override": "Late Stage Capitalism Meals",
-            "tag": "New",
-            "use_image": true,
-            "frame_top": "Value Menu Royalty",
-            "frame_bottom": "LARGE FRIES ONLY",
-            "plate_number": "JOY·02",
-            "color_1": "#e32c2b",
-            "color_2": "#b00000"
-          }
-        },
-        "c5": {
-          "type": "collection",
-          "settings": {
-            "collection": "degenerate-meme-culture",
-            "title_override": "Degenerate Meme Culture",
-            "tag": "",
-            "use_image": true,
-            "frame_top": "Jet Fuel Can't Melt",
-            "frame_bottom": "STEEL MEMES",
-            "plate_number": "MEME·420",
-            "color_1": "#111111",
-            "color_2": "#333333"
-          }
-        },
-        "c6": {
-          "type": "collection",
-          "settings": {
-            "collection": "alcoholics-anonymous",
-            "title_override": "Booze Hall of Fame",
-            "tag": "",
-            "use_image": true,
-            "frame_top": "Last Call Legend",
-            "frame_bottom": "MEMBER SINCE FOREVER",
-            "plate_number": "BREW·86",
-            "color_1": "#f4b400",
-            "color_2": "#a06600"
+            "color_2": "#8c0000",
+            "joke": "Track use only. Your Corolla doesn't need to know."
           }
         }
       },
       "block_order": [
         "c1",
         "c2",
-        "c3",
-        "c4",
-        "c5",
-        "c6"
+        "c3"
       ],
       "settings": {
-        "eyebrow": "06 Collections",
+        "eyebrow": "",
         "heading": "<p>Pick your <em>flavor of bad.</em></p>",
-        "link_label": "View all collections →",
-        "link_url": ""
-      }
-    },
-    "featured": {
-      "type": "featured-products",
-      "settings": {
-        "eyebrow": "Best Sellers",
-        "heading": "<p>Frames <em>everyone else</em> is copying.</p>",
-        "link_label": "Shop all frames →",
-        "collection": "asian-themed-plate-frames",
-        "limit": 8
+        "link_label": "",
+        "link_url": "",
+        "anchor": "collections",
+        "start_number": 1
       }
     },
     "bundle": {
@@ -320,9 +133,9 @@
         "tier4"
       ],
       "settings": {
-        "eyebrow": "Bundle & Save",
+        "eyebrow": "",
         "heading": "<p>Build a <em>4-pack.</em><br/>Save up to 15%.</p>",
-        "subheading": "Because one frame is never enough. Daily driver, weekend car, whatever's in the garage — they all deserve bad taste.",
+        "subheading": "Daily driver, weekend car, whatever's in the garage: they all deserve bad taste.",
         "collection": "labor-day-sale-plate-frames",
         "max_items": 4,
         "note": "Discount applies automatically at checkout to plate frames only: 3 frames = 10% off, 4+ = 15% off. Doesn’t combine with discount codes."
@@ -362,17 +175,26 @@
             "value": "160",
             "label": "Frame designs"
           }
+        },
+        "stat_ship": {
+          "type": "stat",
+          "settings": {
+            "show_stars": false,
+            "value": "$40+",
+            "label": "Free US shipping on frames"
+          }
         }
       },
       "block_order": [
         "stat_real_1",
         "stat_real_2",
         "stat_real_3",
-        "stat_real_4"
+        "stat_real_4",
+        "stat_ship"
       ],
       "settings": {
-        "eyebrow": "The Receipts",
-        "heading": "<p>Bad taste, <em>by the numbers.</em></p>"
+        "eyebrow": "The receipts",
+        "heading": "<p>Bad taste, by the numbers.</p>"
       }
     },
     "ugc": {
@@ -509,19 +331,94 @@
         "f6"
       ],
       "settings": {
-        "eyebrow": "FAQ",
+        "eyebrow": "",
         "heading": "<p>Questions <em>with answers.</em></p>"
+      }
+    },
+    "collections_more": {
+      "type": "collection-grid",
+      "blocks": {
+        "c4": {
+          "type": "collection",
+          "settings": {
+            "collection": "fast-food-themed-license-plate-frames",
+            "title_override": "Late Stage Capitalism Meals",
+            "tag": "New",
+            "use_image": true,
+            "frame_top": "Value Menu Royalty",
+            "frame_bottom": "LARGE FRIES ONLY",
+            "plate_number": "JOY·02",
+            "color_1": "#e32c2b",
+            "color_2": "#b00000",
+            "joke": "Value menu royalty. Large fries only."
+          }
+        },
+        "c5": {
+          "type": "collection",
+          "settings": {
+            "collection": "degenerate-meme-culture",
+            "title_override": "Degenerate Meme Culture",
+            "tag": "",
+            "use_image": true,
+            "frame_top": "Jet Fuel Can't Melt",
+            "frame_bottom": "STEEL MEMES",
+            "plate_number": "MEME·420",
+            "color_1": "#111111",
+            "color_2": "#333333",
+            "joke": "Jet fuel can't melt steel memes."
+          }
+        },
+        "c6": {
+          "type": "collection",
+          "settings": {
+            "collection": "alcoholics-anonymous",
+            "title_override": "Booze Hall of Fame",
+            "tag": "",
+            "use_image": true,
+            "frame_top": "Last Call Legend",
+            "frame_bottom": "MEMBER SINCE FOREVER",
+            "plate_number": "BREW·86",
+            "color_1": "#f4b400",
+            "color_2": "#a06600",
+            "joke": "Taste in drinks: questionable. Taste in frames: same."
+          }
+        }
+      },
+      "block_order": [
+        "c4",
+        "c5",
+        "c6"
+      ],
+      "settings": {
+        "eyebrow": "",
+        "heading": "",
+        "link_label": "View all collections →",
+        "link_url": "",
+        "anchor": "collections-more",
+        "start_number": 4
+      }
+    },
+    "garage": {
+      "type": "garage-teaser",
+      "settings": {
+        "heading": "Spin it in 3D.",
+        "text": "Drag it, zoom it, park it on a car. The 3D viewer is a hefty download, so it waits for your tap.",
+        "product": "shin-ramyun-noodles-license-plate-frame",
+        "button_label": "Load the 3D garage",
+        "weight_note": "About 600 KB. Wi-Fi recommended, but we won't tell.",
+        "all_label": "Open the full garage →",
+        "all_url": "/pages/plate-frames"
       }
     }
   },
   "order": [
     "hero",
-    "trust",
     "collections",
-    "featured",
+    "garage",
+    "collections_more",
     "bundle",
-    "reviews",
     "ugc",
+    "reviews",
     "faq"
   ]
 }
