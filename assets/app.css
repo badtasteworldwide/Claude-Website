@@ -17,6 +17,7 @@
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
 html.is-locked, html.is-locked body { overflow: hidden; }
+a, button, select, summary, label { touch-action: manipulation; -webkit-tap-highlight-color: rgba(250, 83, 193, .25); }
 img { overflow-wrap: anywhere; }            /* broken-image alt text can't widen the page */
 .section, .products, .collections, .pdp__grid, .bundle__inner, .footer__inner { min-width: 0; }
 .products > *, .collections > *, .pdp__grid > *, .bundle__inner > *, .footer__inner > * { min-width: 0; }
@@ -120,6 +121,8 @@ img { overflow-wrap: anywhere; }            /* broken-image alt text can't widen
    ============================================================= */
 @media (max-width: 960px) {
   :root { --gutter: 16px; }
+  /* Keyboard focus never hides behind the tab bar / sticky add-to-cart */
+  html { scroll-padding-bottom: calc(var(--tabbar-h) + 16px + var(--safe-b)); }
   body.has-tabbar { padding-bottom: calc(var(--tabbar-h) + var(--safe-b)); }
   body.tpl-product { padding-bottom: calc(76px + var(--safe-b)); }
 
