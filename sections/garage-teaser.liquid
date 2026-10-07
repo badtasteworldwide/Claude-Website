@@ -14,7 +14,7 @@
         {%- if section.settings.image != blank -%}
           <img src="{{ section.settings.image | image_url: width: 800 }}"
                srcset="{{ section.settings.image | image_url: width: 400 }} 400w, {{ section.settings.image | image_url: width: 800 }} 800w, {{ section.settings.image | image_url: width: 1200 }} 1200w"
-               sizes="(max-width: 960px) 100vw, 50vw" alt="" loading="lazy" decoding="async"
+               sizes="(max-width: 600px) 38vw, 30vw" alt="" loading="lazy" decoding="async"
                width="800" height="{{ 800 | divided_by: section.settings.image.aspect_ratio | round }}">
         {%- endif -%}
         <button type="button" class="btn garage-teaser__btn" data-garage-load>
