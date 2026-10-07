@@ -1426,3 +1426,11 @@ body.pdp-sticky-on .tabbar { transform: translateY(110%); }
   .zfeed__head { padding: 30px 16px 20px; }
   .pdp__title { font-size: clamp(24px, 6.6vw, 32px); }
 }
+@media (max-width: 760px) {
+  .zgarage__stage:not(.is-live) { display: grid; grid-template-columns: minmax(0, 44%) minmax(0, 1fr); grid-template-rows: auto auto; column-gap: 18px; align-items: center; text-align: left; }
+  .zgarage__stage:not(.is-live) .zgarage__poster { grid-row: 1 / span 2; width: 100%; margin: 12px 0; }
+  .zgarage__load { align-self: end; white-space: normal; line-height: 1.15; padding: 12px 10px; font-size: 14px; }
+  .zgarage__weight { align-self: start; font-size: 10px; }
+  .zgarage__badge { width: 50px; height: 50px; font-size: 18px; top: -16px; right: -12px; }
+  .zreceipt__title { display: none; }
+}
