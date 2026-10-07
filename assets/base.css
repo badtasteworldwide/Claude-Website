@@ -1050,6 +1050,12 @@ legend.option-label { padding: 0; }
 .hero--shop .hero__title { font-size: clamp(42px, 4.8vw, 76px); }
 .hero--shop .hero__sub { font-size: 17px; margin-top: 18px; max-width: 40ch; }
 .hero--shop .hero__cta-row { margin-top: 26px; }
+.hero__sub--mobile { display: none; }
+@media (max-width: 960px) {
+  .hero--shop .hero__eyebrow { display: none; }
+  .hero__sub--desktop { display: none; }
+  .hero__sub--mobile { display: block; }
+}
 .hero-rail { min-width: 0; }
 .hero-rail__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
 .hero-rail__label {

@@ -11,16 +11,99 @@
   "sections": {
     "hero": {
       "type": "hero",
-      "blocks": {},
-      "block_order": [],
+      "blocks": {
+        "stat1": {
+          "type": "stat",
+          "settings": {
+            "value": "3,300+",
+            "label": "Orders Shipped"
+          }
+        },
+        "stat2": {
+          "type": "stat",
+          "settings": {
+            "value": "160",
+            "label": "Frame Designs"
+          }
+        },
+        "stat3": {
+          "type": "stat",
+          "settings": {
+            "value": "⚡",
+            "label": "Lightning Fast Shipping!"
+          }
+        },
+        "stat4": {
+          "type": "stat",
+          "settings": {
+            "value": "$40+",
+            "label": "Free US Ship on Frames"
+          }
+        },
+        "chip1": {
+          "type": "theme_chip",
+          "settings": {
+            "label": "Bad Taste",
+            "collection": "bad-taste-products",
+            "product": "bad-taste-license-plate-frame"
+          }
+        },
+        "chip2": {
+          "type": "theme_chip",
+          "settings": {
+            "label": "Konbini",
+            "collection": "konbini-at-3am"
+          }
+        },
+        "chip3": {
+          "type": "theme_chip",
+          "settings": {
+            "label": "K-Pop",
+            "collection": "kpop-license-plate-frames"
+          }
+        },
+        "chip4": {
+          "type": "theme_chip",
+          "settings": {
+            "label": "Track",
+            "collection": "racing-livery-license-plate-frames"
+          }
+        },
+        "chip5": {
+          "type": "theme_chip",
+          "settings": {
+            "label": "Meme",
+            "collection": "degenerate-meme-culture"
+          }
+        },
+        "chip6": {
+          "type": "theme_chip",
+          "settings": {
+            "label": "Booze",
+            "collection": "alcoholics-anonymous"
+          }
+        }
+      },
+      "block_order": [
+        "stat1",
+        "stat2",
+        "stat3",
+        "stat4",
+        "chip1",
+        "chip2",
+        "chip3",
+        "chip4",
+        "chip5",
+        "chip6"
+      ],
       "settings": {
-        "eyebrow": "",
+        "eyebrow": "Designed in California · Lightning fast shipping!",
         "heading": "<p>Tastes so <em>bad</em> it's good.</p>",
-        "subheading": "License plate frames for K-pop stans, 3AM konbini runs, meme lords and track addicts. Heavy plastic. No apologies.",
-        "cta1_label": "Shop all frames →",
+        "subheading": "License plate frames for K-pop stans, 3AM konbini runs, degenerate meme lords, track addicts, and everyone whose mom would hate their Lexus. Small-batch drops. Heavy plastic. No apologies.",
+        "cta1_label": "Shop The Drop →",
         "cta1_link": "",
-        "cta2_label": "Build a 4-pack",
-        "cta2_link": "#bundle",
+        "cta2_label": "Browse Collections",
+        "cta2_link": "#collections",
         "image": "shopify://shop_images/IMG_2333_08dfd075-2f3f-4825-a532-309ebc40cb0d.jpg",
         "sticker_text": "NEW DROP",
         "sticker_small": "FRESH THEMES",
@@ -28,7 +111,8 @@
         "rail_collection": "asian-themed-plate-frames",
         "rail_limit": 8,
         "rail_label": "Best sellers",
-        "rail_link_label": "Shop all"
+        "rail_link_label": "Shop all",
+        "mobile_subheading": "License plate frames for K-pop stans, 3AM konbini runs, meme lords and track addicts. Heavy plastic. No apologies."
       }
     },
     "trust": {
@@ -37,19 +121,19 @@
         "t1": {
           "type": "item",
           "settings": {
-            "text": "FREE US SHIPPING ON $40+ IN FRAMES"
+            "text": "3,300+ ORDERS SHIPPED"
           }
         },
         "t2": {
           "type": "item",
           "settings": {
-            "text": "3 FRAMES = 10% OFF · 4+ = 15% OFF"
+            "text": "FREE US SHIPPING ON $40+ IN FRAMES"
           }
         },
         "t3": {
           "type": "item",
           "settings": {
-            "text": "LIGHTNING FAST SHIPPING!"
+            "text": "⚡ LIGHTNING FAST SHIPPING!"
           }
         },
         "t4": {
@@ -58,40 +142,40 @@
             "text": "DAMAGED? FREE REPLACEMENT"
           }
         },
-        "t5": {
-          "type": "item",
-          "settings": {
-            "text": "3,300+ ORDERS SHIPPED"
-          }
-        },
-        "t6": {
+        "item_Maa8pR": {
           "type": "item",
           "settings": {
             "text": "160 FRAME DESIGNS"
           }
         },
-        "t7": {
+        "t5": {
+          "type": "item",
+          "settings": {
+            "text": "★ SHIPS WORLDWIDE"
+          }
+        },
+        "t6": {
           "type": "item",
           "settings": {
             "text": "HEAVY-DUTY ABS PLASTIC"
           }
         },
-        "t8": {
+        "t_bundle": {
           "type": "item",
           "settings": {
-            "text": "SHIPS WORLDWIDE"
+            "text": "3 FRAMES = 10% OFF · 4+ = 15% OFF"
           }
         }
       },
       "block_order": [
         "t1",
         "t2",
+        "t_bundle",
         "t3",
         "t4",
+        "item_Maa8pR",
         "t5",
-        "t6",
-        "t7",
-        "t8"
+        "t6"
       ],
       "settings": {}
     },
@@ -192,9 +276,9 @@
         "c6"
       ],
       "settings": {
-        "eyebrow": "",
+        "eyebrow": "06 Collections",
         "heading": "<p>Pick your <em>flavor of bad.</em></p>",
-        "link_label": "See all →",
+        "link_label": "View all collections →",
         "link_url": ""
       }
     },
@@ -240,7 +324,7 @@
       "settings": {
         "eyebrow": "Bundle & Save",
         "heading": "<p>Build a <em>4-pack.</em><br/>Save up to 15%.</p>",
-        "subheading": "Because one frame is never enough. Daily driver, weekend car, whatever's in the garage. They all deserve bad taste.",
+        "subheading": "Because one frame is never enough. Daily driver, weekend car, whatever's in the garage — they all deserve bad taste.",
         "collection": "labor-day-sale-plate-frames",
         "max_items": 4,
         "note": "Discount applies automatically at checkout to plate frames only: 3 frames = 10% off, 4+ = 15% off. Doesn’t combine with discount codes."
@@ -319,7 +403,7 @@
         "u5"
       ],
       "settings": {
-        "eyebrow": "",
+        "eyebrow": "#BadTasteWorldwide",
         "heading": "<p>Seen on <em>questionable</em> vehicles everywhere.</p>",
         "link_label": "Tag us @badtaste.world →",
         "link_url": "https://instagram.com/badtaste.world"
@@ -380,7 +464,7 @@
         "f6"
       ],
       "settings": {
-        "eyebrow": "",
+        "eyebrow": "FAQ",
         "heading": "<p>Questions <em>with answers.</em></p>"
       }
     },
