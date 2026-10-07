@@ -32,14 +32,15 @@ const HOME = [0, 0.4, 24];
 // top edge falls off the frame instead of showing as a white line (~2.4 mm).
 // (A plain shift would drag the texture's last row up into view instead.)
 const PRINT_LIFT = 0.015;
-// Demo car (Files: pfg-car-civic.glb, plate-frames/assets/models/civic/): where
-// the frame's centre sits on the model's hatch (metres, model space; the car
-// faces +z, so its rear is at -z). The plate centre is at y = 0.719; the hatch
-// is tilted and its lip overhangs to z = -2.463 just above the plate, so the
-// frame sits on that outer surface, not in the recess. The previous car
-// (pfg-car.glb) used [0, 0.3, -1.936] and is still in Files.
-const CAR_FILE = "pfg-car-civic.glb";
-const CAR_PLATE = [0, 0.719, -2.465];
+// Demo car (Files: pfg-car-civic-v2.glb, plate-frames/assets/models/civic/):
+// centre of the model's plate face (metres, model space; the car faces +z, so
+// its rear is at -z). The plate leans back with the hatch by CAR_TILT, so with
+// the car on, the frame and plate tilt to match and bolt flat onto it. The
+// previous car (pfg-car.glb) used [0, 0.3, -1.936] with no tilt and is still
+// in Files.
+const CAR_FILE = "pfg-car-civic-v2.glb";
+const CAR_PLATE = [0, 0.719, -2.426];
+const CAR_TILT = Math.asin(0.236); // plate normal (0, 0.236, -0.972), ~13.7 deg
 // Orbit limits with the car on: stay behind it, above the ground, outside it.
 const CAR_ORBIT = { minAzimuthAngle: -1.2, maxAzimuthAngle: 1.2, maxPolarAngle: 1.64, minDistance: 14, maxDistance: 80 };
 // Plate centre height when the frame is flipped: the frame hole (2.516 in
@@ -123,10 +124,13 @@ class FrameViewer {
     if (opts.gallery) canvas.style.touchAction = "pan-y";
 
     this.rig = new THREE.Group();
+    // Frame and plate tilt together to sit flat on the car's plate (setCar).
+    this.mount = new THREE.Group();
+    this.rig.add(this.mount);
     // The frame and its screws turn over together for prints drawn for a
     // flipped frame (tags on the bottom); the plate always stays upright.
     this.frame = new THREE.Group();
-    this.rig.add(this.frame);
+    this.mount.add(this.frame);
     scene.add(this.rig);
     const side = THREE.DoubleSide;
     this.face = new THREE.MeshPhysicalMaterial({ roughness: 0.3, clearcoat: 0.6, clearcoatRoughness: 0.18, side });
@@ -152,7 +156,7 @@ class FrameViewer {
     // shows the printed face mirrored through it.
     this.plate.add(new THREE.Mesh(plateGeo, new THREE.MeshStandardMaterial({ color: 0xb9bcc1, metalness: 0.7, roughness: 0.42, side: THREE.BackSide })));
     this.plate.position.set(0, 0.05, -FRAME.depth / 2 + 0.012); // flush with the back, as when bolted on
-    this.rig.add(this.plate);
+    this.mount.add(this.plate);
 
     const screwMat = new THREE.MeshStandardMaterial({ color: 0xd8dade, metalness: 1, roughness: 0.22 });
     const headGeo = new THREE.SphereGeometry(0.2, 24, 12, 0, Math.PI * 2, 0, Math.PI / 2);
@@ -274,6 +278,7 @@ class FrameViewer {
       this.rig.rotation.y = 0;
       this.car ??= this.loadCar(url);
     }
+    this.mount.rotation.x = this.carOn ? -CAR_TILT : 0;
     const car = this.car && (await this.car);
     if (car) car.visible = this.carOn;
     this.floor.visible = !this.carOn;
@@ -291,12 +296,15 @@ class FrameViewer {
       if (o.isMesh && o.material.transmission > 0) {
         Object.assign(o.material, { transmission: 0, transparent: true, opacity: 0.45, color: new THREE.Color(0x10151c) });
       }
+      // The model's own blank plate sits under ours; hide it so it never peeks out.
+      if (o.isMesh && o.material.name === "PLATE_BLANK") o.visible = false;
     });
     model.rotation.y = Math.PI; // rear towards the camera
     model.scale.setScalar(1 / 0.0254); // metres -> inches
     // Rotated half a turn, the plate spot (x, y, z) sits at (-x, y, -z); put it
-    // just behind the frame's back face.
-    model.position.set(0, 0.05 - CAR_PLATE[1] / 0.0254, -FRAME.depth / 2 - 0.02 + CAR_PLATE[2] / 0.0254);
+    // just behind the tilted frame's back face, where our plate is.
+    const spot = new THREE.Vector3(0, 0.05, -FRAME.depth / 2 - 0.02).applyAxisAngle(new THREE.Vector3(1, 0, 0), -CAR_TILT);
+    model.position.set(spot.x + CAR_PLATE[0] / 0.0254, spot.y - CAR_PLATE[1] / 0.0254, spot.z + CAR_PLATE[2] / 0.0254);
     const car = new THREE.Group();
     car.add(model);
     const box = new THREE.Box3().setFromObject(model);
@@ -444,7 +452,6 @@ async function mount(root) {
   $("next").addEventListener("click", () => step(1));
   for (const b of root.querySelectorAll("[data-filter]")) b.addEventListener("click", () => setFilter(b.dataset.filter));
   const car = (on) => {
-    $("credit").hidden = !on;
     root.classList.toggle("pfg--car", on);
     viewer.setCar(on, sibling(root.dataset.model, CAR_FILE)).catch(console.error);
   };
@@ -548,7 +555,6 @@ async function mountProduct(root) {
     carBtn.addEventListener("click", () => {
       const on = carBtn.getAttribute("aria-pressed") !== "true";
       carBtn.setAttribute("aria-pressed", String(on));
-      root.querySelector('[data-role="credit"]').hidden = !on;
       root.classList.toggle("pfg3d--car", on);
       viewer.setCar(on, sibling(root.dataset.model, CAR_FILE)).catch(console.error);
     });
