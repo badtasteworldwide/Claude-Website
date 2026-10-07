@@ -1406,3 +1406,23 @@ body.pdp-sticky-on .tabbar { transform: translateY(110%); }
   .rcard--more { flex-basis: 240px; }
   .pdp-sticky { padding-inline: max(24px, calc((100vw - 1280px) / 2 + 24px)); }
 }
+
+/* Zine layer: tightening pass */
+.zhero__cta-alt { white-space: normal; max-width: 92px; line-height: 1.25; }
+@media (max-width: 959px) {
+  .zgarage { padding: 30px 16px 26px; }
+  .zgarage__poster { width: 66%; margin: 4px auto 22px; }
+  .zgarage__stage { margin-top: 16px; }
+  .bundle__title { font-size: clamp(30px, 8.4vw, 40px); }
+  .bundle__sub { display: none; }
+  .zugc { padding-top: 32px; }
+  .zugc__title { font-size: clamp(26px, 7.4vw, 40px); }
+  .zugc__tile { flex-basis: 196px; }
+  .zugc__rail { padding: 18px 16px 20px; }
+  .zreceipt { padding: 22px 16px 40px; }
+  .zreceipt__paper { padding: 20px 20px 18px; }
+  .zreceipt__row { padding: 7px 0; }
+  .zfeed__foot { padding: 20px 16px 24px; }
+  .zfeed__head { padding: 30px 16px 20px; }
+  .pdp__title { font-size: clamp(24px, 6.6vw, 32px); }
+}
