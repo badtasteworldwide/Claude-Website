@@ -353,11 +353,15 @@ async function mount(root) {
   // Absolute, so the CSS url() doesn't resolve against the stylesheet.
   root.style.setProperty("--pfg-thumbs", `url("${new URL(root.dataset.thumbs, location.href).href}")`);
   root.style.setProperty("--pfg-thumb-size", `${cat.thumbs.cols * 100}% ${cat.thumbs.rows * 100}%`);
-  root.querySelector('[data-count="current"]').textContent = designs.filter((d) => d.product).length;
+  // In store: designs linked to a product, minus older versions of a product
+  // that also has a current design (e.g. the legacy white Jollibee).
+  const currentProducts = new Set(designs.filter((d) => d.product && d.current).map((d) => d.product));
+  const inStore = (d) => !!d.product && (d.current || !currentProducts.has(d.product));
+  root.querySelector('[data-count="current"]').textContent = designs.filter(inStore).length;
   root.querySelector('[data-count="all"]').textContent = designs.length;
 
   const visible = (d) =>
-    (state.filter === "all" || d.product) &&
+    (state.filter === "all" || inStore(d)) &&
     (!state.query || `${d.name} ${d.group.name} ${d.productTitle || ""}`.toLowerCase().includes(state.query));
 
   function renderList() {
@@ -450,8 +454,8 @@ async function mount(root) {
 
   // Start on a design from the URL (?frame=<id>) or the first one in store.
   const want = new URLSearchParams(location.search).get("frame");
-  const first = Math.max(0, designs.findIndex((d) => (want ? d.id === want : d.product)));
-  setFilter(designs[first].product ? "current" : "all");
+  const first = Math.max(0, designs.findIndex((d) => (want ? d.id === want : inStore(d))));
+  setFilter(inStore(designs[first]) ? "current" : "all");
   select(first);
 
   await loadThree();
