@@ -7,9 +7,9 @@
 <div
   class="pfg pfg--dark pfg--hero"
   data-pfg
-  data-catalog="{{ 'pfg-catalog-2.json' | file_url }}"
+  data-catalog="{{ 'pfg-catalog-3.json' | file_url }}"
   data-popular="{% render 'pfg-popular' %}"
-  data-thumbs="{{ 'pfg-thumbs-2.webp' | file_url }}"
+  data-thumbs="{{ 'pfg-thumbs-3.webp' | file_url }}"
   data-model="{{ 'pfg-frame.glb' | file_url }}"
   data-sheet="{{ 'pfg-sheet-00.webp' | file_url }}"
   data-products="{{ routes.root_url | append: '/products/' | replace: '//', '/' }}"
@@ -59,10 +59,10 @@
     padding: 10px 12px; min-height: 40px; display: inline-flex; align-items: center; gap: 6px; text-decoration: none;
   }
   .pfg-hero-all:hover { background: var(--paper); text-decoration: none; }
-  .pfg-hero-random {
-    /* Bottom-right, stacked just above the control dock so the two never collide. */
-    position: absolute; right: 14px; bottom: 84px; z-index: 2; cursor: pointer;
-    font: 400 12px/1 var(--font-display); text-transform: uppercase; letter-spacing: .02em;
+  .pfg--hero .pfg-hero-random {
+    /* Top-right, directly under "All designs" (40px tall at top: 14px). */
+    position: absolute; right: 14px; top: 64px; z-index: 2; cursor: pointer;
+    font-family: var(--font-display); font-weight: 400; font-size: 12px; line-height: 1; text-transform: uppercase; letter-spacing: .02em;
     color: var(--ink); background: var(--pink); border: 2px solid var(--paper);
     box-shadow: 3px 3px 0 var(--paper); padding: 9px 12px; min-height: 40px; white-space: nowrap;
   }
@@ -95,7 +95,7 @@
     .pfg--hero .pfg-bay { height: auto; order: 0; }
     .pfg--hero .pfg-plaque { left: 14px; top: 14px; right: 140px; }
     .pfg--hero .pfg-dock { left: 10px; right: 10px; justify-content: space-between; gap: 2px; }
-    .pfg-hero-random { right: 10px; bottom: 74px; font-size: 11px; padding: 8px 10px; min-height: 36px; }
+    .pfg--hero .pfg-hero-random { top: 62px; right: 14px; font-size: 10px; padding: 6px 9px; min-height: 30px; box-shadow: 2px 2px 0 var(--paper); }
     .pfg--hero .pfg-btn { padding: 8px 8px; font-size: 11px; }
     .pfg--hero .pfg-icon { padding: 8px 6px; }
   }
