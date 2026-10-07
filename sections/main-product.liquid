@@ -239,7 +239,7 @@
         });
       }, { passive: true });
     }
-    /* Sticky add-to-cart: shows once the real button scrolls up out of view */
+    /* Sticky add-to-cart: in the thumb zone whenever the real button is off screen */
     var bar = pdp.querySelector('[data-sticky-atc]');
     var form = pdp.querySelector('form[data-product-form]');
     var mainBtn = form && form.querySelector('[type="submit"]');
@@ -252,7 +252,7 @@
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (entries) {
         var e = entries[0];
-        bar.dataset.visible = String(!e.isIntersecting && e.boundingClientRect.top < 0);
+        bar.dataset.visible = String(!e.isIntersecting);
       }).observe(row);
     }
     function mirror() {
