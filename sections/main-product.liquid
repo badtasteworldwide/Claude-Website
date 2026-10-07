@@ -162,7 +162,7 @@
     {%- endif -%}
     <div class="sticky-atc__text">
       <strong>{{ product.title | remove: ' License Plate Frame' }}</strong>
-      <span><span data-sticky-variant>{% unless product.has_only_default_variant %}{{ current_variant.title }}{% endunless %}</span> <b data-sticky-price>{{ current_variant.price | money }}</b></span>
+      <span><b data-sticky-price>{{ current_variant.price | money }}</b> <span data-sticky-variant>{% unless product.has_only_default_variant %}{{ current_variant.title }}{% endunless %}</span></span>
     </div>
     <button type="submit" form="PdpForm" class="btn sticky-atc__btn" data-sticky-btn tabindex="-1" {% unless current_variant.available %}disabled{% endunless %}>{% if current_variant.available %}Add to cart{% else %}Sold out{% endif %}</button>
   </div>

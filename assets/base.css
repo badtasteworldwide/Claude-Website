@@ -1129,7 +1129,7 @@ legend.option-label { padding: 0; }
 .sticky-atc__text strong { font-family: var(--font-display); font-weight: 400; font-size: 13px; line-height: 1.15; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; word-spacing: .14em; }
 .sticky-atc__text > span { font: 700 11px/1.2 var(--font-label); text-transform: uppercase; color: var(--ink-mute); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .sticky-atc__text b { color: var(--yellow); font-weight: 800; }
-.sticky-atc__btn { min-height: 50px; padding: 12px 18px; font-size: 14px; border-color: var(--paper); box-shadow: 3px 3px 0 var(--pink-soft); }
+.sticky-atc__btn { min-height: 50px; padding: 12px 14px; font-size: 13px; border-color: var(--paper); box-shadow: 3px 3px 0 var(--pink-soft); }
 .sticky-atc :focus-visible { outline-color: var(--yellow); }
 
 /* ---------- Collection page chips ---------- */
@@ -1260,7 +1260,7 @@ legend.option-label { padding: 0; }
   .sheet-quick a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; border: 2px solid var(--ink); font: 800 11.5px/1 var(--font-label); text-transform: uppercase; }
 
   /* Hero: stack, rail goes edge to edge */
-  .hero--shop .hero__inner { grid-template-columns: minmax(0, 1fr); gap: 14px; padding: 18px var(--gutter) 18px; }
+  .hero--shop .hero__inner { grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 14px var(--gutter) 16px; }
   .hero--shop .hero__cta-row { display: none; }
   .hero-rail__track { grid-auto-columns: 44%; margin: 0 calc(var(--gutter) * -1); padding: 2px var(--gutter) 12px; scroll-padding-inline: var(--gutter); scrollbar-width: none; }
   .hero-rail__track::-webkit-scrollbar { display: none; }
@@ -1283,7 +1283,7 @@ legend.option-label { padding: 0; }
   .pdp__trust { margin-top: 14px; font-size: 11px; }
   .pdp__desc { margin: 20px 0 8px; padding-top: 18px; font-size: 15px; }
   .pdp .faq__q { font-size: 14px; min-height: 54px; padding: 12px 0; }
-  .pdp__price-row .pdp__bundle-hint { max-width: 16ch; }
+  .pdp__price-row .pdp__bundle-hint { max-width: 24ch; }
   .drawer__item-img { width: 96px; height: 72px; }
 
   /* Collection page */
@@ -1333,6 +1333,8 @@ legend.option-label { padding: 0; }
 @media (max-width: 600px) {
   .section__head { margin-bottom: 18px; flex-wrap: nowrap; align-items: center; }
   .section__title { font-size: clamp(24px, 7vw, 32px); }
+  .section__head > div { min-width: 0; }
+  .ugc .section__head { flex-wrap: wrap; align-items: flex-start; }
   .section__link { flex: none; font-size: 11px; padding: 10px; min-height: 44px; display: inline-flex; align-items: center; }
 
   .hero--shop .hero__title { font-size: clamp(28px, 8.4vw, 38px); line-height: 1.02; }
