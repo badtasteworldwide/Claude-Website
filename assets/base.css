@@ -1025,6 +1025,8 @@ table.order-table th { background: var(--ink); color: var(--paper); font-family:
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
 img { overflow-wrap: anywhere; word-break: break-word; }
+a, button, summary, label, input, select, textarea { touch-action: manipulation; }
+html { -webkit-tap-highlight-color: rgba(250, 83, 193, .25); }
 .product-card, .collection-card, .hero-rail__slide, .pdp__info, .pdp__media { min-width: 0; }
 fieldset.option-row { border: 0; padding: 0; margin: 0 0 16px; min-width: 0; }
 legend.option-label { padding: 0; }
@@ -1170,6 +1172,12 @@ legend.option-label { padding: 0; }
    ============================================================= */
 @media (max-width: 960px) {
   body { padding-bottom: calc(62px + env(safe-area-inset-bottom)); }
+  html { scroll-padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
+
+  /* Rail cards: name and price side by side, so the photo gets the height */
+  .hero-rail .product-card__info { flex-direction: row; align-items: flex-start; justify-content: space-between; gap: 8px; }
+  .hero-rail .product-card__price-row { margin-top: 0; padding-top: 0; flex: none; }
+  .hero-rail .product-card__link { min-width: 0; flex: 1 1 auto; }
 
   /* Promo: one tight line where it fits */
   .promo-bar { font-family: var(--font-sans); font-size: 11.5px; font-weight: 800; letter-spacing: .01em; word-spacing: 0; padding: 7px 12px; line-height: 1.3; }

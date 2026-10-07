@@ -27,13 +27,18 @@
     d.dataset.open = 'true'; d.setAttribute('aria-hidden', 'false');
     if (o) o.dataset.open = 'true';
     document.body.style.overflow = 'hidden';
+    if (!document.activeElement || !document.activeElement.closest('#cart-drawer-root')) drawerReturn = document.activeElement;
+    var c = $('#closeDrawer'); if (c) setTimeout(function () { c.focus({ preventScroll: true }); }, 50);
   }
+  var drawerReturn = null;
   function closeDrawer() {
     var d = $('#drawer'); var o = $('#drawerOverlay');
     if (!d) return;
     d.dataset.open = 'false'; d.setAttribute('aria-hidden', 'true');
     if (o) o.dataset.open = 'false';
     document.body.style.overflow = '';
+    if (drawerReturn && drawerReturn.focus && document.contains(drawerReturn)) drawerReturn.focus({ preventScroll: true });
+    drawerReturn = null;
   }
   window.BTWopenDrawer = openDrawer;
   window.BTWcloseDrawer = closeDrawer;
