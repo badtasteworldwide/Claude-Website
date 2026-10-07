@@ -36,8 +36,7 @@ const PRINT_LIFT = 0.015;
 // centre of the model's plate face (metres, model space; the car faces +z, so
 // its rear is at -z). The plate leans back with the hatch by CAR_TILT, so with
 // the car on, the frame and plate tilt to match and bolt flat onto it. The
-// previous car (pfg-car.glb) used [0, 0.3, -1.936] with no tilt and is still
-// in Files.
+// previous car (pfg-car.glb, since removed) used [0, 0.3, -1.936] with no tilt.
 const CAR_FILE = "pfg-car-civic-v2.glb";
 const CAR_PLATE = [0, 0.719, -2.426];
 const CAR_TILT = Math.asin(0.236); // plate normal (0, 0.236, -0.972), ~13.7 deg
@@ -65,10 +64,14 @@ function shadowTexture() {
 // Other pfg-* files sit next to the model in Content > Files. Shopify lets
 // browsers cache them for a year, so derived URLs carry the catalog's version:
 // whenever the catalog is re-uploaded, its sheets are fetched fresh too.
+// Bump SHEETS_REV whenever sheets are replaced in Files without re-uploading the
+// catalog (Shopify keeps the catalog's ?v= the same then), so browsers that
+// cached the old sheets fetch the new ones. 2: flipped-design textures realigned.
+const SHEETS_REV = 2;
 let BUST = "";
 const setBust = (catalogUrl) => {
   const v = new URL(catalogUrl, location.href).searchParams.get("v");
-  BUST = v ? `?v=${v}` : "";
+  BUST = v ? `?v=${v}&r=${SHEETS_REV}` : `?r=${SHEETS_REV}`;
 };
 const sibling = (url, name) => url.replace(/pfg-[\w-]+\.\w+/, name).replace(/[?&]v=\d+/, "") + BUST;
 const loadPlate = (viewer, modelUrl) =>
@@ -430,6 +433,15 @@ async function mount(root) {
     root.querySelector(`.pfg-card[data-id="${next}"]`)?.scrollIntoView({ block: "nearest" });
   }
 
+  // Jump to a random design from the current list (never the one showing).
+  function shuffle() {
+    const pool = designs.filter((d, i) => visible(d) && i !== state.index);
+    if (!pool.length) return;
+    const d = pool[Math.floor(Math.random() * pool.length)];
+    select(designs.indexOf(d));
+    root.querySelector(`.pfg-card[data-id="${d.id}"]`)?.scrollIntoView({ block: "nearest" });
+  }
+
   function setFilter(f) {
     state.filter = f;
     for (const b of root.querySelectorAll("[data-filter]")) b.setAttribute("aria-pressed", String(b.dataset.filter === f));
@@ -450,6 +462,7 @@ async function mount(root) {
 
   $("prev").addEventListener("click", () => step(-1));
   $("next").addEventListener("click", () => step(1));
+  $("random")?.addEventListener("click", shuffle);
   for (const b of root.querySelectorAll("[data-filter]")) b.addEventListener("click", () => setFilter(b.dataset.filter));
   const car = (on) => {
     root.classList.toggle("pfg--car", on);
