@@ -28,6 +28,33 @@
       </div>
     </div>
 
+    {%- if section.settings.visual == 'garage' -%}
+      {%- comment -%}
+        Desktop keeps the live hero: the 3D configurator card mounts straight away.
+        At 960px and below it stays an inert <template> (no CSS, JS or three.js);
+        phones get the tap-to-load garage section lower on the page instead.
+      {%- endcomment -%}
+      <div class="hero__visual hero__visual--3d hero__desk3d" data-hero-3d>
+        <template>{%- render 'hero-garage' -%}</template>
+      </div>
+      <script>
+        (function () {
+          var box = document.currentScript.previousElementSibling;
+          if (!box || !window.matchMedia('(min-width: 961px)').matches) return;
+          var tpl = box.querySelector('template');
+          var frag = tpl.content.cloneNode(true);
+          Array.prototype.slice.call(frag.querySelectorAll('script')).forEach(function (old) {
+            var s = document.createElement('script');
+            if (old.type) s.type = old.type;
+            if (old.src) s.src = old.src; else s.textContent = old.textContent;
+            old.replaceWith(s);
+          });
+          tpl.replaceWith(frag);
+          document.documentElement.classList.add('hero-3d-live');
+        })();
+      </script>
+    {%- endif -%}
+
     <div class="hero-rail">
       <div class="hero-rail__head">
         <h2 class="hero-rail__label">{{ section.settings.rail_label | default: 'Best sellers' }}</h2>
