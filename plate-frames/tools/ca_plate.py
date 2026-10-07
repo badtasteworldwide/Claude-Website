@@ -3,7 +3,8 @@
 A standard-issue California passenger plate (1993 design, with "dmv.ca.gov"
 added along the bottom in 2011): white reflective sheeting, red "California"
 script across the top, dark blue stamped serial, red dmv.ca.gov, a raised
-border rim and four mounting slots. 12 x 6 in.
+border rim and four mounting slots, with month and year registration stickers
+in the top corners. 12 x 6 in.
 
 Outputs (2048 x 1024, plate face only):
   <out>/ca-plate.webp         colour + alpha (alpha cuts the mounting slots)
@@ -13,7 +14,7 @@ The serial glyphs are drawn here as vector shapes in the style of the
 California dies (narrow, even stroke, squared stems, rounded bowls) because
 the faithful digital version, Penitentiary Gothic, is a commercial font.
 
-usage: python3 ca_plate.py [SERIAL] [OUT_DIR]
+usage: python3 ca_plate.py [SERIAL] [OUT_DIR] [MONTH] [YEAR]   (site uses BADT4ST . JUN 2019)
 """
 import math
 import os
@@ -35,6 +36,8 @@ SS = 2  # supersampling for the masks
 RED = (196, 30, 46)
 BLUE = (27, 40, 98)
 SHEET = (244, 245, 247)
+STICKER = (236, 178, 32)  # this run's registration colour
+INK = (24, 24, 28)
 
 # Layout, inches from the top-left corner of the plate.
 GLYPH_H = 2.70
@@ -42,14 +45,22 @@ GLYPH_W = 1.14
 STROKE = 0.33
 GAP = 0.14
 SERIAL_TOP = 1.62
-SCRIPT_BASELINE = 1.28
-SCRIPT_WIDTH = 3.7
+# "California" is traced from a photo of the real plate's hand-lettered
+# script (fonts/ca-script-trace.png), not set in a font. Box in inches.
+SCRIPT_BOX = (3.80, 0.30, 8.56, 1.60)
 DMV_BASELINE = 5.66
 DMV_HEIGHT = 0.30  # cap/x-height-ish box
 RIM_INSET = 0.16
 RIM_WIDTH = 0.10
 SLOTS = [(2.5, 0.53), (9.5, 0.53), (2.5, 5.28), (9.5, 5.28)]  # 7 in x 4.75 in pattern
 SLOT_W, SLOT_H = 0.55, 0.30
+# Registration stickers at real size: month top-left, year top-right (CA rear
+# plate). Frames with a wide top bar partly cover them, as on a real car.
+MONTH_BOX = (0.30, 0.28, 1.50, 1.18)
+YEAR_BOX = (10.20, 0.28, 11.72, 1.30)
+FONTS = os.path.join(HERE, "fonts")
+DIGITS = os.path.join(FONTS, "BigShoulders-Bold.ttf")
+SANS = "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"
 
 
 # ---------------------------------------------------------------- glyphs
@@ -138,10 +149,10 @@ def mask_of(geom, ss=SS, keep=False):
 
 def text_mask(text, font_path, size_px, centre_x, baseline_y, max_w=None):
     """Mask of a line of text centred on centre_x with its baseline at baseline_y (px)."""
-    font = ImageFont.truetype(font_path, int(size_px * SS))
+    font = ImageFont.truetype(font_path, max(1, int(size_px * SS)))
     l, t, r, b = font.getbbox(text, anchor="ls")
     if max_w and (r - l) > max_w * SS:
-        font = ImageFont.truetype(font_path, int(size_px * SS * max_w * SS / (r - l)))
+        font = ImageFont.truetype(font_path, max(1, int(size_px * SS * max_w * SS / (r - l))))
         l, t, r, b = font.getbbox(text, anchor="ls")
     im = Image.new("L", (PX * SS, PX // 2 * SS), 0)
     ImageDraw.Draw(im).text((centre_x * SS - (l + r) / 2, baseline_y * SS), text, font=font, fill=255, anchor="ls")
@@ -157,7 +168,26 @@ def emboss(geom, rise_in, edge_in, ss=4):
     return t.reshape(PX // 2, ss, PX, ss).mean(axis=(1, 3))
 
 
-def main(serial="BADT4ST", out=os.path.join(HERE, "..", "assets", "plate")):
+def rounded_box(x0, y0, x1, y1, r):
+    return box(x0 + r, y0 + r, x1 - r, y1 - r).buffer(r, resolution=16)
+
+
+def sticker(rect, big, small, top_line):
+    """A registration sticker: coloured vinyl, rounded corners, a big line of
+    black text, a small CA line above it and a tiny control number below."""
+    x0, y0, x1, y1 = rect
+    w, h = x1 - x0, y1 - y0
+    cx = (x0 + x1) / 2 * S
+    shape = rounded_box(x0, y0, x1, y1, 0.07)
+    ink = np.maximum.reduce([
+        np.asarray(text_mask(top_line, SANS, h * 0.15 * S, cx, (y0 + h * 0.19) * S, max_w=w * 0.8 * S), np.float32),
+        np.asarray(text_mask(big, DIGITS, h * 0.62 * S, cx, (y0 + h * 0.80) * S, max_w=w * 0.80 * S), np.float32),
+        np.asarray(text_mask(small, SANS, h * 0.10 * S, cx, (y0 + h * 0.93) * S, max_w=w * 0.7 * S), np.float32),
+    ]) / 255
+    return shape, ink
+
+
+def main(serial="BADT4ST", out=os.path.join(HERE, "..", "assets", "plate"), month="JAN", year="2019"):
     os.makedirs(out, exist_ok=True)
     serial = serial.upper()
     span = len(serial) * GLYPH_W + (len(serial) - 1) * GAP
@@ -175,14 +205,24 @@ def main(serial="BADT4ST", out=os.path.join(HERE, "..", "assets", "plate")):
     ])
     slot_mask = mask_of(slots)
 
-    script = text_mask("California", os.path.join(HERE, "fonts", "yellowtail-latin-400-normal.woff"),
-                       1.15 * S, PX / 2, SCRIPT_BASELINE * S, max_w=SCRIPT_WIDTH * S)
-    dmv = text_mask("dmv.ca.gov", "/usr/share/fonts/opentype/urw-base35/NimbusSans-Bold.otf",
+    script = Image.new("L", (PX, PX // 2), 0)
+    sx0, sy0, sx1, sy1 = (round(v * S) for v in SCRIPT_BOX)
+    script.paste(Image.open(os.path.join(FONTS, "ca-script-trace.png")).convert("L")
+                 .resize((sx1 - sx0, sy1 - sy0), Image.LANCZOS), (sx0, sy0))
+    dmv = text_mask("dmv.ca.gov", SANS,
                     DMV_HEIGHT * 1.42 * S, PX / 2, DMV_BASELINE * S)
 
-    # Height: stamped serial and rim (about 1.2 mm), flat screen-printed script.
+    month_shape, month_ink = sticker(MONTH_BOX, month.upper()[:3], "6512047", "CA")
+    year_shape, year_ink = sticker(YEAR_BOX, str(year)[-2:], str(year)[-2:] + " 2047351", "CA")
+    stickers = unary_union([month_shape, year_shape])
+    sticker_mask = np.asarray(mask_of(stickers), np.float32)[..., None] / 255
+    sticker_ink = np.maximum(month_ink, year_ink)[..., None]
+
+    # Height: stamped serial and rim (about 1.2 mm), flat screen-printed script,
+    # stickers a thin vinyl step on top of the sheeting.
     height = np.maximum(emboss(glyphs, 0.05, 0.045), emboss(rim, 0.035, 0.035))
     height = ndimage.gaussian_filter(height, 1.0)  # rounds the stamped edges
+    height = height + emboss(stickers, 0.006, 0.01)
 
     # Colour.
     rng = np.random.default_rng(7)
@@ -190,6 +230,12 @@ def main(serial="BADT4ST", out=os.path.join(HERE, "..", "assets", "plate")):
     base[:] = SHEET
     grain = ndimage.gaussian_filter(rng.normal(0, 1, (PX // 2, PX)), 1.2)
     base += grain[..., None] * 1.6  # faint reflective-sheeting texture
+    # Glass-bead sheeting has a slight cool-to-warm cast and a soft falloff
+    # toward the edges, where the aluminium was bent over the rim.
+    yy, xx = np.mgrid[0:PX // 2, 0:PX].astype(np.float32)
+    u, v = xx / PX - 0.5, yy / (PX // 2) - 0.5
+    base *= (1 - 0.015 * (u * u + v * v) * 4)[..., None]
+    base += (np.asarray([-1.5, -0.5, 1.5], np.float32) * (0.5 - v)[..., None])
     # Ink sits on the top face of the stamped characters; the walls stay white.
     top = np.clip((height / 0.05 - 0.55) / 0.35, 0, 1)[..., None] * (np.asarray(serial_mask)[..., None] > 0)
     def over(col, a):
@@ -198,6 +244,10 @@ def main(serial="BADT4ST", out=os.path.join(HERE, "..", "assets", "plate")):
     over(BLUE, top)
     over(RED, (np.asarray(script, np.float32) / 255)[..., None])
     over(RED, (np.asarray(dmv, np.float32) / 255)[..., None])
+    # Stickers: vinyl colour with a faint sheen gradient, black print.
+    vinyl = np.asarray(STICKER, np.float32) * (1.04 - 0.08 * (v[..., None] + 0.5))
+    base = base * (1 - sticker_mask) + vinyl * sticker_mask
+    over(INK, sticker_ink * sticker_mask)
     alpha = 255 - np.asarray(slot_mask)
     rgba = np.dstack([np.clip(base, 0, 255).astype(np.uint8), alpha.astype(np.uint8)])
     Image.fromarray(rgba, "RGBA").save(os.path.join(out, "ca-plate.webp"), quality=92, method=6)
