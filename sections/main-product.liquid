@@ -41,7 +41,7 @@
           <span class="pdp__count" aria-hidden="true"><span data-gallery-index>1</span>/{{ product.images.size | at_most: 8 }}</span>
         {%- endif -%}
         {%- if has_frame_3d -%}
-            <button type="button" class="pdp__3d-btn" data-load-3d
+            <button type="button" class="pdp__3d-btn" data-load-3d hidden
               data-css="{{ 'plate-frame-garage.css' | asset_url }}"
               data-js="{{ 'plate-frame-garage.js' | asset_url }}">
               <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M12 2.5 21 7.5v9L12 21.5 3 16.5v-9z M3 7.5l9 5 9-5 M12 12.5v9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg>

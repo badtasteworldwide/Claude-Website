@@ -553,38 +553,48 @@
     }, { passive: true });
   }
 
-  /* ---------------- PDP: 3D on request ---------------- */
+  /* ---------------- PDP: 3D (desktop as before; phones on request) ---------------- */
   function bindLazy3d() {
     var btn = $('[data-load-3d]');
     if (!btn) return;
-    btn.addEventListener('click', function () {
-      var media = btn.closest('.pdp__media');
-      var root = $('[data-pfg-pdp-lazy]', media);
-      if (!root) return;
-      btn.disabled = true;
-      var label = $('[data-3d-label]', btn);
-      if (label) label.textContent = 'Loading 3D…';
+    var media = btn.closest('.pdp__media');
+    var root = $('[data-pfg-pdp-lazy]', media);
+    if (!root) return;
+    var label = $('[data-3d-label]', btn);
+    function load() {
+      if (root.hasAttribute('data-pfg-pdp')) return;
       root.removeAttribute('data-pfg-pdp-lazy');
       root.setAttribute('data-pfg-pdp', '');
-      var thumbs = $('.pdp__thumbs', media);
-      if (thumbs) thumbs.classList.add('is-3d');
       if (!document.querySelector('link[data-pfg-css]')) {
         var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = btn.dataset.css; l.setAttribute('data-pfg-css', '');
         document.head.appendChild(l);
       }
       var s = document.createElement('script'); s.type = 'module'; s.src = btn.dataset.js;
       document.body.appendChild(s);
-      // The viewer adds its own "3D" thumbnail once it has a design for this product.
+    }
+    // Desktop keeps the live behaviour: the 3D slide mounts straight away.
+    if (window.matchMedia('(min-width: 961px)').matches) { btn.remove(); load(); return; }
+    // Phones and tablets: photos first. The chip appears only if this product has a 3D design.
+    function check() {
+      fetch(root.dataset.catalog).then(function (r) { return r.json(); }).then(function (cat) {
+        var has = (cat.groups || []).some(function (g) {
+          return (g.designs || []).some(function (d) { return d.product === root.dataset.handle; });
+        });
+        if (has) btn.hidden = false;
+      }).catch(function () {});
+    }
+    if ('requestIdleCallback' in window) requestIdleCallback(check, { timeout: 3000 }); else setTimeout(check, 1500);
+    btn.addEventListener('click', function () {
+      btn.disabled = true;
+      if (label) label.textContent = 'Loading 3D…';
+      load();
+      // The viewer adds its own "3D" thumbnail and shows the slide; then the chip is done.
       var tries = 0;
       var poll = setInterval(function () {
         tries++;
-        if ($('.pfg3d-thumb', media)) { clearInterval(poll); btn.remove(); return; }
-        if (tries > 40) {
-          clearInterval(poll);
-          if (label) label.textContent = '3D not available';
-          if (thumbs) thumbs.classList.remove('is-3d');
-        }
-      }, 300);
+        if ($('.pfg3d-thumb', media) || !root.hidden) { clearInterval(poll); btn.remove(); return; }
+        if (tries > 60) { clearInterval(poll); if (label) label.textContent = '3D couldn\'t load'; setTimeout(function () { btn.remove(); }, 3000); }
+      }, 250);
     });
   }
 
