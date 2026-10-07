@@ -1197,7 +1197,7 @@ legend.option-label { padding: 0; }
   .header__row { padding: 6px var(--gutter); gap: 12px; }
   .logo .logo__img { height: 38px; }
   .logo small { display: none; }
-  .header__search, .header__account { display: none; }
+  .header__search, .header__account, .header__cart { display: none; }
 
   /* Bottom shop bar */
   .tabbar {
