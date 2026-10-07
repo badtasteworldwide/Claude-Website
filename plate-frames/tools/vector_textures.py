@@ -36,6 +36,10 @@ BLEED = dict(x0=0.0, x1=1.0, y0=0.0, y1=1.0)
 # keylines many prints draw around their window fall into the window.
 MOLD_X, MODEL_X = (0.050, 0.950), (0.0454, 0.9559)
 MOLD_Y, MODEL_Y = (0.192, 0.834), (0.1596, 0.8105)
+# Prints for a flipped frame (flip=1): the vertical window to use before the
+# half-turn in to_texture. With MOLD_Y they came out ~3% off (logos on the far
+# bar ran into the window); measured on the DomSem flipped sheets.
+FLIP_MOLD_Y = (0.186, 0.800)
 
 
 _FACE = None
@@ -148,7 +152,8 @@ def main(render_path, out_dir, name, *fit):
     window and would otherwise run into the model's thinner bars."""
     f = dict(kv.split("=") for kv in fit)
     mold_x = (float(f.get("left", MOLD_X[0])), float(f.get("right", MOLD_X[1])))
-    mold_y = (float(f.get("top", MOLD_Y[0])), float(f.get("bottom", MOLD_Y[1])))
+    base_y = FLIP_MOLD_Y if f.get("flip") == "1" else MOLD_Y
+    mold_y = (float(f.get("top", base_y[0])), float(f.get("bottom", base_y[1])))
     im = Image.open(render_path).convert("RGBA")
     rgba = np.asarray(im)
     slot = sheet_slot(rgba.shape)
