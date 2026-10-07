@@ -31,7 +31,7 @@
     "bottom": 0.807
   },
   "taco-bell": {
-    "bottom": 0.802
+    "flip": "1"
   },
   "calbee-shrimp-chips-rakeddomsem": {
     "bottom": 0.798
@@ -113,5 +113,23 @@
   },
   "suck-my-balls": {
     "bottom": 0.804
+  },
+  "mclaren-2025-f1": {
+    "flip": "1"
+  },
+  "jasmine-rice": {
+    "flip": "1"
+  },
+  "mazapan": {
+    "flip": "1"
+  },
+  "strawberry-soju": {
+    "flip": "1"
+  },
+  "blackpink-blink": {
+    "flip": "1"
+  },
+  "costco-hotdog": {
+    "flip": "1"
   }
 }

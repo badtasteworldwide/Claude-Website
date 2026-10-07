@@ -78,7 +78,7 @@ def frame_blocks(alpha):
     return blocks
 
 
-def to_texture(rgba, box, mold_x=MOLD_X, mold_y=MOLD_Y):
+def to_texture(rgba, box, mold_x=MOLD_X, mold_y=MOLD_Y, flip=False):
     x, y, w, h = box
     # Re-fit to the print aspect in case stray marks widened the box.
     cx, cy = x + w / 2, y + h / 2
@@ -89,6 +89,11 @@ def to_texture(rgba, box, mold_x=MOLD_X, mold_y=MOLD_Y):
     x, y = cx - w / 2, cy - h / 2
     u = model_to_mold((np.arange(TEX_W) + 0.5) / TEX_W, MODEL_X, mold_x)
     v = model_to_mold((np.arange(TEX_H) + 0.5) / TEX_H, MODEL_Y, mold_y)
+    if flip:
+        # Print drawn for a flipped frame (tag notches at the bottom): sample it
+        # turned half a turn, so it lands upright once the viewer turns the
+        # frame over. top/bottom/left/right then refer to the turned print.
+        u, v = 1 - u, 1 - v
     px = x + (BLEED["x0"] + u * (BLEED["x1"] - BLEED["x0"])) * w
     py = y + (BLEED["y0"] + v * (BLEED["y1"] - BLEED["y0"])) * h
     map_x, map_y = np.meshgrid(px.astype(np.float32), py.astype(np.float32))
@@ -137,7 +142,8 @@ def artboard_slot(shape):
 
 def main(render_path, out_dir, name, *fit):
     """fit: optional per-design overrides of the print's window edges, e.g.
-    top=0.22 bottom=0.80 left=0.06 right=0.94 (fractions of the artboard).
+    top=0.22 bottom=0.80 left=0.06 right=0.94 (fractions of the artboard),
+    and flip=1 for prints drawn for a flipped frame (tags on the bottom).
     Raise top / lower bottom when a print's lettering sits too close to its
     window and would otherwise run into the model's thinner bars."""
     f = dict(kv.split("=") for kv in fit)
@@ -152,7 +158,7 @@ def main(render_path, out_dir, name, *fit):
         blocks = [artboard_slot(rgba.shape)]
     os.makedirs(out_dir, exist_ok=True)
     for i, box in enumerate(blocks):
-        tex, cov = to_texture(rgba, box, mold_x, mold_y)
+        tex, cov = to_texture(rgba, box, mold_x, mold_y, flip=f.get("flip") == "1")
         out = os.path.join(out_dir, f"{name}{'' if len(blocks) == 1 else f'__{i + 1}'}.webp")
         Image.fromarray(tex).save(out, quality=90, method=4)
         print(out, *box, f"{cov:.3f}")

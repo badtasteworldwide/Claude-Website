@@ -28,6 +28,9 @@ const PRINT_LIFT = 0.015;
 const CAR_PLATE = [0, 0.3, -1.936];
 // Orbit limits with the car on: stay behind it, above the ground, outside it.
 const CAR_ORBIT = { minAzimuthAngle: -1.2, maxAzimuthAngle: 1.2, maxPolarAngle: 1.64, minDistance: 14, maxDistance: 80 };
+// Plate centre height when the frame is flipped: the frame hole (2.516 in
+// above centre, now below it) meets the plate slot 5.28 in from its top.
+const PLATE_Y_FLIPPED = -2.516 + (5.28 - 3);
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function shadowTexture() {
@@ -78,6 +81,10 @@ export class FrameViewer {
     controls.autoRotateSpeed = 2.2;
 
     this.rig = new THREE.Group();
+    // The frame and its screws turn over together for prints drawn for a
+    // flipped frame (tags on the bottom); the plate always stays upright.
+    this.frame = new THREE.Group();
+    this.rig.add(this.frame);
     scene.add(this.rig);
 
     const side = THREE.DoubleSide; // the STL's winding is not guaranteed
@@ -130,7 +137,7 @@ export class FrameViewer {
       g.position.set((u - 0.5) * FRAME.width, (0.5 - v) * FRAME.height, FRAME.depth / 2 - 0.01);
       this.screws.add(g);
     }
-    this.rig.add(this.screws);
+    this.frame.add(this.screws);
 
     const floor = new THREE.Mesh(
       new THREE.PlaneGeometry(18, 4.5),
@@ -167,7 +174,7 @@ export class FrameViewer {
       if (o.isMesh) o.material = byName[o.material.name] ?? this.edge;
     });
     gltf.scene.scale.setScalar(1 / 0.0254); // metres -> inches
-    this.rig.add(gltf.scene);
+    this.frame.add(gltf.scene);
   }
 
   resize() {
@@ -200,11 +207,19 @@ export class FrameViewer {
     return this.textures.get(url);
   }
 
-  async show(url) {
+  async show(url, flipped = false) {
     const tex = await this.loadTexture(url);
+    this.setFlipped(flipped);
     this.face.map = this.edge.map = tex;
     this.face.needsUpdate = this.edge.needsUpdate = true;
     if (!reducedMotion && !this.carOn) this.swing = { t: 0, from: this.rig.rotation.y - 0.55 };
+  }
+
+  // Turned over, the frame's mount holes line up with the plate's bottom
+  // slots (4.75 in below the top ones), which sits the plate 0.29 in lower.
+  setFlipped(on) {
+    this.frame.rotation.z = on ? Math.PI : 0;
+    this.plate.position.y = on ? PLATE_Y_FLIPPED : 0.05;
   }
 
   // Mount the frame on the back of a car. The model loads on first use.

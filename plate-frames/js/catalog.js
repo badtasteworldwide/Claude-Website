@@ -46,6 +46,7 @@ export const GROUPS = [
    },
    {
     "id": "mclaren-2025-f1",
+    "flipped": true,
     "name": "McLaren 2025 Reverse",
     "current": true,
     "file": "Mclaren 2025 F1 Reverse Domsem Triple.png",
@@ -531,6 +532,7 @@ export const GROUPS = [
    },
    {
     "id": "taco-bell",
+    "flipped": true,
     "name": "Taco Bell",
     "current": true,
     "file": "Taco Bell Flipped Domsem Triple.png",
@@ -789,6 +791,7 @@ export const GROUPS = [
    },
    {
     "id": "jasmine-rice",
+    "flipped": true,
     "name": "Jasmine Rice",
     "current": true,
     "file": "Jasmine Rice Flipped-02.png",
@@ -928,6 +931,7 @@ export const GROUPS = [
    },
    {
     "id": "mazapan",
+    "flipped": true,
     "name": "Mazapan",
     "current": false,
     "file": "mazapan flipped-01.eps",
@@ -1291,6 +1295,7 @@ export const GROUPS = [
    },
    {
     "id": "strawberry-soju",
+    "flipped": true,
     "name": "Strawberry Soju",
     "current": false,
     "file": "strawberry soju flipped-01.eps",
@@ -1609,6 +1614,7 @@ export const GROUPS = [
    },
    {
     "id": "blackpink-blink",
+    "flipped": true,
     "name": "BLACKPINK Blink",
     "current": true,
     "file": "BlackPink Blink Flipped Domsem Triple.png",
@@ -2441,6 +2447,7 @@ export const GROUPS = [
    },
    {
     "id": "costco-hotdog",
+    "flipped": true,
     "name": "Costco Hot Dog",
     "current": true,
     "file": "Costco Hotdog Flipped Final.png",

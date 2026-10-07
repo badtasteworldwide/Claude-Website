@@ -95,7 +95,7 @@ function select(i, { push = true } = {}) {
   document.title = `${d.name} · Plate Frame Garage`;
   if (push && location.hash.slice(1) !== d.id) history.replaceState(null, "", `#${d.id}`);
   markCurrent();
-  viewer?.show(textureUrl(d));
+  viewer?.show(textureUrl(d), d.flipped);
   for (const n of [state.index + 1, state.index - 1]) viewer?.loadTexture(textureUrl(DESIGNS[(n + DESIGNS.length) % DESIGNS.length]));
 }
 
@@ -122,7 +122,7 @@ async function boot() {
   viewer = new FrameViewer($("stage"));
   // The plate is decoration: if it fails the frame still shows on blank sheeting.
   viewer.loadPlate(asset("plate/ca-plate.webp"), asset("plate/ca-plate-normal.webp")).catch(console.error);
-  await Promise.all([viewer.loadModel(asset("models/plate-frame.glb")), viewer.show(textureUrl(DESIGNS[state.index]))]);
+  await Promise.all([viewer.loadModel(asset("models/plate-frame.glb")), viewer.show(textureUrl(DESIGNS[state.index]), DESIGNS[state.index].flipped)]);
   $("loading").hidden = true;
 
   $("prev").addEventListener("click", () => step(-1));
