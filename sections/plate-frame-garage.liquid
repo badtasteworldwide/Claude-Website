@@ -8,9 +8,9 @@
 <div
   class="pfg{% if section.settings.dark %} pfg--dark{% endif %}"
   data-pfg
-  data-catalog="{{ 'pfg-catalog.json' | file_url }}"
+  data-catalog="{{ 'pfg-catalog-2.json' | file_url }}"
   data-popular="{% render 'pfg-popular', collection: section.settings.popular %}"
-  data-thumbs="{{ 'pfg-thumbs.webp' | file_url }}"
+  data-thumbs="{{ 'pfg-thumbs-2.webp' | file_url }}"
   data-model="{{ 'pfg-frame.glb' | file_url }}"
   data-sheet="{{ 'pfg-sheet-00.webp' | file_url }}"
   data-products="{{ routes.root_url | append: '/products/' | replace: '//', '/' }}"
