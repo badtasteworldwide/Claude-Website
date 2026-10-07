@@ -1,0 +1,64 @@
+{
+  "units": "metres",
+  "up": "+Y",
+  "car_front": "+Z",
+  "car_rear": "-Z",
+  "car_bounds": {
+    "min": [
+      -1.032,
+      -0.015,
+      -2.534
+    ],
+    "max": [
+      1.032,
+      1.412,
+      2.073
+    ]
+  },
+  "plate": {
+    "mesh": "LicensePlate",
+    "centre": [
+      -0.001,
+      0.719,
+      -2.426
+    ],
+    "width": 0.305,
+    "height": 0.152,
+    "up_axis": [
+      0,
+      0.972,
+      0.236
+    ],
+    "tilt_deg_from_vertical": 13.672,
+    "uv": "(0,0) bottom-left to (1,1) top-right as seen from behind the car",
+    "bounds": {
+      "min": [
+        -0.153,
+        0.645,
+        -2.444
+      ],
+      "max": [
+        0.151,
+        0.793,
+        -2.408
+      ]
+    },
+    "normal": [
+      0,
+      0.236,
+      -0.972
+    ],
+    "faces": "-Z",
+    "material": "PLATE_BLANK"
+  },
+  "body_above_plate": {
+    "point": [
+      0,
+      0.815,
+      -2.463
+    ],
+    "outermost_z": -2.463,
+    "material": "METALLIC CARPAINT - candy red.008",
+    "note": "rear-most body vertex within plate width, up to 0.15 m above the plate top edge"
+  }
+}
