@@ -25,6 +25,7 @@
     <canvas data-role="stage" aria-label="3D preview of the selected plate frame. Drag to rotate, scroll or pinch to zoom."></canvas>
     <div class="pfg-loading" data-role="loading">Loading 3D preview…</div>
     <a class="pfg-hero-all" href="{{ all_designs_url | default: '/pages/plate-frames' }}">All designs <span aria-hidden="true">→</span></a>
+    <button type="button" class="pfg-hero-random" data-role="random">Randomize me!</button>
     <div class="pfg-plaque" aria-live="polite">
       <span class="pfg-eyebrow" data-role="eyebrow"></span>
       <h3 data-role="name"></h3>
@@ -37,7 +38,6 @@
       <button type="button" class="pfg-btn" data-role="spin" aria-pressed="false">Spin</button>
       <button type="button" class="pfg-btn" data-role="reset">Reset</button>
       <button type="button" class="pfg-btn pfg-icon" data-role="next" aria-label="Next design"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
-      <button type="button" class="pfg-btn pfg-icon" data-role="random" aria-label="Random design" title="Random design"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 18h1.4c1.3 0 2.5-.6 3.3-1.7l6.1-8.6c.7-1.1 2-1.7 3.3-1.7H22"/><path d="m18 2 4 4-4 4"/><path d="M2 6h1.9c1.5 0 2.9.9 3.6 2.2"/><path d="M22 18h-5.9c-1.3 0-2.6-.7-3.3-1.8l-.5-.8"/><path d="m18 14 4 4-4 4"/></svg></button>
     </div>
   </div>
 </div>
@@ -58,6 +58,15 @@
     padding: 10px 12px; min-height: 40px; display: inline-flex; align-items: center; gap: 6px; text-decoration: none;
   }
   .pfg-hero-all:hover { background: var(--paper); text-decoration: none; }
+  .pfg-hero-random {
+    position: absolute; right: 14px; bottom: 18px; z-index: 2; cursor: pointer;
+    font: 400 13px/1 var(--font-display); text-transform: uppercase; letter-spacing: .02em;
+    color: var(--ink); background: var(--pink); border: 2px solid var(--paper);
+    box-shadow: 3px 3px 0 var(--paper); padding: 10px 14px; min-height: 44px; white-space: nowrap;
+  }
+  .pfg-hero-random:hover { background: var(--yellow); }
+  .pfg-hero-random:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--paper); }
+  .pfg-hero-random:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
   .pfg-hero-all:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
   .pfg--hero .pfg-plaque { left: 20px; top: 18px; right: 160px; gap: 8px; }
   .pfg--hero .pfg-eyebrow { color: var(--pink-soft); font-family: var(--font-label); font-weight: 800; letter-spacing: .02em; }
@@ -84,6 +93,7 @@
     .pfg--hero .pfg-bay { height: auto; order: 0; }
     .pfg--hero .pfg-plaque { left: 14px; top: 14px; right: 140px; }
     .pfg--hero .pfg-dock { left: 10px; right: 10px; justify-content: space-between; gap: 2px; }
+    .pfg-hero-random { right: 10px; bottom: 76px; font-size: 12px; padding: 9px 12px; min-height: 40px; }
     .pfg--hero .pfg-btn { padding: 8px 8px; font-size: 11px; }
     .pfg--hero .pfg-icon { padding: 8px 6px; }
   }
