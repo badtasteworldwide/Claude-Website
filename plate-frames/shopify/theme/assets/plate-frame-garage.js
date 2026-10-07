@@ -58,8 +58,15 @@ function shadowTexture() {
   return new THREE.CanvasTexture(c);
 }
 
-// Other pfg-* files sit next to the model in Content > Files.
-const sibling = (url, name) => url.replace(/pfg-[\w-]+\.\w+/, name).replace(/[?&]v=\d+/, "");
+// Other pfg-* files sit next to the model in Content > Files. Shopify lets
+// browsers cache them for a year, so derived URLs carry the catalog's version:
+// whenever the catalog is re-uploaded, its sheets are fetched fresh too.
+let BUST = "";
+const setBust = (catalogUrl) => {
+  const v = new URL(catalogUrl, location.href).searchParams.get("v");
+  BUST = v ? `?v=${v}` : "";
+};
+const sibling = (url, name) => url.replace(/pfg-[\w-]+\.\w+/, name).replace(/[?&]v=\d+/, "") + BUST;
 const loadPlate = (viewer, modelUrl) =>
   viewer.loadPlate(sibling(modelUrl, "pfg-plate.webp"), sibling(modelUrl, "pfg-plate-normal.webp")).catch(console.error);
 
@@ -216,7 +223,7 @@ class FrameViewer {
 
   sheet(n) {
     if (!this.sheets.has(n)) {
-      const url = this.sheetUrl.replace("pfg-sheet-00", `pfg-sheet-${String(n).padStart(2, "0")}`).replace(/[?&]v=\d+/, "");
+      const url = this.sheetUrl.replace("pfg-sheet-00", `pfg-sheet-${String(n).padStart(2, "0")}`).replace(/[?&]v=\d+/, "") + BUST;
       this.sheets.set(n, loadImage(url));
     }
     return this.sheets.get(n);
@@ -325,6 +332,7 @@ class FrameViewer {
 
 async function mount(root) {
   const $ = (r) => root.querySelector(`[data-role="${r}"]`);
+  setBust(root.dataset.catalog);
   const cat = await fetch(root.dataset.catalog).then((r) => r.json());
   const designs = cat.groups.flatMap((g) => g.designs.map((d) => ({ ...d, group: g })));
   const state = { index: 0, filter: "current", query: "", closed: new Set() };
@@ -455,6 +463,7 @@ async function mount(root) {
 // product has a frame design. The theme's own thumbnail and variant code keep
 // working; any photo shown in the main image hides the 3D slide.
 async function mountProduct(root) {
+  setBust(root.dataset.catalog);
   const cat = await fetch(root.dataset.catalog).then((r) => r.json());
   const mine = cat.groups
     .flatMap((g) => g.designs)
