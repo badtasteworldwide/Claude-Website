@@ -1117,6 +1117,7 @@ legend.option-label { padding: 0; }
   border: 2px solid var(--ink); background: var(--yellow); color: var(--ink); box-shadow: var(--shadow-sm);
   font: 800 12px/1 var(--font-label); text-transform: uppercase; letter-spacing: .02em; word-spacing: .18em;
 }
+.pdp__3d-btn[hidden] { display: none; }
 .pdp__3d-btn:hover { background: var(--paper); }
 .pdp__main-img > .pdp__3d-btn:not([disabled]) ~ .pfg3d:not([hidden]) { z-index: 3; }
 .pdp__3d-btn[disabled] { opacity: .7; cursor: progress; }
