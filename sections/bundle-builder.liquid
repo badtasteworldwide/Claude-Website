@@ -14,7 +14,7 @@
       <div class="bundle__tiers">
         {%- for block in section.blocks -%}
           <div class="bundle__tier" data-count="{{ block.settings.count }}" data-percent="{{ block.settings.percent | default: 0 }}" {{ block.shopify_attributes }}>
-            <span><strong>{{ block.settings.left_strong }}</strong> · {{ block.settings.left_rest }}</span>
+            <span><strong>{{ block.settings.left_strong }}</strong> <span class="bundle__tier-sep">·</span> {{ block.settings.left_rest }}</span>
             <span>{{ block.settings.right }}</span>
           </div>
         {%- endfor -%}
