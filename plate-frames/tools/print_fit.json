@@ -44,7 +44,10 @@
     "bottom": 0.79
   },
   "chum-churum-strawberry": {
-    "bottom": 0.782
+    "top": 0.2035,
+    "bottom": 0.8,
+    "left": 0.0653,
+    "right": 0.9352
   },
   "strong-zero": {
     "bottom": 0.81
@@ -134,6 +137,12 @@
     "flip": "1"
   },
   "chum-churum-apple": {
+    "top": 0.205,
+    "bottom": 0.799,
+    "left": 0.065,
+    "right": 0.935
+  },
+  "chum-churum-peach": {
     "top": 0.205,
     "bottom": 0.799,
     "left": 0.065,
