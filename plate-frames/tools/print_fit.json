@@ -132,5 +132,11 @@
   },
   "costco-hotdog": {
     "flip": "1"
+  },
+  "chum-churum-apple": {
+    "top": 0.205,
+    "bottom": 0.799,
+    "left": 0.065,
+    "right": 0.935
   }
 }
