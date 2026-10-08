@@ -51,8 +51,8 @@
 .pfg-group h3 { margin: 0; padding: 8px 8px 6px; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.03em; color: var(--pfg-fg); }
 .pfg-group h3 span { font-size: 11px; color: var(--pfg-muted); font-weight: 500; }
 .pfg-group:not([open]) h3::after { content: "+"; color: var(--pfg-muted); }
-.pfg-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-.pfg-card { display: grid; gap: 5px; padding: 7px; border: 1px solid transparent; border-radius: 10px; background: none; text-align: left; cursor: pointer; }
+.pfg-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+.pfg-card { display: grid; grid-template-columns: minmax(0, 1fr); gap: 5px; padding: 7px; border: 1px solid transparent; border-radius: 10px; background: none; text-align: left; cursor: pointer; }
 .pfg-card:hover { background: var(--pfg-bg); }
 .pfg-card[aria-current="true"] { border-color: var(--pfg-accent); background: color-mix(in srgb, var(--pfg-accent) 12%, transparent); }
 .pfg-thumb { width: 100%; aspect-ratio: 320 / 164; display: block; background-image: var(--pfg-thumbs); background-size: var(--pfg-thumb-size); filter: drop-shadow(0 2px 3px #0003); }
