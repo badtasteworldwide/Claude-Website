@@ -77,7 +77,7 @@ const setBust = (catalogUrl) => {
 };
 const sibling = (url, name) => url.replace(/pfg-[\w-]+\.\w+/, name).replace(/[?&]v=\d+/, "") + BUST;
 const loadPlate = (viewer, modelUrl) =>
-  viewer.loadPlate(sibling(modelUrl, "pfg-plate-2.webp"), sibling(modelUrl, "pfg-plate-normal-2.webp")).catch(console.error);
+  viewer.loadPlate(sibling(modelUrl, "pfg-plate-4.webp"), sibling(modelUrl, "pfg-plate-normal-4.webp")).catch(console.error);
 
 function loadImage(url) {
   return new Promise((resolve, reject) => {
