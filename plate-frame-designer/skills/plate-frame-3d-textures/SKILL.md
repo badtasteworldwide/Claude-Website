@@ -7,7 +7,8 @@ description: Turn license plate frame prints into textures for the 3D frame view
 
 The viewer shows every design on one blank frame model (`assets/models/plate-frame.glb`, 312.76 ×
 160.57 × 8 mm, materials `frame_face` / `frame_edge` / `frame_back`) in front of a stamped California
-demo plate. Each design is a 2048 × 1051 texture mapped onto the face UVs.
+demo plate. Each design is a 2048 × 1051 texture mapped onto the face UVs. Only the face is printed: the
+side walls and back stay bare white plastic, as on the real frames.
 
 Set up a Python env first: `pip install opencv-python-headless pillow pymupdf numpy scipy shapely`.
 

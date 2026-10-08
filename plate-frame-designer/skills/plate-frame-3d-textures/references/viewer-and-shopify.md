@@ -54,5 +54,6 @@ returning visitors.
   A stronger clearcoat washes dark prints out to silver at low angles.
 - `scene.environmentIntensity = 0.7`.
 - `controls.maxPolarAngle = Math.PI * 0.64`, so nobody looks at the bare underside.
-- Back material: white plastic. Reset its `color` and `emissive` when switching designs.
+- Only the face is printed. `frame_edge` (side walls) and `frame_back` (rear and skirt) share one unprinted white ABS material (`color 0xf3f3f1`, `emissive 0x3a3a3a`), as on the real frames. Never map the print onto them.
+- Design rail: `.pfg-cards { grid-template-columns: repeat(2, minmax(0, 1fr)) }` and `.pfg-card { grid-template-columns: minmax(0, 1fr) }`. With `1fr` / auto, Chrome's sizing of the `aspect-ratio` thumbnail made some cards 14 px wider.
 - Flipped designs: the frame turns over (notches at the bottom). The plate always stays upright.
