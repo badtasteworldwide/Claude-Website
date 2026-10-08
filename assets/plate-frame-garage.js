@@ -139,8 +139,10 @@ class FrameViewer {
     scene.add(this.rig);
     const side = THREE.DoubleSide;
     this.face = new THREE.MeshPhysicalMaterial({ roughness: 0.3, clearcoat: 0.3, clearcoatRoughness: 0.3, side }); // softer gloss: from low angles a strong clearcoat washed dark prints out to silver
-    this.edge = new THREE.MeshPhysicalMaterial({ roughness: 0.45, side });
-    this.back = new THREE.MeshStandardMaterial({ color: 0xf3f3f1, emissive: 0x3a3a3a, roughness: 0.55, side }); // white ABS, unprinted; lifted so it reads white away from the key light
+    // Only the face is printed. The side walls and the back are bare white ABS, as on the real frames;
+    // lifted with a little emissive so they read white away from the key light.
+    this.back = new THREE.MeshStandardMaterial({ color: 0xf3f3f1, emissive: 0x3a3a3a, roughness: 0.55, side });
+    this.edge = this.back;
 
     const pw = 12, ph = 6, pr = 0.35;
     const s = new THREE.Shape();
@@ -263,11 +265,8 @@ class FrameViewer {
   async show(d) {
     const tex = await this.texture(d);
     this.setFlipped(!!d.flipped);
-    // The back carries the print too: seen from below, a bare white back showed as a white line along the bottom edge.
-    this.face.map = this.edge.map = this.back.map = tex;
-    this.back.color.set(0xffffff);
-    this.back.emissive.set(0x000000);
-    this.face.needsUpdate = this.edge.needsUpdate = this.back.needsUpdate = true;
+    this.face.map = tex;
+    this.face.needsUpdate = true;
     if (!reducedMotion && !this.carOn) this.swing = { t: 0, from: this.rig.rotation.y - 0.55 };
   }
 
