@@ -1,0 +1,16 @@
+{
+  "name": "plate-frame-designer",
+  "owner": {
+    "name": "Bad Taste Worldwide"
+  },
+  "plugins": [
+    {
+      "name": "plate-frame-designer",
+      "source": "./",
+      "description": "License plate frame design, print-file and 3D texture skills."
+    }
+  ],
+  "metadata": {
+    "description": "Bad Taste Worldwide license plate frame design, print-file and 3D texture skills."
+  }
+}

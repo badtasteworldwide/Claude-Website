@@ -1,0 +1,7 @@
+{
+  "name": "plate-frame-designer",
+  "version": "0.1.0",
+  "description": "Design, pre-flight, and render license plate frame prints (Bad Taste Worldwide): mold geometry, .ai print-file rules, DomSem sheet handling, 3D viewer textures, and a design dataset for training a frame designer program.",
+  "author": { "name": "Bad Taste Worldwide" },
+  "keywords": ["license-plate-frame", "print", "illustrator", "uv-print", "3d-texture", "shopify"]
+}

@@ -1,0 +1,151 @@
+{
+  "_comment": "Per-design crop overrides passed to vector_textures.py (fractions of the print artboard). Raise top / lower bottom when a print's lettering runs into the model's window.",
+  "nisno": {
+    "top": 0.25
+  },
+  "costco-executive": {
+    "top": 0.235
+  },
+  "711-punjabi": {
+    "bottom": 0.815
+  },
+  "goodwrench-dale-3": {
+    "bottom": 0.806
+  },
+  "castrol-tom-s": {
+    "top": 0.215,
+    "bottom": 0.806
+  },
+  "bride1": {
+    "bottom": 0.804
+  },
+  "castrol": {
+    "bottom": 0.794
+  },
+  "jdmm1": {
+    "bottom": 0.809
+  },
+  "trd-pro": {
+    "bottom": 0.792
+  },
+  "cfa": {
+    "bottom": 0.807
+  },
+  "taco-bell": {
+    "flip": "1"
+  },
+  "calbee-shrimp-chips-rakeddomsem": {
+    "bottom": 0.798
+  },
+  "mintia-cool": {
+    "bottom": 0.804
+  },
+  "asahi": {
+    "bottom": 0.79
+  },
+  "chum-churum-strawberry": {
+    "top": 0.2035,
+    "bottom": 0.8,
+    "left": 0.0653,
+    "right": 0.9352
+  },
+  "strong-zero": {
+    "bottom": 0.81
+  },
+  "onceinamillioncolor": {
+    "bottom": 0.798
+  },
+  "onceinamilllionwhitelayer": {
+    "bottom": 0.798
+  },
+  "loona-burn": {
+    "bottom": 0.794
+  },
+  "d-va": {
+    "bottom": 0.792
+  },
+  "chp-420-69": {
+    "bottom": 0.814
+  },
+  "dick-s-sporting-goods": {
+    "bottom": 0.808
+  },
+  "cute-face-thing": {
+    "bottom": 0.824
+  },
+  "2inch-punisher-gang": {
+    "bottom": 0.803
+  },
+  "abg-hunterz": {
+    "bottom": 0.798
+  },
+  "bains": {
+    "bottom": 0.81
+  },
+  "epsilon": {
+    "bottom": 0.811
+  },
+  "c-u-drift": {
+    "bottom": 0.809
+  },
+  "i-heart-bains": {
+    "bottom": 0.796
+  },
+  "nfs-plate": {
+    "bottom": 0.794
+  },
+  "100k-followers": {
+    "bottom": 0.824
+  },
+  "turd": {
+    "bottom": 0.792
+  },
+  "smellypanda-salonpas": {
+    "bottom": 0.794
+  },
+  "mama-noodles": {
+    "bottom": 0.792
+  },
+  "bp": {
+    "bottom": 0.794
+  },
+  "famichiki": {
+    "bottom": 0.804
+  },
+  "tipitip-onion-star": {
+    "bottom": 0.802
+  },
+  "suck-my-balls": {
+    "bottom": 0.804
+  },
+  "mclaren-2025-f1": {
+    "flip": "1"
+  },
+  "jasmine-rice": {
+    "flip": "1"
+  },
+  "mazapan": {
+    "flip": "1"
+  },
+  "strawberry-soju": {
+    "flip": "1"
+  },
+  "blackpink-blink": {
+    "flip": "1"
+  },
+  "costco-hotdog": {
+    "flip": "1"
+  },
+  "chum-churum-apple": {
+    "top": 0.205,
+    "bottom": 0.799,
+    "left": 0.065,
+    "right": 0.935
+  },
+  "chum-churum-peach": {
+    "top": 0.205,
+    "bottom": 0.799,
+    "left": 0.065,
+    "right": 0.935
+  }
+}
