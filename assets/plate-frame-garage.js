@@ -67,7 +67,8 @@ function shadowTexture() {
 // Bump SHEETS_REV whenever sheets are replaced in Files without re-uploading the
 // catalog (Shopify keeps the catalog's ?v= the same then), so browsers that
 // cached the old sheets fetch the new ones. 2: flipped-design textures realigned.
-const SHEETS_REV = 2;
+// 3: prints laid out low on their DomSem sheet refit (white edge, cut-off text).
+const SHEETS_REV = 3;
 let BUST = "";
 const setBust = (catalogUrl) => {
   const v = new URL(catalogUrl, location.href).searchParams.get("v");
