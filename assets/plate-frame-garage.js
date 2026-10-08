@@ -109,7 +109,7 @@ class FrameViewer {
 
     const scene = (this.scene = new THREE.Scene());
     scene.environment = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), 0.04).texture;
-    scene.environmentIntensity = 0.9;
+    scene.environmentIntensity = 0.7;
     const key = new THREE.DirectionalLight(0xffffff, 1.4);
     key.position.set(-6, 9, 12);
     scene.add(key);
@@ -124,7 +124,7 @@ class FrameViewer {
     controls.minDistance = 10;
     controls.maxDistance = 42;
     controls.minPolarAngle = Math.PI * 0.18;
-    controls.maxPolarAngle = Math.PI * 0.72;
+    controls.maxPolarAngle = Math.PI * 0.64;
     controls.autoRotateSpeed = 2.2;
     if (opts.gallery) canvas.style.touchAction = "pan-y";
 
@@ -138,7 +138,7 @@ class FrameViewer {
     this.mount.add(this.frame);
     scene.add(this.rig);
     const side = THREE.DoubleSide;
-    this.face = new THREE.MeshPhysicalMaterial({ roughness: 0.3, clearcoat: 0.6, clearcoatRoughness: 0.18, side });
+    this.face = new THREE.MeshPhysicalMaterial({ roughness: 0.3, clearcoat: 0.3, clearcoatRoughness: 0.3, side }); // softer gloss: from low angles a strong clearcoat washed dark prints out to silver
     this.edge = new THREE.MeshPhysicalMaterial({ roughness: 0.45, side });
     this.back = new THREE.MeshStandardMaterial({ color: 0xf3f3f1, emissive: 0x3a3a3a, roughness: 0.55, side }); // white ABS, unprinted; lifted so it reads white away from the key light
 
@@ -263,8 +263,11 @@ class FrameViewer {
   async show(d) {
     const tex = await this.texture(d);
     this.setFlipped(!!d.flipped);
-    this.face.map = this.edge.map = tex;
-    this.face.needsUpdate = this.edge.needsUpdate = true;
+    // The back carries the print too: seen from below, a bare white back showed as a white line along the bottom edge.
+    this.face.map = this.edge.map = this.back.map = tex;
+    this.back.color.set(0xffffff);
+    this.back.emissive.set(0x000000);
+    this.face.needsUpdate = this.edge.needsUpdate = this.back.needsUpdate = true;
     if (!reducedMotion && !this.carOn) this.swing = { t: 0, from: this.rig.rotation.y - 0.55 };
   }
 
