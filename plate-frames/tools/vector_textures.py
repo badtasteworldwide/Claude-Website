@@ -86,7 +86,9 @@ def to_texture(rgba, box, mold_x=MOLD_X, mold_y=MOLD_Y, flip=False):
     x, y, w, h = box
     # Re-fit to the print aspect in case stray marks widened the box.
     cx, cy = x + w / 2, y + h / 2
-    if w / h > PRINT_ASPECT:
+    if abs(w / h / PRINT_ASPECT - 1) < 0.02:
+        pass  # measured slot: keep it, a <2% stretch doesn't show
+    elif w / h > PRINT_ASPECT:
         w = h * PRINT_ASPECT
     else:
         h = w / PRINT_ASPECT
@@ -130,11 +132,41 @@ ARTBOARD_ASPECT = 2401 / 2305
 ARTBOARD_TOP = 0.2323
 
 
-def sheet_slot(shape):
+def sheet_slot(shape, alpha=None):
     H, W = shape[:2]
     if abs(W / H - SHEET_ASPECT) <= 0.01:
-        return (0, int(round(SHEET_TOP * H)), W, int(round(W / PRINT_ASPECT)))
+        top, h = sheet_top(alpha, H), int(round(W / PRINT_ASPECT))
+        return (0, top, W, sheet_height(alpha, top, h))
     return None
+
+
+def sheet_height(alpha, top, h):
+    """Height of the first frame from its detected top: where a solid bottom
+    bar ends within 1.5% of the nominal height, use that edge."""
+    if alpha is None:
+        return h
+    lo, hi = top + int(h * 0.985), top + int(h * 1.015)
+    cov = (alpha[lo:hi] > 24).mean(1)
+    if len(cov) == 0 or cov[0] < 0.5 or cov[-1] > 0.1:
+        return h
+    return lo + int(np.nonzero(cov < 0.5)[0][0]) - top
+
+
+def sheet_top(alpha, H):
+    """Top of the first frame on a DomSem sheet. Most sheets put it at
+    SHEET_TOP, but some were laid out up to ~1% of the sheet lower, which left
+    a strip of bare stock along the top of the texture and cut the bottom
+    lettering. Where the print's top bar is solid ink, use the row it starts
+    on; sparse/white-stock art keeps the fixed position."""
+    top = int(round(SHEET_TOP * H))
+    if alpha is None:
+        return top
+    lo, hi = int(round((SHEET_TOP - 0.006) * H)), int(round((SHEET_TOP + 0.015) * H))
+    cov = (alpha[lo:hi] > 24).mean(1)
+    if cov[0] > 0.3:
+        return top  # art already inked at/above the nominal top
+    rows = np.nonzero(cov > 0.5)[0]
+    return lo + int(rows[0]) if len(rows) else top
 
 
 def artboard_slot(shape):
@@ -156,7 +188,7 @@ def main(render_path, out_dir, name, *fit):
     mold_y = (float(f.get("top", base_y[0])), float(f.get("bottom", base_y[1])))
     im = Image.open(render_path).convert("RGBA")
     rgba = np.asarray(im)
-    slot = sheet_slot(rgba.shape)
+    slot = sheet_slot(rgba.shape, rgba[..., 3])
     blocks = [slot] if slot else frame_blocks(rgba[..., 3])
     if not blocks and artboard_slot(rgba.shape):
         # Sparse art (lettering on bare white stock) has no solid frame shape.
