@@ -5,10 +5,11 @@
 </div>
 
 <div class="clist">
+  {%- assign hidden = section.settings.hidden_handles | remove: ' ' | split: ',' -%}
   {%- paginate collections by 48 -%}
     <ul class="clist__grid" role="list">
       {%- for collection in collections -%}
-        {%- if collection.products_count == 0 -%}{%- continue -%}{%- endif -%}
+        {%- if collection.products_count == 0 or hidden contains collection.handle -%}{%- continue -%}{%- endif -%}
         {%- comment -%} Card names drop the wording every collection repeats. {%- endcomment -%}
         {%- assign name = collection.title | replace: ' License Plate Frames', '' | replace: ' license plate frames', '' | replace: ' Plate Frames', '' | replace: ' plate frames', '' | replace: ' Themed', '' | replace: ' themed', '' | replace: ' —', '' | replace: ' -', '' | strip -%}
         {%- if name == blank -%}{%- assign name = collection.title -%}{%- endif -%}
@@ -72,7 +73,8 @@
 {
   "name": "Collections list",
   "settings": [
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Every flavor of bad." }
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Every flavor of bad." },
+    { "type": "textarea", "id": "hidden_handles", "label": "Hidden collections", "info": "Collection handles to leave off this page, separated by commas. The collections still exist and keep their own pages.", "default": "k-pop-stans,track-addicts,convenience-store-license-plate-frames,drip-to-hard,safe,license-plate-frames,late-stage-capitalism-meals" }
   ]
 }
 {% endschema %}
