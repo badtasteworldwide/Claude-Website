@@ -1,27 +1,34 @@
-<div class="coll-hero">
+<div class="coll-hero clist-hero">
   <div class="coll-hero__inner">
-    <span class="section__eyebrow">{{ collections.size }} Collections</span>
     <h1 class="coll-hero__title">{{ section.settings.heading | default: 'Every flavor of bad.' }}</h1>
   </div>
 </div>
 
-<div class="coll-grid-wrap">
-  {%- paginate collections by 24 -%}
-    <div class="collections" style="grid-template-rows: none; grid-auto-rows: 220px;">
+<div class="clist">
+  {%- paginate collections by 48 -%}
+    <ul class="clist__grid" role="list">
       {%- for collection in collections -%}
-        <a href="{{ collection.url }}" class="collection-card collection-card--sq">
-          <div class="collection-card__bg" style="background: linear-gradient(135deg, var(--pink), var(--pink-deep));">
-            {%- if collection.featured_image -%}
-              <img class="collection-card__photo" src="{{ collection.featured_image | image_url: width: 600 }}" alt="{{ collection.featured_image.alt | default: collection.title | escape }}" loading="lazy" width="600" height="600" style="width:100%; height:100%; object-fit:contain; background:#fff;">
-            {%- endif -%}
-          </div>
-          <div class="collection-card__overlay">
-            <div class="collection-card__title">{{ collection.title }}</div>
-            <div class="collection-card__count">{{ collection.products_count }} frames</div>
-          </div>
-        </a>
+        {%- if collection.products_count == 0 -%}{%- continue -%}{%- endif -%}
+        {%- comment -%} Card names drop the wording every collection repeats. {%- endcomment -%}
+        {%- assign name = collection.title | replace: ' License Plate Frames', '' | replace: ' license plate frames', '' | replace: ' Plate Frames', '' | replace: ' plate frames', '' | replace: ' Themed', '' | replace: ' themed', '' | replace: ' —', '' | replace: ' -', '' | strip -%}
+        {%- if name == blank -%}{%- assign name = collection.title -%}{%- endif -%}
+        <li>
+          <a href="{{ collection.url }}" class="clist__card">
+            <span class="clist__media">
+              {%- if collection.featured_image -%}
+                <img src="{{ collection.featured_image | image_url: width: 600 }}"
+                     srcset="{{ collection.featured_image | image_url: width: 400 }} 400w, {{ collection.featured_image | image_url: width: 600 }} 600w, {{ collection.featured_image | image_url: width: 900 }} 900w"
+                     sizes="(max-width: 600px) 50vw, (max-width: 1000px) 33vw, 25vw"
+                     alt="" loading="{% if forloop.index <= 4 %}eager{% else %}lazy{% endif %}"
+                     width="600" height="{{ 600 | divided_by: collection.featured_image.aspect_ratio | round }}">
+              {%- endif -%}
+            </span>
+            <span class="clist__name">{{ name }}</span>
+            <span class="clist__count">{{ collection.products_count }}<span class="clist__sr"> products</span></span>
+          </a>
+        </li>
       {%- endfor -%}
-    </div>
+    </ul>
     {%- if paginate.pages > 1 -%}
       <nav class="pagination" role="navigation" aria-label="Pagination">
         {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}" class="btn btn--sm btn--paper">← Prev</a>{%- endif -%}
@@ -30,6 +37,36 @@
     {%- endif -%}
   {%- endpaginate -%}
 </div>
+
+<style>
+  .clist-hero .coll-hero__title { font-size: clamp(36px, 7vw, 88px); }
+  .clist { max-width: 1240px; margin: 0 auto; padding: 24px 16px 64px; }
+  .clist__grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  @media (min-width: 640px) { .clist__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; } .clist { padding: 32px 24px 80px; } }
+  @media (min-width: 1000px) { .clist__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; } }
+  .clist__card {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: 8px; row-gap: 8px;
+    color: var(--ink); text-decoration: none; min-width: 0;
+  }
+  .clist__media {
+    grid-column: 1 / -1; display: block; aspect-ratio: 4 / 3; background: var(--ink);
+    border: 2px solid var(--ink); overflow: hidden; transition: transform .15s, box-shadow .15s;
+  }
+  /* Whole cover always visible: dark panel instead of white bars, never cropped. */
+  .clist__media img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .clist__name {
+    font-family: var(--font-display); font-size: clamp(14px, 1.6vw, 18px); line-height: 1.1; text-transform: uppercase;
+    overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .clist__count {
+    font: 600 11px/1 var(--font-sans); letter-spacing: .06em; padding: 4px 6px; background: var(--yellow, #f9ff00);
+    border: 1.5px solid var(--ink); align-self: start;
+  }
+  .clist__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .clist__card:hover .clist__media { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--ink); }
+  .clist__card:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
+  @media (prefers-reduced-motion: reduce) { .clist__media { transition: none; } .clist__card:hover .clist__media { transform: none; } }
+</style>
 
 {% schema %}
 {
