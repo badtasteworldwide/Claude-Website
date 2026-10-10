@@ -477,10 +477,20 @@
         "button_label": "Load the 3D garage",
         "note": "Bigger download. Best on Wi-Fi."
       }
+    },
+    "new_releases": {
+      "type": "new-releases",
+      "settings": {
+        "eyebrow": "Just dropped",
+        "heading": "<p>New <em>releases.</em></p>",
+        "link_label": "See all new →",
+        "limit": 8
+      }
     }
   },
   "order": [
     "hero",
+    "new_releases",
     "collections",
     "trust",
     "bundle",

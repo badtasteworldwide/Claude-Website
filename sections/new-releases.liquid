@@ -1,0 +1,66 @@
+{%- liquid
+  assign source = section.settings.collection
+  if source == blank
+    assign source = collections['new-releases']
+  endif
+-%}
+{%- if source.products_count > 0 -%}
+<section class="section new-rel" id="new-releases">
+  <div class="section__head">
+    <div>
+      {%- if section.settings.eyebrow != blank -%}<span class="section__eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2 class="section__title">{{ section.settings.heading }}</h2>
+    </div>
+    {%- if section.settings.link_label != blank -%}
+      <a href="{{ source.url }}" class="section__link">{{ section.settings.link_label }}</a>
+    {%- endif -%}
+  </div>
+  <ul class="new-rel__track" role="list">
+    {%- for product in source.products limit: section.settings.limit -%}
+      <li class="new-rel__slide">
+        <span class="new-rel__sticker" aria-hidden="true">New</span>
+        {%- render 'product-card', card_product: product, sizes: '(max-width: 600px) 46vw, (max-width: 960px) 34vw, 25vw' -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>
+
+<style>
+  .new-rel { padding-top: 64px; padding-bottom: 64px; }
+  .new-rel__track { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px 24px; }
+  .new-rel__slide { position: relative; display: flex; min-width: 0; }
+  .new-rel__slide .product-card { width: 100%; }
+  .new-rel__sticker {
+    position: absolute; z-index: 3; top: -10px; right: -6px; pointer-events: none;
+    font: 400 13px/1 var(--font-display); text-transform: uppercase; letter-spacing: .04em;
+    background: var(--pink, #fa53c1); color: var(--ink); border: 2px solid var(--ink);
+    padding: 6px 8px 5px; transform: rotate(6deg); box-shadow: 2px 2px 0 var(--ink);
+  }
+  @media (max-width: 960px) {
+    .new-rel { padding-top: 40px; padding-bottom: 40px; }
+    /* Phones: one swipe row instead of a tall grid */
+    .new-rel__track {
+      display: grid; grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: 44%; gap: 12px;
+      overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none;
+      margin: 0 calc(var(--gutter) * -1); padding: 12px var(--gutter) 12px; scroll-padding-inline: var(--gutter);
+    }
+    .new-rel__track::-webkit-scrollbar { display: none; }
+    .new-rel__slide { scroll-snap-align: start; }
+    .new-rel__sticker { top: -6px; right: -2px; font-size: 11px; }
+  }
+</style>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "New releases",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Just dropped" },
+    { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>New <em>releases.</em></p>" },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "See all new →" },
+    { "type": "collection", "id": "collection", "label": "Collection", "info": "Leave empty to use New Releases (newest frames first)." },
+    { "type": "range", "id": "limit", "label": "Products to show", "min": 4, "max": 12, "step": 1, "default": 8 }
+  ],
+  "presets": [{ "name": "New releases" }]
+}
+{% endschema %}
