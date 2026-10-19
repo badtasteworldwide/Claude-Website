@@ -499,9 +499,9 @@
   "order": [
     "hero",
     "new_releases",
+    "recent_orders",
     "collections",
     "trust",
-    "recent_orders",
     "bundle",
     "ugc",
     "garage",
