@@ -1,0 +1,141 @@
+{%- comment -%}
+  Live feed of recent orders. Data comes from the shop metafield custom.recent_orders
+  (JSON), which a scheduled job rebuilds from Admin orders. That job writes only
+  first name + last initial, state, order time and product handles/titles; no other
+  customer data ever reaches the theme. Shape:
+  { "updated_at": "ISO", "orders": [ { "name": "Andrew G.", "state": "Texas",
+    "at": "ISO", "items": [ { "handle": "...", "title": "..." } ] } ] }
+{%- endcomment -%}
+{%- assign feed = shop.metafields.custom.recent_orders.value -%}
+{%- if feed.orders.size > 0 -%}
+<section class="section recent-orders" id="recent-orders">
+  <div class="section__head">
+    <div>
+      {%- if section.settings.eyebrow != blank -%}<span class="section__eyebrow"><span class="recent-orders__dot" aria-hidden="true"></span>{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2 class="section__title">{{ section.settings.heading }}</h2>
+    </div>
+  </div>
+  <ul class="recent-orders__track" role="list">
+    {%- assign shown = 0 -%}
+    {%- for order in feed.orders -%}
+      {%- if shown >= section.settings.limit -%}{%- break -%}{%- endif -%}
+      {%- liquid
+        # Only mention products that are live on the storefront; drafts resolve to empty.
+        assign names = ''
+        assign live_count = 0
+        assign first_product = nil
+        for item in order.items
+          assign p = all_products[item.handle]
+          if p.id == blank
+            continue
+          endif
+          if first_product == nil
+            assign first_product = p
+          endif
+          assign live_count = live_count | plus: 1
+          if live_count <= 2
+            assign short = p.title | remove: ' License Plate Frame' | remove: ' license plate frame' | strip
+            if names != ''
+              assign names = names | append: ' & '
+            endif
+            assign names = names | append: short
+          endif
+        endfor
+      -%}
+      {%- if live_count == 0 -%}{%- continue -%}{%- endif -%}
+      {%- assign shown = shown | plus: 1 -%}
+      <li class="recent-orders__card">
+        <a class="recent-orders__thumb" href="{{ first_product.url }}" tabindex="-1" aria-hidden="true">
+          {%- if first_product.featured_image -%}
+            {{ first_product.featured_image | image_url: width: 240 | image_tag: loading: 'lazy', width: 120, height: 120, alt: '' }}
+          {%- endif -%}
+        </a>
+        <div class="recent-orders__body">
+          <p class="recent-orders__line">
+            <strong>{{ order.name | escape }}</strong> just ordered
+            <a href="{{ first_product.url }}">{{ names | escape }}</a>
+            {%- if live_count > 2 %} + {{ live_count | minus: 2 }} more{% endif -%}
+            !
+          </p>
+          <p class="recent-orders__meta">
+            <time datetime="{{ order.at | escape }}" data-relative-time>{{ order.at | date: '%b %-d' }}</time>
+            {%- if order.state != blank %} · {{ order.state | escape }}{% endif -%}
+          </p>
+        </div>
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>
+
+<style>
+  .recent-orders { padding-top: 64px; padding-bottom: 64px; }
+  .recent-orders .section__head { margin-bottom: 28px; }
+  .recent-orders__dot {
+    display: inline-block; width: 8px; height: 8px; margin-right: 6px; vertical-align: 1px;
+    border-radius: 50%; background: var(--red); box-shadow: 0 0 0 0 rgba(227, 44, 43, .6);
+    animation: recent-orders-pulse 1.6s ease-out infinite;
+  }
+  @keyframes recent-orders-pulse { to { box-shadow: 0 0 0 7px rgba(227, 44, 43, 0); } }
+  .recent-orders__track { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .recent-orders__card {
+    display: flex; gap: 14px; align-items: center; min-width: 0;
+    background: var(--paper); border: 2px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); padding: 12px;
+  }
+  .recent-orders__thumb { flex: 0 0 64px; height: 64px; background: var(--cream); border: 2px solid var(--ink); overflow: hidden; }
+  .recent-orders__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .recent-orders__body { min-width: 0; }
+  .recent-orders__line { margin: 0 0 4px; font-size: 15px; line-height: 1.35; }
+  .recent-orders__line a { color: inherit; font-weight: 700; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 2px; }
+  .recent-orders__meta { margin: 0; font: 600 12px/1.3 var(--font-mono); text-transform: uppercase; color: var(--ink-soft); }
+  @media (max-width: 960px) {
+    .recent-orders { padding-top: 40px; padding-bottom: 40px; }
+    /* Phones: one swipe row */
+    .recent-orders__track {
+      grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: 82%; gap: 12px;
+      overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none;
+      margin: 0 calc(var(--gutter) * -1); padding: 4px var(--gutter) 10px; scroll-padding-inline: var(--gutter);
+    }
+    .recent-orders__track::-webkit-scrollbar { display: none; }
+    .recent-orders__card { scroll-snap-align: start; }
+  }
+  @media (prefers-reduced-motion: reduce) { .recent-orders__dot { animation: none; } }
+</style>
+
+<script>
+  (function () {
+    var root = document.getElementById('recent-orders');
+    if (!root) return;
+    var rtf = window.Intl && Intl.RelativeTimeFormat ? new Intl.RelativeTimeFormat('en', { numeric: 'auto' }) : null;
+    function label(then) {
+      var s = Math.round((Date.now() - then) / 1000);
+      if (s < 60) return 'just now';
+      var steps = [[60, 'minute'], [3600, 'hour'], [86400, 'day'], [604800, 'week']];
+      var unit = 'minute', size = 60;
+      for (var i = 0; i < steps.length; i++) { if (s >= steps[i][0]) { size = steps[i][0]; unit = steps[i][1]; } }
+      var n = Math.floor(s / size);
+      return rtf ? rtf.format(-n, unit) : n + ' ' + unit + (n === 1 ? '' : 's') + ' ago';
+    }
+    function tick() {
+      root.querySelectorAll('[data-relative-time]').forEach(function (el) {
+        var t = Date.parse(el.getAttribute('datetime'));
+        if (!isNaN(t)) el.textContent = label(t);
+      });
+    }
+    tick();
+    setInterval(tick, 60000);
+  })();
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Recent orders",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Live" },
+    { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>Just <em>ordered.</em></p>" },
+    { "type": "range", "id": "limit", "label": "Orders to show", "min": 3, "max": 9, "step": 3, "default": 6 },
+    { "type": "paragraph", "content": "Orders come from the shop metafield custom.recent_orders, refreshed by a scheduled job. Only first name, last initial, state, time and products are shown." }
+  ],
+  "presets": [{ "name": "Recent orders" }]
+}
+{% endschema %}

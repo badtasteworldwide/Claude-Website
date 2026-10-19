@@ -486,6 +486,14 @@
         "link_label": "See all new →",
         "limit": 8
       }
+    },
+    "recent_orders": {
+      "type": "recent-orders",
+      "settings": {
+        "eyebrow": "Live",
+        "heading": "<p>Just <em>ordered.</em></p>",
+        "limit": 6
+      }
     }
   },
   "order": [
@@ -493,6 +501,7 @@
     "new_releases",
     "collections",
     "trust",
+    "recent_orders",
     "bundle",
     "ugc",
     "garage",
