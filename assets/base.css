@@ -1082,6 +1082,13 @@ legend.option-label { padding: 0; }
 .hero-rail__slide { scroll-snap-align: start; display: flex; }
 .hero-rail__slide .product-card { width: 100%; box-shadow: var(--shadow-sm); }
 .hero-rail__slide .product-card:hover { transform: none; box-shadow: var(--shadow-sm); }
+.hero-rail__slide--featured { position: relative; }
+.hero-rail__sticker {
+  position: absolute; z-index: 3; top: 8px; left: 8px; pointer-events: none;
+  font: 400 12px/1 var(--font-display); text-transform: uppercase; letter-spacing: .04em;
+  background: var(--pink, #fa53c1); color: var(--ink); border: 2px solid var(--ink);
+  padding: 5px 7px 4px; transform: rotate(-4deg); box-shadow: 2px 2px 0 var(--ink);
+}
 
 /* ---------- Bottom shop bar + sheets ---------- */
 .tabbar { display: none; }

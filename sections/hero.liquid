@@ -61,11 +61,26 @@
         <a class="hero-rail__link" href="{{ rail.url | default: shop_url }}">{{ section.settings.rail_link_label | default: 'Shop all' }} <span aria-hidden="true">→</span></a>
       </div>
       <ul class="hero-rail__track" role="list">
-        {%- for product in rail.products limit: section.settings.rail_limit -%}
+        {%- liquid
+          assign featured = section.settings.rail_featured
+          assign featured_ids = featured | map: 'id'
+          assign shown = 0
+        -%}
+        {%- for product in featured -%}
+          {%- assign shown = shown | plus: 1 -%}
+          <li class="hero-rail__slide hero-rail__slide--featured">
+            <span class="hero-rail__sticker" aria-hidden="true">{{ section.settings.rail_featured_label | default: 'Featured' }}</span>
+            {%- render 'product-card', card_product: product, eager: true, sizes: '(max-width: 600px) 50vw, (max-width: 960px) 34vw, 20vw' -%}
+          </li>
+        {%- endfor -%}
+        {%- for product in rail.products -%}
+          {%- if shown >= section.settings.rail_limit -%}{%- break -%}{%- endif -%}
+          {%- if featured_ids contains product.id -%}{%- continue -%}{%- endif -%}
+          {%- assign shown = shown | plus: 1 -%}
           <li class="hero-rail__slide">
             {%- liquid
               assign eager = false
-              if forloop.index <= 2
+              if shown <= 2
                 assign eager = true
               endif
             -%}
@@ -82,6 +97,8 @@
   "name": "Hero",
   "settings": [
     { "type": "collection", "id": "rail_collection", "label": "Best-seller rail collection", "info": "Real product photos shown in the first screen." },
+    { "type": "product_list", "id": "rail_featured", "label": "Featured frames", "limit": 4, "info": "Pinned to the front of the rail with a sticker; the rest of the rail fills from the collection." },
+    { "type": "text", "id": "rail_featured_label", "label": "Featured sticker text", "default": "Featured" },
     { "type": "range", "id": "rail_limit", "label": "Products in the rail", "min": 4, "max": 12, "step": 1, "default": 8 },
     { "type": "text", "id": "rail_label", "label": "Rail label", "default": "Best sellers" },
     { "type": "text", "id": "rail_link_label", "label": "Rail link label", "default": "Shop all" },
