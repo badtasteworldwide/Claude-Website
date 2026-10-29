@@ -109,6 +109,10 @@
         "sticker_small": "FRESH THEMES",
         "visual": "garage",
         "rail_collection": "asian-themed-plate-frames",
+        "rail_featured": [
+          "isoknock-license-plate-frame"
+        ],
+        "rail_featured_label": "Featured",
         "rail_limit": 8,
         "rail_label": "Best sellers",
         "rail_link_label": "Shop all",
