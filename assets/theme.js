@@ -477,7 +477,16 @@
     var out = $('[data-predictive-results]');
     var empty = $('[data-predictive-empty]');
     if (!input || !out) return;
-    var timer = null, seq = 0;
+    var timer = null, seq = 0, liveCache = {};
+    function isLive(p) {
+      if (!p.handle) return Promise.resolve(true);
+      if (!(p.handle in liveCache)) {
+        liveCache[p.handle] = fetch('/products/' + encodeURIComponent(p.handle) + '.js', { method: 'HEAD' })
+          .then(function (r) { return r.status !== 404; })
+          .catch(function () { return true; });
+      }
+      return liveCache[p.handle];
+    }
     input.addEventListener('input', function () {
       clearTimeout(timer);
       var q = input.value.trim();
@@ -487,8 +496,14 @@
         fetch('/search/suggest.json?q=' + encodeURIComponent(q) + '&resources[type]=product&resources[limit]=8&resources[options][unavailable_products]=last')
           .then(function (r) { return r.json(); })
           .then(function (data) {
+            var found = (data.resources && data.resources.results && data.resources.results.products) || [];
+            // Shopify's search index can keep a drafted product; drop any whose product page 404s.
+            return Promise.all(found.map(isLive)).then(function (ok) {
+              return found.filter(function (p, i) { return ok[i]; });
+            });
+          })
+          .then(function (prods) {
             if (my !== seq) return;
-            var prods = (data.resources && data.resources.results && data.resources.results.products) || [];
             if (empty) empty.hidden = true;
             if (!prods.length) { out.innerHTML = '<p class="sheet-results__none">No frames match "' + esc(q) + '". Try a brand, a show or a vibe.</p>'; return; }
             out.innerHTML = '<ul class="sheet-results__list" role="list">' + prods.map(function (p) {
