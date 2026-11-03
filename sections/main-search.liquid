@@ -3,7 +3,11 @@
     <span class="section__eyebrow">Search</span>
     <h1 class="coll-hero__title">{% if search.performed %}“{{ search.terms }}”{% else %}Find your frame.{% endif %}</h1>
     {%- if search.performed -%}
-      <div class="coll-hero__desc">{{ search.results_count }} result{% if search.results_count != 1 %}s{% endif %}</div>
+      {%- assign shown_count = search.results_count -%}
+      {%- for item in search.results -%}
+        {%- if item.object_type == 'product' and item.published_at == blank -%}{%- assign shown_count = shown_count | minus: 1 -%}{%- endif -%}
+      {%- endfor -%}
+      <div class="coll-hero__desc">{{ shown_count }} result{% if shown_count != 1 %}s{% endif %}</div>
     {%- endif -%}
   </div>
 </div>
@@ -17,10 +21,16 @@
 
   {%- if search.performed -%}
     {%- paginate search.results by 24 -%}
-      {%- if search.results.size > 0 -%}
+      {%- assign visible_results = 0 -%}
+      {%- for item in search.results -%}
+        {%- unless item.object_type == 'product' and item.published_at == blank -%}{%- assign visible_results = visible_results | plus: 1 -%}{%- endunless -%}
+      {%- endfor -%}
+      {%- if visible_results > 0 -%}
         <div class="products" style="margin-top: 40px;">
           {%- for item in search.results -%}
             {%- if item.object_type == 'product' -%}
+              {%- comment -%} Shopify's search index can keep a drafted product, which has no published date. {%- endcomment -%}
+              {%- if item.published_at == blank -%}{%- continue -%}{%- endif -%}
               {%- render 'product-card', card_product: item -%}
             {%- else -%}
               <article class="blog-card">
