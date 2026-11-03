@@ -21,6 +21,8 @@
         <div class="products" style="margin-top: 40px;">
           {%- for item in search.results -%}
             {%- if item.object_type == 'product' -%}
+              {%- comment -%} Shopify's search index can keep a drafted product, which has no published date. {%- endcomment -%}
+              {%- if item.published_at == blank -%}{%- continue -%}{%- endif -%}
               {%- render 'product-card', card_product: item -%}
             {%- else -%}
               <article class="blog-card">
